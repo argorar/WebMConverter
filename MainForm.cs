@@ -120,15 +120,35 @@ namespace WebMConverter
 
             InitializeComponent();
 
-            if (Properties.Settings.Default.EncodingMode != EncodingMode.Constant)
-                boxVariable.Checked = true;
+            //if (Properties.Settings.Default.EncodingMode != EncodingMode.Constant)
+            //    boxVariable.Checked = true;
             
-            boxAudio.Checked = Properties.Settings.Default.AudioEnabled;
+            //boxAudio.Checked = Properties.Settings.Default.AudioEnabled;
 
             taskbarManager = TaskbarManager.Instance;
 
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["RefreshToken"].Value))
                 GetToken(string.Empty, Token.Refresh);
+
+            LoadConfiguration();
+        }
+
+        private void LoadConfiguration()
+        {
+            if (configuration.AppSettings.Settings["HighQuality"].Value.Equals("true"))
+                boxHQ.Checked = true;
+            else
+                boxHQ.Checked = false;
+
+            if (configuration.AppSettings.Settings["EncodingMode"].Value == EncodingMode.Constant.ToString())
+                boxConstant.Checked = true;
+            else
+                boxVariable.Checked = true;
+
+            if (configuration.AppSettings.Settings["AudioEnabled"].Value.Equals("true"))
+                boxAudio.Checked = true;
+            else
+                boxAudio.Checked = false;
         }
 
         void MainForm_Load(object sender, EventArgs e)
@@ -1095,11 +1115,22 @@ namespace WebMConverter
             numericCrf.TabStop = numericCrfTolerance.TabStop = numericAudioQuality.TabStop = false;
 
             buttonVariableDefault.Visible = false;
-            if (encodingMode != Properties.Settings.Default.EncodingMode)
-            {
-                buttonConstantDefault.Visible = true;
-            }
+            //if (encodingMode != Properties.Settings.Default.EncodingMode)
+            //{
+            //    buttonConstantDefault.Visible = true;
+            //}
+            if(boxConstant.Checked)
+                UpdateConfiguration("EncodingMode", EncodingMode.Constant.ToString());
+            UpdateArguments(sender, e);
+        }
 
+        private void BoxHighQuality_CheckedChanged(object sender, EventArgs e)
+        {
+            if (boxHQ.Checked)
+                UpdateConfiguration("HighQuality", "true");
+            else
+                UpdateConfiguration("HighQuality", "false");
+            
             UpdateArguments(sender, e);
         }
 
@@ -1123,11 +1154,12 @@ namespace WebMConverter
             boxLimit.TabStop = boxBitrate.TabStop = boxAudioBitrate.TabStop = false;
 
             buttonConstantDefault.Visible = false;
-            if (encodingMode != Properties.Settings.Default.EncodingMode)
-            {
-                buttonVariableDefault.Visible = true;
-            }
-
+            //if (encodingMode != Properties.Settings.Default.EncodingMode)
+            //{
+            //    buttonVariableDefault.Visible = true;
+            //}
+            if (boxVariable.Checked)
+                UpdateConfiguration("EncodingMode", EncodingMode.Variable.ToString());
             UpdateArguments(sender, e);
 
             opusQualityScalingTooltip();
@@ -1149,7 +1181,12 @@ namespace WebMConverter
             if (boxNGOV.Checked)
                 numericAudioQuality.Enabled = false;
 
-            buttonAudioEnabledDefault.Visible = boxAudio.Checked != Properties.Settings.Default.AudioEnabled;
+            //buttonAudioEnabledDefault.Visible = boxAudio.Checked != Properties.Settings.Default.AudioEnabled;
+
+            if (boxAudio.Checked)
+                UpdateConfiguration("AudioEnabled", "true");
+            else
+                UpdateConfiguration("AudioEnabled", "false");
 
             UpdateArguments(sender, e);
 
@@ -2474,19 +2511,14 @@ namespace WebMConverter
             }            
         }
 
-        
-
-        private async void button2_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void UpdateConfiguration(string key, string value)
         {            
             configuration.AppSettings.Settings[key].Value = value;
             configuration.Save();
             ConfigurationManager.RefreshSection("userSettings");
+            showToolTip("Saved!", 1000);
         }
+
 
     }
 

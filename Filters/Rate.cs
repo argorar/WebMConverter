@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
@@ -29,6 +30,7 @@ namespace WebMConverter
             {
                 _originalDuration = new TimeSpan((long)(((MainForm)Owner).GetDuration() * (float)_filterToEdit.Multiplier / 100 * 10000000));
                 trackRate.Value = _filterToEdit.Multiplier;
+                numericUpDown.Value = trackRate.Value;
             }
             else
                 _originalDuration = new TimeSpan((long)(((MainForm) Owner).GetDuration() * 10000000));
@@ -62,6 +64,11 @@ namespace WebMConverter
         }
 
         private void buttonConfirm_Click(object sender, EventArgs e) => GeneratedFilter = new RateFilter(trackRate.Value);
+
+        private void numericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            trackRate.Value = Convert.ToInt32(numericUpDown.Value);
+        }
     }
 
     public class RateFilter

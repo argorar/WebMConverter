@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebMConverter.Dialogs;
 using static WebMConverter.Utility;
@@ -9,7 +11,7 @@ namespace WebMConverter
     {
         private int trimStart = -1;
         private int trimEnd = -1;
-
+        private bool play = false;
         public TrimFilter GeneratedFilter;
 
         public TrimForm(TrimFilter FilterToEdit = null)
@@ -137,6 +139,18 @@ namespace WebMConverter
                 e.Handled = true;
             }
         }
+        private async void TrimForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Space)
+            {
+                play = !play;
+                if (play)
+                    for (int i = 0; i < 100; i++)
+                        SetFrame(1, true);
+            }
+                        
+        }
+
 
         void SetFrame(int frame, bool modifier = false)
         {
@@ -144,15 +158,21 @@ namespace WebMConverter
                 frame += trackVideoTimeline.Value;
 
             trackVideoTimeline.Value = Math.Max(0, Math.Min(trackVideoTimeline.Maximum, frame)); // Make sure we don't go out of bounds.
+            previewFrame.Frame = trackVideoTimeline.Value;
+            previewFrame.Refresh();
+            labelTimeStamp.Refresh();
         }
 
         private void trackVideoTimeline_ValueChanged(object sender, EventArgs e)
         {
             previewFrame.Frame = trackVideoTimeline.Value;
+            previewFrame.Refresh();
             labelTimeStamp.Text = string.Format("{0} ({1})", FrameToTimeStamp(trackVideoTimeline.Value), trackVideoTimeline.Value);
         }
 
         private void trackVideoTimeline_Focus(object sender, EventArgs e) => trackVideoTimeline.Focus();
+
+        
     }
 
     public class TrimFilter

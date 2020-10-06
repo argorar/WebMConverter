@@ -1,6 +1,6 @@
-WebM for Lazys [![Build status](https://ci.appveyor.com/api/projects/status/g0gybayk8rw86aa1/branch/master?svg=true)](https://ci.appveyor.com/project/nixxquality/webmconverter/branch/master)
+WebM for Lazys 
 =============
-A wrapper around ffmpeg and AviSynth made for converting videos to WebM without having to use the command line.
+A wrapper around ffmpeg and AviSynth made for converting videos to WebM without having to use the command line, [Original project](https://gitgud.io/nixx/WebMConverter#webm-for-retards-).
 
 - **Download it [here][LatestDownload].**
 
@@ -10,11 +10,20 @@ Important to know:
 * Already includes ffmpeg
 * Only works on Windows (I assume Linux users don't need GUIs)
 
-This software is released under the MIT license. See LICENSE.md.
+### Changelog
 
-If you have any issues with this program, you may report them on [GitGud][NewIssue].
+#### Version 3.0.0
+* Fixed laggy trim functionality (with 4k files is a still a little slower)
+* Now you can use Space key to play 100 frames in trim functionality
+* Set the exact % value in change rate functionality 
+* Now your settings are remembered 
+* Gfycat integration using browser-based OAuth authentication. Upload your gfy before convert with one click
 
- [LatestDownload]: https://nixx.is-fantabulo.us/WebM%20for%20Retards/latest.zip
+This software is released under the MIT license. See LICENSE.md .
+
+If you have any issues with this program, you may report them on [here][NewIssue].
+
+ [LatestDownload]: https://github.com/argorar/WebMConverter/releases/tag/3.0.0
  [DotNet45]: https://www.microsoft.com/en-us/download/details.aspx?id=30653
  [AviSynth]: http://avisynth.nl/index.php/Main_Page#Official_builds
- [NewIssue]: https://gitgud.io/nixx/WebMConverter/issues/new
+ [NewIssue]: https://github.com/argorar/WebMConverter/issues
