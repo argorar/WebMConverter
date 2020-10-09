@@ -19,6 +19,10 @@ Important to know:
 * Now your settings are remembered 
 * Gfycat integration using browser-based OAuth authentication. Upload your gfy after convert with one click
 
+#### Version 3.1.0
+* Added option to interpolate frames in Advanced/Encoding
+* Improved trim lag with 4k videos
+
 This software is released under the MIT license. See LICENSE.md .
 
 If you have any issues with this program, you may report them on [here][NewIssue].
