@@ -22,6 +22,7 @@ using WebMConverter.Objects;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Configuration;
+using System.Threading;
 
 namespace WebMConverter
 {
@@ -2006,6 +2007,7 @@ namespace WebMConverter
             }
 
             new ConverterDialog(avsFileName, arguments, output).ShowDialog(this);
+            //new Thread(() => new ConverterDialog(avsFileName, arguments, output).ShowDialog()).Start();
         }
 
         string GenerateArguments()
@@ -2132,7 +2134,7 @@ namespace WebMConverter
             var framerate = "";
             if (!string.IsNullOrWhiteSpace(boxFrameRate.Text))
             {
-                framerate = @" -r " + boxFrameRate.Text;
+                framerate = @" -filter:v minterpolate -r " + boxFrameRate.Text;
             }
 
             return string.Format(TemplateArguments, audio, threads, slices, metadataTitle, hq, vcodec, acodec, framerate, qualityarguments);

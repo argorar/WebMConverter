@@ -17,7 +17,7 @@ Important to know:
 * Now you can use Space key to play 100 frames in trim functionality
 * Set the exact % value in change rate functionality 
 * Now your settings are remembered 
-* Gfycat integration using browser-based OAuth authentication. Upload your gfy before convert with one click
+* Gfycat integration using browser-based OAuth authentication. Upload your gfy after convert with one click
 
 This software is released under the MIT license. See LICENSE.md .
 

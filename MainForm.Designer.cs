@@ -1544,7 +1544,7 @@ namespace WebMConverter
             "Leave them alone",
             "Expand (TV -> PC)",
             "Contract (PC -> TV)"});
-            this.comboLevels.Location = new System.Drawing.Point(109, 4);
+            this.comboLevels.Location = new System.Drawing.Point(109, 5);
             this.comboLevels.Margin = new System.Windows.Forms.Padding(4);
             this.comboLevels.Name = "comboLevels";
             this.comboLevels.Size = new System.Drawing.Size(189, 24);
@@ -1692,8 +1692,8 @@ namespace WebMConverter
             labelEncodingFrameRateHint.Name = "labelEncodingFrameRateHint";
             labelEncodingFrameRateHint.Size = new System.Drawing.Size(1073, 34);
             labelEncodingFrameRateHint.TabIndex = 7;
-            labelEncodingFrameRateHint.Text = "If you want to change the frame rate of your video, input your desired frame rate" +
-    " here. Keep blank to leave the frame rate alone.";
+            labelEncodingFrameRateHint.Text = "Interpolate  your video to 60 or 120 fps (recommended values). Keep blank and not" +
+    "hing happend here.";
             labelEncodingFrameRateHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelEncodingFrameRate
@@ -1705,7 +1705,7 @@ namespace WebMConverter
             labelEncodingFrameRate.Name = "labelEncodingFrameRate";
             labelEncodingFrameRate.Size = new System.Drawing.Size(97, 34);
             labelEncodingFrameRate.TabIndex = 6;
-            labelEncodingFrameRate.Text = "Frame rate:";
+            labelEncodingFrameRate.Text = "Interpolate to:";
             labelEncodingFrameRate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelEncodingNGOVHint
@@ -1992,7 +1992,7 @@ namespace WebMConverter
             this.MinimumSize = new System.Drawing.Size(1293, 321);
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
-            this.Text = "WebM for Lazys";
+            this.Text = "WebM for Lazys v3.1.0";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);

@@ -72,15 +72,30 @@ namespace WebMConverter
             var destRect = new Rectangle(0, 0, width, height);
             var destImage = new Bitmap(width, height);
 
-            destImage.SetResolution(frame.EncodedResolution.Width, frame.EncodedResolution.Height);
+            if(frame.EncodedResolution.Width > 2000)
+                destImage.SetResolution(frame.EncodedResolution.Width / (float)2, frame.EncodedResolution.Height / (float)2);
+            else
+                destImage.SetResolution(frame.EncodedResolution.Width, frame.EncodedResolution.Height);
 
             using (var graphics = Graphics.FromImage(destImage))
             {
-                graphics.CompositingMode = CompositingMode.SourceCopy;
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                if (frame.EncodedResolution.Width > 2000)
+                {
+                    graphics.CompositingMode = CompositingMode.SourceCopy;
+                    graphics.CompositingQuality = CompositingQuality.HighSpeed;
+                    graphics.InterpolationMode = InterpolationMode.Default;
+                    graphics.SmoothingMode = SmoothingMode.HighSpeed;
+                    graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
+                }
+                else
+                {
+                    graphics.CompositingMode = CompositingMode.SourceCopy;
+                    graphics.CompositingQuality = CompositingQuality.HighQuality;
+                    graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    graphics.SmoothingMode = SmoothingMode.HighQuality;
+                    graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                }
+
 
                 using (var wrapMode = new ImageAttributes())
                 {
@@ -90,9 +105,9 @@ namespace WebMConverter
             }
 
             destImage.RotateFlip(rotateFlipType);
-
             Picture.BackgroundImage = destImage;
             Picture.ClientSize = new Size(width, height);
+            Picture.Refresh();
 
             // Center the pictureBox in our control
             if (width == Width || width - 1 == Width || width + 1 == Width) // this looks weird but keep in mind we're dealing with an ex float here
