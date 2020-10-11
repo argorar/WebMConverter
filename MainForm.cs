@@ -90,7 +90,7 @@ namespace WebMConverter
         private readonly string client_id = "2_yqoPwt";
         private readonly string client_secret = "ueECdMt4wIn6L7TybyqcUaTXbcZ2pBcs-EERURkI5ey00p6KxHYWmXLs8h6Mr7Lv";
         private readonly string prefixe = "http://127.0.0.1:57585/";
-
+        public const string VersionUrl = @"https://argorar.github.io/WebMConverter/NewUpdate/latest";
         private readonly Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
         bool indexing = false;
@@ -321,6 +321,14 @@ namespace WebMConverter
             //        }
             //    }
             //}
+            string currentVersion = Application.ProductVersion.Substring(0, Application.ProductVersion.LastIndexOf('.'));
+
+            using (var updateChecker = new WebClient())
+            {
+                string latestVersion = updateChecker.DownloadString(VersionUrl);
+                if (currentVersion.Equals(latestVersion.Trim()))
+                    return;
+            }
 
             var checker = new Updater();
 
@@ -354,12 +362,13 @@ namespace WebMConverter
                 this.InvokeIfRequired(() =>
                 {
                     //var result = new UpdateNotifyDialog(newVersionOrMessage, changelog).ShowDialog(this);
-                    //if (result == DialogResult.Yes)
-                    //{
+                    MessageBox.Show(changelog, "New Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //if (result == DialogResult.Yes)
+                //{
                     System.Diagnostics.Process.Start(checker.UpdaterPath, @"update");
-                    System.Diagnostics.Process.Start($"https://argorar.github.io/WebMConverter/#changelog");
+                    //System.Diagnostics.Process.Start($"https://argorar.github.io/WebMConverter/#changelog");
                     Application.Exit();
-                    //}
+                //}
                 });
             });
 

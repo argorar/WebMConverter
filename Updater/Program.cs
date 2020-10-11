@@ -6,7 +6,7 @@ namespace WebMConverter.Updater
 {
     static partial class Program
     {
-        public const string VersionUrl = @"https://argorar.github.io/WebMConverter/NewUpdate//NewUpdate/latest";
+        public const string VersionUrl = @"https://argorar.github.io/WebMConverter/NewUpdate/latest";
         //public const string ChangelogUrl = @"https://nixx.is-fantabulo.us/WebM for Retards/{0}.changes";
         public const string ProgramUrl = @"https://argorar.github.io/WebMConverter/NewUpdate/{0}.zip";
 

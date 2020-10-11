@@ -1544,7 +1544,7 @@ namespace WebMConverter
             "Leave them alone",
             "Expand (TV -> PC)",
             "Contract (PC -> TV)"});
-            this.comboLevels.Location = new System.Drawing.Point(109, 4);
+            this.comboLevels.Location = new System.Drawing.Point(109, 5);
             this.comboLevels.Margin = new System.Windows.Forms.Padding(4);
             this.comboLevels.Name = "comboLevels";
             this.comboLevels.Size = new System.Drawing.Size(189, 24);

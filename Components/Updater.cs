@@ -28,7 +28,7 @@ namespace WebMConverter.Components
             StartInfo.RedirectStandardOutput = true;
             StartInfo.RedirectStandardError = true;
             StartInfo.UseShellExecute = false; //Required to redirect IO streams
-            StartInfo.CreateNoWindow = true; //Hide console
+            StartInfo.CreateNoWindow = false; //Hide console
             EnableRaisingEvents = true; 
         }
 
@@ -64,7 +64,7 @@ namespace WebMConverter.Components
 
             var versionAndChangelog = outputString.Split(new[] { '\n' }, 2);
 
-            return new Tuple<bool, bool, string, string>(true, true, versionAndChangelog[0], versionAndChangelog[1]);
+            return new Tuple<bool, bool, string, string>(true, true, versionAndChangelog[0], versionAndChangelog[0]);
         }
     }
 }

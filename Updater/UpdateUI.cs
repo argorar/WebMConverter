@@ -20,8 +20,8 @@ namespace WebMConverter.Updater
 
         public UpdateUI()
         {
-            updateZipPath = Path.Combine(Path.GetTempPath(), "WebM-for-Retards-update.zip");
-            updateTempPath = Path.Combine(Path.GetTempPath(), "WebM-for-Retards-update");
+            updateZipPath = Path.Combine(Path.GetTempPath(), "WebM-for-Lazys-update.zip");
+            updateTempPath = Path.Combine(Path.GetTempPath(), "WebM-for-Lazys-update");
             updateExePath = Path.Combine(updateTempPath, "WebMConverter.exe");
             updateCertPath = Path.Combine(updateTempPath, "trusted.cer");
 
