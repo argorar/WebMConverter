@@ -23,8 +23,15 @@ namespace WebMConverter
         {
             InitializeComponent();
 
-            InputFilter = filterToEdit;
+            numericStartFrame.Maximum = Program.VideoSource.NumberOfFrames;
+            numericEndFrame.Maximum = Program.VideoSource.NumberOfFrames;
 
+            if(filterToEdit != null)
+            {
+                numericStartFrame.Value = filterToEdit.Start;
+                numericEndFrame.Value = filterToEdit.End;
+            }
+            InputFilter = filterToEdit;
             previewFrame.Picture.Paint += new PaintEventHandler(this.previewPicture_Paint);
             previewFrame.Picture.MouseDown += new MouseEventHandler(this.previewPicture_MouseDown);
             previewFrame.Picture.MouseMove += new MouseEventHandler(this.previewPicture_MouseMove);
@@ -143,7 +150,13 @@ namespace WebMConverter
 
         private void buttonConfirm_Click(object sender, EventArgs e)
         {
-            GeneratedFilter = new CaptionFilter(point, boxText.Text, fontDialog1.Font, colorDialogTextColor.Color, colorDialogBorderColor.Color, (int)numericBorderThickness.Value);
+            if (numericStartFrame.Value > numericEndFrame.Value)
+            {
+                MessageBox.Show("Are you sure about this range? check again", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            int end = numericEndFrame.Value == numericStartFrame.Value ? Program.VideoSource.NumberOfFrames : (int)numericEndFrame.Value;
+            GeneratedFilter = new CaptionFilter(point, boxText.Text, fontDialog1.Font, colorDialogTextColor.Color, colorDialogBorderColor.Color, (int)numericBorderThickness.Value, (int)numericStartFrame.Value, end);
             DialogResult = DialogResult.OK;
         }
 
@@ -211,6 +224,22 @@ namespace WebMConverter
             previewFrame.Picture.Invalidate();
             return true;
         }
+
+        private void numericStartFrame_ValueChanged(object sender, EventArgs e)
+        {
+            if (numericStartFrame.Value != 0)
+                numericEndFrame.Enabled = true;
+
+            numericEndFrame.Value = numericStartFrame.Value;
+            previewFrame.Frame = Math.Max(0, Math.Min(Program.VideoSource.NumberOfFrames - 1, (int)numericStartFrame.Value));
+            previewFrame.Refresh();
+        }
+
+        private void numericEndFrame_ValueChanged(object sender, EventArgs e)
+        {
+            previewFrame.Frame = Math.Max(0, Math.Min(Program.VideoSource.NumberOfFrames - 1, (int)numericEndFrame.Value));
+            previewFrame.Refresh();
+        }
     }
 
     public class CaptionFilter
@@ -221,10 +250,12 @@ namespace WebMConverter
         public Color TextColor { get; }
         public Color BorderColor { get; }
         public int BorderThickness { get; }
+        public int Start { get; }
+        public int End { get; }
 
         string renderedCaptionFilename;
 
-        public CaptionFilter(Point placement, string text, Font style, Color textColor, Color borderColor, int borderThickness)
+        public CaptionFilter(Point placement, string text, Font style, Color textColor, Color borderColor, int borderThickness, int start, int end)
         {
             Placement = placement;
             Text = text;
@@ -232,6 +263,8 @@ namespace WebMConverter
             TextColor = textColor;
             BorderColor = borderColor;
             BorderThickness = borderThickness;
+            Start = start;
+            End = end;
         }
 
         public void BeforeEncode(Size resolution)
@@ -253,6 +286,13 @@ namespace WebMConverter
             }
         }
 
-        public override string ToString() => $"Overlay(ImageSource(\"{renderedCaptionFilename}\"), mask=ImageSource(\"{renderedCaptionFilename}\",pixel_type=\"RGB32\").ShowAlpha(pixel_type=\"RGB32\"))";
+        public string GetString()
+        {
+            if (Start != 0)
+                return $"ApplyRange({Start},{End},\"Overlay\",ImageSource(\"{renderedCaptionFilename}\"),0,0,ImageSource(\"{renderedCaptionFilename}\",pixel_type=\"RGB32\").ShowAlpha(pixel_type=\"RGB32\"))";
+            else
+                return $"Overlay(ImageSource(\"{renderedCaptionFilename}\"), mask=ImageSource(\"{renderedCaptionFilename}\",pixel_type=\"RGB32\").ShowAlpha(pixel_type=\"RGB32\"))";
+        }
+        public override string ToString() => GetString();
     }
 }

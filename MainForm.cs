@@ -121,11 +121,6 @@ namespace WebMConverter
 
             InitializeComponent();
 
-            //if (Properties.Settings.Default.EncodingMode != EncodingMode.Constant)
-            //    boxVariable.Checked = true;
-            
-            //boxAudio.Checked = Properties.Settings.Default.AudioEnabled;
-
             taskbarManager = TaskbarManager.Instance;
 
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["RefreshToken"].Value))
@@ -247,9 +242,9 @@ namespace WebMConverter
             var args = Environment.GetCommandLineArgs();
             if (args.Length > 1) // We were "Open with..."ed with a file
                 SetFile(args[1]);
-#if !DEBUG
+
             CheckUpdate();
-#endif
+
         }
 
         void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -290,42 +285,42 @@ namespace WebMConverter
 
         async void CheckUpdate()
         {
-            if (!Properties.Settings.Default.SeenNotice2)
-            {
-                try
-                {
-                    using (var noticeChecker = new WebClient())
-                    {
-                        const string caption = "Notice";
-                        var result = await noticeChecker.DownloadStringTaskAsync(@"https://nixx.is-fantabulo.us/WebM for Retards/NOTICE");
-                        var urlAndMessage = result.Split(new[] { '\n' }, 2);
-                        switch (MessageBox.Show(urlAndMessage[1], caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question))
-                        {
-                            case DialogResult.Yes:
-                                if (urlAndMessage[0].StartsWith("http")) // just in case someone hacks my anus, let's not give him any ways to execute arbitrary code on all my users
-                                    System.Diagnostics.Process.Start(urlAndMessage[0]);
+            //if (!Properties.Settings.Default.SeenNotice2)
+            //{
+            //    try
+            //    {
+            //        using (var noticeChecker = new WebClient())
+            //        {
+            //            const string caption = "Notice";
+            //            var result = await noticeChecker.DownloadStringTaskAsync(@"https://nixx.is-fantabulo.us/WebM for Retards/NOTICE");
+            //            var urlAndMessage = result.Split(new[] { '\n' }, 2);
+            //            switch (MessageBox.Show(urlAndMessage[1], caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+            //            {
+            //                case DialogResult.Yes:
+            //                    if (urlAndMessage[0].StartsWith("http")) // just in case someone hacks my anus, let's not give him any ways to execute arbitrary code on all my users
+            //                        System.Diagnostics.Process.Start(urlAndMessage[0]);
 
-                                Application.Exit();
-                                break;
-                            case DialogResult.No:
-                                Properties.Settings.Default.SeenNotice2 = true;
-                                Properties.Settings.Default.Save();
-                                break;
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    if (!e.Message.Contains("404"))
-                    {
-                        this.InvokeIfRequired(() =>
-                        {
-                            showToolTip("Update checking failed! " + e.Message, 2000);
-                        });
-                        return;
-                    }
-                }
-            }
+            //                    Application.Exit();
+            //                    break;
+            //                case DialogResult.No:
+            //                    Properties.Settings.Default.SeenNotice2 = true;
+            //                    Properties.Settings.Default.Save();
+            //                    break;
+            //            }
+            //        }
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        if (!e.Message.Contains("404"))
+            //        {
+            //            this.InvokeIfRequired(() =>
+            //            {
+            //                showToolTip("Update checking failed! " + e.Message, 2000);
+            //            });
+            //            return;
+            //        }
+            //    }
+            //}
 
             var checker = new Updater();
 
@@ -338,7 +333,7 @@ namespace WebMConverter
                 var newVersionOrMessage = checkerResult.Item3;
                 var changelog = checkerResult.Item4;
 
-                if (success == false)
+                if (! success)
                 {
                     this.InvokeIfRequired(() =>
                     {
@@ -347,7 +342,7 @@ namespace WebMConverter
                     return;
                 }
 
-                if (updateAvailable == false)
+                if (!updateAvailable)
                 {
                     this.InvokeIfRequired(() =>
                     {
@@ -358,12 +353,13 @@ namespace WebMConverter
 
                 this.InvokeIfRequired(() =>
                 {
-                    var result = new UpdateNotifyDialog(newVersionOrMessage, changelog).ShowDialog(this);
-                    if (result == DialogResult.Yes)
-                    {
-                        System.Diagnostics.Process.Start(checker.UpdaterPath, @"update");
-                        Application.Exit();
-                    }
+                    //var result = new UpdateNotifyDialog(newVersionOrMessage, changelog).ShowDialog(this);
+                    //if (result == DialogResult.Yes)
+                    //{
+                    System.Diagnostics.Process.Start(checker.UpdaterPath, @"update");
+                    System.Diagnostics.Process.Start($"https://argorar.github.io/WebMConverter/#changelog");
+                    Application.Exit();
+                    //}
                 });
             });
 
@@ -2134,7 +2130,7 @@ namespace WebMConverter
             var framerate = "";
             if (!string.IsNullOrWhiteSpace(boxFrameRate.Text))
             {
-                framerate = @" -filter:v minterpolate -r " + boxFrameRate.Text;
+                framerate = $" -filter \"minterpolate = fps = {boxFrameRate.Text}\" ";
             }
 
             return string.Format(TemplateArguments, audio, threads, slices, metadataTitle, hq, vcodec, acodec, framerate, qualityarguments);

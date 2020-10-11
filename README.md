@@ -1,6 +1,6 @@
 WebM for Lazys 
 =============
-A wrapper around ffmpeg and AviSynth made for converting videos to WebM without having to use the command line, [Original project](https://gitgud.io/nixx/WebMConverter#webm-for-retards-).
+A wrapper around ffmpeg and AviSynth made for converting videos to WebM without having to use the command line, fork of [this project](https://gitgud.io/nixx/WebMConverter#webm-for-retards-).
 
 - **Download it [here][LatestDownload].**
 
@@ -8,7 +8,7 @@ Important to know:
 * Requires .NET Framework 4.5 (Windows 7 comes with 3.5, so you might want to [update][DotNet45])
 * Requires [AviSynth][AviSynth] (2.6.0, 32-bit)
 * Already includes ffmpeg
-* Only works on Windows (I assume Linux users don't need GUIs)
+* Only works on Windows 
 
 ### Changelog
 
@@ -21,13 +21,19 @@ Important to know:
 
 #### Version 3.1.0
 * Added option to interpolate frames in Advanced/Encoding
-* Improved trim lag with 4k videos
+* Improved trim lag going forward with 4k videos
+
+#### Version 3.2.0
+* Now you can set when you want your caption to start and end
+* In caption form you can advance frame by frame changing *start frame* value. You can use mouse wheel too
+* Changed algorithm to interpolate
+* Now the update feature is enabled
 
 This software is released under the MIT license. See LICENSE.md .
 
 If you have any issues with this program, you may report them on [here][NewIssue].
 
- [LatestDownload]: https://github.com/argorar/WebMConverter/releases/tag/3.0.0
+ [LatestDownload]: https://github.com/argorar/WebMConverter/releases/latest
  [DotNet45]: https://www.microsoft.com/en-us/download/details.aspx?id=30653
  [AviSynth]: http://avisynth.nl/index.php/Main_Page#Official_builds
  [NewIssue]: https://github.com/argorar/WebMConverter/issues

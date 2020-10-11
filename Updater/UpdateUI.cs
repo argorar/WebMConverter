@@ -34,20 +34,21 @@ namespace WebMConverter.Updater
         {
             labelStatus.Text = "Checking latest version...";
 
-            var client = new WebClient();
-            client.DownloadStringCompleted += delegate(object sender, DownloadStringCompletedEventArgs args)
-            {
-                if (args.Error != null)
+            using (var client = new WebClient()) {
+                client.DownloadStringCompleted += delegate (object sender, DownloadStringCompletedEventArgs args)
                 {
-                    Abort(args.Error.Message);
-                    Application.Exit();
-                }
+                    if (args.Error != null)
+                    {
+                        Abort(args.Error.Message);
+                        Application.Exit();
+                    }
 
-                latestVersion = args.Result.Trim();
-                Step2_DownloadLatestVersion();
-            };
+                    latestVersion = args.Result.Trim();
+                    Step2_DownloadLatestVersion();
+                };
 
-            client.DownloadStringAsync(new Uri(Program.VersionUrl));
+                client.DownloadStringAsync(new Uri(Program.VersionUrl));
+            }            
         }
 
         private void Step2_DownloadLatestVersion()
@@ -56,31 +57,33 @@ namespace WebMConverter.Updater
             progressBar.Style = ProgressBarStyle.Continuous;
             progressBar.Value = 0;
 
-            var client = new WebClient();
-            client.DownloadProgressChanged += delegate(object sender, DownloadProgressChangedEventArgs args)
-            {
-                progressBar.Value = args.ProgressPercentage;
-
-                labelStatus.Text = $"Downloading version {latestVersion} ({args.BytesReceived / 1024 / 1024} MiB / {args.TotalBytesToReceive / 1024 / 1024} MiB)";
-            };
-
-            client.DownloadFileCompleted += delegate(object sender, AsyncCompletedEventArgs args)
-            {
-                if (args.Error != null)
+            using (var client = new WebClient()) {
+                client.DownloadProgressChanged += delegate (object sender, DownloadProgressChangedEventArgs args)
                 {
-                    Abort(args.Error.Message);
-                    Application.Exit();
-                }
+                    progressBar.Value = args.ProgressPercentage;
 
-                Step3_UnzipAndVerify();
-            };
+                    labelStatus.Text = $"Downloading version {latestVersion} ({args.BytesReceived / 1024 / 1024} MiB / {args.TotalBytesToReceive / 1024 / 1024} MiB)";
+                };
 
-            client.DownloadFileAsync(new Uri(string.Format(Program.ProgramUrl, latestVersion)), updateZipPath);
+                client.DownloadFileCompleted += delegate (object sender, AsyncCompletedEventArgs args)
+                {
+                    if (args.Error != null)
+                    {
+                        Abort(args.Error.Message);
+                        Application.Exit();
+                    }
+
+                    Step3_UnzipAndVerify();
+                };
+
+                client.DownloadFileAsync(new Uri(string.Format(Program.ProgramUrl, latestVersion)), updateZipPath);
+            }           
+            
         }
 
         private async void Step3_UnzipAndVerify()
         {
-            labelStatus.Text = string.Format("Verifying integrity...");
+            labelStatus.Text = "Verifying integrity...";
             progressBar.Style = ProgressBarStyle.Marquee;
             progressBar.Value = 30;
 
@@ -91,50 +94,50 @@ namespace WebMConverter.Updater
             await Task.Run(() => ZipFile.ExtractToDirectory(updateZipPath, updateTempPath));
             File.Delete(updateZipPath);
 
-            var trustedCertificate = new X509Certificate2("trusted.cer");
-            X509Certificate exeCertificate;
+            //var trustedCertificate = new X509Certificate2("trusted.cer");
+            //X509Certificate exeCertificate;
 
-            try
-            {
-                exeCertificate = X509Certificate.CreateFromSignedFile(updateExePath);
-            }
-            catch (Exception)
-            {
-                Abort("The downloaded executable is unsigned and therefore untrusted.");
-                return;
-            }
+            //try
+            //{
+            //    exeCertificate = X509Certificate.CreateFromSignedFile(updateExePath);
+            //}
+            //catch (Exception)
+            //{
+            //    Abort("The downloaded executable is unsigned and therefore untrusted.");
+            //    return;
+            //}
 
-            X509Certificate2 updateCertificate;
-            try
-            {
-                updateCertificate = new X509Certificate2(updateCertPath);
-            }
-            catch (Exception)
-            {
-                Abort("The downloaded update does not include a valid certificate.");
-                return;
-            }
+            //X509Certificate2 updateCertificate;
+            //try
+            //{
+            //    updateCertificate = new X509Certificate2(updateCertPath);
+            //}
+            //catch (Exception)
+            //{
+            //    Abort("The downloaded update does not include a valid certificate.");
+            //    return;
+            //}
 
-            if (!exeCertificate.Equals(trustedCertificate))
-            {
-                Abort("The downloaded executable is not signed by a trusted developer.");
-                return;
-            }
+            //if (!exeCertificate.Equals(trustedCertificate))
+            //{
+            //    Abort("The downloaded executable is not signed by a trusted developer.");
+            //    return;
+            //}
 
-            if (!trustedCertificate.Equals(updateCertificate))
-            {
-                var answer = MessageBox.Show(this,
-                    $"The downloaded update contains a different certificate than your current version.{Environment.NewLine}" +
-                    $"This is either a sign of foul play, or it means I lost my old certificate and need to ship a new one.{Environment.NewLine}" +
-                    $"If you trust this certificate, it will be used in the future to verify that updates are legitimate.{Environment.NewLine}" +
-                    "Do you trust this new certificate?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+            //if (!trustedCertificate.Equals(updateCertificate))
+            //{
+            //    var answer = MessageBox.Show(this,
+            //        $"The downloaded update contains a different certificate than your current version.{Environment.NewLine}" +
+            //        $"This is either a sign of foul play, or it means I lost my old certificate and need to ship a new one.{Environment.NewLine}" +
+            //        $"If you trust this certificate, it will be used in the future to verify that updates are legitimate.{Environment.NewLine}" +
+            //        "Do you trust this new certificate?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
 
-                if (answer == DialogResult.No)
-                {
-                    Abort();
-                    return;
-                }
-            }
+            //    if (answer == DialogResult.No)
+            //    {
+            //        Abort();
+            //        return;
+            //    }
+            //}
 
             Step4_OverwriteAndRestart();
         }
@@ -174,7 +177,7 @@ namespace WebMConverter.Updater
 
         private static void CopyAll(DirectoryInfo source, DirectoryInfo target)
         {
-            if (Directory.Exists(target.FullName) == false)
+            if (!Directory.Exists(target.FullName))
             {
                 Directory.CreateDirectory(target.FullName);
             }

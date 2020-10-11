@@ -46,12 +46,19 @@
             this.colorDialogBorderColor = new System.Windows.Forms.ColorDialog();
             this.numericBorderThickness = new System.Windows.Forms.NumericUpDown();
             this.previewFrame = new WebMConverter.PreviewFrame();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numericStartFrame = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numericEndFrame = new System.Windows.Forms.NumericUpDown();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericBorderThickness)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericStartFrame)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericEndFrame)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip
             // 
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.previewToolStripMenuItem,
             this.boxText,
@@ -60,7 +67,7 @@
             this.borderColorToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(744, 27);
+            this.menuStrip.Size = new System.Drawing.Size(992, 28);
             this.menuStrip.TabIndex = 0;
             // 
             // previewToolStripMenuItem
@@ -70,7 +77,7 @@
             this.frameToolStripMenuItem,
             this.timeToolStripMenuItem});
             this.previewToolStripMenuItem.Name = "previewToolStripMenuItem";
-            this.previewToolStripMenuItem.Size = new System.Drawing.Size(69, 23);
+            this.previewToolStripMenuItem.Size = new System.Drawing.Size(85, 24);
             this.previewToolStripMenuItem.Text = "Preview...";
             // 
             // trimTimingToolStripMenuItem
@@ -80,71 +87,73 @@
             this.endToolStripMenuItem});
             this.trimTimingToolStripMenuItem.Enabled = false;
             this.trimTimingToolStripMenuItem.Name = "trimTimingToolStripMenuItem";
-            this.trimTimingToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.trimTimingToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
             this.trimTimingToolStripMenuItem.Text = "Trim timing...";
             // 
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(121, 26);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
             // endToolStripMenuItem
             // 
             this.endToolStripMenuItem.Name = "endToolStripMenuItem";
-            this.endToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.endToolStripMenuItem.Size = new System.Drawing.Size(121, 26);
             this.endToolStripMenuItem.Text = "End";
             this.endToolStripMenuItem.Click += new System.EventHandler(this.endToolStripMenuItem_Click);
             // 
             // frameToolStripMenuItem
             // 
             this.frameToolStripMenuItem.Name = "frameToolStripMenuItem";
-            this.frameToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.frameToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
             this.frameToolStripMenuItem.Text = "Frame";
             this.frameToolStripMenuItem.Click += new System.EventHandler(this.frameToolStripMenuItem_Click);
             // 
             // timeToolStripMenuItem
             // 
             this.timeToolStripMenuItem.Name = "timeToolStripMenuItem";
-            this.timeToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.timeToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
             this.timeToolStripMenuItem.Text = "Time";
             this.timeToolStripMenuItem.Click += new System.EventHandler(this.timeToolStripMenuItem_Click);
             // 
             // boxText
             // 
+            this.boxText.Font = new System.Drawing.Font("Arial", 8.400001F);
             this.boxText.Name = "boxText";
-            this.boxText.Size = new System.Drawing.Size(100, 23);
+            this.boxText.Size = new System.Drawing.Size(132, 24);
             this.boxText.Text = "Text goes here";
             this.boxText.TextChanged += new System.EventHandler(this.UpdateTextLayout);
             // 
             // fontToolStripMenuItem
             // 
             this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(43, 23);
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
             this.fontToolStripMenuItem.Text = "Font";
             this.fontToolStripMenuItem.Click += new System.EventHandler(this.fontToolStripMenuItem_Click);
             // 
             // textColorToolStripMenuItem
             // 
             this.textColorToolStripMenuItem.Name = "textColorToolStripMenuItem";
-            this.textColorToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
+            this.textColorToolStripMenuItem.Size = new System.Drawing.Size(84, 24);
             this.textColorToolStripMenuItem.Text = "Text color";
             this.textColorToolStripMenuItem.Click += new System.EventHandler(this.textColorToolStripMenuItem_Click);
             // 
             // borderColorToolStripMenuItem
             // 
             this.borderColorToolStripMenuItem.Name = "borderColorToolStripMenuItem";
-            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(84, 23);
+            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
             this.borderColorToolStripMenuItem.Text = "Border color";
             this.borderColorToolStripMenuItem.Click += new System.EventHandler(this.borderColorToolStripMenuItem_Click);
             // 
             // buttonConfirm
             // 
             this.buttonConfirm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonConfirm.Location = new System.Drawing.Point(666, 518);
+            this.buttonConfirm.Location = new System.Drawing.Point(888, 638);
+            this.buttonConfirm.Margin = new System.Windows.Forms.Padding(4);
             this.buttonConfirm.Name = "buttonConfirm";
-            this.buttonConfirm.Size = new System.Drawing.Size(75, 23);
+            this.buttonConfirm.Size = new System.Drawing.Size(100, 28);
             this.buttonConfirm.TabIndex = 1;
             this.buttonConfirm.Text = "Confirm";
             this.buttonConfirm.UseVisualStyleBackColor = true;
@@ -154,15 +163,17 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(589, 518);
+            this.buttonCancel.Location = new System.Drawing.Point(785, 638);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(100, 28);
             this.buttonCancel.TabIndex = 2;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // fontDialog1
             // 
+            this.fontDialog1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
             this.fontDialog1.Font = new System.Drawing.Font("Impact", 63.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             // 
             // colorDialogTextColor
@@ -171,9 +182,10 @@
             // 
             // numericBorderThickness
             // 
-            this.numericBorderThickness.Location = new System.Drawing.Point(379, 4);
+            this.numericBorderThickness.Location = new System.Drawing.Point(505, 5);
+            this.numericBorderThickness.Margin = new System.Windows.Forms.Padding(4);
             this.numericBorderThickness.Name = "numericBorderThickness";
-            this.numericBorderThickness.Size = new System.Drawing.Size(61, 20);
+            this.numericBorderThickness.Size = new System.Drawing.Size(81, 22);
             this.numericBorderThickness.TabIndex = 4;
             this.numericBorderThickness.Value = new decimal(new int[] {
             2,
@@ -187,27 +199,68 @@
             this.previewFrame.BackColor = System.Drawing.SystemColors.ControlDark;
             this.previewFrame.Cursor = System.Windows.Forms.Cursors.SizeAll;
             this.previewFrame.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.previewFrame.Location = new System.Drawing.Point(0, 27);
+            this.previewFrame.Location = new System.Drawing.Point(0, 28);
+            this.previewFrame.Margin = new System.Windows.Forms.Padding(5);
             this.previewFrame.Name = "previewFrame";
-            this.previewFrame.Size = new System.Drawing.Size(744, 517);
+            this.previewFrame.Size = new System.Drawing.Size(992, 642);
             this.previewFrame.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(603, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(82, 17);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Start Frame";
+            // 
+            // numericStartFrame
+            // 
+            this.numericStartFrame.Location = new System.Drawing.Point(701, 5);
+            this.numericStartFrame.Name = "numericStartFrame";
+            this.numericStartFrame.Size = new System.Drawing.Size(76, 22);
+            this.numericStartFrame.TabIndex = 6;
+            this.numericStartFrame.ValueChanged += new System.EventHandler(this.numericStartFrame_ValueChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(792, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 17);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "End Frame";
+            // 
+            // numericEndFrame
+            // 
+            this.numericEndFrame.Enabled = false;
+            this.numericEndFrame.Location = new System.Drawing.Point(884, 5);
+            this.numericEndFrame.Name = "numericEndFrame";
+            this.numericEndFrame.Size = new System.Drawing.Size(72, 22);
+            this.numericEndFrame.TabIndex = 8;
+            this.numericEndFrame.ValueChanged += new System.EventHandler(this.numericEndFrame_ValueChanged);
             // 
             // CaptionForm
             // 
             this.AcceptButton = this.buttonConfirm;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(744, 544);
+            this.ClientSize = new System.Drawing.Size(992, 670);
             this.ControlBox = false;
+            this.Controls.Add(this.numericEndFrame);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.numericStartFrame);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.numericBorderThickness);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonConfirm);
             this.Controls.Add(this.previewFrame);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
-            this.MinimumSize = new System.Drawing.Size(466, 310);
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.MinimumSize = new System.Drawing.Size(615, 372);
             this.Name = "CaptionForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -216,6 +269,8 @@
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericBorderThickness)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericStartFrame)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericEndFrame)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,5 +296,9 @@
         private System.Windows.Forms.ToolStripMenuItem textColorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem borderColorToolStripMenuItem;
         private System.Windows.Forms.NumericUpDown numericBorderThickness;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown numericStartFrame;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown numericEndFrame;
     }
 }
