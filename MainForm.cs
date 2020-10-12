@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -1680,7 +1680,7 @@ namespace WebMConverter
                     }
                 }
 
-                Program.VideoSource = index.VideoSource(path, videotrack);
+                Program.VideoSource = index.VideoSource(path, videotrack, Environment.ProcessorCount);
                 var frame = Program.VideoSource.GetFrame(0); // We're assuming that the entire video has the same settings here, which should be fine. (These options usually don't vary, I hope.)
                 Program.VideoColorRange = frame.ColorRange;
                 Program.VideoInterlaced = frame.InterlacedFrame;
