@@ -34,6 +34,9 @@ Important to know:
 * Minor changes in *New update available*
 * Fixed when your drop a file your settings reset 
 
+#### Version 3.2.2
+* Fixed Gfycat title
+
 This software is released under the MIT license. See LICENSE.md .
 
 If you have any issues with this program, you may report them on [here][NewIssue].

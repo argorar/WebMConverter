@@ -371,7 +371,7 @@ namespace WebMConverter.Dialogs
                     httpWRequest.Headers.Add("Authorization", "Bearer " + ((MainForm)Owner).token);
                     var aux = ((MainForm)Owner).textBoxOut.Text.Split('\\');
                     string postData = " {\"title\":\"" + aux[aux.Length-1].Split('.')[0] + "\"}";
-                    ASCIIEncoding encoding = new ASCIIEncoding();
+                    UTF8Encoding encoding = new UTF8Encoding();
                     byte[] byte1 = encoding.GetBytes(postData);
                     httpWRequest.GetRequestStream().Write(byte1, 0, byte1.Length);
 
@@ -392,6 +392,7 @@ namespace WebMConverter.Dialogs
                             content.Add(new StringContent(newGfycatResponse.gfyname), "key");
                             content.Add(new ByteArrayContent(file), "file", newGfycatResponse.gfyname);
                             boxOutput.AppendText($"{Environment.NewLine}Starting to upload file");
+                            //progressBar.Style = ProgressBarStyle.Marquee;
                             using (var message = await client.PostAsync("https://filedrop.gfycat.com", content))
                             {
                                 boxOutput.AppendText($"{Environment.NewLine}Everything is great, now wait until gfycat encode the video :)");
@@ -420,6 +421,7 @@ namespace WebMConverter.Dialogs
                                     {
                                         isDone = true;
                                         boxOutput.AppendText($"{Environment.NewLine}Your video is up!");
+                                        taskbarManager.SetProgressValue(100,100);
                                         System.Diagnostics.Process.Start($"https://gfycat.com/{newGfycatResponse.gfyname}");
                                     }
                                     else
