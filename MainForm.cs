@@ -322,10 +322,10 @@ namespace WebMConverter
             //    }
             //}
             string currentVersion = Application.ProductVersion.Substring(0, Application.ProductVersion.LastIndexOf('.'));
-
+            string latestVersion;
             using (var updateChecker = new WebClient())
             {
-                string latestVersion = updateChecker.DownloadString(VersionUrl);
+                latestVersion = updateChecker.DownloadString(VersionUrl);
                 if (currentVersion.Equals(latestVersion.Trim()))
                     return;
             }
@@ -361,14 +361,12 @@ namespace WebMConverter
 
                 this.InvokeIfRequired(() =>
                 {
-                    //var result = new UpdateNotifyDialog(newVersionOrMessage, changelog).ShowDialog(this);
-                    MessageBox.Show(changelog, "New Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //if (result == DialogResult.Yes)
-                //{
-                    System.Diagnostics.Process.Start(checker.UpdaterPath, @"update");
-                    //System.Diagnostics.Process.Start($"https://argorar.github.io/WebMConverter/#changelog");
-                    Application.Exit();
-                //}
+                    var result = new UpdateNotifyDialog(latestVersion, changelog).ShowDialog(this);
+                    if (result == DialogResult.Yes)
+                    {
+                        System.Diagnostics.Process.Start(checker.UpdaterPath, @"update");
+                        Application.Exit();
+                    }
                 });
             });
 
@@ -1136,7 +1134,7 @@ namespace WebMConverter
                 UpdateConfiguration("HighQuality", "true");
             else
                 UpdateConfiguration("HighQuality", "false");
-            
+
             UpdateArguments(sender, e);
         }
 
@@ -1272,13 +1270,10 @@ namespace WebMConverter
             boxArguments.Text =
                 string.Empty;
 
-            boxHQ.Checked =
             boxDeinterlace.Checked =
             boxDenoise.Checked =
             boxNGOV.Checked =
                 false;
-
-            boxAudio.Checked = Properties.Settings.Default.AudioEnabled;
 
             numericCrf.Value = 30;
             numericCrfTolerance.Value = 2;
@@ -1289,11 +1284,6 @@ namespace WebMConverter
             var threads = Environment.ProcessorCount;
             trackThreads.Value = Math.Min(trackThreads.Maximum, Math.Max(trackThreads.Minimum, threads));
             // trackSlices is set during probing.
-
-            if (Properties.Settings.Default.EncodingMode != EncodingMode.Constant)
-            {
-                boxVariable.Checked = true;
-            }
         }
 
         char[] invalidChars = Path.GetInvalidPathChars();
@@ -1581,14 +1571,13 @@ namespace WebMConverter
 
                                     SarWidth = int.Parse(nav.GetAttribute("width", ""));
                                     SarHeight = int.Parse(nav.GetAttribute("height", ""));
+
                                     if (DarNum < DarDen)
-                                    {
                                         SarHeight = (int)(SarHeight / (SarNum / SarDen));
-                                    }
+
                                     else
-                                    {
                                         SarWidth = (int)(SarWidth * (SarNum / SarDen));
-                                    }
+
                                     SarCompensate = true;
                                     logIndexingProgress("We need to compensate for Sample Aspect Ratio, it seems.");
 
@@ -1712,9 +1701,7 @@ namespace WebMConverter
                 buttonGo.Text = "Convert";
 
                 if (e.Cancelled)
-                {
                     CancelIndexing();
-                }
                 else
                 {
                     labelIndexingProgress.Text = "Extracting subtitle tracks and attachments...";
@@ -2138,9 +2125,7 @@ namespace WebMConverter
 
             var framerate = "";
             if (!string.IsNullOrWhiteSpace(boxFrameRate.Text))
-            {
-                framerate = $" -filter \"minterpolate = fps = {boxFrameRate.Text}\" ";
-            }
+                framerate = $" -filter minterpolate=mi_mode=mci:me_mode=bidir:mc_mode=aobmc:vsbmc=1:fps={boxFrameRate.Text} ";
 
             return string.Format(TemplateArguments, audio, threads, slices, metadataTitle, hq, vcodec, acodec, framerate, qualityarguments);
         }
@@ -2164,9 +2149,7 @@ namespace WebMConverter
                         while (reader.MoveToNextAttribute())
                         {
                             if (reader.Name == "duration")
-                            {
                                 return double.Parse(reader.Value, CultureInfo.InvariantCulture);
-                            }
                         }
                     }
                 }
@@ -2190,9 +2173,7 @@ namespace WebMConverter
                     duration = FrameToTimeSpan(Program.VideoSource.NumberOfFrames - 1).TotalSeconds;
 
                 if (Filters.Rate != null)
-                {
                     duration = duration / ((float)Filters.Rate.Multiplier / 100);
-                }
 
                 return duration;
             }

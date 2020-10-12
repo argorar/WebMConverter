@@ -14,7 +14,7 @@ namespace WebMConverter.Dialogs
 
             InitializeComponent();
 
-            label1.Text = string.Format(label1.Text, "WebM for Retards");
+            label1.Text = string.Format(label1.Text, "WebM for Lazys");
         }
 
         void panel1_Resize(object sender, EventArgs e)
@@ -25,12 +25,13 @@ namespace WebMConverter.Dialogs
 
         void boxReleaseNotes_CheckedChanged(object sender, EventArgs e)
         {
-            ReleaseNotesPanel.Visible = boxReleaseNotes.Checked;
+            System.Diagnostics.Process.Start($"https://argorar.github.io/WebMConverter/#changelog");
+            //ReleaseNotesPanel.Visible = boxReleaseNotes.Checked;
 
-            if (_loadednotes) return;
+            //if (_loadednotes) return;
 
-            ReleaseNotes.DocumentText = _changelog;
-            _loadednotes = true;
+            //ReleaseNotes.DocumentText = _changelog;
+            //_loadednotes = true;
         }
     }
 }

@@ -249,6 +249,9 @@
     <EmbeddedResource Include="Dialogs\ConverterDialog.resx">
       <DependentUpon>ConverterDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\UpdateNotifyDialog.resx">
+      <DependentUpon>UpdateNotifyDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Filters\Dub.resx">
       <DependentUpon>Dub.cs</DependentUpon>
     </EmbeddedResource>

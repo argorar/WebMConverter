@@ -29,6 +29,11 @@ Important to know:
 * Changed algorithm to interpolate
 * Now the update feature is enabled
 
+#### Version 3.2.1
+* Interpolation result is better now
+* Minor changes in *New update available*
+* Fixed when your drop a file your settings reset 
+
 This software is released under the MIT license. See LICENSE.md .
 
 If you have any issues with this program, you may report them on [here][NewIssue].
