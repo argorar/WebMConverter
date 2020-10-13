@@ -32,10 +32,13 @@ Important to know:
 #### Version 3.2.1
 * Interpolation result is better now
 * Minor changes in *New update available*
-* Fixed when your drop a file your settings reset 
+* Fixed when your drop a file, that make your settings reset 
 
 #### Version 3.2.2
 * Fixed Gfycat title
+
+### Version 3.2.3
+* Improved performance of function to get frames on multiprocessor systems
 
 This software is released under the MIT license. See LICENSE.md .
 

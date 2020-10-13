@@ -345,15 +345,15 @@ namespace WebMConverter.Dialogs
 
         private void buttonPlay_Click(object sender, EventArgs e)
         {
-            if (!File.Exists(((MainForm)Owner).textBoxOut.Text))
+            if (!File.Exists(_outfile))
                 MessageBox.Show("Output file not found! Did you move it?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
-                Process.Start(((MainForm) Owner).textBoxOut.Text); //Play result video
+                Process.Start(_outfile); //Play result video
         }
 
         private async void buttonUpload_ClickAsync(object sender, EventArgs e)
         {
-            if (!File.Exists(((MainForm)Owner).textBoxOut.Text))
+            if (!File.Exists(_outfile))
                 MessageBox.Show("Output file not found! Did you move it?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
@@ -369,7 +369,7 @@ namespace WebMConverter.Dialogs
                     httpWRequest.ContentType = "application/json";
                     httpWRequest.Method = "POST";
                     httpWRequest.Headers.Add("Authorization", "Bearer " + ((MainForm)Owner).token);
-                    var aux = ((MainForm)Owner).textBoxOut.Text.Split('\\');
+                    var aux = _outfile.Split('\\');
                     string postData = " {\"title\":\"" + aux[aux.Length-1].Split('.')[0] + "\"}";
                     UTF8Encoding encoding = new UTF8Encoding();
                     byte[] byte1 = encoding.GetBytes(postData);
@@ -383,7 +383,7 @@ namespace WebMConverter.Dialogs
                     GfycatResponse newGfycatResponse = JsonConvert.DeserializeObject<GfycatResponse>(textJson);
                     boxOutput.AppendText($"{Environment.NewLine}Congratulations, your new name is {newGfycatResponse.gfyname}");
 
-                    var filePath = ((MainForm)Owner).textBoxOut.Text;
+                    var filePath = _outfile;
                     var file = File.ReadAllBytes(filePath);
                     using (var client = new HttpClient())
                     {

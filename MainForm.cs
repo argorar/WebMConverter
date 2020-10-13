@@ -1689,7 +1689,7 @@ namespace WebMConverter
             });
             indexbw.RunWorkerCompleted += delegate(object sender, RunWorkerCompletedEventArgs e)
             {
-                if (audioDisabled == true && e.Cancelled)
+                if (audioDisabled && e.Cancelled)
                 {
                     logIndexingProgress("Restarting indexing without audio");
                     indexbw.RunWorkerAsync();

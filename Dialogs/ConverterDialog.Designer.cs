@@ -60,7 +60,7 @@
             this.table.Controls.Add(this.buttonCancel, 5, 2);
             this.table.Dock = System.Windows.Forms.DockStyle.Fill;
             this.table.Location = new System.Drawing.Point(4, 4);
-            this.table.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.table.Margin = new System.Windows.Forms.Padding(4);
             this.table.Name = "table";
             this.table.RowCount = 3;
             this.table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -78,7 +78,7 @@
             this.boxOutput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.boxOutput.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boxOutput.Location = new System.Drawing.Point(4, 4);
-            this.boxOutput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.boxOutput.Margin = new System.Windows.Forms.Padding(4);
             this.boxOutput.Name = "boxOutput";
             this.boxOutput.ReadOnly = true;
             this.boxOutput.Size = new System.Drawing.Size(896, 451);
@@ -92,7 +92,7 @@
             this.pictureStatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pictureStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureStatus.Location = new System.Drawing.Point(4, 501);
-            this.pictureStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureStatus.Margin = new System.Windows.Forms.Padding(4);
             this.pictureStatus.Name = "pictureStatus";
             this.pictureStatus.Size = new System.Drawing.Size(33, 30);
             this.pictureStatus.TabIndex = 4;
@@ -103,7 +103,7 @@
             this.table.SetColumnSpan(this.progressBar, 7);
             this.progressBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.progressBar.Location = new System.Drawing.Point(4, 463);
-            this.progressBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.progressBar.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar.Maximum = 1000;
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(896, 30);
@@ -115,7 +115,7 @@
             this.buttonPlay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonPlay.Enabled = false;
             this.buttonPlay.Location = new System.Drawing.Point(45, 501);
-            this.buttonPlay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonPlay.Margin = new System.Windows.Forms.Padding(4);
             this.buttonPlay.Name = "buttonPlay";
             this.buttonPlay.Size = new System.Drawing.Size(278, 30);
             this.buttonPlay.TabIndex = 1;
@@ -129,7 +129,7 @@
             this.buttonUpload.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonUpload.Enabled = false;
             this.buttonUpload.Location = new System.Drawing.Point(331, 501);
-            this.buttonUpload.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonUpload.Margin = new System.Windows.Forms.Padding(4);
             this.buttonUpload.Name = "buttonUpload";
             this.buttonUpload.Size = new System.Drawing.Size(278, 30);
             this.buttonUpload.TabIndex = 2;
@@ -142,7 +142,7 @@
             this.table.SetColumnSpan(this.buttonCancel, 2);
             this.buttonCancel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonCancel.Location = new System.Drawing.Point(617, 501);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(283, 30);
             this.buttonCancel.TabIndex = 3;
@@ -165,10 +165,11 @@
             this.ClientSize = new System.Drawing.Size(912, 543);
             this.ControlBox = false;
             this.Controls.Add(this.table);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ConverterDialog";
-            this.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Padding = new System.Windows.Forms.Padding(4);
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Conversion Progress";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConverterForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ConverterForm_FormClosed);
