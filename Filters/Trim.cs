@@ -143,12 +143,9 @@ namespace WebMConverter
         {
             if (e.KeyChar == (char)Keys.Space)
             {
-                play = !play;
-                if (play)
-                    for (int i = 0; i < 100; i++)
-                        SetFrame(1, true);
-            }
-                        
+                for (int i = 0; i < 100; i++)
+                    SetFrame(1, true);
+            }                        
         }
 
 

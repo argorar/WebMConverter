@@ -338,17 +338,8 @@ namespace WebMConverter
 
                 var success = checkerResult.Item1;
                 var updateAvailable = checkerResult.Item2;
-                var newVersionOrMessage = checkerResult.Item3;
+                // var newVersionOrMessage = checkerResult.Item3;
                 var changelog = checkerResult.Item4;
-
-                if (! success)
-                {
-                    this.InvokeIfRequired(() =>
-                    {
-                        showToolTip("Update checking failed! " + newVersionOrMessage, 2000);
-                    });
-                    return;
-                }
 
                 if (!updateAvailable)
                 {
@@ -359,6 +350,14 @@ namespace WebMConverter
                     return;
                 }
 
+                if (!success)
+                {
+                    this.InvokeIfRequired(() =>
+                    {
+                        showToolTip("Update checking failed! ", 2000);
+                    });
+                    return;
+                }
                 this.InvokeIfRequired(() =>
                 {
                     var result = new UpdateNotifyDialog(latestVersion, changelog).ShowDialog(this);

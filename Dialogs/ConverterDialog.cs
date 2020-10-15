@@ -11,7 +11,6 @@ using System.Net;
 using System.Text;
 using Newtonsoft.Json;
 using WebMConverter.Objects;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace WebMConverter.Dialogs
@@ -365,98 +364,71 @@ namespace WebMConverter.Dialogs
                     boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine} --- UPLOAD FILE TO GFYCAT---");
                     boxOutput.AppendText($"{Environment.NewLine}Creating request for gfycat name");
 
-                    WebRequest httpWRequest = WebRequest.Create("https://api.gfycat.com/v1/gfycats");
-                    httpWRequest.ContentType = "application/json";
-                    httpWRequest.Method = "POST";
-                    httpWRequest.Headers.Add("Authorization", "Bearer " + ((MainForm)Owner).token);
-                    var aux = _outfile.Split('\\');
-                    string postData = " {\"title\":\"" + aux[aux.Length-1].Split('.')[0] + "\"}";
-                    UTF8Encoding encoding = new UTF8Encoding();
-                    byte[] byte1 = encoding.GetBytes(postData);
-                    httpWRequest.GetRequestStream().Write(byte1, 0, byte1.Length);
+                    WebRequest httpWRequest = CreateGfyRequest();
 
                     boxOutput.AppendText($"{Environment.NewLine}Doing request");
-                    HttpWebResponse httpWResponse = (HttpWebResponse)httpWRequest.GetResponse();
-                    Stream strm = httpWResponse.GetResponseStream();
-                    StreamReader sr = new StreamReader(strm);
-                    string textJson = sr.ReadToEnd();
-                    GfycatResponse newGfycatResponse = JsonConvert.DeserializeObject<GfycatResponse>(textJson);
+                    
+                    GfycatResponse newGfycatResponse = GetGfyResponse((HttpWebResponse)httpWRequest.GetResponse());
                     boxOutput.AppendText($"{Environment.NewLine}Congratulations, your new name is {newGfycatResponse.gfyname}");
-
-                    var filePath = _outfile;
-                    var file = File.ReadAllBytes(filePath);
-                    using (var client = new HttpClient())
-                    {
-                        using (var content = new MultipartFormDataContent())
-                        {
-                            content.Add(new StringContent(newGfycatResponse.gfyname), "key");
-                            content.Add(new ByteArrayContent(file), "file", newGfycatResponse.gfyname);
-                            boxOutput.AppendText($"{Environment.NewLine}Starting to upload file");
-                            //progressBar.Style = ProgressBarStyle.Marquee;
-                            using (var message = await client.PostAsync("https://filedrop.gfycat.com", content))
-                            {
-                                boxOutput.AppendText($"{Environment.NewLine}Everything is great, now wait until gfycat encode the video :)");
-                            }
-                        }
-                    }
 
                     if (newGfycatResponse.isOk)
                     {
-                        string text;
-                        bool isDone = false;
-                        string cUrl = $"https://api.gfycat.com/v1/gfycats/fetch/status/{newGfycatResponse.gfyname}";
-                        while (!isDone)
-                        {
-                            HttpWebRequest r = (HttpWebRequest)WebRequest.Create(cUrl);
-                            using (HttpWebResponse k = (HttpWebResponse)r.GetResponse())
-                            {
-                                if (k.StatusCode == HttpStatusCode.OK)
-                                {
-                                    using (var sr2 = new StreamReader(k.GetResponseStream()))
-                                    {
-                                        text = sr2.ReadToEnd();
-                                        boxOutput.AppendText($"{Environment.NewLine}{text}");
-                                    }
-                                    if (text.Contains("complete"))
-                                    {
-                                        isDone = true;
-                                        boxOutput.AppendText($"{Environment.NewLine}Your video is up!");
-                                        taskbarManager.SetProgressValue(100,100);
-                                        System.Diagnostics.Process.Start($"https://gfycat.com/{newGfycatResponse.gfyname}");
-                                    }
-                                    else
-                                    {
-                                        await Task.Delay(500);
-                                    }
-                                }
-                            }
-                        }
+                        _ = Task.Run(() => new GfycatUploader(_outfile, newGfycatResponse.gfyname).ShowDialog());
+                        Dispose();
                     }
+                    else
+                        boxOutput.AppendText($"{Environment.NewLine}Sorry, something happened and I can't upload your file :(");
+                    
+
                 }
                 catch (WebException ex)
                 {
+                    boxOutput.AppendText($"{Environment.NewLine}Ups, something happened {ex.Message}");
                     if (ex.Status == WebExceptionStatus.ProtocolError)
                     {
                         var response = ex.Response as HttpWebResponse;
                         if (response != null)
                         {
-                            MessageBox.Show("HTTP: " + response.StatusCode);
+                            boxOutput.AppendText($"{Environment.NewLine}HTTP: {response.StatusCode}");
                             using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                             {
                                 // reads response body
                                 string responseText = await reader.ReadToEndAsync();
-                                MessageBox.Show(responseText);
+                                boxOutput.AppendText($"{Environment.NewLine}Message: {responseText}");
                             }
                         }
-
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    boxOutput.AppendText($"{Environment.NewLine}Ups, something happened {ex.Message}");
+                    this.Activate();
                 }
             }
                 
+        }
+
+        private GfycatResponse GetGfyResponse(HttpWebResponse httpWebResponse)
+        {
+            Stream strm = httpWebResponse.GetResponseStream();
+            StreamReader sr = new StreamReader(strm);
+            string textJson = sr.ReadToEnd();
+            GfycatResponse newGfycatResponse = JsonConvert.DeserializeObject<GfycatResponse>(textJson);
+            return newGfycatResponse;
+        }
+
+        private WebRequest CreateGfyRequest()
+        {
+            WebRequest httpWRequest = WebRequest.Create("https://api.gfycat.com/v1/gfycats");
+            httpWRequest.ContentType = "application/json";
+            httpWRequest.Method = "POST";
+            httpWRequest.Headers.Add("Authorization", "Bearer " + ((MainForm)Owner).token);
+            var aux = _outfile.Split('\\');
+            string postData = " {\"title\":\"" + aux[aux.Length - 1].Split('.')[0] + "\"}";
+            UTF8Encoding encoding = new UTF8Encoding();
+            byte[] byte1 = encoding.GetBytes(postData);
+            httpWRequest.GetRequestStream().Write(byte1, 0, byte1.Length);
+            return httpWRequest;
         }
 
         // manually scroll to bottom cause AppendText doesn't do it if it doesn't have focus

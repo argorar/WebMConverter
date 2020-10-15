@@ -126,6 +126,12 @@
     <Compile Include="Dialogs\UpdateNotifyDialog.designer.cs">
       <DependentUpon>UpdateNotifyDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\GfycatUploader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\GfycatUploader.Designer.cs">
+      <DependentUpon>GfycatUploader.cs</DependentUpon>
+    </Compile>
     <Compile Include="Filters\Deinterlace.cs" />
     <Compile Include="Filters\Denoise.cs" />
     <Compile Include="Filters\Dub.cs">
@@ -251,6 +257,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\UpdateNotifyDialog.resx">
       <DependentUpon>UpdateNotifyDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\GfycatUploader.resx">
+      <DependentUpon>GfycatUploader.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\Dub.resx">
       <DependentUpon>Dub.cs</DependentUpon>

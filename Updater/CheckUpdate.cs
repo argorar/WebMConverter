@@ -21,7 +21,7 @@ namespace WebMConverter.Updater
                     var result = updateChecker.DownloadString(VersionUrl);
                     
                     latestVersion = SemVersion.Parse(result);
-                    output += $"Good news, out there is a new version {latestVersion}";
+                    output += $"The last version is {latestVersion}";
                 }
 
                 if (latestVersion > currentVersion)

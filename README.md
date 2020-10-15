@@ -37,8 +37,11 @@ Important to know:
 #### Version 3.2.2
 * Fixed Gfycat title
 
-### Version 3.2.3
+#### Version 3.2.3
 * Improved performance of function to get frames on multiprocessor systems
+
+#### Version 3.2.4
+* Now you can working editing other video while the file upload to gfycat
 
 This software is released under the MIT license. See LICENSE.md .
 
