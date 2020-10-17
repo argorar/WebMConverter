@@ -143,6 +143,10 @@ namespace WebMConverter
             this.trackSlices = new System.Windows.Forms.TrackBar();
             this.labelSlices = new System.Windows.Forms.Label();
             this.boxArguments = new System.Windows.Forms.TextBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.buttonPathChange = new System.Windows.Forms.Button();
+            this.textPathDownloaded = new System.Windows.Forms.TextBox();
+            this.lblPathDownload = new System.Windows.Forms.Label();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelContainTheProgressBar = new System.Windows.Forms.Panel();
             this.boxIndexingProgressDetails = new System.Windows.Forms.CheckBox();
@@ -248,6 +252,7 @@ namespace WebMConverter
             tableAdvancedEncoding.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackThreads)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackSlices)).BeginInit();
+            this.tabPage1.SuspendLayout();
             statusStrip.SuspendLayout();
             this.panelContainTheProgressBar.SuspendLayout();
             this.panelHideTheOptions.SuspendLayout();
@@ -328,6 +333,8 @@ namespace WebMConverter
             this.textBoxIn.Name = "textBoxIn";
             this.textBoxIn.Size = new System.Drawing.Size(1101, 22);
             this.textBoxIn.TabIndex = 1;
+            this.textBoxIn.Tag = "";
+            this.textBoxIn.TextChanged += new System.EventHandler(this.textBoxIn_TextChanged);
             this.textBoxIn.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxIn_KeyUp);
             // 
             // buttonBrowseIn
@@ -394,6 +401,7 @@ namespace WebMConverter
             tabControlOptions.Controls.Add(tabProcessing);
             tabControlOptions.Controls.Add(tabEncoding);
             tabControlOptions.Controls.Add(tabAdvanced);
+            tabControlOptions.Controls.Add(this.tabPage1);
             tabControlOptions.Dock = System.Windows.Forms.DockStyle.Fill;
             tabControlOptions.Location = new System.Drawing.Point(4, 107);
             tabControlOptions.Margin = new System.Windows.Forms.Padding(4);
@@ -1544,7 +1552,7 @@ namespace WebMConverter
             "Leave them alone",
             "Expand (TV -> PC)",
             "Contract (PC -> TV)"});
-            this.comboLevels.Location = new System.Drawing.Point(109, 5);
+            this.comboLevels.Location = new System.Drawing.Point(109, 4);
             this.comboLevels.Margin = new System.Windows.Forms.Padding(4);
             this.comboLevels.Name = "comboLevels";
             this.comboLevels.Size = new System.Drawing.Size(189, 24);
@@ -1861,6 +1869,46 @@ namespace WebMConverter
             this.boxArguments.Size = new System.Drawing.Size(1270, 22);
             this.boxArguments.TabIndex = 5;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.buttonPathChange);
+            this.tabPage1.Controls.Add(this.textPathDownloaded);
+            this.tabPage1.Controls.Add(this.lblPathDownload);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1407, 380);
+            this.tabPage1.TabIndex = 5;
+            this.tabPage1.Text = "General";
+            // 
+            // buttonPathChange
+            // 
+            this.buttonPathChange.Location = new System.Drawing.Point(1205, 14);
+            this.buttonPathChange.Name = "buttonPathChange";
+            this.buttonPathChange.Size = new System.Drawing.Size(95, 28);
+            this.buttonPathChange.TabIndex = 2;
+            this.buttonPathChange.Text = "Change";
+            this.buttonPathChange.UseVisualStyleBackColor = true;
+            this.buttonPathChange.Click += new System.EventHandler(this.buttonPathChange_Click);
+            // 
+            // textPathDownloaded
+            // 
+            this.textPathDownloaded.Enabled = false;
+            this.textPathDownloaded.Location = new System.Drawing.Point(176, 17);
+            this.textPathDownloaded.Name = "textPathDownloaded";
+            this.textPathDownloaded.Size = new System.Drawing.Size(1021, 22);
+            this.textPathDownloaded.TabIndex = 1;
+            // 
+            // lblPathDownload
+            // 
+            this.lblPathDownload.AutoSize = true;
+            this.lblPathDownload.Location = new System.Drawing.Point(8, 17);
+            this.lblPathDownload.Name = "lblPathDownload";
+            this.lblPathDownload.Size = new System.Drawing.Size(166, 17);
+            this.lblPathDownload.TabIndex = 0;
+            this.lblPathDownload.Text = "Path downloaded videos:";
+            // 
             // statusStrip
             // 
             statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -1993,7 +2041,7 @@ namespace WebMConverter
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WebM for Lazys v3.2.4";
+            this.Text = "WebM for Lazys v3.3.0";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
@@ -2046,6 +2094,8 @@ namespace WebMConverter
             tableAdvancedEncoding.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackThreads)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackSlices)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             statusStrip.ResumeLayout(false);
             statusStrip.PerformLayout();
             this.panelContainTheProgressBar.ResumeLayout(false);
@@ -2121,5 +2171,9 @@ namespace WebMConverter
         private System.Windows.Forms.ToolStripMenuItem listViewContextMenuEdit;
         private System.Windows.Forms.ToolStripMenuItem listViewContextMenuDelete;
         private System.Windows.Forms.ToolStripButton buttonFade;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Button buttonPathChange;
+        private System.Windows.Forms.TextBox textPathDownloaded;
+        private System.Windows.Forms.Label lblPathDownload;
     }
 }

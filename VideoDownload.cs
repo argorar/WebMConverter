@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text;
 
 namespace WebMConverter
 {
@@ -27,7 +28,7 @@ namespace WebMConverter
     {
         public YoutubeDL(string arguments)
         {
-            StartInfo.FileName = "youtube-dl.exe";
+            StartInfo.FileName = "Binaries//Win64//youtube-dl.exe";
             StartInfo.Arguments = arguments;
             StartInfo.RedirectStandardInput = true;
             StartInfo.RedirectStandardOutput = true;

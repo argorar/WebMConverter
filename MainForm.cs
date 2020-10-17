@@ -14,15 +14,13 @@ using System.Xml;
 using System.Xml.XPath;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using StopWatch = System.Timers.Timer;
-
 using WebMConverter.Components;
 using WebMConverter.Dialogs;
 using static WebMConverter.Utility;
 using WebMConverter.Objects;
-using System.Net.Http;
 using Newtonsoft.Json;
 using System.Configuration;
-using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace WebMConverter
 {
@@ -92,7 +90,10 @@ namespace WebMConverter
         private readonly string prefixe = "http://127.0.0.1:57585/";
         public const string VersionUrl = @"https://argorar.github.io/WebMConverter/NewUpdate/latest";
         private readonly Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        private const int EM_SETCUEBANNER = 0x1501;
 
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern Int32 SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
         bool indexing = false;
         BackgroundWorker indexbw;
 
@@ -145,6 +146,10 @@ namespace WebMConverter
                 boxAudio.Checked = true;
             else
                 boxAudio.Checked = false;
+
+            if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["PathDownload"].Value))
+                textPathDownloaded.Text = configuration.AppSettings.Settings["PathDownload"].Value;
+
         }
 
         void MainForm_Load(object sender, EventArgs e)
@@ -242,7 +247,8 @@ namespace WebMConverter
             var args = Environment.GetCommandLineArgs();
             if (args.Length > 1) // We were "Open with..."ed with a file
                 SetFile(args[1]);
-
+            SendMessage(textBoxIn.Handle, EM_SETCUEBANNER, 0, "Paste URL here if you want to download a video");
+            this.ActiveControl = buttonBrowseIn;
             CheckUpdate();
 
         }
@@ -321,13 +327,13 @@ namespace WebMConverter
             //        }
             //    }
             //}
-            string currentVersion = Application.ProductVersion.Substring(0, Application.ProductVersion.LastIndexOf('.'));
+            //string currentVersion = Application.ProductVersion.Substring(0, Application.ProductVersion.LastIndexOf('.'));
             string latestVersion;
             using (var updateChecker = new WebClient())
             {
                 latestVersion = updateChecker.DownloadString(VersionUrl);
-                if (currentVersion.Equals(latestVersion.Trim()))
-                    return;
+                //if (currentVersion.Equals(latestVersion.Trim()))
+                //    return;
             }
 
             var checker = new Updater();
@@ -434,16 +440,6 @@ namespace WebMConverter
 
         void textBoxIn_KeyUp(object sender, KeyEventArgs e)
         {
-            if (textBoxIn.Text.StartsWith("http"))
-            {
-                // turn buttonBrowseIn into a download button
-                buttonBrowseIn.Text = "Download";
-            }
-            else
-            {
-                buttonBrowseIn.Text = "Browse";
-            }
-
             if (e.KeyCode == Keys.Enter)
             {
                 if (string.IsNullOrWhiteSpace(textBoxIn.Text))
@@ -468,7 +464,7 @@ namespace WebMConverter
                 if (!VideoDownload.Enabled)
                 {
                     var result = MessageBox.Show(
-                       $"Couldn't find Youtube-DL. Either download it and put it somewhere in your %PATH%, or place it next to WebMConverter.exe.{Environment.NewLine}" + 
+                       $"Couldn't find Youtube-DL. Either download it and put it somewhere in your %PATH%, or place it inside Binaries/Win64.{Environment.NewLine}" + 
                         "You can download it from yt-dl.org",
                         "ERROR", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
                     if (result == DialogResult.Retry)
@@ -479,14 +475,18 @@ namespace WebMConverter
                     }
                 }
 
-                using (var dialog = new DownloadDialog(textBoxIn.Text))
+                if (String.IsNullOrEmpty(textPathDownloaded.Text))
+                    FolderDownloads();
+
+                using (var dialog = new DownloadDialog(textBoxIn.Text, textPathDownloaded.Text))
                 {
                     var result = dialog.ShowDialog(this);
 
                     if (result == DialogResult.OK)
                     {
                         var url = textBoxIn.Text;
-                        textBoxIn.Text = dialog.Outfile;
+                        textBoxIn.Text = dialog.GetOutfile();
+                        //something happend
                         buttonBrowseIn.Text = "Browse";
                         SetFile(textBoxIn.Text);
                         boxTitle.Text = url;
@@ -2506,7 +2506,32 @@ namespace WebMConverter
             showToolTip("Saved!", 1000);
         }
 
+        private void textBoxIn_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxIn.Text.StartsWith("http"))
+                buttonBrowseIn.Text = "Download";
+            else
+                buttonBrowseIn.Text = "Browse";
+        }
 
+        private void buttonPathChange_Click(object sender, EventArgs e)
+        {
+            FolderDownloads();
+        }
+
+        private void FolderDownloads()
+        {
+            using (var dialog = new FolderBrowserDialog())
+            {
+                dialog.RootFolder = Environment.SpecialFolder.MyComputer;
+
+                if (dialog.ShowDialog(this) != DialogResult.OK || string.IsNullOrWhiteSpace(dialog.SelectedPath))
+                    return;
+
+                textPathDownloaded.Text = dialog.SelectedPath;
+                UpdateConfiguration("PathDownload", dialog.SelectedPath);
+            }
+        }
     }
 
     public enum EncodingMode

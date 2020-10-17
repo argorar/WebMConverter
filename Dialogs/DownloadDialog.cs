@@ -6,31 +6,31 @@ using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using Timer = System.Windows.Forms.Timer;
 using static WebMConverter.Utility;
+using System.Linq;
 
 namespace WebMConverter.Dialogs
 {
     public partial class DownloadDialog : Form
     {
         public string Outfile;
+        public string OutputPath;
 
         private readonly string _infile;
-        private YoutubeDL _filenameGetterProcess;
         private YoutubeDL _downloaderProcess;
 
         private Timer _timer;
         private bool _ended;
         private bool _panic;
-        private bool _gettingFilename;
 
         private TaskbarManager taskbarManager;
 
-        public DownloadDialog(string url)
+        public DownloadDialog(string url, string outputPath)
         {
             InitializeComponent();
             pictureStatus.BackgroundImage = StatusImages.Images["Happening"];
 
             _infile = '"' + url.Replace(@"""", @"\""") + '"';
-            Outfile = Path.GetTempPath();
+            OutputPath = outputPath;
 
             taskbarManager = TaskbarManager.Instance;
         }
@@ -41,12 +41,6 @@ namespace WebMConverter.Dialogs
                 boxOutput.Invoke((Action)(() => boxOutput.AppendText(Environment.NewLine + args.Data)));
         }
 
-        private void FilenameGetterOnOutputDataReceived(object sender, DataReceivedEventArgs args)
-        {
-            if (args.Data != null)
-                Outfile = Path.Combine(Outfile, args.Data);
-        }
-
         private void ProcessOnOutputDataReceived(object sender, DataReceivedEventArgs args)
         {
             if (args.Data != null)
@@ -54,13 +48,25 @@ namespace WebMConverter.Dialogs
                 boxOutput.Invoke((Action)(() => boxOutput.AppendText(Environment.NewLine + args.Data)));
 
                 if (DataContainsProgress(args.Data))
+                {
                     ParseAndUpdateProgress(args.Data);
+                    if(String.IsNullOrEmpty(Outfile))
+                        GetId(args.Data);
+                }
+
             }
+        }
+
+        private void GetId(string data)
+        {
+            if(data.Contains("Destination:"))
+                Outfile = data.Split('-').LastOrDefault().Split('.')[0];
         }
 
         // example youtube-dl line:
         // [download]  51.5% of ~3.85MiB at 20.49MiB/s ETA 00:00
 
+        private bool DataContainsFFMPEG(string data) => data.StartsWith("[ffmpeg]");
         private bool DataContainsProgress(string data) => data.StartsWith("[download]");
 
         private void ParseAndUpdateProgress(string input)
@@ -80,29 +86,18 @@ namespace WebMConverter.Dialogs
 
         private void DownloadDialog_Load(object sender, EventArgs e)
         {
-            _filenameGetterProcess = new YoutubeDL("--get-filename " + _infile);
+            boxOutput.AppendText($"{Environment.NewLine}Starting Process");
             _downloaderProcess = new YoutubeDL(null);
 
-            _gettingFilename = true;
-
-            _filenameGetterProcess.ErrorDataReceived += ProcessOnErrorDataReceived;
-            _filenameGetterProcess.OutputDataReceived += FilenameGetterOnOutputDataReceived;
-            _filenameGetterProcess.Exited += (o, args) => boxOutput.Invoke((Action) (() =>
-            {
-                if (_panic) return;
-                boxOutput.AppendText($"{Environment.NewLine}Downloading to {Outfile}");
-                _downloaderProcess.StartInfo.Arguments = $@"-o ""{Outfile}"" {_infile}";
-
-                _timer = new Timer { Interval = 500 };
-                _timer.Tick += Exited;
-                _timer.Start();
-            }));
+            if(_infile.Contains("youtube"))
+                _downloaderProcess.StartInfo.Arguments = $@"-f bestvideo+bestaudio  {_infile}";
+            else
+                _downloaderProcess.StartInfo.Arguments = $@" {_infile}";
 
             _downloaderProcess.ErrorDataReceived += ProcessOnErrorDataReceived;
             _downloaderProcess.OutputDataReceived += ProcessOnOutputDataReceived;
             _downloaderProcess.Exited += (o, args) => boxOutput.Invoke((Action)(() =>
             {
-                if (_panic) return; //This should stop that one exception when closing the converter
                 boxOutput.AppendText($"{Environment.NewLine}--- YOUTUBE-DL HAS EXITED ---");
                 buttonCancel.Enabled = false;
 
@@ -111,34 +106,14 @@ namespace WebMConverter.Dialogs
                 _timer.Start();
             }));
 
-            taskbarManager.SetProgressState(TaskbarProgressBarState.Indeterminate); // can't get progress for filename getter
-            progressBar.Style = ProgressBarStyle.Marquee;
-            _filenameGetterProcess.Start();
+            taskbarManager.SetProgressState(TaskbarProgressBarState.Normal);
+            progressBar.Style = ProgressBarStyle.Blocks;
+            _downloaderProcess.Start();
         }
 
         private void Exited(object sender, EventArgs eventArgs)
         {
             _timer.Stop();
-
-            if (_gettingFilename)
-            {
-                if (_filenameGetterProcess.ExitCode != 0)
-                {
-                    boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}youtube-dl.exe exited with exit code {_filenameGetterProcess.ExitCode}. That's usually bad.");
-                    boxOutput.AppendText($"{Environment.NewLine}If you have no idea what went wrong, open an issue on GitGud and copy paste the output of this window there.");
-                    pictureStatus.BackgroundImage = StatusImages.Images["Failure"];
-                    buttonCancel.Enabled = true;
-                    _ended = true;
-                }
-                else
-                {
-                    _gettingFilename = false;
-                    taskbarManager.SetProgressState(TaskbarProgressBarState.Normal);
-                    progressBar.Style = ProgressBarStyle.Blocks;
-                    _downloaderProcess.Start();
-                }
-                return;
-            }
 
             if (_downloaderProcess.ExitCode != 0)
             {
@@ -153,27 +128,45 @@ namespace WebMConverter.Dialogs
                 boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}Video downloaded succesfully!");
                 pictureStatus.BackgroundImage = StatusImages.Images["Success"];
                 buttonLoad.Enabled = true;
-
-                // workaround for https://github.com/rg3/youtube-dl/issues/11472
-                if (!File.Exists(Outfile))
-                {
-                    Outfile = Path.ChangeExtension(Outfile, "mkv");
-                }
+                buttonCancel.Enabled = true;
+                buttonCancel.Text = "Close";
+                MoveNewFile();
+                this.Activate();
             }
 
             _ended = true;
         }
 
+        private void MoveNewFile()
+        {
+            if (String.IsNullOrEmpty(Outfile))
+                return;
+
+            string[] fileEntries = Directory.GetFiles(".");
+            foreach (string fileName in fileEntries) 
+            {
+                if (fileName.Contains(Outfile))
+                {
+                    Outfile = fileName;
+                    break;
+                }
+            }
+            File.Move(Outfile, Path.Combine(OutputPath, Outfile));
+        }
+
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            if (buttonCancel.Text.Equals("Close"))
+            {
+                if(!_downloaderProcess.HasExited)
+                    KillProcessAndChildren(_downloaderProcess.Id);
+
+                Dispose();
+                return;
+            }
+
             if (!_ended || _panic) //Prevent stack overflow
             {
-                if (!_filenameGetterProcess.HasExited)
-                    KillProcessAndChildren(_filenameGetterProcess.Id);
-
-                if (_gettingFilename)
-                    return;
-
                 if (!_downloaderProcess.HasExited)
                     KillProcessAndChildren(_downloaderProcess.Id);
             }
@@ -190,7 +183,6 @@ namespace WebMConverter.Dialogs
 
         private void ConverterForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            _filenameGetterProcess.Dispose();
             _downloaderProcess.Dispose();
         }
 
@@ -201,5 +193,13 @@ namespace WebMConverter.Dialogs
         }
 
         private void boxOutput_TextChanged(object sender, EventArgs e) => NativeMethods.SendMessage(boxOutput.Handle, 0x115, 7, 0);
+
+        internal string GetOutfile()
+        {
+            if (String.IsNullOrEmpty(Outfile))
+                return String.Empty;
+
+            return OutputPath + Outfile.Substring(1);
+        }
     }
 }

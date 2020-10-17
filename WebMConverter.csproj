@@ -391,6 +391,7 @@
     <Content Include="Binaries\Win64\ffmpeg.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Binaries\Win64\youtube-dl.exe" />
     <Content Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>

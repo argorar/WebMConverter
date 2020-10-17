@@ -43,6 +43,10 @@ Important to know:
 #### Version 3.2.4
 * Now you can working editing other video while the file upload to gfycat
 
+#### Version 3.3.0
+* Download your video is easy now (support +1000 sites), [see more information.](https://ytdl-org.github.io/youtube-dl/supportedsites.html)
+
+### License
 This software is released under the MIT license. See LICENSE.md .
 
 If you have any issues with this program, you may report them on [here][NewIssue].
