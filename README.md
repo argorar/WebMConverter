@@ -52,6 +52,9 @@ Important to know:
 * Bring dark videos to light, try it in Advanced> Processing> Colors levels
 * Minor changes to performance in filters
 
+#### Versin 3.3.2
+* Revert new filter, it is causing collateral issues
+
 ### License
 This software is released under the MIT license.
 
