@@ -6,9 +6,11 @@ A wrapper around ffmpeg and AviSynth made for converting videos to WebM without 
 
 Important to know:
 * Requires .NET Framework 4.5 (Windows 7 comes with 3.5, so you might want to [update][DotNet45])
+* Requires Microsoft Visual C++ 2010 (x86) [Download here][MVC]
 * Requires [AviSynth][AviSynth] (2.6.0, 32-bit)
 * Already includes ffmpeg
 * Only works on Windows 
+
 
 ### Changelog
 
@@ -46,8 +48,12 @@ Important to know:
 #### Version 3.3.0
 * Download your video is easy now (support +1000 sites), [see more information.](https://ytdl-org.github.io/youtube-dl/supportedsites.html)
 
+#### Versin 3.3.1
+* Bring dark videos to light, try it in Advanced> Processing> Colors levels
+* Minor changes to performance in filters
+
 ### License
-This software is released under the MIT license. See LICENSE.md .
+This software is released under the MIT license.
 
 If you have any issues with this program, you may report them on [here][NewIssue].
 
@@ -55,3 +61,4 @@ If you have any issues with this program, you may report them on [here][NewIssue
  [DotNet45]: https://www.microsoft.com/en-us/download/details.aspx?id=30653
  [AviSynth]: http://avisynth.nl/index.php/Main_Page#Official_builds
  [NewIssue]: https://github.com/argorar/WebMConverter/issues
+ [MVC]: https://www.microsoft.com/en-us/download/details.aspx?id=8328

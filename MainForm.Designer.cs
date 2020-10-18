@@ -1549,9 +1549,8 @@ namespace WebMConverter
             this.comboLevels.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboLevels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboLevels.Items.AddRange(new object[] {
-            "Leave them alone",
-            "Expand (TV -> PC)",
-            "Contract (PC -> TV)"});
+            "Original",
+            "Lighten Filter"});
             this.comboLevels.Location = new System.Drawing.Point(109, 4);
             this.comboLevels.Margin = new System.Windows.Forms.Padding(4);
             this.comboLevels.Name = "comboLevels";
@@ -1568,8 +1567,7 @@ namespace WebMConverter
             labelProcessingLevelsHint.Name = "labelProcessingLevelsHint";
             labelProcessingLevelsHint.Size = new System.Drawing.Size(1073, 34);
             labelProcessingLevelsHint.TabIndex = 0;
-            labelProcessingLevelsHint.Text = "If your video looks either too dark or too light, this may be the fault of the in" +
-    "put color range being whack. You can manually fix this by using this option.";
+            labelProcessingLevelsHint.Text = "If your video looks too dark. You can manually fix this by using this option.";
             labelProcessingLevelsHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // boxDeinterlace
@@ -2041,7 +2039,7 @@ namespace WebMConverter
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WebM for Lazys v3.3.0";
+            this.Text = "WebM for Lazys v3.3.1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);

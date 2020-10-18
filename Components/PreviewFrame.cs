@@ -38,7 +38,7 @@ namespace WebMConverter
                 pixelformat.Add(FFMSSharp.FFMS2.GetPixelFormat("bgra"));
 
                 var infoframe = Program.VideoSource.GetFrame((int)framenumber);
-                Program.VideoSource.SetOutputFormat(pixelformat, infoframe.EncodedResolution.Width, infoframe.EncodedResolution.Height, FFMSSharp.Resizer.Bilinear);
+                Program.VideoSource.SetOutputFormat(pixelformat, infoframe.EncodedResolution.Width, infoframe.EncodedResolution.Height, FFMSSharp.Resizer.BilinearFast);
             }
 
             cachedframenumber = -1;
@@ -72,7 +72,7 @@ namespace WebMConverter
             var destRect = new Rectangle(0, 0, width, height);
             var destImage = new Bitmap(width, height);
 
-            if(frame.EncodedResolution.Width > 2000)
+            if (frame.EncodedResolution.Width > 2000)
                 destImage.SetResolution(frame.EncodedResolution.Width / (float)2, frame.EncodedResolution.Height / (float)2);
             else
                 destImage.SetResolution(frame.EncodedResolution.Width, frame.EncodedResolution.Height);
@@ -83,7 +83,7 @@ namespace WebMConverter
                 {
                     graphics.CompositingMode = CompositingMode.SourceCopy;
                     graphics.CompositingQuality = CompositingQuality.HighSpeed;
-                    graphics.InterpolationMode = InterpolationMode.Default;
+                    graphics.InterpolationMode = InterpolationMode.Bilinear;
                     graphics.SmoothingMode = SmoothingMode.HighSpeed;
                     graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
                 }

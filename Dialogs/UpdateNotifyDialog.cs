@@ -6,12 +6,12 @@ namespace WebMConverter.Dialogs
     public partial class UpdateNotifyDialog : Form
     {
         private string _changelog;
-        private bool _loadednotes;
+        string _newVersion;
 
         public UpdateNotifyDialog(string newVersion, string changelog)
         {
             _changelog = changelog;
-
+            _newVersion = newVersion.Replace(".", string.Empty);
             InitializeComponent();
 
             label1.Text = string.Format(label1.Text, "WebM for Lazys");
@@ -25,13 +25,7 @@ namespace WebMConverter.Dialogs
 
         void boxReleaseNotes_CheckedChanged(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start($"https://argorar.github.io/WebMConverter/#changelog");
-            //ReleaseNotesPanel.Visible = boxReleaseNotes.Checked;
-
-            //if (_loadednotes) return;
-
-            //ReleaseNotes.DocumentText = _changelog;
-            //_loadednotes = true;
+            System.Diagnostics.Process.Start($"https://argorar.github.io/WebMConverter/#version-{_newVersion}");
         }
     }
 }

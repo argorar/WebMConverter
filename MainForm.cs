@@ -1211,18 +1211,19 @@ namespace WebMConverter
 
         void comboLevels_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (comboLevels.SelectedIndex)
-            {
-                case 0: // Leave them alone
-                    Filters.Levels = null;
-                    break;
-                case 1: // TV -> PC
-                    Filters.Levels = new LevelsFilter(LevelsConversion.TVtoPC);
-                    break;
-                case 2: // PC -> TV
-                    Filters.Levels = new LevelsFilter(LevelsConversion.PCtoTV);
-                    break;
-            }
+            UpdateArguments();
+            //switch (comboLevels.SelectedIndex)
+            //{
+            //    case 0: // Leave them alone
+            //        Filters.Levels = null;
+            //        break;
+            //    case 1: // TV -> PC
+            //        Filters.Levels = new LevelsFilter(LevelsConversion.TVtoPC);
+            //        break;
+            //    case 2: // PC -> TV
+            //        Filters.Levels = new LevelsFilter(LevelsConversion.PCtoTV);
+            //        break;
+            //}
         }
 
         void boxDeinterlace_CheckedChanged(object sender, EventArgs e)
@@ -1930,9 +1931,17 @@ namespace WebMConverter
             string avsFileName = GetTemporaryFile();
             WriteAvisynthScript(avsFileName, input);
 
+            string levels = string.Empty;
+            switch (comboLevels.SelectedIndex)
+            {
+                case 1:
+                    levels = " -vf eq=gamma=1.4:saturation=1.6 ";
+                    break;
+            }
+
             // Run ffplay
             var disableAudio = boxAudio.Checked ? "" : "-an";
-            var ffplay = new FFplay($@"-window_title Preview -loop 0 -f avisynth -v error {disableAudio} ""{avsFileName}""");
+            var ffplay = new FFplay($@"-window_title Preview -loop 0 -f avisynth -v error {disableAudio}{levels} ""{avsFileName}""");
             ffplay.Exited += delegate
             {
                 string error = null;
@@ -2126,7 +2135,15 @@ namespace WebMConverter
             if (!string.IsNullOrWhiteSpace(boxFrameRate.Text))
                 framerate = $" -filter minterpolate=mi_mode=mci:me_mode=bidir:mc_mode=aobmc:vsbmc=1:fps={boxFrameRate.Text} ";
 
-            return string.Format(TemplateArguments, audio, threads, slices, metadataTitle, hq, vcodec, acodec, framerate, qualityarguments);
+            string levels = string.Empty;
+            switch (comboLevels.SelectedIndex)
+            {
+                case 1:
+                    levels = " -vf eq=gamma=1.4:saturation=1.6 ";
+                    break;
+            }
+
+            return string.Format(TemplateArguments, audio, threads, slices, metadataTitle, hq, vcodec, acodec, framerate, levels, qualityarguments);
         }
 
         /// <summary>
