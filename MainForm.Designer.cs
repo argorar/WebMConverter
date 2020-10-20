@@ -1541,7 +1541,7 @@ namespace WebMConverter
             labelProcessingLevels.Name = "labelProcessingLevels";
             labelProcessingLevels.Size = new System.Drawing.Size(97, 34);
             labelProcessingLevels.TabIndex = 0;
-            labelProcessingLevels.Text = "Color levels:";
+            labelProcessingLevels.Text = "Filter:";
             labelProcessingLevels.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // comboLevels
@@ -1567,7 +1567,7 @@ namespace WebMConverter
             labelProcessingLevelsHint.Name = "labelProcessingLevelsHint";
             labelProcessingLevelsHint.Size = new System.Drawing.Size(1073, 34);
             labelProcessingLevelsHint.TabIndex = 0;
-            labelProcessingLevelsHint.Text = "If your video looks too dark. You can manually fix this by using this option.";
+            labelProcessingLevelsHint.Text = "If your video looks too dark, you can manually fix this by using this option.";
             labelProcessingLevelsHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // boxDeinterlace
@@ -2039,7 +2039,7 @@ namespace WebMConverter
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WebM for Lazys v3.3.2";
+            this.Text = "WebM for Lazys v3.3.3";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);

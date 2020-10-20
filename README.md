@@ -55,6 +55,9 @@ Important to know:
 #### Versin 3.3.2
 * Revert new filter, it is causing collateral issues
 
+#### Versin 3.3.3
+* Lighten Filter is back, come and say hi
+
 ### License
 This software is released under the MIT license.
 
