@@ -11,6 +11,60 @@ Important to know:
 * Already includes ffmpeg
 * Only works on Windows 
 
+## Features
+
+You can get and edit your video easly with the next options.
+
+### Download
+
+Paste the url of the video you want. I will download the best quality for you.
+* Support for [+1000 sites][Sites]
+* You can choose the default path for all your new videos
+* Load the video in the app with just one click
+
+![download](img/download.JPG)
+
+### Trim
+
+Trim precisely the length, with a simple interface. You can do multiple trims if you need.
+
+![trim](img/trim.JPG)
+
+### Crop
+
+Crop what is just important for you, just move the edges with the mouse.
+
+![crop](img/crop.JPG)
+
+### Filter
+
+If your video looks dark, you can change it.
+
+![filter](img/light.JPG)
+
+### Caption
+
+Add text, change font, size, position, also set when it start and end.
+
+![caption](img/caption.JPG)
+
+### There is More that you can do
+
+* Add subtitle
+* Resize 
+* If you want your video to go reverse, i can do it for you
+* Overlay your logo
+* Change the speed
+* Rotate
+* Fade
+* Disable audio
+* Get specific filesize in final result
+* Get high quality video
+* Interpolate, more frames to your video
+
+### Upload to Gfycat
+
+I upload your new masterpiece for you with just one click.
 
 ### Changelog
 
@@ -46,7 +100,7 @@ Important to know:
 * Now you can working editing other video while the file upload to gfycat
 
 #### Version 3.3.0
-* Download your video is easy now (support +1000 sites), [see more information.](https://ytdl-org.github.io/youtube-dl/supportedsites.html)
+* Download your video is easy now (support +1000 sites), [see more information.][Sites]
 
 #### Versin 3.3.1
 * Bring dark videos to light, try it in Advanced> Processing> Colors levels
@@ -68,3 +122,4 @@ If you have any issues with this program, you may report them on [here][NewIssue
  [AviSynth]: http://avisynth.nl/index.php/Main_Page#Official_builds
  [NewIssue]: https://github.com/argorar/WebMConverter/issues
  [MVC]: https://www.microsoft.com/en-us/download/details.aspx?id=8328
+ [Sites]: https://ytdl-org.github.io/youtube-dl/supportedsites.html
