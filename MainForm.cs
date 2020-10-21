@@ -1884,7 +1884,8 @@ namespace WebMConverter
 
                 if (Filters.Deinterlace != null)
                 {
-                    avscript.WriteLine(@"LoadPlugin(PluginPath+""TDeint.dll"")");
+                    avscript.WriteLine(@"LoadPlugin(PluginPath+""dgbob.dll"")");
+                    //avscript.WriteLine(@"LoadPlugin(PluginPath+""TDeint.dll"")");
                     avscript.WriteLine(Filters.Deinterlace);
                 }
 
@@ -2133,7 +2134,9 @@ namespace WebMConverter
 
             string filter = string.Empty;
             if (!String.IsNullOrEmpty(framerate) && !String.IsNullOrEmpty(levels))
-                filter += $" -vf {framerate},{levels} ";
+                filter = $" -vf {framerate},{levels} ";
+            else if (!String.IsNullOrEmpty(framerate) && String.IsNullOrEmpty(levels))
+                filter = $" -vf {framerate}";
             else if (!String.IsNullOrEmpty(levels))
                 filter = $" -vf {levels} ";
 

@@ -340,6 +340,7 @@
     <Content Include="Binaries\Win32\avutil-54.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Binaries\Win32\dgbob.dll" />
     <Content Include="Binaries\Win32\ffmpeg.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

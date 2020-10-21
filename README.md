@@ -61,6 +61,7 @@ Add text, change font, size, position, also set when it start and end.
 * Get specific filesize in final result
 * Get high quality video
 * Interpolate, more frames to your video
+* Deinterlace
 
 ### Upload to Gfycat
 
@@ -111,6 +112,10 @@ I upload your new masterpiece for you with just one click.
 
 #### Versin 3.3.3
 * Lighten Filter is back, come and say hi
+
+#### Version 3.4.0
+* Deinterlace gets the job done efficiently. Remember to do this before editing, so the overall experience is not affected. You can use trim to save time and get what you need.
+
 
 ### License
 This software is released under the MIT license.
