@@ -71,6 +71,9 @@ namespace WebMConverter
 
         public static double ProbeDuration(string filename, bool avs)
         {
+            if (string.IsNullOrEmpty(filename))
+                return 1;
+
             using (var prober = new FFprobe(filename, format: avs ? "-f avisynth" : "", argument: "-show_format"))
             {
                 string streamInfo = prober.Probe();

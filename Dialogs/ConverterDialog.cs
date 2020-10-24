@@ -56,12 +56,14 @@ namespace WebMConverter.Dialogs
             _outfile = output;
             _arguments = args;
             _needToPipe = Environment.Is64BitOperatingSystem;
-
-            for (var i = 0; i < args.Length; i++)
+            if (!String.IsNullOrEmpty(_infile))
             {
-                AddInputFileToArguments(ref args[i]);
+                for (var i = 0; i < args.Length; i++)
+                {
+                    AddInputFileToArguments(ref args[i]);
+                }
             }
-
+            
             taskbarManager = TaskbarManager.Instance;
         }
 
@@ -215,13 +217,64 @@ namespace WebMConverter.Dialogs
 
                 _timer = new Timer();
                 _timer.Interval = 500;
-                _timer.Tick += Exited;
+                if(string.IsNullOrEmpty(_infile))
+                    _timer.Tick += ExitedMerge;
+                else
+                    _timer.Tick += Exited;
                 _timer.Start();
             }));
 
             taskbarManager.SetProgressState(TaskbarProgressBarState.Normal);
             _ffmpegProcess.Start();
-            StartPipe(_ffmpegProcess);
+
+            if(String.IsNullOrEmpty(_infile))
+                MergeVideoFile(_ffmpegProcess);
+            else
+                StartPipe(_ffmpegProcess);
+        }
+
+        private void MergeVideoFile(FFmpeg ffmpeg)
+        {
+            _pipeFFmpeg = new FFmpeg(_arguments[0], true);
+            _pipeFFmpeg.ErrorDataReceived += (o, args) =>
+            {
+                try
+                {
+                    boxOutput.Invoke((Action)(() =>
+                    {
+                        boxOutput.AppendText(Environment.NewLine + args.Data);
+                    }));
+                }
+                catch
+                {
+                    // ignored
+                }
+            };
+            _pipeFFmpeg.Start(false);
+            var bw = new BackgroundWorker();
+            bw.DoWork += delegate
+            {
+                try
+                {
+                    _pipeFFmpeg.StandardOutput.BaseStream.CopyTo(ffmpeg.StandardInput.BaseStream);
+                }
+                catch
+                {
+                    // ignored
+                }
+            };
+            _pipeFFmpeg.Exited += delegate
+            {
+                try
+                {
+                    _ffmpegProcess.StandardInput.Close();
+                }
+                catch
+                {
+                    // ignored
+                }
+            };
+            bw.RunWorkerAsync();
         }
 
         private void MultiPass(string[] arguments)
@@ -309,6 +362,41 @@ namespace WebMConverter.Dialogs
             buttonCancel.Text = "Close";
             buttonCancel.Enabled = true;
             _ended = true;
+            this.Activate();
+        }
+
+        private void ExitedMerge(object sender, EventArgs eventArgs)
+        {
+            _timer.Stop();
+
+            var process = _ffmpegProcess;
+
+            if (process.ExitCode != 0)
+            {
+                if (_cancelTwopass)
+                    boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}Conversion cancelled.");
+                else
+                {
+                    boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}ffmpeg.exe exited with exit code {process.ExitCode}. That's usually bad.");
+                    boxOutput.AppendText($"{Environment.NewLine}If you have no idea what went wrong, open an issue on GitGud and copy paste the output of this window there.");
+                }
+                taskbarManager.SetProgressState(TaskbarProgressBarState.Error);
+                pictureStatus.BackgroundImage = StatusImages.Images["Failure"];
+
+                if (process.ExitCode == -1073741819) //This error keeps happening for me if I set threads to anything above 1, might happen for other people too
+                    MessageBox.Show("It appears ffmpeg.exe crashed because of a thread error. Set the amount of threads to 1 in the advanced tab and try again.", "FYI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}Video merged succesfully!");
+                pictureStatus.BackgroundImage = StatusImages.Images["Success"];
+            }   
+            buttonCancel.Text = "Close";
+            buttonCancel.Enabled = true;
+            _ended = true;
+            _panic = true;
+            Dispose();
+            this.Activate();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

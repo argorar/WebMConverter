@@ -1595,7 +1595,7 @@ namespace WebMConverter
             labelProcessingDeinterlaceHint.Name = "labelProcessingDeinterlaceHint";
             labelProcessingDeinterlaceHint.Size = new System.Drawing.Size(1073, 34);
             labelProcessingDeinterlaceHint.TabIndex = 0;
-            labelProcessingDeinterlaceHint.Text = "Attempt to deinterlace an interlaced input video.";
+            labelProcessingDeinterlaceHint.Text = "Deinterlace an interlaced input video.";
             labelProcessingDeinterlaceHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // boxDenoise
@@ -2039,7 +2039,7 @@ namespace WebMConverter
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WebM for Lazys v3.4.0";
+            this.Text = "WebM for Lazys v3.5.0";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);

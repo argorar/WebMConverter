@@ -169,6 +169,9 @@ namespace WebMConverter
         {
             var files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
+            if (MergeVideoFile(files))
+                return;
+
             if (inputFile != null) // we have a file loaded already, so this might be a subtitle or something
             {
                 switch (Path.GetExtension(files[0]))
@@ -238,6 +241,42 @@ namespace WebMConverter
             }
 
             SetFile(files[0]);
+        }
+
+        private bool MergeVideoFile(string[] files)
+        {
+            // if drop a single file
+            if (files.Length == 1)
+                return false;
+
+            string list = "Deus";
+            string content = string.Empty;
+            string tempExtension = string.Empty;
+            Dictionary<string, string> extensions = new Dictionary<string, string>();
+            foreach (string fileName in files)
+            {
+                content += $"file '{fileName}'\n";
+                tempExtension = Path.GetExtension(fileName);
+                if (!extensions.ContainsKey(tempExtension))
+                    extensions.Add(tempExtension, "");
+            }
+
+            // all the files need the same extension
+            if (extensions.Count > 1)
+                return false;
+
+            if (File.Exists(list))
+                File.Delete(list);
+
+            System.IO.File.WriteAllText( list, content);
+
+            string[] arguments = new string[1];
+            string directory = Path.GetDirectoryName(files[0]);
+            string auxName = Path.GetFileNameWithoutExtension(files[0]);
+            arguments[0] = $" -f concat -i {list} -c copy -y \"{directory}\\{auxName}-merged{tempExtension}\"";
+            new ConverterDialog(string.Empty, arguments, string.Empty).ShowDialog(this);
+
+            return true;
         }
 
         void MainForm_Shown(object sender, EventArgs e)

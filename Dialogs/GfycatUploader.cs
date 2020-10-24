@@ -26,6 +26,7 @@ namespace WebMConverter.Dialogs
         {
             try
             {
+                this.Activate();
                 var file = File.ReadAllBytes(filePath);
                 using (var client = new HttpClient())
                 {

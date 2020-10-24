@@ -11,16 +11,23 @@ Important to know:
 * Already includes ffmpeg
 * Only works on Windows 
 
-## Features
+
+## Updates
+
+Get the last update with just one click.
+
+![update](img/update.JPG)
+
+## What can i do?
 
 You can get and edit your video easly with the next options.
 
 ### Download
 
-Paste the url of the video you want. I will download the best quality for you.
+Paste the url of the video you want and press enter, the download will start. You will get the best quality.
 * Support for [+1000 sites][Sites]
 * You can choose the default path for all your new videos
-* Load the video in the app with just one click
+* Load the new video in the app with just one click
 
 ![download](img/download.JPG)
 
@@ -48,14 +55,17 @@ Add text, change font, size, position, also set when it start and end.
 
 ![caption](img/caption.JPG)
 
+### Rotate
+
+![rotate](img/rotate.JPG)
+
 ### There is More that you can do
 
 * Add subtitle
 * Resize 
-* If you want your video to go reverse, i can do it for you
+* Reverse
 * Overlay your logo
 * Change the speed
-* Rotate
 * Fade
 * Disable audio
 * Get specific filesize in final result
@@ -65,7 +75,7 @@ Add text, change font, size, position, also set when it start and end.
 
 ### Upload to Gfycat
 
-I upload your new masterpiece for you with just one click.
+Upload your new masterpiece with just one click. *A Gfycat account is required.*
 
 ### Changelog
 
@@ -103,23 +113,28 @@ I upload your new masterpiece for you with just one click.
 #### Version 3.3.0
 * Download your video is easy now (support +1000 sites), [see more information.][Sites]
 
-#### Versin 3.3.1
+#### Version 3.3.1
 * Bring dark videos to light, try it in Advanced> Processing> Colors levels
 * Minor changes to performance in filters
 
-#### Versin 3.3.2
+#### Version 3.3.2
 * Revert new filter, it is causing collateral issues
 
-#### Versin 3.3.3
+#### Version 3.3.3
 * Lighten Filter is back, come and say hi
 
 #### Version 3.4.0
 * Deinterlace gets the job done efficiently. Remember to do this before editing, so the overall experience is not affected. You can use trim to save time and get what you need.
 
+#### Version 3.5.0
+* Merge two or more videos in one, just drag and drop them inside the app. Search for the new merged file in source path
+* *Limitations:* The group of videos must have the same encodes / dimensions
 
 ### License
 This software is released under the MIT license.
 
+
+### Issues
 If you have any issues with this program, you may report them on [here][NewIssue].
 
  [LatestDownload]: https://github.com/argorar/WebMConverter/releases/latest
