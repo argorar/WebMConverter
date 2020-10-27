@@ -21,6 +21,7 @@ using WebMConverter.Objects;
 using Newtonsoft.Json;
 using System.Configuration;
 using System.Runtime.InteropServices;
+using System.Net.NetworkInformation;
 
 namespace WebMConverter
 {
@@ -330,43 +331,9 @@ namespace WebMConverter
 
         async void CheckUpdate()
         {
-            //if (!Properties.Settings.Default.SeenNotice2)
-            //{
-            //    try
-            //    {
-            //        using (var noticeChecker = new WebClient())
-            //        {
-            //            const string caption = "Notice";
-            //            var result = await noticeChecker.DownloadStringTaskAsync(@"https://nixx.is-fantabulo.us/WebM for Retards/NOTICE");
-            //            var urlAndMessage = result.Split(new[] { '\n' }, 2);
-            //            switch (MessageBox.Show(urlAndMessage[1], caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question))
-            //            {
-            //                case DialogResult.Yes:
-            //                    if (urlAndMessage[0].StartsWith("http")) // just in case someone hacks my anus, let's not give him any ways to execute arbitrary code on all my users
-            //                        System.Diagnostics.Process.Start(urlAndMessage[0]);
+            if (!IsConnectedToInternet())
+                return;
 
-            //                    Application.Exit();
-            //                    break;
-            //                case DialogResult.No:
-            //                    Properties.Settings.Default.SeenNotice2 = true;
-            //                    Properties.Settings.Default.Save();
-            //                    break;
-            //            }
-            //        }
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        if (!e.Message.Contains("404"))
-            //        {
-            //            this.InvokeIfRequired(() =>
-            //            {
-            //                showToolTip("Update checking failed! " + e.Message, 2000);
-            //            });
-            //            return;
-            //        }
-            //    }
-            //}
-            //string currentVersion = Application.ProductVersion.Substring(0, Application.ProductVersion.LastIndexOf('.'));
             string latestVersion;
             using (var updateChecker = new WebClient())
             {
@@ -512,6 +479,21 @@ namespace WebMConverter
                         buttonBrowseIn_Click(sender, e);
                         return;
                     }
+                }
+
+                if (!IsConnectedToInternet())
+                {
+                    var result = MessageBox.Show(
+                       $"Make sure you are connected to internet.{Environment.NewLine}",
+                        "ERROR", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                    if (result == DialogResult.Retry)
+                    {
+                        VideoDownload.CheckEnabled();
+                        buttonBrowseIn_Click(sender, e);
+                        return;
+                    }
+                    else
+                        return;
                 }
 
                 if (String.IsNullOrEmpty(textPathDownloaded.Text))
@@ -2585,6 +2567,21 @@ namespace WebMConverter
                 UpdateConfiguration("PathDownload", dialog.SelectedPath);
             }
         }
+
+        public bool IsConnectedToInternet()
+        {
+            string host = "http://www.google.com";
+            bool result = false;
+            Ping p = new Ping();
+            try
+            {
+                PingReply reply = p.Send(host, 3000);
+                if (reply.Status == IPStatus.Success)
+                    return true;
+            }
+            catch { }
+            return result;
+        }        
     }
 
     public enum EncodingMode

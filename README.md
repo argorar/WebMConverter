@@ -130,6 +130,11 @@ Upload your new masterpiece with just one click. *A Gfycat account is required.*
 * Merge two or more videos in one, just drag and drop them inside the app. Search for the new merged file in source path
 * *Limitations:* The group of videos must have the same encodes / dimensions
 
+#### Version 3.5.1
+* Fix message error when you use interpolation
+* Fix errors when you work offline
+* Check if Microsoft Visual C++ 2010 (x86) is istalled, if not, it will open the download page
+
 ### License
 This software is released under the MIT license.
 

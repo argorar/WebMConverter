@@ -12,6 +12,7 @@ using System.Text;
 using Newtonsoft.Json;
 using WebMConverter.Objects;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace WebMConverter.Dialogs
 {
@@ -337,7 +338,7 @@ namespace WebMConverter.Dialogs
             else
             {
                 _outduration = ProbeDuration(_outfile, false);
-                if (Math.Abs(_induration - _outduration) > 0.01)
+                if (Math.Abs(_induration - _outduration) > 0.01 && !_arguments[0].Contains("minterpolate"))
                 {
                     boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}Restraints are too high!");
 

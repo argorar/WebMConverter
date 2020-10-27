@@ -1551,7 +1551,7 @@ namespace WebMConverter
             this.comboLevels.Items.AddRange(new object[] {
             "Original",
             "Lighten Filter"});
-            this.comboLevels.Location = new System.Drawing.Point(109, 4);
+            this.comboLevels.Location = new System.Drawing.Point(109, 5);
             this.comboLevels.Margin = new System.Windows.Forms.Padding(4);
             this.comboLevels.Name = "comboLevels";
             this.comboLevels.Size = new System.Drawing.Size(189, 24);
@@ -2039,7 +2039,7 @@ namespace WebMConverter
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WebM for Lazys v3.5.0";
+            this.Text = "WebM for Lazys v3.5.1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
