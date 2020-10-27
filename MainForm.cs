@@ -331,56 +331,51 @@ namespace WebMConverter
 
         async void CheckUpdate()
         {
-            if (!IsConnectedToInternet())
-                return;
-
-            string latestVersion;
-            using (var updateChecker = new WebClient())
+            try
             {
-                latestVersion = updateChecker.DownloadString(VersionUrl);
-                //if (currentVersion.Equals(latestVersion.Trim()))
-                //    return;
-            }
+                string latestVersion;
+                using (var updateChecker = new WebClient())
+                    latestVersion = updateChecker.DownloadString(VersionUrl);
 
-            var checker = new Updater();
+                var checker = new Updater();
 
-            await Task.Run(() =>
-            {
-                var checkerResult = checker.Check(Application.ProductVersion);
-
-                var success = checkerResult.Item1;
-                var updateAvailable = checkerResult.Item2;
-                // var newVersionOrMessage = checkerResult.Item3;
-                var changelog = checkerResult.Item4;
-
-                if (!updateAvailable)
+                await Task.Run(() =>
                 {
-                    this.InvokeIfRequired(() =>
-                    {
-                        showToolTip("Up to date!", 1000);
-                    });
-                    return;
-                }
+                    var checkerResult = checker.Check(Application.ProductVersion);
 
-                if (!success)
-                {
-                    this.InvokeIfRequired(() =>
+                    var success = checkerResult.Item1;
+                    var updateAvailable = checkerResult.Item2;
+                    var changelog = checkerResult.Item4;
+
+                    if (!updateAvailable)
                     {
-                        showToolTip("Update checking failed! ", 2000);
-                    });
-                    return;
-                }
-                this.InvokeIfRequired(() =>
-                {
-                    var result = new UpdateNotifyDialog(latestVersion, changelog).ShowDialog(this);
-                    if (result == DialogResult.Yes)
-                    {
-                        System.Diagnostics.Process.Start(checker.UpdaterPath, @"update");
-                        Application.Exit();
+                        this.InvokeIfRequired(() =>
+                        {
+                            showToolTip("Up to date!", 1000);
+                        });
+                        return;
                     }
-                });
-            });
 
+                    if (!success)
+                    {
+                        this.InvokeIfRequired(() =>
+                        {
+                            showToolTip("Update checking failed! ", 2000);
+                        });
+                        return;
+                    }
+                    this.InvokeIfRequired(() =>
+                    {
+                        var result = new UpdateNotifyDialog(latestVersion, changelog).ShowDialog(this);
+                        if (result == DialogResult.Yes)
+                        {
+                            System.Diagnostics.Process.Start(checker.UpdaterPath, @"update");
+                            Application.Exit();
+                        }
+                    });
+                });
+            }
+            catch { }         
         }
 
         [System.Diagnostics.DebuggerStepThrough]
@@ -2570,22 +2565,16 @@ namespace WebMConverter
 
         public bool IsConnectedToInternet()
         {
-            string host = "http://www.google.com";
+            string host = "8.8.8.8";
             bool result = false;
             Ping p = new Ping();
             try
             {
                 PingReply reply = p.Send(host, 3000);
                 if (reply.Status == IPStatus.Success)
-                {
-
-                    MessageBox.Show("Correcto");
                     return true;
-                }
             }
-            catch (Exception e) {
-                MessageBox.Show(e.Message);
-            }
+            catch { MessageBox.Show("2222"); }
             return result;
         }        
     }

@@ -135,6 +135,9 @@ Upload your new masterpiece with just one click. *A Gfycat account is required.*
 * Fix errors when you work offline
 * Check if Microsoft Visual C++ 2010 (x86) is istalled, if not, it will open the download page
 
+#### Version 3.5.2
+* Fix bug that break updates, some problem to get DNS with IPS
+
 ### License
 This software is released under the MIT license.
 
