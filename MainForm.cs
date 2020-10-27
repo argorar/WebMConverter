@@ -2577,9 +2577,15 @@ namespace WebMConverter
             {
                 PingReply reply = p.Send(host, 3000);
                 if (reply.Status == IPStatus.Success)
+                {
+
+                    MessageBox.Show("Correcto");
                     return true;
+                }
             }
-            catch { }
+            catch (Exception e) {
+                MessageBox.Show(e.Message);
+            }
             return result;
         }        
     }
