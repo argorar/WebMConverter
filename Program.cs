@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -65,6 +64,7 @@ namespace WebMConverter
         public static string AttachmentDirectory;
         public static Dictionary<int, Tuple<string, SubtitleType, string>> SubtitleTracks; // stream id, <tag:title OR codec_name, textsub/vobsub, extension>
         public static List<string> AttachmentList;
+        public static string token;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -84,7 +84,7 @@ namespace WebMConverter
             }
 
 
-            if(CheckVC2010x86())
+            if(Utility.CheckVC2010x86())
                 Task.Factory.StartNew(VideoDownload.CheckEnabled);
             else
             {
@@ -101,25 +101,6 @@ namespace WebMConverter
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
-        }
-
-        private static bool CheckVC2010x86()
-        {
-            try
-            {
-                var parametersVc2010x86 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes\Installer\Products\1D5E3C0FEDA1E123187686FED06E995A", false);
-                if (parametersVc2010x86 == null) return false;
-                var vc2010x86Version = parametersVc2010x86.GetValue("Version");
-                if ((int)vc2010x86Version > 1)
-                {
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
         }
     }
 }

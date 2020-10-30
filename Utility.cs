@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Globalization;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -132,6 +134,40 @@ namespace WebMConverter
             NativeMethods.GetShortPathName(@"\\?\" + input, compatible, compatible.Capacity);
             // the \\?\ is added because GetShortPathName will fail if input is longer than 256 characters otherwise.
             return compatible.ToString();
+        }
+
+        public static bool CheckVC2010x86()
+        {
+            try
+            {
+                var parametersVc2010x86 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes\Installer\Products\1D5E3C0FEDA1E123187686FED06E995A", false);
+                if (parametersVc2010x86 == null) return false;
+                var vc2010x86Version = parametersVc2010x86.GetValue("Version");
+                if ((int)vc2010x86Version > 1)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public static bool IsConnectedToInternet()
+        {
+            string host = "8.8.8.8";
+            bool result = false;
+            Ping p = new Ping();
+            try
+            {
+                PingReply reply = p.Send(host, 3000);
+                if (reply.Status == IPStatus.Success)
+                    return true;
+            }
+            catch { }
+            return result;
         }
     }
     

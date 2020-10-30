@@ -37,6 +37,7 @@
             this.buttonPlay = new System.Windows.Forms.Button();
             this.buttonUpload = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonShareX = new System.Windows.Forms.Button();
             this.StatusImages = new System.Windows.Forms.ImageList(this.components);
             this.table.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureStatus)).BeginInit();
@@ -47,9 +48,9 @@
             this.table.ColumnCount = 7;
             this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 41F));
             this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.45423F));
+            this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.5701F));
+            this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.80185F));
             this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.table.Controls.Add(this.boxOutput, 0, 0);
@@ -58,6 +59,7 @@
             this.table.Controls.Add(this.buttonPlay, 1, 2);
             this.table.Controls.Add(this.buttonUpload, 3, 2);
             this.table.Controls.Add(this.buttonCancel, 5, 2);
+            this.table.Controls.Add(this.buttonShareX, 4, 2);
             this.table.Dock = System.Windows.Forms.DockStyle.Fill;
             this.table.Location = new System.Drawing.Point(4, 4);
             this.table.Margin = new System.Windows.Forms.Padding(4);
@@ -125,13 +127,12 @@
             // 
             // buttonUpload
             // 
-            this.table.SetColumnSpan(this.buttonUpload, 2);
             this.buttonUpload.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonUpload.Enabled = false;
             this.buttonUpload.Location = new System.Drawing.Point(331, 501);
             this.buttonUpload.Margin = new System.Windows.Forms.Padding(4);
             this.buttonUpload.Name = "buttonUpload";
-            this.buttonUpload.Size = new System.Drawing.Size(278, 30);
+            this.buttonUpload.Size = new System.Drawing.Size(135, 30);
             this.buttonUpload.TabIndex = 2;
             this.buttonUpload.Text = "Upload to Gfycat";
             this.buttonUpload.UseVisualStyleBackColor = true;
@@ -141,14 +142,25 @@
             // 
             this.table.SetColumnSpan(this.buttonCancel, 2);
             this.buttonCancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonCancel.Location = new System.Drawing.Point(617, 501);
+            this.buttonCancel.Location = new System.Drawing.Point(619, 501);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(283, 30);
+            this.buttonCancel.Size = new System.Drawing.Size(281, 30);
             this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // buttonShareX
+            // 
+            this.buttonShareX.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonShareX.Location = new System.Drawing.Point(473, 500);
+            this.buttonShareX.Name = "buttonShareX";
+            this.buttonShareX.Size = new System.Drawing.Size(139, 32);
+            this.buttonShareX.TabIndex = 5;
+            this.buttonShareX.Text = "Upload ShareX";
+            this.buttonShareX.UseVisualStyleBackColor = true;
+            this.buttonShareX.Click += new System.EventHandler(this.buttonShareX_Click);
             // 
             // StatusImages
             // 
@@ -190,5 +202,6 @@
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Button buttonUpload;
         private System.Windows.Forms.TableLayoutPanel table;
+        private System.Windows.Forms.Button buttonShareX;
     }
 }

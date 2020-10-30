@@ -21,7 +21,6 @@ using WebMConverter.Objects;
 using Newtonsoft.Json;
 using System.Configuration;
 using System.Runtime.InteropServices;
-using System.Net.NetworkInformation;
 
 namespace WebMConverter
 {
@@ -77,11 +76,13 @@ namespace WebMConverter
         /// {0} is audio quality scale
         /// </summary>
         private const string VariableAudioArguments = " -qscale:a {0}";
+        private const string DarkFilter = "eq=gamma=0.6:saturation=2";
+        private const string LightFilter = "eq=gamma=1.4:saturation=1.6";
+        private const string LoopFilter = "[0]reverse[r];[0][r]concat,loop=2";
 
         #endregion
 
         private string _indexFile;
-        public string token;
         private string _autoOutput;
         private string _autoTitle;
         private string _autoArguments;
@@ -254,6 +255,7 @@ namespace WebMConverter
             string content = string.Empty;
             string tempExtension = string.Empty;
             Dictionary<string, string> extensions = new Dictionary<string, string>();
+            Array.Sort(files);
             foreach (string fileName in files)
             {
                 content += $"file '{fileName}'\n";
@@ -476,7 +478,7 @@ namespace WebMConverter
                     }
                 }
 
-                if (!IsConnectedToInternet())
+                if (!Utility.IsConnectedToInternet())
                 {
                     var result = MessageBox.Show(
                        $"Make sure you are connected to internet.{Environment.NewLine}",
@@ -1758,7 +1760,6 @@ namespace WebMConverter
                     boxTitle.Text = _autoTitle = title;
 
                 if (Program.VideoColorRange == FFMSSharp.ColorRange.MPEG)
-                    //boxLevels.Checked = true;
                     if (Program.VideoInterlaced)
                         boxDeinterlace.Checked = true;
 
@@ -1940,10 +1941,15 @@ namespace WebMConverter
             switch (comboLevels.SelectedIndex)
             {
                 case 1:
-                    levels = " -vf eq=gamma=1.4:saturation=1.6 ";
+                    levels = LightFilter;
+                    break;
+                case 2:
+                    levels = DarkFilter;
                     break;
             }
 
+            if (!string.IsNullOrEmpty(levels))
+                levels = " -vf " + levels;
             // Run ffplay
             var disableAudio = boxAudio.Checked ? "" : "-an";
             var ffplay = new FFplay($@"-window_title Preview -loop 0 -f avisynth -v error {disableAudio}{levels} ""{avsFileName}""");
@@ -2144,7 +2150,10 @@ namespace WebMConverter
             switch (comboLevels.SelectedIndex)
             {
                 case 1:
-                    levels = "eq=gamma=1.4:saturation=1.6 ";
+                    levels = LightFilter;
+                    break;
+                case 2:
+                    levels = DarkFilter;
                     break;
             }
 
@@ -2152,9 +2161,12 @@ namespace WebMConverter
             if (!String.IsNullOrEmpty(framerate) && !String.IsNullOrEmpty(levels))
                 filter = $" -vf {framerate},{levels} ";
             else if (!String.IsNullOrEmpty(framerate) && String.IsNullOrEmpty(levels))
-                filter = $" -vf {framerate}";
+                filter = $" -vf {framerate} ";
             else if (!String.IsNullOrEmpty(levels))
                 filter = $" -vf {levels} ";
+
+            if (boxLoop.Checked && string.IsNullOrEmpty(filter))
+                filter = $" -filter_complex {LoopFilter} ";
 
             return string.Format(TemplateArguments, audio, threads, slices, metadataTitle, hq, vcodec, acodec, filter, qualityarguments);
         }
@@ -2477,7 +2489,7 @@ namespace WebMConverter
             }
         }
 
-        private void GetToken(string code, Token action)
+        public void GetToken(string code, Token action)
         {
             try
             {
@@ -2500,7 +2512,7 @@ namespace WebMConverter
                 StreamReader sr = new StreamReader(strm);
                 string textJson = sr.ReadToEnd();
                 TokenResponse tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(textJson);
-                token = tokenResponse.access_token;
+                Program.token = tokenResponse.access_token;
                 UpdateConfiguration("RefreshToken", tokenResponse.refresh_token);
             }
             catch (WebException ex)
@@ -2561,22 +2573,17 @@ namespace WebMConverter
                 textPathDownloaded.Text = dialog.SelectedPath;
                 UpdateConfiguration("PathDownload", dialog.SelectedPath);
             }
+        }       
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://argorar.github.io/WebMConverter/");
         }
 
-        public bool IsConnectedToInternet()
+        private void boxLoop_CheckedChanged(object sender, EventArgs e)
         {
-            string host = "8.8.8.8";
-            bool result = false;
-            Ping p = new Ping();
-            try
-            {
-                PingReply reply = p.Send(host, 3000);
-                if (reply.Status == IPStatus.Success)
-                    return true;
-            }
-            catch { MessageBox.Show("2222"); }
-            return result;
-        }        
+            UpdateArguments(sender, e);
+        }
     }
 
     public enum EncodingMode

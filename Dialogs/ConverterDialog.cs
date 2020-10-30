@@ -43,13 +43,13 @@ namespace WebMConverter.Dialogs
         {
             InitializeComponent();
 
-            //if (!ShareXUpload.Enabled)
-            //{
-            //    table.SetColumnSpan(buttonPlay, 3);
-            //    table.SetColumnSpan(buttonCancel, 3);
-            //    buttonUpload.Hide();
-            //    table.SetColumn(buttonCancel, 4);
-            //}
+            if (!ShareXUpload.Enabled)
+            {
+                //table.SetColumnSpan(buttonPlay, 3);
+                buttonShareX.Hide();
+                table.SetColumnSpan(buttonUpload, 2);
+                //table.SetColumn(buttonCancel, 4);
+            }
 
             pictureStatus.BackgroundImage = StatusImages.Images["Happening"];
 
@@ -447,9 +447,10 @@ namespace WebMConverter.Dialogs
             {
                 try
                 {
-                    if (String.IsNullOrEmpty(((MainForm)Owner).token))
+                    if (String.IsNullOrEmpty(Program.token))
                         ((MainForm)Owner).BrowserAuthentication();
 
+                    ((MainForm)Owner).GetToken(string.Empty, Token.Refresh);
                     boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine} --- UPLOAD FILE TO GFYCAT---");
                     boxOutput.AppendText($"{Environment.NewLine}Creating request for gfycat name");
 
@@ -511,7 +512,7 @@ namespace WebMConverter.Dialogs
             WebRequest httpWRequest = WebRequest.Create("https://api.gfycat.com/v1/gfycats");
             httpWRequest.ContentType = "application/json";
             httpWRequest.Method = "POST";
-            httpWRequest.Headers.Add("Authorization", "Bearer " + ((MainForm)Owner).token);
+            httpWRequest.Headers.Add("Authorization", "Bearer " + Program.token);
             var aux = _outfile.Split('\\');
             string postData = " {\"title\":\"" + aux[aux.Length - 1].Split('.')[0] + "\"}";
             UTF8Encoding encoding = new UTF8Encoding();
@@ -522,6 +523,23 @@ namespace WebMConverter.Dialogs
 
         // manually scroll to bottom cause AppendText doesn't do it if it doesn't have focus
         private void boxOutput_TextChanged(object sender, EventArgs e) => NativeMethods.SendMessage(boxOutput.Handle, 0x115, 7, 0);
+
+        private void buttonShareX_Click(object sender, EventArgs e)
+        {
+            if (!File.Exists(((MainForm)Owner).textBoxOut.Text))
+                MessageBox.Show("Output file not found! Did you move it?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
+            {
+                try
+                {
+                    using (var proc = new ShareX(((MainForm)Owner).textBoxOut.Text)) proc.Start();
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
         // 0x115: WM_VSCROLL, 7: SB_BOTTOM
     }
 }

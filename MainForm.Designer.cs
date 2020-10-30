@@ -77,10 +77,6 @@ namespace WebMConverter
             System.Windows.Forms.Label labelAdvancedWarning;
             System.Windows.Forms.GroupBox groupAdvancedProcessing;
             System.Windows.Forms.TableLayoutPanel tableAdvancedProcessing;
-            System.Windows.Forms.Label labelProcessingLevels;
-            System.Windows.Forms.Label labelProcessingLevelsHint;
-            System.Windows.Forms.Label labelProcessingDeinterlaceHint;
-            System.Windows.Forms.Label labelProcessingDenoiseHint;
             System.Windows.Forms.GroupBox groupAdvancedEncoding;
             System.Windows.Forms.TableLayoutPanel tableAdvancedEncoding;
             System.Windows.Forms.Label labelEncodingFrameRateHint;
@@ -92,6 +88,10 @@ namespace WebMConverter
             System.Windows.Forms.Label labelEncodingSlicesHint;
             System.Windows.Forms.Label labelEncodingArguments;
             System.Windows.Forms.StatusStrip statusStrip;
+            System.Windows.Forms.Label labelProcessingLevels;
+            System.Windows.Forms.Label labelProcessingLevelsHint;
+            System.Windows.Forms.Label labelProcessingDeinterlaceHint;
+            System.Windows.Forms.Label labelProcessingDenoiseHint;
             this.textBoxIn = new System.Windows.Forms.TextBox();
             this.buttonBrowseIn = new System.Windows.Forms.Button();
             this.textBoxOut = new System.Windows.Forms.TextBox();
@@ -133,9 +133,6 @@ namespace WebMConverter
             this.boxAudioBitrate = new System.Windows.Forms.TextBox();
             this.tableAudioVariableOptions = new System.Windows.Forms.TableLayoutPanel();
             this.numericAudioQuality = new System.Windows.Forms.NumericUpDown();
-            this.comboLevels = new System.Windows.Forms.ComboBox();
-            this.boxDeinterlace = new System.Windows.Forms.CheckBox();
-            this.boxDenoise = new System.Windows.Forms.CheckBox();
             this.boxFrameRate = new System.Windows.Forms.TextBox();
             this.boxNGOV = new System.Windows.Forms.CheckBox();
             this.trackThreads = new System.Windows.Forms.TrackBar();
@@ -144,6 +141,8 @@ namespace WebMConverter
             this.labelSlices = new System.Windows.Forms.Label();
             this.boxArguments = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.labelMaintained = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.buttonPathChange = new System.Windows.Forms.Button();
             this.textPathDownloaded = new System.Windows.Forms.TextBox();
             this.lblPathDownload = new System.Windows.Forms.Label();
@@ -157,6 +156,10 @@ namespace WebMConverter
             this.listViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.listViewContextMenuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewContextMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.comboLevels = new System.Windows.Forms.ComboBox();
+            this.boxDeinterlace = new System.Windows.Forms.CheckBox();
+            this.boxDenoise = new System.Windows.Forms.CheckBox();
+            this.boxLoop = new System.Windows.Forms.CheckBox();
             tableMainForm = new System.Windows.Forms.TableLayoutPanel();
             groupMain = new System.Windows.Forms.GroupBox();
             tableMain = new System.Windows.Forms.TableLayoutPanel();
@@ -204,10 +207,6 @@ namespace WebMConverter
             labelAdvancedWarning = new System.Windows.Forms.Label();
             groupAdvancedProcessing = new System.Windows.Forms.GroupBox();
             tableAdvancedProcessing = new System.Windows.Forms.TableLayoutPanel();
-            labelProcessingLevels = new System.Windows.Forms.Label();
-            labelProcessingLevelsHint = new System.Windows.Forms.Label();
-            labelProcessingDeinterlaceHint = new System.Windows.Forms.Label();
-            labelProcessingDenoiseHint = new System.Windows.Forms.Label();
             groupAdvancedEncoding = new System.Windows.Forms.GroupBox();
             tableAdvancedEncoding = new System.Windows.Forms.TableLayoutPanel();
             labelEncodingFrameRateHint = new System.Windows.Forms.Label();
@@ -219,6 +218,10 @@ namespace WebMConverter
             labelEncodingSlicesHint = new System.Windows.Forms.Label();
             labelEncodingArguments = new System.Windows.Forms.Label();
             statusStrip = new System.Windows.Forms.StatusStrip();
+            labelProcessingLevels = new System.Windows.Forms.Label();
+            labelProcessingLevelsHint = new System.Windows.Forms.Label();
+            labelProcessingDeinterlaceHint = new System.Windows.Forms.Label();
+            labelProcessingDenoiseHint = new System.Windows.Forms.Label();
             tableMainForm.SuspendLayout();
             groupMain.SuspendLayout();
             tableMain.SuspendLayout();
@@ -1511,17 +1514,17 @@ namespace WebMConverter
             // tableAdvancedProcessing
             // 
             tableAdvancedProcessing.ColumnCount = 3;
-            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
-            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 197F));
+            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 137F));
+            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 161F));
             tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableAdvancedProcessing.Controls.Add(labelProcessingLevels, 0, 0);
             tableAdvancedProcessing.Controls.Add(this.comboLevels, 1, 0);
+            tableAdvancedProcessing.Controls.Add(this.boxDeinterlace, 1, 1);
+            tableAdvancedProcessing.Controls.Add(this.boxDenoise, 1, 2);
+            tableAdvancedProcessing.Controls.Add(this.boxLoop, 0, 1);
             tableAdvancedProcessing.Controls.Add(labelProcessingLevelsHint, 2, 0);
-            tableAdvancedProcessing.Controls.Add(this.boxDeinterlace, 0, 1);
             tableAdvancedProcessing.Controls.Add(labelProcessingDeinterlaceHint, 2, 1);
-            tableAdvancedProcessing.Controls.Add(this.boxDenoise, 0, 2);
             tableAdvancedProcessing.Controls.Add(labelProcessingDenoiseHint, 2, 2);
-            tableAdvancedProcessing.Dock = System.Windows.Forms.DockStyle.Fill;
             tableAdvancedProcessing.Location = new System.Drawing.Point(4, 19);
             tableAdvancedProcessing.Margin = new System.Windows.Forms.Padding(4);
             tableAdvancedProcessing.Name = "tableAdvancedProcessing";
@@ -1531,101 +1534,6 @@ namespace WebMConverter
             tableAdvancedProcessing.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             tableAdvancedProcessing.Size = new System.Drawing.Size(1383, 101);
             tableAdvancedProcessing.TabIndex = 1;
-            // 
-            // labelProcessingLevels
-            // 
-            labelProcessingLevels.AutoSize = true;
-            labelProcessingLevels.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelProcessingLevels.Location = new System.Drawing.Point(4, 0);
-            labelProcessingLevels.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            labelProcessingLevels.Name = "labelProcessingLevels";
-            labelProcessingLevels.Size = new System.Drawing.Size(97, 34);
-            labelProcessingLevels.TabIndex = 0;
-            labelProcessingLevels.Text = "Filter:";
-            labelProcessingLevels.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // comboLevels
-            // 
-            this.comboLevels.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboLevels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboLevels.Items.AddRange(new object[] {
-            "Original",
-            "Lighten Filter"});
-            this.comboLevels.Location = new System.Drawing.Point(109, 4);
-            this.comboLevels.Margin = new System.Windows.Forms.Padding(4);
-            this.comboLevels.Name = "comboLevels";
-            this.comboLevels.Size = new System.Drawing.Size(189, 24);
-            this.comboLevels.TabIndex = 1;
-            this.comboLevels.SelectedIndexChanged += new System.EventHandler(this.comboLevels_SelectedIndexChanged);
-            // 
-            // labelProcessingLevelsHint
-            // 
-            labelProcessingLevelsHint.AutoSize = true;
-            labelProcessingLevelsHint.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelProcessingLevelsHint.Location = new System.Drawing.Point(306, 0);
-            labelProcessingLevelsHint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            labelProcessingLevelsHint.Name = "labelProcessingLevelsHint";
-            labelProcessingLevelsHint.Size = new System.Drawing.Size(1073, 34);
-            labelProcessingLevelsHint.TabIndex = 0;
-            labelProcessingLevelsHint.Text = "If your video looks too dark, you can manually fix this by using this option.";
-            labelProcessingLevelsHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // boxDeinterlace
-            // 
-            this.boxDeinterlace.AutoSize = true;
-            this.boxDeinterlace.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            tableAdvancedProcessing.SetColumnSpan(this.boxDeinterlace, 2);
-            this.boxDeinterlace.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.boxDeinterlace.Location = new System.Drawing.Point(4, 38);
-            this.boxDeinterlace.Margin = new System.Windows.Forms.Padding(4);
-            this.boxDeinterlace.Name = "boxDeinterlace";
-            this.boxDeinterlace.Size = new System.Drawing.Size(294, 26);
-            this.boxDeinterlace.TabIndex = 2;
-            this.boxDeinterlace.Text = "Deinterlace:";
-            this.boxDeinterlace.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.boxDeinterlace.UseVisualStyleBackColor = true;
-            this.boxDeinterlace.CheckedChanged += new System.EventHandler(this.boxDeinterlace_CheckedChanged);
-            // 
-            // labelProcessingDeinterlaceHint
-            // 
-            labelProcessingDeinterlaceHint.AutoSize = true;
-            labelProcessingDeinterlaceHint.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelProcessingDeinterlaceHint.Location = new System.Drawing.Point(306, 34);
-            labelProcessingDeinterlaceHint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            labelProcessingDeinterlaceHint.Name = "labelProcessingDeinterlaceHint";
-            labelProcessingDeinterlaceHint.Size = new System.Drawing.Size(1073, 34);
-            labelProcessingDeinterlaceHint.TabIndex = 0;
-            labelProcessingDeinterlaceHint.Text = "Deinterlace an interlaced input video.";
-            labelProcessingDeinterlaceHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // boxDenoise
-            // 
-            this.boxDenoise.AutoSize = true;
-            this.boxDenoise.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            tableAdvancedProcessing.SetColumnSpan(this.boxDenoise, 2);
-            this.boxDenoise.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.boxDenoise.Location = new System.Drawing.Point(4, 72);
-            this.boxDenoise.Margin = new System.Windows.Forms.Padding(4);
-            this.boxDenoise.Name = "boxDenoise";
-            this.boxDenoise.Size = new System.Drawing.Size(294, 26);
-            this.boxDenoise.TabIndex = 3;
-            this.boxDenoise.Text = "Denoise:";
-            this.boxDenoise.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.boxDenoise.UseVisualStyleBackColor = true;
-            this.boxDenoise.CheckedChanged += new System.EventHandler(this.boxDenoise_CheckedChanged);
-            // 
-            // labelProcessingDenoiseHint
-            // 
-            labelProcessingDenoiseHint.AutoSize = true;
-            labelProcessingDenoiseHint.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelProcessingDenoiseHint.Location = new System.Drawing.Point(306, 68);
-            labelProcessingDenoiseHint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            labelProcessingDenoiseHint.Name = "labelProcessingDenoiseHint";
-            labelProcessingDenoiseHint.Size = new System.Drawing.Size(1073, 34);
-            labelProcessingDenoiseHint.TabIndex = 0;
-            labelProcessingDenoiseHint.Text = "Denoise the video, resulting in less detailed video but more bang for your buck w" +
-    "hen it comes to bitrate.";
-            labelProcessingDenoiseHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // groupAdvancedEncoding
             // 
@@ -1870,6 +1778,8 @@ namespace WebMConverter
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.labelMaintained);
+            this.tabPage1.Controls.Add(this.linkLabel1);
             this.tabPage1.Controls.Add(this.buttonPathChange);
             this.tabPage1.Controls.Add(this.textPathDownloaded);
             this.tabPage1.Controls.Add(this.lblPathDownload);
@@ -1879,6 +1789,26 @@ namespace WebMConverter
             this.tabPage1.Size = new System.Drawing.Size(1407, 380);
             this.tabPage1.TabIndex = 5;
             this.tabPage1.Text = "General";
+            // 
+            // labelMaintained
+            // 
+            this.labelMaintained.AutoSize = true;
+            this.labelMaintained.Location = new System.Drawing.Point(12, 357);
+            this.labelMaintained.Name = "labelMaintained";
+            this.labelMaintained.Size = new System.Drawing.Size(267, 17);
+            this.labelMaintained.TabIndex = 4;
+            this.labelMaintained.Text = "WebMConverter is maintained by argorar";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(1292, 360);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(109, 17);
+            this.linkLabel1.TabIndex = 0;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Visit the website";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // buttonPathChange
             // 
@@ -2021,6 +1951,112 @@ namespace WebMConverter
             this.listViewContextMenuDelete.Text = "Delete";
             this.listViewContextMenuDelete.Click += new System.EventHandler(this.listViewContextMenuDelete_Click);
             // 
+            // labelProcessingLevels
+            // 
+            labelProcessingLevels.AutoSize = true;
+            labelProcessingLevels.Dock = System.Windows.Forms.DockStyle.Right;
+            labelProcessingLevels.Location = new System.Drawing.Point(90, 0);
+            labelProcessingLevels.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelProcessingLevels.Name = "labelProcessingLevels";
+            labelProcessingLevels.Size = new System.Drawing.Size(43, 34);
+            labelProcessingLevels.TabIndex = 12;
+            labelProcessingLevels.Text = "Filter:";
+            labelProcessingLevels.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // comboLevels
+            // 
+            this.comboLevels.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboLevels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboLevels.Items.AddRange(new object[] {
+            "Original",
+            "Light Filter",
+            "Dark Filter"});
+            this.comboLevels.Location = new System.Drawing.Point(141, 5);
+            this.comboLevels.Margin = new System.Windows.Forms.Padding(4);
+            this.comboLevels.Name = "comboLevels";
+            this.comboLevels.Size = new System.Drawing.Size(153, 24);
+            this.comboLevels.TabIndex = 13;
+            // 
+            // boxDeinterlace
+            // 
+            this.boxDeinterlace.AutoSize = true;
+            this.boxDeinterlace.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.boxDeinterlace.Dock = System.Windows.Forms.DockStyle.Right;
+            this.boxDeinterlace.Location = new System.Drawing.Point(188, 38);
+            this.boxDeinterlace.Margin = new System.Windows.Forms.Padding(4);
+            this.boxDeinterlace.Name = "boxDeinterlace";
+            this.boxDeinterlace.Size = new System.Drawing.Size(106, 26);
+            this.boxDeinterlace.TabIndex = 14;
+            this.boxDeinterlace.Text = "Deinterlace:";
+            this.boxDeinterlace.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.boxDeinterlace.UseVisualStyleBackColor = true;
+            // 
+            // boxDenoise
+            // 
+            this.boxDenoise.AutoSize = true;
+            this.boxDenoise.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.boxDenoise.Dock = System.Windows.Forms.DockStyle.Right;
+            this.boxDenoise.Location = new System.Drawing.Point(208, 72);
+            this.boxDenoise.Margin = new System.Windows.Forms.Padding(4);
+            this.boxDenoise.Name = "boxDenoise";
+            this.boxDenoise.Size = new System.Drawing.Size(86, 26);
+            this.boxDenoise.TabIndex = 15;
+            this.boxDenoise.Text = "Denoise:";
+            this.boxDenoise.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.boxDenoise.UseVisualStyleBackColor = true;
+            // 
+            // boxLoop
+            // 
+            this.boxLoop.AutoSize = true;
+            this.boxLoop.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.boxLoop.Dock = System.Windows.Forms.DockStyle.Right;
+            this.boxLoop.Location = new System.Drawing.Point(67, 38);
+            this.boxLoop.Margin = new System.Windows.Forms.Padding(4);
+            this.boxLoop.Name = "boxLoop";
+            this.boxLoop.Size = new System.Drawing.Size(66, 26);
+            this.boxLoop.TabIndex = 16;
+            this.boxLoop.Text = "Loop:";
+            this.boxLoop.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.boxLoop.UseVisualStyleBackColor = true;
+            this.boxLoop.CheckedChanged += new System.EventHandler(this.boxLoop_CheckedChanged);
+            // 
+            // labelProcessingLevelsHint
+            // 
+            labelProcessingLevelsHint.AutoSize = true;
+            labelProcessingLevelsHint.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelProcessingLevelsHint.Location = new System.Drawing.Point(302, 0);
+            labelProcessingLevelsHint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelProcessingLevelsHint.Name = "labelProcessingLevelsHint";
+            labelProcessingLevelsHint.Size = new System.Drawing.Size(1077, 34);
+            labelProcessingLevelsHint.TabIndex = 17;
+            labelProcessingLevelsHint.Text = "Apply differents filters to your video.";
+            labelProcessingLevelsHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelProcessingDeinterlaceHint
+            // 
+            labelProcessingDeinterlaceHint.AutoSize = true;
+            labelProcessingDeinterlaceHint.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelProcessingDeinterlaceHint.Location = new System.Drawing.Point(302, 34);
+            labelProcessingDeinterlaceHint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelProcessingDeinterlaceHint.Name = "labelProcessingDeinterlaceHint";
+            labelProcessingDeinterlaceHint.Size = new System.Drawing.Size(1077, 34);
+            labelProcessingDeinterlaceHint.TabIndex = 18;
+            labelProcessingDeinterlaceHint.Text = "Deinterlace an interlaced input video.";
+            labelProcessingDeinterlaceHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelProcessingDenoiseHint
+            // 
+            labelProcessingDenoiseHint.AutoSize = true;
+            labelProcessingDenoiseHint.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelProcessingDenoiseHint.Location = new System.Drawing.Point(302, 68);
+            labelProcessingDenoiseHint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelProcessingDenoiseHint.Name = "labelProcessingDenoiseHint";
+            labelProcessingDenoiseHint.Size = new System.Drawing.Size(1077, 34);
+            labelProcessingDenoiseHint.TabIndex = 19;
+            labelProcessingDenoiseHint.Text = "Denoise the video, resulting in less detailed video but more bang for your buck w" +
+    "hen it comes to bitrate.";
+            labelProcessingDenoiseHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // MainForm
             // 
             this.AcceptButton = this.buttonGo;
@@ -2039,7 +2075,7 @@ namespace WebMConverter
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WebM for Lazys v3.5.2";
+            this.Text = "WebM for Lazys v3.6.0";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
@@ -2123,13 +2159,11 @@ namespace WebMConverter
         private System.Windows.Forms.Label labelIndexingProgress;
         private System.Windows.Forms.TextBox boxArguments;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
-        private System.Windows.Forms.CheckBox boxDeinterlace;
         private System.Windows.Forms.ToolStripSplitButton buttonTrim;
         private System.Windows.Forms.ToolStripMenuItem buttonMultipleTrim;
         private System.Windows.Forms.ToolStripButton buttonCaption;
         private System.Windows.Forms.ToolStripButton buttonOverlay;
         private System.Windows.Forms.CheckBox boxAudio;
-        private System.Windows.Forms.CheckBox boxDenoise;
         private System.Windows.Forms.Button buttonBrowseIn;
         private System.Windows.Forms.Button buttonGo;
         private System.Windows.Forms.ToolStripButton buttonPreview;
@@ -2157,7 +2191,6 @@ namespace WebMConverter
         private System.Windows.Forms.TextBox boxFrameRate;
         private System.Windows.Forms.ToolStripButton buttonExportProcessing;
         public System.Windows.Forms.ToolStripButton boxAdvancedScripting;
-        private System.Windows.Forms.ComboBox comboLevels;
         private System.Windows.Forms.TextBox boxIndexingProgress;
         private System.Windows.Forms.CheckBox boxIndexingProgressDetails;
         private System.Windows.Forms.Panel panelContainTheProgressBar;
@@ -2173,5 +2206,11 @@ namespace WebMConverter
         private System.Windows.Forms.Button buttonPathChange;
         private System.Windows.Forms.TextBox textPathDownloaded;
         private System.Windows.Forms.Label lblPathDownload;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label labelMaintained;
+        private System.Windows.Forms.ComboBox comboLevels;
+        private System.Windows.Forms.CheckBox boxDeinterlace;
+        private System.Windows.Forms.CheckBox boxDenoise;
+        private System.Windows.Forms.CheckBox boxLoop;
     }
 }

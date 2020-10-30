@@ -114,7 +114,7 @@ Upload your new masterpiece with just one click. *A Gfycat account is required.*
 * Download your video is easy now (support +1000 sites), [see more information.][Sites]
 
 #### Version 3.3.1
-* Bring dark videos to light, try it in Advanced> Processing> Colors levels
+* Bring dark videos to light, try it in Advanced> Processing> Filters
 * Minor changes to performance in filters
 
 #### Version 3.3.2
@@ -133,10 +133,17 @@ Upload your new masterpiece with just one click. *A Gfycat account is required.*
 #### Version 3.5.1
 * Fix message error when you use interpolation
 * Fix errors when you work offline
-* Check if Microsoft Visual C++ 2010 (x86) is istalled, if not, it will open the download page
+* Check if Microsoft Visual C++ 2010 (x86) is installed, if not, it will open the download page
 
 #### Version 3.5.2
 * Fix bug that break updates, some problem to get DNS with IPS
+
+### Version 3.6.0
+* Add Loop function, forward and reverse making an infinite effect. You *can't* use filter or interpolation with it
+* Add Dark Filter
+* Enable ShareX option after convert
+* Now sort files by the filename in merge videos
+* Fix Unauthorized issue with gfycat
 
 ### License
 This software is released under the MIT license.
