@@ -77,7 +77,72 @@ Add text, change font, size, position, also set when it start and end.
 
 Upload your new masterpiece with just one click. *A Gfycat account is required.*
 
-### Changelog
+## Changelog
+
+#### Version 3.6.1
+* Set CRF to 16 with 4k videos
+* Set max audio quality as default
+* Fix incorrect result message when convert with loop 
+
+#### Version 3.6.0
+* Add Loop function, forward and reverse making an infinite effect. You *can't* use filter or interpolation with it
+* Add Dark Filter
+* Enable ShareX option after convert
+* Now sort files by the filename in merge videos
+* Fix Unauthorized issue with gfycat
+
+#### Version 3.5.2
+* Fix bug that break updates, some problem to get DNS with IPS
+
+#### Version 3.5.1
+* Fix message error when you use interpolation
+* Fix errors when you work offline
+* Check if Microsoft Visual C++ 2010 (x86) is installed, if not, it will open the download page
+
+#### Version 3.5.0
+* Merge two or more videos in one, just drag and drop them inside the app. Search for the new merged file in source path
+* *Limitations:* The group of videos must have the same encodes / dimensions
+
+#### Version 3.4.0
+* Deinterlace gets the job done efficiently. Remember to do this before editing, so the overall experience is not affected. You can use trim to save time and get what you need.
+
+
+#### Version 3.3.3
+* Lighten Filter is back, come and say hi
+
+#### Version 3.3.2
+* Revert new filter, it is causing collateral issues
+
+#### Version 3.3.1
+* Bring dark videos to light, try it in Advanced> Processing> Filters
+* Minor changes to performance in filters
+
+#### Version 3.3.0
+* Download your video is easy now (support +1000 sites), [see more information.][Sites]
+
+#### Version 3.2.4
+* Now you can working editing other video while the file upload to gfycat
+
+#### Version 3.2.3
+* Improved performance of function to get frames on multiprocessor systems
+
+#### Version 3.2.2
+* Fixed Gfycat title
+
+#### Version 3.2.1
+* Interpolation result is better now
+* Minor changes in *New update available*
+* Fixed when your drop a file, that make your settings reset
+
+#### Version 3.2.0
+* Now you can set when you want your caption to start and end
+* In caption form you can advance frame by frame changing *start frame* value. You can use mouse wheel too
+* Changed algorithm to interpolate
+* Now the update feature is enabled
+
+#### Version 3.1.0
+* Added option to interpolate frames in Advanced/Encoding
+* Improved trim lag going forward with 4k videos
 
 #### Version 3.0.0
 * Fixed laggy trim functionality (with 4k files is a still a little slower)
@@ -86,70 +151,11 @@ Upload your new masterpiece with just one click. *A Gfycat account is required.*
 * Now your settings are remembered 
 * Gfycat integration using browser-based OAuth authentication. Upload your gfy after convert with one click
 
-#### Version 3.1.0
-* Added option to interpolate frames in Advanced/Encoding
-* Improved trim lag going forward with 4k videos
-
-#### Version 3.2.0
-* Now you can set when you want your caption to start and end
-* In caption form you can advance frame by frame changing *start frame* value. You can use mouse wheel too
-* Changed algorithm to interpolate
-* Now the update feature is enabled
-
-#### Version 3.2.1
-* Interpolation result is better now
-* Minor changes in *New update available*
-* Fixed when your drop a file, that make your settings reset 
-
-#### Version 3.2.2
-* Fixed Gfycat title
-
-#### Version 3.2.3
-* Improved performance of function to get frames on multiprocessor systems
-
-#### Version 3.2.4
-* Now you can working editing other video while the file upload to gfycat
-
-#### Version 3.3.0
-* Download your video is easy now (support +1000 sites), [see more information.][Sites]
-
-#### Version 3.3.1
-* Bring dark videos to light, try it in Advanced> Processing> Filters
-* Minor changes to performance in filters
-
-#### Version 3.3.2
-* Revert new filter, it is causing collateral issues
-
-#### Version 3.3.3
-* Lighten Filter is back, come and say hi
-
-#### Version 3.4.0
-* Deinterlace gets the job done efficiently. Remember to do this before editing, so the overall experience is not affected. You can use trim to save time and get what you need.
-
-#### Version 3.5.0
-* Merge two or more videos in one, just drag and drop them inside the app. Search for the new merged file in source path
-* *Limitations:* The group of videos must have the same encodes / dimensions
-
-#### Version 3.5.1
-* Fix message error when you use interpolation
-* Fix errors when you work offline
-* Check if Microsoft Visual C++ 2010 (x86) is installed, if not, it will open the download page
-
-#### Version 3.5.2
-* Fix bug that break updates, some problem to get DNS with IPS
-
-### Version 3.6.0
-* Add Loop function, forward and reverse making an infinite effect. You *can't* use filter or interpolation with it
-* Add Dark Filter
-* Enable ShareX option after convert
-* Now sort files by the filename in merge videos
-* Fix Unauthorized issue with gfycat
-
-### License
+## License
 This software is released under the MIT license.
 
 
-### Issues
+## Issues
 If you have any issues with this program, you may report them on [here][NewIssue].
 
  [LatestDownload]: https://github.com/argorar/WebMConverter/releases/latest

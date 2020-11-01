@@ -36,7 +36,7 @@ namespace WebMConverter.Dialogs
 
         private double _induration;
         private double _outduration;
-
+        private bool _isloop;
         private TaskbarManager taskbarManager;
 
         public ConverterDialog(string input, string[] args, string output)
@@ -64,7 +64,7 @@ namespace WebMConverter.Dialogs
                     AddInputFileToArguments(ref args[i]);
                 }
             }
-            
+            _isloop = _arguments[0].Contains("[0]reverse[r];[0][r]concat,loop=2");
             taskbarManager = TaskbarManager.Instance;
         }
 
@@ -337,7 +337,10 @@ namespace WebMConverter.Dialogs
             }
             else
             {
+
                 _outduration = ProbeDuration(_outfile, false);
+                if (_isloop)
+                    _induration *= 2;
                 if (Math.Abs(_induration - _outduration) > 0.01 && !_arguments[0].Contains("minterpolate"))
                 {
                     boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}Restraints are too high!");
@@ -514,7 +517,8 @@ namespace WebMConverter.Dialogs
             httpWRequest.Method = "POST";
             httpWRequest.Headers.Add("Authorization", "Bearer " + Program.token);
             var aux = _outfile.Split('\\');
-            string postData = " {\"title\":\"" + aux[aux.Length - 1].Split('.')[0] + "\"}";
+            string postData = " {\"title\":\"" + aux[aux.Length - 1].Split('.')[0] + "\", +" +
+                                "\"nsfw\": 0}";
             UTF8Encoding encoding = new UTF8Encoding();
             byte[] byte1 = encoding.GetBytes(postData);
             httpWRequest.GetRequestStream().Write(byte1, 0, byte1.Length);

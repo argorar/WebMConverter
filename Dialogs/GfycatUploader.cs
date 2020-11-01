@@ -36,7 +36,7 @@ namespace WebMConverter.Dialogs
                         content.Add(new ByteArrayContent(file), "file", gfyName);
                         labelStatus.Text = "Uploading file..";
                         progressBar.Style = ProgressBarStyle.Marquee;
-                        using (var message = await client.PostAsync("https://filedrop.gfycat.com", content))
+                        using ( await client.PostAsync("https://filedrop.gfycat.com", content))
                         {
                             labelStatus.Text = $"Everything is great, now wait until gfycat encode the video :)";
                         }

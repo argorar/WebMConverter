@@ -1283,7 +1283,7 @@ namespace WebMConverter
 
             numericCrf.Value = 30;
             numericCrfTolerance.Value = 2;
-            numericAudioQuality.Value = 3;
+            numericAudioQuality.Value = 10;
 
             comboLevels.SelectedIndex = 0;
 
@@ -1690,6 +1690,7 @@ namespace WebMConverter
                 var frame = Program.VideoSource.GetFrame(0); // We're assuming that the entire video has the same settings here, which should be fine. (These options usually don't vary, I hope.)
                 Program.VideoColorRange = frame.ColorRange;
                 Program.VideoInterlaced = frame.InterlacedFrame;
+                SetCRF(frame.EncodedResolution);
                 SetSlices(frame.EncodedResolution);
                 LoadFonts(msg => logIndexingProgress((string)msg));
             });
@@ -1806,6 +1807,16 @@ namespace WebMConverter
             taskbarManager.SetProgressState(TaskbarProgressBarState.Normal);
             labelIndexingProgress.Text = "Indexing...";
             indexbw.RunWorkerAsync();
+        }
+
+        private void SetCRF(Size resolution)
+        {
+            if (resolution.Width > 2000)
+                this.InvokeIfRequired(() =>
+                {
+                    numericCrf.Value = 16;
+                });
+            
         }
 
         void CancelIndexing()
