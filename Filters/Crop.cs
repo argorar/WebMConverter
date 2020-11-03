@@ -38,6 +38,8 @@ namespace WebMConverter
             InitializeComponent();
 
             InputFilter = CropPixels;
+            trackVideoTimeline.Maximum = Program.VideoSource.NumberOfFrames - 1;
+            trackVideoTimeline.TickFrequency = trackVideoTimeline.Maximum / 60;
 
             previewFrame.Picture.Paint += new PaintEventHandler(previewPicture_Paint);
             previewFrame.Picture.MouseDown += new MouseEventHandler(previewPicture_MouseDown);
@@ -45,6 +47,8 @@ namespace WebMConverter
             previewFrame.Picture.MouseLeave += new EventHandler(previewPicture_MouseLeave);
             previewFrame.Picture.MouseMove += new MouseEventHandler(previewPicture_MouseMove);
             previewFrame.Picture.MouseUp += new MouseEventHandler(previewPicture_MouseUp);
+
+            trackVideoTimeline.MouseWheel += trackVideoTimeline_MouseWheel;
         }
 
         void CropForm_Load(object sender, EventArgs e)
@@ -84,11 +88,13 @@ namespace WebMConverter
             if (Filters.Trim != null)
             {
                 previewFrame.Frame = Filters.Trim.TrimStart;
+                trackVideoTimeline.Value = Filters.Trim.TrimStart;
                 trimTimingToolStripMenuItem.Enabled = true;
             }
             if (Filters.MultipleTrim != null)
             {
                 previewFrame.Frame = Filters.MultipleTrim.Trims[0].TrimStart;
+                trackVideoTimeline.Value = Filters.MultipleTrim.Trims[0].TrimStart;
                 trimTimingToolStripMenuItem.Enabled = true;
             }
         }
@@ -319,7 +325,9 @@ namespace WebMConverter
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    previewFrame.Frame = Math.Max(0, Math.Min(Program.VideoSource.NumberOfFrames - 1, dialog.Value)); // Make sure we don't go out of bounds.
+                    int temp = Math.Max(0, Math.Min(Program.VideoSource.NumberOfFrames - 1, dialog.Value)); // Make sure we don't go out of bounds.
+                    previewFrame.Frame = temp;
+                    trackVideoTimeline.Value = temp;
                 }
             }
         }
@@ -333,6 +341,7 @@ namespace WebMConverter
                     int i = TimeSpanToFrame(dialog.Value);
                     i = Math.Max(0, Math.Min(Program.VideoSource.NumberOfFrames - 1, i)); // Make sure we don't go out of bounds.
                     previewFrame.Frame = i;
+                    trackVideoTimeline.Value = i;
                 }
             }
         }
@@ -400,6 +409,56 @@ namespace WebMConverter
 
             previewFrame.Picture.Invalidate();
             return true;
+        }
+
+        void trackVideoTimeline_MouseWheel(object sender, MouseEventArgs e)
+        {
+            int modifier = 0;
+            if (e.Delta > 0)
+                modifier = -1;
+            else if (e.Delta < 0)
+                modifier = 1;
+
+            if (modifier != 0)
+            {
+                SetFrame(modifier, true);
+            }
+
+            ((HandledMouseEventArgs)e).Handled = true;
+        }
+
+        void SetFrame(int frame, bool modifier = false)
+        {
+            if (modifier)
+                frame += trackVideoTimeline.Value;
+
+            trackVideoTimeline.Value = Math.Max(0, Math.Min(trackVideoTimeline.Maximum, frame)); // Make sure we don't go out of bounds.
+        }
+
+        private void trackVideoTimeline_ValueChanged(object sender, EventArgs e)
+        {
+            previewFrame.Frame = trackVideoTimeline.Value;
+            previewFrame.Refresh();
+        }
+
+        private void trackVideoTimeline_KeyDown(object sender, KeyEventArgs e)
+        {
+            int modifier = 0;
+            switch (e.KeyData)
+            {
+                case Keys.Left:
+                    modifier = -1;
+                    break;
+                case Keys.Right:
+                    modifier = 1;
+                    break;
+            }
+
+            if (modifier != 0)
+            {
+                SetFrame(modifier, true);
+                e.Handled = true;
+            }
         }
     }
 

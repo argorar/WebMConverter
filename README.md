@@ -33,19 +33,24 @@ Paste the url of the video you want and press enter, the download will start. Yo
 
 ### Trim
 
-Trim precisely the length, with a simple interface. You can do multiple trims if you need.
+Trim :scissors: precisely the length, with a simple interface. You can do multiple trims if you need.
 
 ![trim](img/trim.JPG)
 
 ### Crop
 
-Crop what is just important for you, just move the edges with the mouse.
+Crop what is just important for you, just move the edges with the mouse or use the keys :arrow_up: :arrow_right: :arrow_down: :arrow_left:.
+* ```Row keys``` to move
+* ```Shift + Row``` keys to move faster
+* ```Alt + Row Keys``` to increase/decrease the size 
+* ```Ctrl + Right or Left``` to change preview
+* You can use mouse wheel over time line
 
 ![crop](img/crop.JPG)
 
 ### Filter
 
-If your video looks dark, you can change it.
+If your video looks dark, you can try with some filters.
 
 ![filter](img/light.JPG)
 
@@ -59,6 +64,11 @@ Add text, change font, size, position, also set when it start and end.
 
 ![rotate](img/rotate.JPG)
 
+### Loop
+<div style='position:relative; padding-bottom:calc(56.25% + 44px)'><iframe src='https://gfycat.com/ifr/AnimatedUnimportantAlligatorsnappingturtle' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;'></iframe></div>
+
+### Merge
+Drag and drop video files inside the app, search for the new video in source path. *The group of videos must have the same encodes / dimensions*.
 ### There is More that you can do
 
 * Add subtitle
@@ -78,6 +88,10 @@ Add text, change font, size, position, also set when it start and end.
 Upload your new masterpiece with just one click. *A Gfycat account is required.*
 
 ## Changelog
+
+#### Version 3.6.2
+* Add time line to crop filter
+* Redundancy in preview eliminated in the filter trim, can bring a small improvement in performance
 
 #### Version 3.6.1
 * Set CRF to 16 with 4k videos

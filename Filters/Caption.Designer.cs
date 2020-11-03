@@ -67,7 +67,7 @@
             this.borderColorToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(992, 28);
+            this.menuStrip.Size = new System.Drawing.Size(992, 30);
             this.menuStrip.TabIndex = 0;
             // 
             // previewToolStripMenuItem
@@ -77,7 +77,7 @@
             this.frameToolStripMenuItem,
             this.timeToolStripMenuItem});
             this.previewToolStripMenuItem.Name = "previewToolStripMenuItem";
-            this.previewToolStripMenuItem.Size = new System.Drawing.Size(85, 24);
+            this.previewToolStripMenuItem.Size = new System.Drawing.Size(85, 26);
             this.previewToolStripMenuItem.Text = "Preview...";
             // 
             // trimTimingToolStripMenuItem
@@ -122,28 +122,28 @@
             // 
             this.boxText.Font = new System.Drawing.Font("Arial", 8.400001F);
             this.boxText.Name = "boxText";
-            this.boxText.Size = new System.Drawing.Size(132, 24);
+            this.boxText.Size = new System.Drawing.Size(132, 26);
             this.boxText.Text = "Text goes here";
             this.boxText.TextChanged += new System.EventHandler(this.UpdateTextLayout);
             // 
             // fontToolStripMenuItem
             // 
             this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(51, 26);
             this.fontToolStripMenuItem.Text = "Font";
             this.fontToolStripMenuItem.Click += new System.EventHandler(this.fontToolStripMenuItem_Click);
             // 
             // textColorToolStripMenuItem
             // 
             this.textColorToolStripMenuItem.Name = "textColorToolStripMenuItem";
-            this.textColorToolStripMenuItem.Size = new System.Drawing.Size(84, 24);
+            this.textColorToolStripMenuItem.Size = new System.Drawing.Size(84, 26);
             this.textColorToolStripMenuItem.Text = "Text color";
             this.textColorToolStripMenuItem.Click += new System.EventHandler(this.textColorToolStripMenuItem_Click);
             // 
             // borderColorToolStripMenuItem
             // 
             this.borderColorToolStripMenuItem.Name = "borderColorToolStripMenuItem";
-            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
+            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(102, 26);
             this.borderColorToolStripMenuItem.Text = "Border color";
             this.borderColorToolStripMenuItem.Click += new System.EventHandler(this.borderColorToolStripMenuItem_Click);
             // 
@@ -199,10 +199,10 @@
             this.previewFrame.BackColor = System.Drawing.SystemColors.ControlDark;
             this.previewFrame.Cursor = System.Windows.Forms.Cursors.SizeAll;
             this.previewFrame.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.previewFrame.Location = new System.Drawing.Point(0, 28);
+            this.previewFrame.Location = new System.Drawing.Point(0, 30);
             this.previewFrame.Margin = new System.Windows.Forms.Padding(5);
             this.previewFrame.Name = "previewFrame";
-            this.previewFrame.Size = new System.Drawing.Size(992, 642);
+            this.previewFrame.Size = new System.Drawing.Size(992, 640);
             this.previewFrame.TabIndex = 3;
             // 
             // label1

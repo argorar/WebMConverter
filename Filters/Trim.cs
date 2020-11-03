@@ -155,8 +155,6 @@ namespace WebMConverter
                 frame += trackVideoTimeline.Value;
 
             trackVideoTimeline.Value = Math.Max(0, Math.Min(trackVideoTimeline.Maximum, frame)); // Make sure we don't go out of bounds.
-            previewFrame.Frame = trackVideoTimeline.Value;
-            previewFrame.Refresh();
             labelTimeStamp.Refresh();
         }
 
