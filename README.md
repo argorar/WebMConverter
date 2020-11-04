@@ -4,13 +4,35 @@ A wrapper around ffmpeg and AviSynth made for converting videos to WebM without 
 
 - **Download it [here][LatestDownload].**
 
-Important to know:
+_Important to know:_
 * Requires .NET Framework 4.5 (Windows 7 comes with 3.5, so you might want to [update][DotNet45])
 * Requires Microsoft Visual C++ 2010 (x86) [Download here][MVC]
 * Requires [AviSynth][AviSynth] (2.6.0, 32-bit)
 * Already includes ffmpeg
 * Only works on Windows 
 
+## About WebM
+
+WebM is an open, royalty-free, media file format designed for the web.
+WebM defines the file container structure, video and audio formats. WebM files consist of video streams compressed with the VP8 or VP9 video codecs and audio streams compressed with the Vorbis or Opus audio codecs. The WebM file structure is based on the Matroska container.
+
+For more information about WebM, see the [FAQ][FAQ].
+
+## Benefits of WebM
+
+* _Openness and innovation_. A key factor in the web's success is that its core technologies such as HTML, HTTP, and TCP/IP are open for anyone to implement and improve.  With video being core to the web experience, a high-quality, open video format choice is needed. WebM is 100% free, and open-sourced under a BSD-style license.
+
+* _Optimized for the web_. Serving video on the web is different from traditional broadcast and offline mediums. Existing video formats were designed to serve the needs of these mediums and do it very well. WebM is focused on addressing the unique needs of serving video on the web.
+
+    * Low computational footprint to enable playback on any device, including low-power netbooks, handhelds, tablets, etc
+
+    * Simple container format
+
+    * Highest quality real-time video delivery
+
+    * Click and encode. Minimal codec profiles and sub-options. When possible, let the encoder make the tough choices.
+
+# WebM for Lazys features
 
 ## Updates
 
@@ -33,15 +55,15 @@ Paste the url of the video you want and press enter, the download will start. Yo
 
 ### Trim
 
-Trim :scissors: precisely the length, with a simple interface. You can do multiple trims if you need.
+Trim precisely the length, with a simple interface. You can do multiple trims if you need.
 
 ![trim](img/trim.JPG)
 
 ### Crop
 
-Crop what is just important for you, just move the edges with the mouse or use the keys :arrow_up: :arrow_right: :arrow_down: :arrow_left:.
+Crop what is just important for you, just move the edges with the mouse or use the keys.
 * ```Row keys``` to move
-* ```Shift + Row``` keys to move faster
+* ```Shift + Row keys``` to move faster
 * ```Alt + Row Keys``` to increase/decrease the size 
 * ```Ctrl + Right or Left``` to change preview
 * You can use mouse wheel over time line
@@ -65,6 +87,8 @@ Add text, change font, size, position, also set when it start and end.
 ![rotate](img/rotate.JPG)
 
 ### Loop
+
+Loop function, forward and reverse making an infinite effect. You _can't_ use filter or interpolation with it.
 <div style='position:relative; padding-bottom:calc(56.25% + 44px)'><iframe src='https://gfycat.com/ifr/AnimatedUnimportantAlligatorsnappingturtle' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;'></iframe></div>
 
 ### Merge
@@ -178,3 +202,4 @@ If you have any issues with this program, you may report them on [here][NewIssue
  [NewIssue]: https://github.com/argorar/WebMConverter/issues
  [MVC]: https://www.microsoft.com/en-us/download/details.aspx?id=8328
  [Sites]: https://ytdl-org.github.io/youtube-dl/supportedsites.html
+ [FAQ]: https://www.webmproject.org/about/faq/
