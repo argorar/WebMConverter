@@ -113,6 +113,9 @@ Upload your new masterpiece with just one click. *A Gfycat account is required.*
 
 ## Changelog
 
+#### Version 3.6.3
+* Update binaries to fix JS player extraction in download feature
+
 #### Version 3.6.2
 * Add time line to crop filter
 * Redundancy in preview eliminated in the filter trim, can bring a small improvement in performance
