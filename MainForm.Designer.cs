@@ -1555,11 +1555,12 @@ namespace WebMConverter
             "Original",
             "Light Filter",
             "Dark Filter"});
-            this.comboLevels.Location = new System.Drawing.Point(141, 5);
+            this.comboLevels.Location = new System.Drawing.Point(141, 4);
             this.comboLevels.Margin = new System.Windows.Forms.Padding(4);
             this.comboLevels.Name = "comboLevels";
             this.comboLevels.Size = new System.Drawing.Size(153, 24);
             this.comboLevels.TabIndex = 13;
+            this.comboLevels.SelectedIndexChanged += new System.EventHandler(this.comboLevels_SelectedIndexChanged_1);
             // 
             // boxDeinterlace
             // 
@@ -2075,7 +2076,7 @@ namespace WebMConverter
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WebM for Lazys v3.6.3";
+            this.Text = "WebM for Lazys v3.6.4";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);

@@ -113,6 +113,10 @@ Upload your new masterpiece with just one click. *A Gfycat account is required.*
 
 ## Changelog
 
+#### Version 3.6.4
+* Fix arguments when filter change
+* When you check VP9, the configuration will be remembered
+
 #### Version 3.6.3
 * Update binaries to fix JS player extraction in download feature
 

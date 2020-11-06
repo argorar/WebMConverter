@@ -129,6 +129,9 @@ namespace WebMConverter
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["RefreshToken"].Value))
                 GetToken(string.Empty, Token.Refresh);
 
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("VP9"))
+                configuration.AppSettings.Settings.Add("VP9", "false");
+
             LoadConfiguration();
         }
 
@@ -1258,6 +1261,11 @@ namespace WebMConverter
         {
             numericAudioQuality.Enabled = !(sender as CheckBox).Checked;
             UpdateArguments(sender, e);
+
+            if (boxNGOV.Checked)
+                UpdateConfiguration("VP9", "true");
+            else
+                UpdateConfiguration("VP9", "false");
 
             opusQualityScalingTooltip();
         }
@@ -2592,6 +2600,11 @@ namespace WebMConverter
         }
 
         private void boxLoop_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateArguments(sender, e);
+        }
+
+        private void comboLevels_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             UpdateArguments(sender, e);
         }
