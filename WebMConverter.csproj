@@ -214,6 +214,7 @@
     </Compile>
     <Compile Include="Objects\GfycatResponse.cs" />
     <Compile Include="Objects\TokenResponse.cs" />
+    <Compile Include="Objects\UserDetailsResponse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Filters\Resize.cs">

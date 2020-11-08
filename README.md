@@ -113,6 +113,13 @@ Upload your new masterpiece with just one click. *A Gfycat account is required.*
 
 ## Changelog
 
+#### Version 3.7.0
+* Display original FPS in interpolate box
+* If value in interpolate box is 0, it will be removed
+* Gfycat stats, see them in tab *General*
+* Add option to log out of Gfycat
+* Add feedback to merge files to avoid errors
+
 #### Version 3.6.4
 * Fix arguments when filter change
 * When you check VP9, the configuration will be remembered

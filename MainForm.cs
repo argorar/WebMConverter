@@ -128,6 +128,8 @@ namespace WebMConverter
 
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["RefreshToken"].Value))
                 GetToken(string.Empty, Token.Refresh);
+            else
+                groupGfycat.Visible = false;
 
             if (!configuration.AppSettings.Settings.AllKeys.Contains("VP9"))
                 configuration.AppSettings.Settings.Add("VP9", "false");
@@ -151,6 +153,11 @@ namespace WebMConverter
                 boxAudio.Checked = true;
             else
                 boxAudio.Checked = false;
+
+            if (configuration.AppSettings.Settings["VP9"].Value.Equals("true"))
+                boxNGOV.Checked = true;
+            else
+                boxNGOV.Checked = false;
 
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["PathDownload"].Value))
                 textPathDownloaded.Text = configuration.AppSettings.Settings["PathDownload"].Value;
@@ -261,6 +268,9 @@ namespace WebMConverter
             Array.Sort(files);
             foreach (string fileName in files)
             {
+                if (!CheckFileName(fileName))
+                    return true;
+
                 content += $"file '{fileName}'\n";
                 tempExtension = Path.GetExtension(fileName);
                 if (!extensions.ContainsKey(tempExtension))
@@ -283,6 +293,16 @@ namespace WebMConverter
             new ConverterDialog(string.Empty, arguments, string.Empty).ShowDialog(this);
 
             return true;
+        }
+
+        private bool CheckFileName(string fileName)
+        {
+            if (fileName.Contains("'"))
+            {
+                MessageBox.Show($"Check the videos, the filename can't contain -> ' ","Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;           
         }
 
         void MainForm_Shown(object sender, EventArgs e)
@@ -1286,7 +1306,6 @@ namespace WebMConverter
 
             boxDeinterlace.Checked =
             boxDenoise.Checked =
-            boxNGOV.Checked =
                 false;
 
             numericCrf.Value = 30;
@@ -1700,6 +1719,7 @@ namespace WebMConverter
                 Program.VideoInterlaced = frame.InterlacedFrame;
                 SetCRF(frame.EncodedResolution);
                 SetSlices(frame.EncodedResolution);
+                SetFPS();
                 LoadFonts(msg => logIndexingProgress((string)msg));
             });
             indexbw.RunWorkerCompleted += delegate(object sender, RunWorkerCompletedEventArgs e)
@@ -1815,6 +1835,15 @@ namespace WebMConverter
             taskbarManager.SetProgressState(TaskbarProgressBarState.Normal);
             labelIndexingProgress.Text = "Indexing...";
             indexbw.RunWorkerAsync();
+        }
+
+        private void SetFPS()
+        {
+            double originalFPS = Program.VideoSource.NumberOfFrames / Program.VideoSource.LastTime;
+            this.InvokeIfRequired(() =>
+            {
+                SendMessage(boxFrameRate.Handle, EM_SETCUEBANNER, 0, $"Original FPS {Math.Round(originalFPS, 1)}");
+            });            
         }
 
         private void SetCRF(Size resolution)
@@ -2419,11 +2448,6 @@ namespace WebMConverter
 
         #endregion
 
-        private async void button1_ClickAsync(object sender, EventArgs e)
-        {
-            BrowserAuthentication();
-        }
-
         public void BrowserAuthentication()
         {
             HttpListener http = new HttpListener();
@@ -2533,6 +2557,7 @@ namespace WebMConverter
                 TokenResponse tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(textJson);
                 Program.token = tokenResponse.access_token;
                 UpdateConfiguration("RefreshToken", tokenResponse.refresh_token);
+                _ = Task.Run(() => GetUserDetails());
             }
             catch (WebException ex)
             {
@@ -2557,6 +2582,35 @@ namespace WebMConverter
                 this.Activate();
                 MessageBox.Show(ex.Message);
             }            
+        }
+
+        private void GetUserDetails()
+        {
+            try
+            {
+                WebRequest httpWRequest = WebRequest.Create("https://api.gfycat.com/v1/me");
+                httpWRequest.ContentType = "application/json";
+                httpWRequest.Method = "GET";
+                httpWRequest.Headers.Add("Authorization", "Bearer " + Program.token);
+                HttpWebResponse httpWResponse = (HttpWebResponse)httpWRequest.GetResponse();
+                Stream strm = httpWResponse.GetResponseStream();
+                StreamReader sr = new StreamReader(strm);
+                string textJson = sr.ReadToEnd();
+                UserDetailsResponse userDetail = JsonConvert.DeserializeObject<UserDetailsResponse>(textJson);
+                SetUserDetails(userDetail);
+            }
+            catch {}
+        }
+
+        private void SetUserDetails(UserDetailsResponse userDetail)
+        {
+            groupGfycat.Visible = true;
+            lblUser.Text = string.Format(lblUser.Text, userDetail.name);
+            lblPublicGfys.Text = string.Format(lblPublicGfys.Text, userDetail.publishedGfycats);
+            lblTotalGfys.Text = string.Format(lblTotalGfys.Text, userDetail.totalGfycats);
+            lblViews.Text = string.Format(lblViews.Text, string.Format("{0:#,0}", userDetail.views));
+            lblFollowers.Text = string.Format(lblFollowers.Text, userDetail.followers);
+            pictureBox.LoadAsync(userDetail.profileImageUrl);
         }
 
         private void UpdateConfiguration(string key, string value)
@@ -2607,6 +2661,19 @@ namespace WebMConverter
         private void comboLevels_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             UpdateArguments(sender, e);
+        }
+
+        private void boxFrameRate_Leave(object sender, EventArgs e)
+        {
+            if (boxFrameRate.Text.Equals("0"))
+                boxFrameRate.Text = string.Empty;
+        }
+
+        private void buttonLogOut_Click(object sender, EventArgs e)
+        {
+            UpdateConfiguration("RefreshToken", string.Empty);
+            Program.token = string.Empty;
+            groupGfycat.Visible = false;
         }
     }
 
