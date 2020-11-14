@@ -19,7 +19,6 @@ namespace WebMConverter
         internal static DenoiseFilter Denoise = null;
         internal static DubFilter Dub;
         internal static FadeFilter Fade;
-        internal static LevelsFilter Levels = null;
         internal static MultipleTrimFilter MultipleTrim = null;
         internal static OverlayFilter Overlay = null;
         internal static RateFilter Rate = null;
@@ -37,7 +36,6 @@ namespace WebMConverter
             Denoise = null;
             Dub = null;
             Fade = null;
-            Levels = null;
             MultipleTrim = null;
             Overlay = null;
             Rate = null;
@@ -79,7 +77,7 @@ namespace WebMConverter
                    $"Failed to load AviSynth: {errorMessage}.{Environment.NewLine}" + 
                     "I'll open the download page, go ahead and install it.",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Process.Start("http://avisynth.nl/index.php/Main_Page#Official_builds");
+                Process.Start($"http://avisynth.nl/index.php/Main_Page#Official_builds");
                 return;
             }
 
@@ -92,7 +90,7 @@ namespace WebMConverter
                    $"You need Microsoft Visual C++ 2010 (x86) for the full experience.{Environment.NewLine}" +
                     "I'll open the download page, go ahead and install it.",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Process.Start("https://www.microsoft.com/en-us/download/details.aspx?id=8328");
+                Process.Start($"https://www.microsoft.com/en-us/download/details.aspx?id=8328");
                 return;
             }
             Task.Factory.StartNew(ShareXUpload.CheckEnabled);

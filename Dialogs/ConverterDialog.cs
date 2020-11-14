@@ -12,7 +12,6 @@ using System.Text;
 using Newtonsoft.Json;
 using WebMConverter.Objects;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace WebMConverter.Dialogs
 {
@@ -45,10 +44,8 @@ namespace WebMConverter.Dialogs
 
             if (!ShareXUpload.Enabled)
             {
-                //table.SetColumnSpan(buttonPlay, 3);
                 buttonShareX.Hide();
                 table.SetColumnSpan(buttonUpload, 2);
-                //table.SetColumn(buttonCancel, 4);
             }
 
             pictureStatus.BackgroundImage = StatusImages.Images["Happening"];
@@ -60,9 +57,7 @@ namespace WebMConverter.Dialogs
             if (!String.IsNullOrEmpty(_infile))
             {
                 for (var i = 0; i < args.Length; i++)
-                {
                     AddInputFileToArguments(ref args[i]);
-                }
             }
             _isloop = _arguments[0].Contains("[0]reverse[r];[0][r]concat,loop=2");
             taskbarManager = TaskbarManager.Instance;
@@ -145,13 +140,9 @@ namespace WebMConverter.Dialogs
         void AddInputFileToArguments(ref string argument)
         {
             if (_needToPipe)
-            {
                 argument = $@"-f nut -i pipe:0 {argument}";
-            }
             else
-            {
                 argument = $@"-f avisynth -i ""{_infile}"" {argument}";
-            }
         }
 
         void StartPipe(FFmpeg ffmpeg)
@@ -485,7 +476,6 @@ namespace WebMConverter.Dialogs
                             boxOutput.AppendText($"{Environment.NewLine}HTTP: {response.StatusCode}");
                             using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                             {
-                                // reads response body
                                 string responseText = await reader.ReadToEndAsync();
                                 boxOutput.AppendText($"{Environment.NewLine}Message: {responseText}");
                             }
@@ -544,6 +534,5 @@ namespace WebMConverter.Dialogs
                 }
             }
         }
-        // 0x115: WM_VSCROLL, 7: SB_BOTTOM
     }
 }

@@ -146,7 +146,6 @@
     <Compile Include="Filters\Fade.Designer.cs">
       <DependentUpon>Fade.cs</DependentUpon>
     </Compile>
-    <Compile Include="Filters\Levels.cs" />
     <Compile Include="Filters\Overlay.cs">
       <SubType>Form</SubType>
     </Compile>

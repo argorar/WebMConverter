@@ -9,9 +9,8 @@ namespace WebMConverter
 {
     public partial class TrimForm : Form
     {
-        private int trimStart = -1;
-        private int trimEnd = -1;
-        private bool play = false;
+        private int trimStart;
+        private int trimEnd;
         public TrimFilter GeneratedFilter;
 
         public TrimForm(TrimFilter FilterToEdit = null)
@@ -87,9 +86,7 @@ namespace WebMConverter
             using (var dialog = new InputDialog<int>("Frame", trackVideoTimeline.Value))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
-                {
                     SetFrame(dialog.Value);
-                }
             }
         }
 
@@ -98,9 +95,7 @@ namespace WebMConverter
             using (var dialog = new InputDialog<TimeSpan>("Time", FrameToTimeSpan(trackVideoTimeline.Value)))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
-                {
                     SetFrame(TimeSpanToFrame(dialog.Value));
-                }
             }
         }
 
@@ -113,9 +108,7 @@ namespace WebMConverter
                 modifier = 1;
 
             if (modifier != 0)
-            {
                 SetFrame(modifier, true);
-            }
 
             ((HandledMouseEventArgs)e).Handled = true;
         }
@@ -148,7 +141,6 @@ namespace WebMConverter
             }                        
         }
 
-
         void SetFrame(int frame, bool modifier = false)
         {
             if (modifier)
@@ -167,7 +159,6 @@ namespace WebMConverter
 
         private void trackVideoTimeline_Focus(object sender, EventArgs e) => trackVideoTimeline.Focus();
 
-        
     }
 
     public class TrimFilter

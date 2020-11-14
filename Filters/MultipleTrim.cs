@@ -17,9 +17,7 @@ namespace WebMConverter
             if (filterToEdit != null)
             {
                 foreach (TrimFilter trim in filterToEdit.Trims)
-                {
                     listViewTrims.Items.Add(trim.ToString()).Tag = trim;
-                }
             }
         }
 
@@ -38,18 +36,12 @@ namespace WebMConverter
         private void listViewTrims_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
-            {
                 listViewTrims.SelectedItems[0].Remove();
-            }
         }
 
         private void MoveListViewItem(ListView sender, MoveDirection direction) // http://stackoverflow.com/a/11623992
         {
             int dir = (int)direction;
-            int opp = dir * -1;
-
-            // We don't need to check if it's valid.
-
             var item = sender.SelectedItems[0];
             int index = item.Index + dir;
 
@@ -66,9 +58,7 @@ namespace WebMConverter
             using (var form = new TrimForm())
             {
                 if (form.ShowDialog() == DialogResult.OK)
-                {
                     listViewTrims.Items.Add(form.GeneratedFilter.ToString()).Tag = form.GeneratedFilter;
-                }
             }
         }
 
@@ -77,9 +67,7 @@ namespace WebMConverter
             var Trims = new List<TrimFilter>();
 
             foreach (ListViewItem item in listViewTrims.Items)
-            {
                 Trims.Add(item.Tag as TrimFilter);
-            }
 
             if (Trims.Count == 0)
                 return;
@@ -121,9 +109,7 @@ namespace WebMConverter
             double duration = 0;
 
             foreach (TrimFilter trim in Trims)
-            {
                 duration += trim.GetDuration();
-            }
 
             return duration;
         }

@@ -28,18 +28,17 @@ namespace WebMConverter.Dialogs
             {
                 this.Activate();
                 var file = File.ReadAllBytes(filePath);
+                FileInfo fileInfo = new FileInfo(filePath);
+                string fileSize = Utility.SizeSuffix(fileInfo.Length);
                 using (var client = new HttpClient())
                 {
                     using (var content = new MultipartFormDataContent())
                     {
                         content.Add(new StringContent(gfyName), "key");
                         content.Add(new ByteArrayContent(file), "file", gfyName);
-                        labelStatus.Text = "Uploading file..";
+                        labelStatus.Text = $"Uploading file {fileSize}";
                         progressBar.Style = ProgressBarStyle.Marquee;
-                        using ( await client.PostAsync("https://filedrop.gfycat.com", content))
-                        {
-                            labelStatus.Text = $"Everything is great, now wait until gfycat encode the video :)";
-                        }
+                        _ = await client.PostAsync($"https://filedrop.gfycat.com", content);
                     }
                 }
                 await CheckStatus();
@@ -48,16 +47,8 @@ namespace WebMConverter.Dialogs
             {
                 if (ex.Status == WebExceptionStatus.ProtocolError)
                 {
-                    var response = ex.Response as HttpWebResponse;
-                    if (response != null)
-                    {
-                        using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                        {
-                            // reads response body
-                            string responseText = await reader.ReadToEndAsync();
-                            labelStatus.Text = $"Ups {responseText}";
-                        }
-                    }
+                    labelStatus.Text = $"Ups {ex.Message}";
+                    this.Activate();
                 }
             }
             catch (Exception ex)
@@ -73,7 +64,7 @@ namespace WebMConverter.Dialogs
         private async Task CheckStatus()
         {
             progressBar.Style = ProgressBarStyle.Continuous;
-            progressBar.Value = 30;
+            progressBar.Value = 0;
             string text;
             bool isDone = false;
             string cUrl = $"https://api.gfycat.com/v1/gfycats/fetch/status/{gfyName}";
@@ -94,7 +85,6 @@ namespace WebMConverter.Dialogs
                         if (text.Contains("complete"))
                         {
                             isDone = true;
-                            labelStatus.Text = "Your video is up!";
                             System.Diagnostics.Process.Start($"https://gfycat.com/{gfyName}");
                             Dispose();
                         }

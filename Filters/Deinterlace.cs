@@ -2,8 +2,6 @@
 {
     public class DeinterlaceFilter
     {
-        //public override string ToString() => "tdeint()";
-
         //DGBob() takes three named parameter:
         //order(0-1, default none!) This parameter defines the field order of the clip.It is very important to set this correctly.Use order = 0 for bottom field first(bff). Use order = 1 for top field first(tff). You must specify order; DGBob throws an exception if you omit this parameter.
         //If you select the wrong field order, smooth motion will jump backward and forward and you may see some combing.If this occurs, you need to reverse the field order.

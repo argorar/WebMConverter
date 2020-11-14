@@ -54,14 +54,10 @@ namespace WebMConverter
                     closest = Math.Abs(difference);
 
                 if (difference < 0)
-                {
                     frame += 1;
-                }
+                
                 else
-                {
                     frame -= 1;
-                }
-
             }
             return frame;
         }
@@ -169,6 +165,34 @@ namespace WebMConverter
             catch { }
             return result;
         }
+
+        public static string SizeSuffix(long value)
+        {
+            int decimalPlaces = 1;
+            string[] SizeSuffixes = { "bytes", "KB", "MB", "GB" };
+            if (value < 0)
+                return "-" + SizeSuffix(-value);
+            if (value == 0) 
+                return string.Format("{0:n" + decimalPlaces + "} bytes", 0);
+
+            // mag is 0 for bytes, 1 for KB, 2, for MB, etc.
+            int mag = (int)Math.Log(value, 1024);
+
+            // 1L << (mag * 10) == 2 ^ (10 * mag) 
+            decimal adjustedSize = (decimal)value / (1L << (mag * 10));
+
+            // make adjustment when the value is large enough that
+            // it would round up to 1000 or more
+            if (Math.Round(adjustedSize, decimalPlaces) >= 1000)
+            {
+                mag += 1;
+                adjustedSize /= 1024;
+            }
+
+            return string.Format("{0:n" + decimalPlaces + "} {1}",
+                adjustedSize,
+                SizeSuffixes[mag]);
+        }
     }
     
     public enum FileType
@@ -182,6 +206,18 @@ namespace WebMConverter
         TextSub,
         VobSub,
         PgsSub
+    }
+
+    public enum EncodingMode
+    {
+        Constant,
+        Variable
+    }
+
+    public enum Token
+    {
+        New = 1,
+        Refresh = 2
     }
 
     public static class Extensions

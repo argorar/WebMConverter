@@ -54,9 +54,7 @@ namespace WebMConverter
         private void textWidthOut_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
                 e.Handled = true;
-            }
         }
 
         private void textWidthOut_TextChanged(object sender, EventArgs e)
@@ -73,15 +71,15 @@ namespace WebMConverter
                 }
             }
             catch
-            { }
+            { 
+                // ignored
+            }
         }
 
         private void textHeightOut_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
                 e.Handled = true;
-            }
         }
 
         private void textHeightOut_TextChanged(object sender, EventArgs e)
@@ -98,7 +96,9 @@ namespace WebMConverter
                 }
             }
             catch
-            { }
+            {
+                // ignored
+            }
         }
 
         void ResizeForm_Load(object sender, EventArgs e)

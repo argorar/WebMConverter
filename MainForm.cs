@@ -172,7 +172,6 @@ namespace WebMConverter
 
         void HandleDragEnter(object sender, DragEventArgs e)
         {
-            // show copy cursor for files
             bool dataPresent = e.Data.GetDataPresent(DataFormats.FileDrop);
             e.Effect = dataPresent ? DragDropEffects.Copy : DragDropEffects.None;
         }
@@ -262,7 +261,7 @@ namespace WebMConverter
                 return false;
 
             string list = "Deus";
-            string content = string.Empty;
+            StringBuilder content = new StringBuilder();
             string tempExtension = string.Empty;
             Dictionary<string, string> extensions = new Dictionary<string, string>();
             Array.Sort(files);
@@ -271,7 +270,7 @@ namespace WebMConverter
                 if (!CheckFileName(fileName))
                     return true;
 
-                content += $"file '{fileName}'\n";
+                content.Append($"file '{fileName}'\n");
                 tempExtension = Path.GetExtension(fileName);
                 if (!extensions.ContainsKey(tempExtension))
                     extensions.Add(tempExtension, "");
@@ -284,7 +283,7 @@ namespace WebMConverter
             if (File.Exists(list))
                 File.Delete(list);
 
-            System.IO.File.WriteAllText( list, content);
+            System.IO.File.WriteAllText( list, content.ToString());
 
             string[] arguments = new string[1];
             string directory = Path.GetDirectoryName(files[0]);
@@ -315,7 +314,6 @@ namespace WebMConverter
             SendMessage(textBoxIn.Handle, EM_SETCUEBANNER, 0, "Paste URL here if you want to download a video");
             this.ActiveControl = buttonBrowseIn;
             CheckUpdate();
-
         }
 
         void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -324,9 +322,7 @@ namespace WebMConverter
             UnloadFonts();
 
             foreach (var temporaryFile in _temporaryFilesList)
-            {
                 File.Delete(temporaryFile);
-            }
         }
 
         void boxIndexingProgressDetails_CheckedChanged(object sender, EventArgs e)
@@ -348,9 +344,7 @@ namespace WebMConverter
                 boxIndexingProgress.Text += message + Environment.NewLine;
                 var indexingProgressLines = boxIndexingProgress.Text.Split('\n');
                 if (indexingProgressLines.Length > _boxIndexingProgressMaxLines)
-                {
                     boxIndexingProgress.Text = string.Join(Environment.NewLine, indexingProgressLines.Skip(1));
-                }
             });
         }
 
@@ -400,10 +394,12 @@ namespace WebMConverter
                     });
                 });
             }
-            catch { }         
+            catch {
+                // ignored
+            }         
         }
 
-        [System.Diagnostics.DebuggerStepThrough]
+            [System.Diagnostics.DebuggerStepThrough]
         void setToolTip(string message)
         {
             if (this.IsDisposed || toolStripStatusLabel.IsDisposed)
@@ -425,9 +421,7 @@ namespace WebMConverter
             if (timer > 0)
             {
                 toolTipTimer = new StopWatch(timer);
-
                 toolTipTimer.Elapsed += (sender, e) => clearToolTip();
-
                 toolTipTimer.AutoReset = false;
                 toolTipTimer.Enabled = true;
             }
@@ -473,7 +467,6 @@ namespace WebMConverter
 
                 if (textBoxIn.Text.StartsWith("http"))
                 {
-                    // download
                     buttonBrowseIn_Click(sender, null);
                     return;
                 }
@@ -527,7 +520,6 @@ namespace WebMConverter
                     {
                         var url = textBoxIn.Text;
                         textBoxIn.Text = dialog.GetOutfile();
-                        //something happend
                         buttonBrowseIn.Text = "Browse";
                         SetFile(textBoxIn.Text);
                         boxTitle.Text = url;
@@ -1036,13 +1028,8 @@ namespace WebMConverter
 
         private void listViewProcessingScript_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-            {
-                if (listViewProcessingScript.FocusedItem.Bounds.Contains(e.Location))
-                {
-                    listViewContextMenu.Show(listViewProcessingScript, e.Location);
-                }
-            }
+            if (e.Button == MouseButtons.Right && listViewProcessingScript.FocusedItem.Bounds.Contains(e.Location))
+                listViewContextMenu.Show(listViewProcessingScript, e.Location);
         }
 
         private void listViewContextMenuEdit_Click(object sender, EventArgs e)
@@ -1128,12 +1115,6 @@ namespace WebMConverter
             UpdateArguments(sender, e);
         }
 
-        [System.Diagnostics.DebuggerStepThrough]
-        void listViewProcessingScript_MouseEnter(object sender, EventArgs e)
-        {
-            showToolTip("");
-        }
-
         #endregion
 
         #region tabEncoding
@@ -1141,9 +1122,7 @@ namespace WebMConverter
         void textBoxNumbersOnly(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != ',')
-            {
                 e.Handled = true;
-            }
         }
 
         EncodingMode encodingMode = EncodingMode.Constant;
@@ -1159,12 +1138,9 @@ namespace WebMConverter
             numericCrf.TabStop = numericCrfTolerance.TabStop = numericAudioQuality.TabStop = false;
 
             buttonVariableDefault.Visible = false;
-            //if (encodingMode != Properties.Settings.Default.EncodingMode)
-            //{
-            //    buttonConstantDefault.Visible = true;
-            //}
             if(boxConstant.Checked)
                 UpdateConfiguration("EncodingMode", EncodingMode.Constant.ToString());
+
             UpdateArguments(sender, e);
         }
 
@@ -1198,12 +1174,10 @@ namespace WebMConverter
             boxLimit.TabStop = boxBitrate.TabStop = boxAudioBitrate.TabStop = false;
 
             buttonConstantDefault.Visible = false;
-            //if (encodingMode != Properties.Settings.Default.EncodingMode)
-            //{
-            //    buttonVariableDefault.Visible = true;
-            //}
+
             if (boxVariable.Checked)
                 UpdateConfiguration("EncodingMode", EncodingMode.Variable.ToString());
+
             UpdateArguments(sender, e);
 
             opusQualityScalingTooltip();
@@ -1224,8 +1198,6 @@ namespace WebMConverter
             
             if (boxNGOV.Checked)
                 numericAudioQuality.Enabled = false;
-
-            //buttonAudioEnabledDefault.Visible = boxAudio.Checked != Properties.Settings.Default.AudioEnabled;
 
             if (boxAudio.Checked)
                 UpdateConfiguration("AudioEnabled", "true");
@@ -1316,7 +1288,6 @@ namespace WebMConverter
 
             var threads = Environment.ProcessorCount;
             trackThreads.Value = Math.Min(trackThreads.Maximum, Math.Max(trackThreads.Minimum, threads));
-            // trackSlices is set during probing.
         }
 
         char[] invalidChars = Path.GetInvalidPathChars();
@@ -1445,9 +1416,8 @@ namespace WebMConverter
                 try
                 {
                     if (!audioDisabled) // Indexing failed because of the audio, so the user disabled it.
-                    {
                         indexer.SetTrackTypeIndexSettings(FFMSSharp.TrackType.Audio, true);
-                    }
+                    
                     index = indexer.Index();
                 }
                 catch (OperationCanceledException)
@@ -1633,7 +1603,7 @@ namespace WebMConverter
                                             break;
                                         default:
                                             type = SubtitleType.TextSub;
-                                            extension = "." + streamtitle; // YOLO
+                                            extension = "." + streamtitle;
                                             break;
                                     }
                                     
@@ -1654,8 +1624,8 @@ namespace WebMConverter
                                         logIndexingProgress("Already extracted! Skipping...");
                                     }
 
-                                    if (!File.Exists(file)) // Holy shit, it still doesn't exist?
-                                        break; // Whatever, skip it.
+                                    if (!File.Exists(file))
+                                        break;
 
                                     if (!nav.IsEmptyElement) // There might be a tag element
                                     {
@@ -1665,7 +1635,6 @@ namespace WebMConverter
                                         streamtitle = titleTag == "" ? streamtitle : titleTag;
                                     }
 
-                                    // Save it
                                     Program.SubtitleTracks.Add(streamindex, new Tuple<string, SubtitleType, string>(streamtitle, type, extension));
                                     break;
                                 case @"attachment": // Extract the attachment using mkvmerge
@@ -1755,29 +1724,7 @@ namespace WebMConverter
                 }
                 boxAudio.Enabled = Program.InputHasAudio = true;
                 if (audioDisabled)
-                {
-                    switch (Path.GetExtension(path).ToLower())
-                    {
-                        case ".png":
-                            break;
-                        case ".gif":
-                            break;
-                        case ".jpg":
-                            break;
-                        case ".jpeg":
-                            break;
-                        case ".bmp":
-                            break;
-                        default:
-                            //MessageBox.Show(
-                            //    $"We couldn't find any audio tracks.{Environment.NewLine}" + 
-                            //    $"If you want sound, please use another input file.{Environment.NewLine}" + 
-                            //    "If you don't want audio in your output webm, there's nothing to worry about.",
-                            //    "FYI", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                    }
                     boxAudio.Checked = boxAudio.Enabled = Program.InputHasAudio = false;
-                }
 
                 buttonGo.Enabled = true;
                 buttonPreview.Enabled = true;
@@ -1788,9 +1735,8 @@ namespace WebMConverter
                 if (boxTitle.Text == _autoTitle || boxTitle.Text == "")
                     boxTitle.Text = _autoTitle = title;
 
-                if (Program.VideoColorRange == FFMSSharp.ColorRange.MPEG)
-                    if (Program.VideoInterlaced)
-                        boxDeinterlace.Checked = true;
+                if (Program.VideoColorRange == FFMSSharp.ColorRange.MPEG && Program.VideoInterlaced)
+                    boxDeinterlace.Checked = true;
 
                 panelHideTheOptions.SendToBack();
                 taskbarManager.SetProgressState(TaskbarProgressBarState.NoProgress);
@@ -1853,7 +1799,6 @@ namespace WebMConverter
                 {
                     numericCrf.Value = 16;
                 });
-            
         }
 
         void CancelIndexing()
@@ -1950,7 +1895,6 @@ namespace WebMConverter
                 if (Filters.Deinterlace != null)
                 {
                     avscript.WriteLine(@"LoadPlugin(PluginPath+""dgbob.dll"")");
-                    //avscript.WriteLine(@"LoadPlugin(PluginPath+""TDeint.dll"")");
                     avscript.WriteLine(Filters.Deinterlace);
                 }
 
@@ -1959,9 +1903,6 @@ namespace WebMConverter
                     avscript.WriteLine(@"LoadPlugin(PluginPath+""hqdn3d.dll"")");
                     avscript.WriteLine(Filters.Denoise);
                 }
-
-                if (Filters.Levels != null)
-                    avscript.WriteLine(Filters.Levels);
 
                 if (SarCompensate)
                     avscript.WriteLine(new ResizeFilter(SarWidth, SarHeight));
@@ -1998,15 +1939,12 @@ namespace WebMConverter
 
             if (!string.IsNullOrEmpty(levels))
                 levels = " -vf " + levels;
-            // Run ffplay
+
             var disableAudio = boxAudio.Checked ? "" : "-an";
             var ffplay = new FFplay($@"-window_title Preview -loop 0 -f avisynth -v error {disableAudio}{levels} ""{avsFileName}""");
             ffplay.Exited += delegate
             {
-                string error = null;
-                // if (ffplay.ExitCode != 0) // There was an error
-                // This is what I would like to do, but ffplay returns 0 even when there's an error in the script.
-                error = ffplay.ErrorLog;
+                string error = ffplay.ErrorLog;
 
                 this.InvokeIfRequired(() =>
                 {
@@ -2057,16 +1995,15 @@ namespace WebMConverter
             else
             {
                 var passlogfile = GetTemporaryLogFile();
-                arguments = new string[2]; //           vvv is Windows only
+                arguments = new string[2];
                 arguments[0] = string.Format(Template, "NUL", options, string.Format(PassArgument, 1, passlogfile));
                 arguments[1] = string.Format(Template, output, options, string.Format(PassArgument, 2, passlogfile));
 
                 if (!arguments[0].Contains("-an")) // skip audio encoding on the first pass
-                    arguments[0] = arguments[0].Replace("-c:v libvpx", "-an -c:v libvpx"); // ugly as hell
+                    arguments[0] = arguments[0].Replace("-c:v libvpx", "-an -c:v libvpx");
             }
 
             new ConverterDialog(avsFileName, arguments, output).ShowDialog(this);
-            //new Thread(() => new ConverterDialog(avsFileName, arguments, output).ShowDialog()).Start();
         }
 
         string GenerateArguments()
@@ -2227,8 +2164,6 @@ namespace WebMConverter
         {
             if (boxAdvancedScripting.Checked || Program.InputType == FileType.Avisynth)
             {
-                // The dirty way.
-                
                 try
                 {
                     using (XmlReader reader = XmlReader.Create(new StringReader(avsScriptInfo)))
@@ -2251,7 +2186,6 @@ namespace WebMConverter
             }
             else
             {
-                // The easy way.
                 double duration;
 
                 if (Filters.Trim != null)
@@ -2272,8 +2206,6 @@ namespace WebMConverter
         {
             if (boxAdvancedScripting.Checked || Program.InputType == FileType.Avisynth)
             {
-                // The dirty way.
-
                 int width = -1, height = -1;
 
                 try
@@ -2285,13 +2217,10 @@ namespace WebMConverter
                         while (reader.MoveToNextAttribute())
                         {
                             if (reader.Name == "width")
-                            {
                                 width = int.Parse(reader.Value);
-                            }
+
                             if (reader.Name == "height")
-                            {
                                 height = int.Parse(reader.Value);
-                            }
                         }
                     }
                 }
@@ -2305,11 +2234,9 @@ namespace WebMConverter
             else
             {
                 if (Filters.Resize != null)
-                {
                     return new Size(Filters.Resize.TargetWidth, Filters.Resize.TargetHeight);
-                }
 
-                var frame = Program.VideoSource.GetFrame((Filters.Trim == null) ? 0 : Filters.Trim.TrimStart); // the video may have different frame resolutions
+                var frame = Program.VideoSource.GetFrame((Filters.Trim == null) ? 0 : Filters.Trim.TrimStart);
 
                 if (Filters.Crop != null)
                 {
@@ -2365,7 +2292,6 @@ namespace WebMConverter
             switch (Program.InputType)
             {
                 case FileType.Video:
-                    // Make our temporary file for the AviSynth script
                     avsFileName = GetTemporaryFile();
                     WriteAvisynthScript(avsFileName, textBoxIn.Text);
                     break;
@@ -2374,7 +2300,6 @@ namespace WebMConverter
                     break;
             }
 
-            // ffprobe it
             var ffprobe = new FFprobe(avsFileName);
             avsScriptInfo = ffprobe.Probe();
         }
@@ -2387,21 +2312,16 @@ namespace WebMConverter
             int slices;
 
             if (resolution.Width * resolution.Height >= 2073600) // 1080p (1920*1080)
-            {
                 slices = 4;
-            }
+            
             else if (resolution.Width * resolution.Height >= 921600) // 720p (1280*720)
-            {
                 slices = 3;
-            }
+            
             else if (resolution.Width * resolution.Height >= 307200) // 480p (640*480)
-            {
                 slices = 2;
-            }
+            
             else
-            {
                 slices = 1;
-            }
 
             this.InvokeIfRequired(() =>
             {
@@ -2470,7 +2390,6 @@ namespace WebMConverter
                     // Waits for the OAuth authorization response.
                     var context = http.GetContext();
                     HttpListenerResponse response = context.Response;
-                    // Checks for errors.
                     if (context.Request.QueryString.Get("error") != null)
                     {
                         MessageBox.Show(String.Format("OAuth authorization error: {0}.", context.Request.QueryString.Get("error")), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -2489,11 +2408,9 @@ namespace WebMConverter
                     }
 
                     byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
-                    // Get a response stream and write the response to it.
                     response.ContentLength64 = buffer.Length;
                     System.IO.Stream output = response.OutputStream;
                     output.Write(buffer, 0, buffer.Length);
-                    // You must close the output stream.
                     output.Close();
                 }
 
@@ -2510,7 +2427,6 @@ namespace WebMConverter
                         MessageBox.Show("HTTP: " + response.StatusCode);
                         using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                         {
-                            // reads response body
                             string responseText = reader.ReadToEnd();
                             MessageBox.Show(responseText);
                         }
@@ -2526,8 +2442,6 @@ namespace WebMConverter
             finally
             {
                 http.Stop();
-
-                // Brings this app back to the foreground.
                 this.Activate();
             }
         }
@@ -2536,7 +2450,7 @@ namespace WebMConverter
         {
             try
             {
-                WebRequest httpWRequest = WebRequest.Create("https://api.gfycat.com/v1/oauth/token");
+                WebRequest httpWRequest = WebRequest.Create($"https://api.gfycat.com/v1/oauth/token");
                 httpWRequest.ContentType = "application/json";
                 httpWRequest.Method = "POST";
                 string postData;
@@ -2550,10 +2464,7 @@ namespace WebMConverter
                 ASCIIEncoding encoding = new ASCIIEncoding();
                 byte[] byte1 = encoding.GetBytes(postData);
                 httpWRequest.GetRequestStream().Write(byte1, 0, byte1.Length);
-                HttpWebResponse httpWResponse = (HttpWebResponse)httpWRequest.GetResponse();
-                Stream strm = httpWResponse.GetResponseStream();
-                StreamReader sr = new StreamReader(strm);
-                string textJson = sr.ReadToEnd();
+                string textJson = new StreamReader(httpWRequest.GetResponse().GetResponseStream()).ReadToEnd();
                 TokenResponse tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(textJson);
                 Program.token = tokenResponse.access_token;
                 UpdateConfiguration("RefreshToken", tokenResponse.refresh_token);
@@ -2561,20 +2472,10 @@ namespace WebMConverter
             }
             catch (WebException ex)
             {
-                if (ex.Status == WebExceptionStatus.ProtocolError)
+                if (ex.Status == WebExceptionStatus.ProtocolError && ex.Response is HttpWebResponse response)
                 {
-                    var response = ex.Response as HttpWebResponse;
-                    if (response != null)
-                    {
-                        MessageBox.Show("HTTP: " + response.StatusCode);
-                        using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                        {
-                            // reads response body
-                            string responseText = reader.ReadToEnd();
-                            MessageBox.Show(responseText);
-                        }
-                    }
-
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                        MessageBox.Show(reader.ReadToEnd());
                 }
             }
             catch (Exception ex)
@@ -2586,20 +2487,13 @@ namespace WebMConverter
 
         private void GetUserDetails()
         {
-            try
-            {
-                WebRequest httpWRequest = WebRequest.Create("https://api.gfycat.com/v1/me");
-                httpWRequest.ContentType = "application/json";
-                httpWRequest.Method = "GET";
-                httpWRequest.Headers.Add("Authorization", "Bearer " + Program.token);
-                HttpWebResponse httpWResponse = (HttpWebResponse)httpWRequest.GetResponse();
-                Stream strm = httpWResponse.GetResponseStream();
-                StreamReader sr = new StreamReader(strm);
-                string textJson = sr.ReadToEnd();
-                UserDetailsResponse userDetail = JsonConvert.DeserializeObject<UserDetailsResponse>(textJson);
-                SetUserDetails(userDetail);
-            }
-            catch {}
+            WebRequest httpWRequest = WebRequest.Create($"https://api.gfycat.com/v1/me");
+            httpWRequest.ContentType = "application/json";
+            httpWRequest.Method = "GET";
+            httpWRequest.Headers.Add("Authorization", "Bearer " + Program.token);
+            string textJson = new StreamReader(httpWRequest.GetResponse().GetResponseStream()).ReadToEnd();
+            UserDetailsResponse userDetail = JsonConvert.DeserializeObject<UserDetailsResponse>(textJson);
+            SetUserDetails(userDetail);
         }
 
         private void SetUserDetails(UserDetailsResponse userDetail)
@@ -2650,7 +2544,7 @@ namespace WebMConverter
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://argorar.github.io/WebMConverter/");
+            _ = System.Diagnostics.Process.Start($"https://argorar.github.io/WebMConverter/");
         }
 
         private void boxLoop_CheckedChanged(object sender, EventArgs e)
@@ -2675,17 +2569,5 @@ namespace WebMConverter
             Program.token = string.Empty;
             groupGfycat.Visible = false;
         }
-    }
-
-    public enum EncodingMode
-    {
-        Constant,
-        Variable
-    }
-
-    public enum Token
-    {
-        New = 1,
-        Refresh = 2
     }
 }
