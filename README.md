@@ -110,8 +110,15 @@ Drag and drop video files inside the app, search for the new video in source pat
 ### Upload to Gfycat
 
 Upload your new masterpiece with just one click. *A Gfycat account is required.*
+See user details in tab *General*. If you are creating several gfys of the same topic, tags can be usefull for you.
 
 ## Changelog
+
+#### Version 3.8.0
+* Add file size information after convert and gfycat uploader
+* Add tags in tab General
+* Update binaries
+* Cleaning the garden
 
 #### Version 3.7.0
 * Display original FPS in interpolate box

@@ -13,20 +13,20 @@ namespace WebMConverter
 
     static class Filters
     {
-        internal static CaptionFilter Caption = null;
-        internal static CropFilter Crop = null;
-        internal static DeinterlaceFilter Deinterlace = null;
-        internal static DenoiseFilter Denoise = null;
+        internal static CaptionFilter Caption;
+        internal static CropFilter Crop;
+        internal static DeinterlaceFilter Deinterlace;
+        internal static DenoiseFilter Denoise;
         internal static DubFilter Dub;
         internal static FadeFilter Fade;
-        internal static MultipleTrimFilter MultipleTrim = null;
-        internal static OverlayFilter Overlay = null;
-        internal static RateFilter Rate = null;
-        internal static ResizeFilter Resize = null;
-        internal static ReverseFilter Reverse = null;
+        internal static MultipleTrimFilter MultipleTrim;
+        internal static OverlayFilter Overlay;
+        internal static RateFilter Rate;
+        internal static ResizeFilter Resize;
+        internal static ReverseFilter Reverse;
         internal static RotateFilter Rotate;
-        internal static SubtitleFilter Subtitle = null;
-        internal static TrimFilter Trim = null;
+        internal static SubtitleFilter Subtitle;
+        internal static TrimFilter Trim;
 
         internal static void ResetFilters()
         {

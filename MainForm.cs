@@ -96,7 +96,7 @@ namespace WebMConverter
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern Int32 SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
-        bool indexing = false;
+        bool indexing;
         BackgroundWorker indexbw;
 
         StopWatch toolTipTimer;
@@ -109,7 +109,7 @@ namespace WebMConverter
 
         private List<string> _temporaryFilesList;
 
-        public bool SarCompensate = false;
+        public bool SarCompensate;
         public int SarWidth;
         public int SarHeight;
 
@@ -167,7 +167,8 @@ namespace WebMConverter
         void MainForm_Load(object sender, EventArgs e)
         {
             int threads = Environment.ProcessorCount;
-            trackThreads.Value = Math.Min(trackThreads.Maximum, Math.Max(trackThreads.Minimum, threads));
+            trackThreads.Value = Math.Min(trackThreads.Maximum, Math.Max(trackThreads.Minimum, threads));            
+            this.Text = string.Format(this.Text, Utility.GetVersion());
         }
 
         void HandleDragEnter(object sender, DragEventArgs e)
@@ -312,6 +313,7 @@ namespace WebMConverter
             if (args.Length > 1) // We were "Open with..."ed with a file
                 SetFile(args[1]);
             SendMessage(textBoxIn.Handle, EM_SETCUEBANNER, 0, "Paste URL here if you want to download a video");
+            SendMessage(boxTags.Handle, EM_SETCUEBANNER, 0, "tag1,tag2,tag3...");
             this.ActiveControl = buttonBrowseIn;
             CheckUpdate();
         }
@@ -2498,13 +2500,16 @@ namespace WebMConverter
 
         private void SetUserDetails(UserDetailsResponse userDetail)
         {
-            groupGfycat.Visible = true;
-            lblUser.Text = string.Format(lblUser.Text, userDetail.name);
-            lblPublicGfys.Text = string.Format(lblPublicGfys.Text, userDetail.publishedGfycats);
-            lblTotalGfys.Text = string.Format(lblTotalGfys.Text, userDetail.totalGfycats);
-            lblViews.Text = string.Format(lblViews.Text, string.Format("{0:#,0}", userDetail.views));
-            lblFollowers.Text = string.Format(lblFollowers.Text, userDetail.followers);
-            pictureBox.LoadAsync(userDetail.profileImageUrl);
+            this.InvokeIfRequired(() =>
+            {
+                groupGfycat.Visible = true;
+                lblUser.Text = string.Format(lblUser.Text, userDetail.name);
+                lblPublicGfys.Text = string.Format(lblPublicGfys.Text, userDetail.publishedGfycats);
+                lblTotalGfys.Text = string.Format(lblTotalGfys.Text, userDetail.totalGfycats);
+                lblViews.Text = string.Format(lblViews.Text, string.Format("{0:#,0}", userDetail.views));
+                lblFollowers.Text = string.Format(lblFollowers.Text, userDetail.followers);
+                pictureBox.LoadAsync(userDetail.profileImageUrl);
+            });            
         }
 
         private void UpdateConfiguration(string key, string value)
@@ -2568,6 +2573,11 @@ namespace WebMConverter
             UpdateConfiguration("RefreshToken", string.Empty);
             Program.token = string.Empty;
             groupGfycat.Visible = false;
+        }
+
+        public string[] GetGfyTags()
+        {
+            return String.IsNullOrEmpty(boxTags.Text) ? null : boxTags.Text.Split(',') ;
         }
     }
 }

@@ -144,6 +144,8 @@ namespace WebMConverter
             this.labelSlices = new System.Windows.Forms.Label();
             this.boxArguments = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.boxTags = new System.Windows.Forms.TextBox();
+            this.labelTags = new System.Windows.Forms.Label();
             this.buttonLogOut = new System.Windows.Forms.Button();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.lblFollowers = new System.Windows.Forms.Label();
@@ -1894,6 +1896,8 @@ namespace WebMConverter
             // 
             // groupGfycat
             // 
+            groupGfycat.Controls.Add(this.boxTags);
+            groupGfycat.Controls.Add(this.labelTags);
             groupGfycat.Controls.Add(this.buttonLogOut);
             groupGfycat.Controls.Add(this.pictureBox);
             groupGfycat.Controls.Add(this.lblFollowers);
@@ -1910,6 +1914,22 @@ namespace WebMConverter
             groupGfycat.TabIndex = 5;
             groupGfycat.TabStop = false;
             groupGfycat.Text = "Gfycat";
+            // 
+            // boxTags
+            // 
+            this.boxTags.Location = new System.Drawing.Point(411, 84);
+            this.boxTags.Name = "boxTags";
+            this.boxTags.Size = new System.Drawing.Size(514, 22);
+            this.boxTags.TabIndex = 9;
+            // 
+            // labelTags
+            // 
+            this.labelTags.AutoSize = true;
+            this.labelTags.Location = new System.Drawing.Point(357, 85);
+            this.labelTags.Name = "labelTags";
+            this.labelTags.Size = new System.Drawing.Size(48, 17);
+            this.labelTags.TabIndex = 8;
+            this.labelTags.Text = "Tags: ";
             // 
             // buttonLogOut
             // 
@@ -2162,7 +2182,7 @@ namespace WebMConverter
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WebM for Lazys v3.7.0";
+            this.Text = "WebM for Lazys v{0}";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
@@ -2310,6 +2330,9 @@ namespace WebMConverter
         private System.Windows.Forms.Label lblUser;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Button buttonLogOut;
+        private System.Windows.Forms.TextBox boxTags;
+        private System.Windows.Forms.Label labelTags;
         private System.Windows.Forms.GroupBox groupGfycat;
+        // private System.Windows.Forms.GroupBox groupGfycat;
     }
 }

@@ -165,20 +165,24 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 76);
+            this.label1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label1.Location = new System.Drawing.Point(21, 76);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 17);
+            this.label1.Size = new System.Drawing.Size(89, 52);
             this.label1.TabIndex = 7;
             this.label1.Text = "       Set to %";
             // 
             // numericUpDown
             // 
             this.numericUpDown.Location = new System.Drawing.Point(116, 79);
+            this.numericUpDown.Maximum = new decimal(new int[] {
+            400,
+            0,
+            0,
+            0});
             this.numericUpDown.Name = "numericUpDown";
             this.numericUpDown.Size = new System.Drawing.Size(80, 22);
             this.numericUpDown.TabIndex = 8;
-            this.numericUpDown.Maximum = 400;
-            this.numericUpDown.Minimum = 0;
             this.numericUpDown.ValueChanged += new System.EventHandler(this.numericUpDown_ValueChanged);
             // 
             // RateForm

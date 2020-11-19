@@ -83,7 +83,7 @@ namespace WebMConverter.Dialogs
         // example ffmpeg line:
         // frame=  121 fps= 48 q=0.0 size=     552kB time=00:00:05.08 bitrate= 888.7kbits/s
 
-        private bool dontUpdateProgress = false;
+        private bool dontUpdateProgress;
         private bool DataContainsProgress(string data)
         {
             if (dontUpdateProgress)
@@ -347,6 +347,7 @@ namespace WebMConverter.Dialogs
                 else
                 {
                     boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}Video converted succesfully!");
+                    GetFileSize();                    
                     pictureStatus.BackgroundImage = StatusImages.Images["Success"];
                 }
 
@@ -358,6 +359,13 @@ namespace WebMConverter.Dialogs
             buttonCancel.Enabled = true;
             _ended = true;
             this.Activate();
+        }
+
+        private void GetFileSize()
+        {
+            FileInfo fileInfo = new FileInfo(_outfile);
+            string fileSize = Utility.SizeSuffix(fileInfo.Length);
+            boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}--- Final file size is {fileSize} ---");
         }
 
         private void ExitedMerge(object sender, EventArgs eventArgs)
@@ -384,6 +392,7 @@ namespace WebMConverter.Dialogs
             else
             {
                 boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}Video merged succesfully!");
+                GetFileSize();
                 pictureStatus.BackgroundImage = StatusImages.Images["Success"];
             }   
             buttonCancel.Text = "Close";
@@ -502,13 +511,16 @@ namespace WebMConverter.Dialogs
 
         private WebRequest CreateGfyRequest()
         {
-            WebRequest httpWRequest = WebRequest.Create("https://api.gfycat.com/v1/gfycats");
+            WebRequest httpWRequest = WebRequest.Create($"https://api.gfycat.com/v1/gfycats");
             httpWRequest.ContentType = "application/json";
             httpWRequest.Method = "POST";
             httpWRequest.Headers.Add("Authorization", "Bearer " + Program.token);
             var aux = _outfile.Split('\\');
-            string postData = " {\"title\":\"" + aux[aux.Length - 1].Split('.')[0] + "\", +" +
-                                "\"nsfw\": 0}";
+            string tmp = StringTags();
+            string postData = " {\"title\":\"" + aux[aux.Length - 1].Split('.')[0] + "\",";
+            if (!String.IsNullOrEmpty(tmp))
+                postData = postData + "\"tags\": [" + StringTags() + "],";
+            postData = postData +"\"nsfw\": 0}";
             UTF8Encoding encoding = new UTF8Encoding();
             byte[] byte1 = encoding.GetBytes(postData);
             httpWRequest.GetRequestStream().Write(byte1, 0, byte1.Length);
@@ -533,6 +545,27 @@ namespace WebMConverter.Dialogs
                     MessageBox.Show(exc.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private string StringTags()
+        {
+            string[] tags = ((MainForm)Owner).GetGfyTags();
+
+            if (tags == null)
+                return string.Empty;
+
+            if (tags.Length == 1)
+                return $"\"{tags[0]}\"";
+
+            string text = string.Empty;
+            foreach (string tag in tags)
+            {
+                if (!String.IsNullOrEmpty(text))
+                    text = $"{text},\"{tag}\"";
+                else
+                    text = $"\"{tag}\"";
+            }
+            return text;
         }
     }
 }

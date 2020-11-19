@@ -193,6 +193,11 @@ namespace WebMConverter
                 adjustedSize,
                 SizeSuffixes[mag]);
         }
+
+        public static string GetVersion()
+        {
+            return Application.ProductVersion.Substring(0, Application.ProductVersion.LastIndexOf('.'));
+        }
     }
     
     public enum FileType

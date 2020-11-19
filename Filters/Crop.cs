@@ -12,7 +12,7 @@ namespace WebMConverter
     public partial class CropForm : Form
     {
         private Corner heldCorner = Corner.None;
-        private bool held = false;
+        private bool held;
 
         private bool insideForm;
         private bool insideRectangle;
