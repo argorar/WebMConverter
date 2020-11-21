@@ -30,6 +30,8 @@ namespace WebMConverter.Dialogs
                 case "System.TimeSpan":
                     Value = _inputField.Value;
                     break;
+                default:
+                    break;
             }
             Close();
         }
@@ -48,9 +50,7 @@ namespace WebMConverter.Dialogs
                     (_inputField as TextBox).KeyPress += delegate(object sender, KeyPressEventArgs e)
                     {
                         if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
-                        {
                             e.Handled = true;
-                        }
                     };
                     break;
                 case "System.TimeSpan":

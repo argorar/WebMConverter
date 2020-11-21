@@ -73,7 +73,7 @@ namespace WebMConverter.Updater
                         Application.Exit();
                     }
 
-                    Step3_UnzipAndVerify();
+                    Step3_Unzip();
                 };
 
                 client.DownloadFileAsync(new Uri(string.Format(Program.ProgramUrl, latestVersion)), updateZipPath);
@@ -81,7 +81,7 @@ namespace WebMConverter.Updater
             
         }
 
-        private async void Step3_UnzipAndVerify()
+        private async void Step3_Unzip()
         {
             labelStatus.Text = "Verifying integrity...";
             progressBar.Style = ProgressBarStyle.Marquee;
@@ -93,51 +93,6 @@ namespace WebMConverter.Updater
             Directory.CreateDirectory(updateTempPath);
             await Task.Run(() => ZipFile.ExtractToDirectory(updateZipPath, updateTempPath));
             File.Delete(updateZipPath);
-
-            //var trustedCertificate = new X509Certificate2("trusted.cer");
-            //X509Certificate exeCertificate;
-
-            //try
-            //{
-            //    exeCertificate = X509Certificate.CreateFromSignedFile(updateExePath);
-            //}
-            //catch (Exception)
-            //{
-            //    Abort("The downloaded executable is unsigned and therefore untrusted.");
-            //    return;
-            //}
-
-            //X509Certificate2 updateCertificate;
-            //try
-            //{
-            //    updateCertificate = new X509Certificate2(updateCertPath);
-            //}
-            //catch (Exception)
-            //{
-            //    Abort("The downloaded update does not include a valid certificate.");
-            //    return;
-            //}
-
-            //if (!exeCertificate.Equals(trustedCertificate))
-            //{
-            //    Abort("The downloaded executable is not signed by a trusted developer.");
-            //    return;
-            //}
-
-            //if (!trustedCertificate.Equals(updateCertificate))
-            //{
-            //    var answer = MessageBox.Show(this,
-            //        $"The downloaded update contains a different certificate than your current version.{Environment.NewLine}" +
-            //        $"This is either a sign of foul play, or it means I lost my old certificate and need to ship a new one.{Environment.NewLine}" +
-            //        $"If you trust this certificate, it will be used in the future to verify that updates are legitimate.{Environment.NewLine}" +
-            //        "Do you trust this new certificate?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
-
-            //    if (answer == DialogResult.No)
-            //    {
-            //        Abort();
-            //        return;
-            //    }
-            //}
 
             Step4_OverwriteAndRestart();
         }

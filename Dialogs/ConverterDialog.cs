@@ -485,7 +485,7 @@ namespace WebMConverter.Dialogs
                             boxOutput.AppendText($"{Environment.NewLine}HTTP: {response.StatusCode}");
                             using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                             {
-                                string responseText = await reader.ReadToEndAsync();
+                                string responseText = await reader.ReadToEndAsync().ConfigureAwait(false);
                                 boxOutput.AppendText($"{Environment.NewLine}Message: {responseText}");
                             }
                         }

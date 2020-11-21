@@ -132,6 +132,7 @@
     <Compile Include="Dialogs\GfycatUploader.Designer.cs">
       <DependentUpon>GfycatUploader.cs</DependentUpon>
     </Compile>
+    <Compile Include="Filters\Crop.cs" />
     <Compile Include="Filters\Deinterlace.cs" />
     <Compile Include="Filters\Denoise.cs" />
     <Compile Include="Filters\Dub.cs">

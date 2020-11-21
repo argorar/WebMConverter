@@ -193,6 +193,8 @@ namespace WebMConverter
                         cropPercent.X = (clampedMouseX + mouseOffset.X) / previewFrame.Picture.Width;
                         cropPercent.Y = (clampedMouseY + mouseOffset.Y) / previewFrame.Picture.Height;
                         break;
+                    default:
+                        break;
                 }
 
                 if (newWidth != 0)
@@ -207,10 +209,6 @@ namespace WebMConverter
         private void previewPicture_Paint(object sender, PaintEventArgs e)
         {
             var g = e.Graphics;
-
-            //g.SmoothingMode = SmoothingMode.HighQuality;
-            //TODO: this is really slow for some reason. Investigate using profiling or something.
-
             var edgePen = new Pen(Color.White, 1f);
             var dotBrush = new SolidBrush(Color.White);
             var outsideBrush = new HatchBrush(HatchStyle.Percent50, Color.Transparent);

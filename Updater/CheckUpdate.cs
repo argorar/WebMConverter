@@ -26,17 +26,9 @@ namespace WebMConverter.Updater
 
                 if (latestVersion > currentVersion)
                 {
-                    // New update available -- pull down the changelog
-                    //var changelogUrlFormatted = string.Format(ChangelogUrl, latestVersion.ToString());
-
                     output = latestVersion.ToString();
                     output += Environment.NewLine;
-
-                    //using (var changelogDownloader = new WebClient())
-                    //{
-                    //    output += changelogDownloader.DownloadString(changelogUrlFormatted);
-                    //}
-                    return true; // All went well
+                    return true;
                 }
                 return false;
 

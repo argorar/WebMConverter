@@ -41,7 +41,7 @@ namespace WebMConverter.Dialogs
                         _ = await client.PostAsync($"https://filedrop.gfycat.com", content);
                     }
                 }
-                await CheckStatus();
+                await CheckStatus().ConfigureAwait(false);
             }
             catch (WebException ex)
             {
@@ -90,7 +90,7 @@ namespace WebMConverter.Dialogs
                         }
                         else
                         {
-                            await Task.Delay(500);
+                            await Task.Delay(500).ConfigureAwait(false);
                         }
                     }
                 }
