@@ -120,6 +120,7 @@
     <Compile Include="Dialogs\ConverterDialog.Designer.cs">
       <DependentUpon>ConverterDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\InputDialog.cs" />
     <Compile Include="Dialogs\UpdateNotifyDialog.cs">
       <SubType>Form</SubType>
     </Compile>

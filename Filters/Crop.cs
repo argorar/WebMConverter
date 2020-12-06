@@ -13,13 +13,11 @@ namespace WebMConverter
     {
         private Corner heldCorner = Corner.None;
         private bool held;
-
         private bool insideForm;
         private bool insideRectangle;
         private Point mousePos;
         private Point mouseOffset;
         private const int maxDistance = 6;
-
         private RectangleF cropPercent;
         private enum Corner
         {
@@ -193,14 +191,14 @@ namespace WebMConverter
                         cropPercent.X = (clampedMouseX + mouseOffset.X) / previewFrame.Picture.Width;
                         cropPercent.Y = (clampedMouseY + mouseOffset.Y) / previewFrame.Picture.Height;
                         break;
-                    default:
-                        break;
                 }
 
                 if (newWidth != 0)
                     cropPercent.Width = newWidth;
                 if (newHeight != 0)
                     cropPercent.Height = newHeight;
+
+                ShowNewSize();
             }
 
             previewFrame.Picture.Invalidate();
@@ -404,7 +402,7 @@ namespace WebMConverter
                 default:
                     return base.ProcessCmdKey(ref msg, keyData);
             }
-
+            ShowNewSize();
             previewFrame.Picture.Invalidate();
             return true;
         }
@@ -457,6 +455,14 @@ namespace WebMConverter
                 SetFrame(modifier, true);
                 e.Handled = true;
             }
+        }
+
+        private void ShowNewSize()
+        {
+            float newWidth = Program.Resolution.Width * cropPercent.Width;
+            float newHeight = Program.Resolution.Height * cropPercent.Height;
+            if(newWidth > 0 && newHeight > 0)
+                labelNewResolution.Text = $"New resolution: {newWidth} x {newHeight}";
         }
     }
 

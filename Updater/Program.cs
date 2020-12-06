@@ -33,7 +33,6 @@ namespace WebMConverter.Updater
                     string output;
 
                     var success = CheckUpdate(current, out output);
-                    Console.Write(output);
 
                     return success ? 0 : 1;
 
@@ -41,8 +40,6 @@ namespace WebMConverter.Updater
                     Application.Run(new UpdateUI());
                     return 0;
             }
-
-            Console.WriteLine("Invalid mode");
             return 1;
         }
     }

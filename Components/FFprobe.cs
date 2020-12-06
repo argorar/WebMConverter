@@ -25,13 +25,13 @@ namespace WebMConverter
                     dataToProbe.Add("streams");
                 }
 
-                string dataToProbeAsString = "";
+                StringBuilder dataToProbeAsString = new StringBuilder();
                 foreach(string Type in dataToProbe)
                 {
-                    dataToProbeAsString += " -show_";
-                    dataToProbeAsString += Type;
+                    dataToProbeAsString.Append(" -show_");
+                    dataToProbeAsString.Append(Type);
                 }
-                StartInfo.Arguments = string.Format(templateArguments, format, inputFile, dataToProbeAsString);
+                StartInfo.Arguments = string.Format(templateArguments, format, inputFile, dataToProbeAsString.ToString());
             }
             else
             {

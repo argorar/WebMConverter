@@ -162,7 +162,9 @@ namespace WebMConverter
                 if (reply.Status == IPStatus.Success)
                     return true;
             }
-            catch { }
+            catch { 
+                // ignored    
+            }
             return result;
         }
 

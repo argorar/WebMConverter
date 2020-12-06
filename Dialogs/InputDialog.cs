@@ -30,8 +30,6 @@ namespace WebMConverter.Dialogs
                 case "System.TimeSpan":
                     Value = _inputField.Value;
                     break;
-                default:
-                    break;
             }
             Close();
         }

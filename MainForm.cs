@@ -123,7 +123,7 @@ namespace WebMConverter
             _temporaryFilesList = new List<string>();
 
             InitializeComponent();
-
+            this.KeyPreview = true;
             taskbarManager = TaskbarManager.Instance;
 
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["RefreshToken"].Value))
@@ -641,7 +641,7 @@ namespace WebMConverter
                         Filters.Crop = form.GeneratedFilter;
                         listViewProcessingScript.Items.Add("Crop", "crop");
                         SetSlices();
-                        (sender as ToolStripItem).Enabled = false;
+                        buttonCrop.Enabled = false;
                     }
                 }
             }
@@ -706,7 +706,7 @@ namespace WebMConverter
                         Filters.MultipleTrim = form.GeneratedFilter;
                         listViewProcessingScript.Items.Add("Multiple Trim", "trim");
                         UpdateArguments(sender, e);
-                        (sender as ToolStripMenuItem).OwnerItem.Enabled = false;
+                        buttonTrim.Enabled = false;
                     }
                 }
             }
@@ -750,7 +750,7 @@ namespace WebMConverter
                         Filters.Rate = form.GeneratedFilter;
                         listViewProcessingScript.Items.Add("Rate", "rate");
                         UpdateArguments(sender, e);
-                        ((ToolStripItem) sender).Enabled = false;
+                        buttonRate.Enabled = false;
                     }
                 }
             }
@@ -825,7 +825,6 @@ namespace WebMConverter
                     {
                         Filters.Subtitle = form.GeneratedFilter;
                         listViewProcessingScript.Items.Add("Subtitle", "subtitles");
-                        (sender as ToolStripItem).Enabled = false;
                     }
                 }
             }
@@ -846,7 +845,7 @@ namespace WebMConverter
                         Filters.Trim = form.GeneratedFilter;
                         listViewProcessingScript.Items.Add("Trim", "trim");
                         UpdateArguments(sender, e);
-                        (sender as ToolStripItem).Enabled = false;
+                        buttonTrim.Enabled = false;
                     }
                 }
             }
@@ -925,14 +924,7 @@ namespace WebMConverter
                     }
                     break;
                 case "Crop":
-                    using (var form = new CropForm(Filters.Crop))
-                    {
-                        if (form.ShowDialog(this) == DialogResult.OK)
-                        {
-                            Filters.Crop = form.GeneratedFilter;
-                            SetSlices();
-                        }
-                    }
+                    EditCropFilter(sender, e);
                     break;
                 case @"Dub":
                     using (var form = new DubForm(Filters.Dub))
@@ -956,14 +948,7 @@ namespace WebMConverter
                     }
                     break;
                 case "Multiple Trim":
-                    using (var form = new MultipleTrimForm(Filters.MultipleTrim))
-                    {
-                        if (form.ShowDialog(this) == DialogResult.OK)
-                        {
-                            Filters.MultipleTrim = form.GeneratedFilter;
-                            UpdateArguments(sender, e);
-                        }
-                    }
+                    EditMultiTrimFilter(sender, e);
                     break;
                 case "Overlay":
                     using (var form = new OverlayForm(Filters.Overlay))
@@ -975,14 +960,7 @@ namespace WebMConverter
                     }
                     break;
                 case "Rate":
-                    using (var form = new RateForm(Filters.Rate))
-                    {
-                        if (form.ShowDialog(this) == DialogResult.OK)
-                        {
-                            Filters.Rate = form.GeneratedFilter;
-                            UpdateArguments(sender, e);
-                        }
-                    }
+                    EditRateFilter(sender, e);
                     break;
                 case "Resize":
                     using (var form = new ResizeForm(Filters.Resize))
@@ -1013,14 +991,7 @@ namespace WebMConverter
                     }
                     break;
                 case "Trim":
-                    using (var form = new TrimForm(Filters.Trim))
-                    {
-                        if (form.ShowDialog(this) == DialogResult.OK)
-                        {
-                            Filters.Trim = form.GeneratedFilter;
-                            UpdateArguments(sender, e);
-                        }
-                    }
+                    EditTrimFilter(sender, e);
                     break;
                 default:
                     MessageBox.Show("This filter has no options.");
@@ -1688,6 +1659,7 @@ namespace WebMConverter
                 var frame = Program.VideoSource.GetFrame(0); // We're assuming that the entire video has the same settings here, which should be fine. (These options usually don't vary, I hope.)
                 Program.VideoColorRange = frame.ColorRange;
                 Program.VideoInterlaced = frame.InterlacedFrame;
+                Program.Resolution = frame.EncodedResolution;
                 SetCRF(frame.EncodedResolution);
                 SetSlices(frame.EncodedResolution);
                 SetFPS();
@@ -2578,6 +2550,88 @@ namespace WebMConverter
         public string[] GetGfyTags()
         {
             return String.IsNullOrEmpty(boxTags.Text) ? null : boxTags.Text.Split(',') ;
+        }
+
+        private void listViewProcessingScript_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (buttonGo.Enabled)
+            {
+                if (e.Alt && !e.Shift && e.KeyCode == Keys.T)
+                {
+                    if (Filters.Trim == null)
+                        buttonTrim_Click(sender, e);
+                    else
+                        EditTrimFilter(sender, e);
+                }
+                if (e.Alt && e.Shift && e.KeyCode == Keys.T)
+                {
+                    if(Filters.MultipleTrim == null)
+                        buttonMultipleTrim_Click(sender, e);
+                    else
+                        EditMultiTrimFilter(sender, e);    
+                }
+                if (e.Alt && !e.Shift && e.KeyCode == Keys.C)
+                {
+                    if(Filters.Crop == null)
+                        buttonCrop_Click(sender, e);
+                    else
+                        EditCropFilter(sender, e);
+                }
+                if (e.Alt && e.Shift && e.KeyCode == Keys.C)
+                {
+                    if (Filters.Rate == null)
+                        buttonRate_Click(sender, e);
+                    else
+                        EditRateFilter(sender, e);
+                }
+            }
+        }
+
+        private void EditTrimFilter(object sender, EventArgs e)
+        {
+            using (var form = new TrimForm(Filters.Trim))
+            {
+                if (form.ShowDialog(this) == DialogResult.OK)
+                {
+                    Filters.Trim = form.GeneratedFilter;
+                    UpdateArguments(sender, e);
+                }
+            }
+        }
+        private void EditMultiTrimFilter(object sender, EventArgs e)
+        {
+            using (var form = new MultipleTrimForm(Filters.MultipleTrim))
+            {
+                if (form.ShowDialog(this) == DialogResult.OK)
+                {
+                    Filters.MultipleTrim = form.GeneratedFilter;
+                    UpdateArguments(sender, e);
+                }
+            }
+        }
+
+        private void EditCropFilter(object sender, EventArgs e)
+        {
+            using (var form = new CropForm(Filters.Crop))
+            {
+                if (form.ShowDialog(this) == DialogResult.OK)
+                {
+                    Filters.Crop = form.GeneratedFilter;
+                    SetSlices();
+                }
+            }
+        }
+
+        private void EditRateFilter(object sender, EventArgs e)
+        {
+            using (var form = new RateForm(Filters.Rate))
+            {
+                if (form.ShowDialog(this) == DialogResult.OK)
+                {
+                    Filters.Rate = form.GeneratedFilter;
+                    UpdateArguments(sender, e);
+                }
+            }
         }
     }
 }

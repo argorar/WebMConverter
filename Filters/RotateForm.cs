@@ -27,8 +27,6 @@ namespace WebMConverter
                 case RotateFilter.RotateMode.Left:
                     checkTurnLeft.Checked = true;
                     break;
-                default:
-                    break;
             }
             checkFlipHorizontal.Checked = filterToEdit.FlipHorizontal;
             checkFlipVertical.Checked = filterToEdit.FlipVertical;

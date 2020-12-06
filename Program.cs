@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -53,6 +54,7 @@ namespace WebMConverter
     {
         public static FFMSSharp.VideoSource VideoSource;
         public static FFMSSharp.ColorRange VideoColorRange;
+        public static Size Resolution;
         public static bool VideoInterlaced;
         public static string InputFile;
         public static FileType InputType;
