@@ -115,7 +115,7 @@ Drag and drop video files inside the app, search for the new video in source pat
 Upload your new masterpiece with just one click. *A Gfycat account is required.*
 See user details in tab *General*. If you are creating several gfys of the same topic, tags can be usefull for you.
 
-### Shortcuts
+### Shortcut keys
 
 * Trim: ```Alt + t```
 * MultiTrim: ```Alt + Shift + t```
@@ -125,8 +125,8 @@ See user details in tab *General*. If you are creating several gfys of the same 
 ## Changelog
 
 #### Version 3.9.0
-* Add shortcuts to trim, multitrimp, crop and change rate
-* Now you can see the size of your new crop
+* Add shortcut keys for trim, multi trimp, crop, and change rate
+* Now you can see the new resolution of your crop
 
 #### Version 3.8.0
 * Add file size information after convert and gfycat uploader
