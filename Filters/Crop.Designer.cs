@@ -39,6 +39,7 @@
             this.timeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trackVideoTimeline = new System.Windows.Forms.TrackBar();
             this.labelNewResolution = new System.Windows.Forms.Label();
+            this.setNewSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.previewFrame = new WebMConverter.PreviewFrame();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackVideoTimeline)).BeginInit();
@@ -70,7 +71,8 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.goToToolStripMenuItem});
+            this.goToToolStripMenuItem,
+            this.setNewSizeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
@@ -85,8 +87,8 @@
             this.frameToolStripMenuItem,
             this.timeToolStripMenuItem});
             this.goToToolStripMenuItem.Name = "goToToolStripMenuItem";
-            this.goToToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
-            this.goToToolStripMenuItem.Text = "Preview...";
+            this.goToToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.goToToolStripMenuItem.Text = "Preview";
             // 
             // trimTimingToolStripMenuItem
             // 
@@ -95,7 +97,7 @@
             this.endToolStripMenuItem});
             this.trimTimingToolStripMenuItem.Enabled = false;
             this.trimTimingToolStripMenuItem.Name = "trimTimingToolStripMenuItem";
-            this.trimTimingToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.trimTimingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.trimTimingToolStripMenuItem.Text = "Trim timing...";
             // 
             // startToolStripMenuItem
@@ -115,14 +117,14 @@
             // frameToolStripMenuItem
             // 
             this.frameToolStripMenuItem.Name = "frameToolStripMenuItem";
-            this.frameToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.frameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.frameToolStripMenuItem.Text = "Frame";
             this.frameToolStripMenuItem.Click += new System.EventHandler(this.frameToolStripMenuItem_Click);
             // 
             // timeToolStripMenuItem
             // 
             this.timeToolStripMenuItem.Name = "timeToolStripMenuItem";
-            this.timeToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.timeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.timeToolStripMenuItem.Text = "Time";
             this.timeToolStripMenuItem.Click += new System.EventHandler(this.timeToolStripMenuItem_Click);
             // 
@@ -140,11 +142,18 @@
             // labelNewResolution
             // 
             this.labelNewResolution.AutoSize = true;
-            this.labelNewResolution.Location = new System.Drawing.Point(515, 6);
+            this.labelNewResolution.Location = new System.Drawing.Point(557, 6);
             this.labelNewResolution.Name = "labelNewResolution";
             this.labelNewResolution.Size = new System.Drawing.Size(27, 13);
             this.labelNewResolution.TabIndex = 6;
-            //this.labelNewResolution.Text = "Size";
+            // this.labelNewResolution.Text = "Size";
+            // 
+            // setNewSizeToolStripMenuItem
+            // 
+            this.setNewSizeToolStripMenuItem.Name = "setNewSizeToolStripMenuItem";
+            this.setNewSizeToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
+            this.setNewSizeToolStripMenuItem.Text = "Set dimensions";
+            this.setNewSizeToolStripMenuItem.Click += new System.EventHandler(this.setNewSizeToolStripMenuItem_Click);
             // 
             // previewFrame
             // 
@@ -198,5 +207,6 @@
         private System.Windows.Forms.ToolStripMenuItem endToolStripMenuItem;
         private System.Windows.Forms.TrackBar trackVideoTimeline;
         private System.Windows.Forms.Label labelNewResolution;
+        private System.Windows.Forms.ToolStripMenuItem setNewSizeToolStripMenuItem;
     }
 }

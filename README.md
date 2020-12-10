@@ -124,6 +124,10 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.9.1
+* Add option to set the exact dimensions to crop
+* Display just one decimal in crop resolution
+
 #### Version 3.9.0
 * Add shortcut keys for trim, multi trimp, crop, and change rate
 * Now you can see the new resolution of your crop

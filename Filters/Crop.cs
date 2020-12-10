@@ -462,7 +462,23 @@ namespace WebMConverter
             float newWidth = Program.Resolution.Width * cropPercent.Width;
             float newHeight = Program.Resolution.Height * cropPercent.Height;
             if(newWidth > 0 && newHeight > 0)
-                labelNewResolution.Text = $"New resolution: {newWidth} x {newHeight}";
+                labelNewResolution.Text = $"New resolution: {newWidth.ToString("#.#")} x {newHeight.ToString("#.#")}";
+        }
+
+        private void setNewSizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SetDimensionsDialog())
+            {
+                dialog.ShowDialog();
+                var a = dialog.GetWight();
+                var b = dialog.GetHeight();
+                if (a != 0 && b != 0)
+                {
+                    cropPercent.Height = dialog.GetHeight();
+                    cropPercent.Width = dialog.GetWight();
+                    previewFrame.GeneratePreview(true);
+                }
+            }
         }
     }
 

@@ -120,6 +120,12 @@
     <Compile Include="Dialogs\ConverterDialog.Designer.cs">
       <DependentUpon>ConverterDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SetDimensionsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SetDimensionsDialog.Designer.cs">
+      <DependentUpon>SetDimensionsDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\InputDialog.cs" />
     <Compile Include="Dialogs\UpdateNotifyDialog.cs">
       <SubType>Form</SubType>
@@ -256,6 +262,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ConverterDialog.resx">
       <DependentUpon>ConverterDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SetDimensionsDialog.resx">
+      <DependentUpon>SetDimensionsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\UpdateNotifyDialog.resx">
       <DependentUpon>UpdateNotifyDialog.cs</DependentUpon>
