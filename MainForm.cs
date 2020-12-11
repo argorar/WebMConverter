@@ -131,8 +131,11 @@ namespace WebMConverter
             else
                 groupGfycat.Visible = false;
 
-            if (!configuration.AppSettings.Settings.AllKeys.Contains("VP9"))
-                configuration.AppSettings.Settings.Add("VP9", "false");
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("CRF4k"))
+                configuration.AppSettings.Settings.Add("CRF4k", "16");
+
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("CRFother"))
+                configuration.AppSettings.Settings.Add("CRFother", "30");
 
             LoadConfiguration();
         }
@@ -162,6 +165,8 @@ namespace WebMConverter
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["PathDownload"].Value))
                 textPathDownloaded.Text = configuration.AppSettings.Settings["PathDownload"].Value;
 
+            CRF4k.Value = Decimal.Parse(configuration.AppSettings.Settings["CRF4k"].Value);
+            CRFother.Value = Decimal.Parse(configuration.AppSettings.Settings["CRFother"].Value);
         }
 
         void MainForm_Load(object sender, EventArgs e)
@@ -1771,7 +1776,12 @@ namespace WebMConverter
             if (resolution.Width > 2000)
                 this.InvokeIfRequired(() =>
                 {
-                    numericCrf.Value = 16;
+                    numericCrf.Value = Decimal.Parse(configuration.AppSettings.Settings["CRF4k"].Value);
+                });
+            else
+                this.InvokeIfRequired(() =>
+                {
+                    numericCrf.Value = Decimal.Parse(configuration.AppSettings.Settings["CRFother"].Value);
                 });
         }
 
@@ -2632,6 +2642,16 @@ namespace WebMConverter
                     UpdateArguments(sender, e);
                 }
             }
+        }
+
+        private void CRF4k_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateConfiguration("CRF4k", CRF4k.Value.ToString());
+        }
+
+        private void CRFother_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateConfiguration("CRFother", CRFother.Value.ToString());
         }
     }
 }

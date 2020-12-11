@@ -124,6 +124,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.9.2
+* Add option to choose which CRF value to use depending on the resolution of the source. Check the general tab
+
 #### Version 3.9.1
 * Add option to set the exact dimensions to crop
 * Display just one decimal in crop resolution

@@ -90,6 +90,7 @@ namespace WebMConverter
             System.Windows.Forms.Label labelEncodingSlices;
             System.Windows.Forms.Label labelEncodingSlicesHint;
             System.Windows.Forms.Label labelEncodingArguments;
+            System.Windows.Forms.GroupBox groupBox1;
             System.Windows.Forms.StatusStrip statusStrip;
             this.textBoxIn = new System.Windows.Forms.TextBox();
             this.buttonBrowseIn = new System.Windows.Forms.Button();
@@ -144,6 +145,14 @@ namespace WebMConverter
             this.labelSlices = new System.Windows.Forms.Label();
             this.boxArguments = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.CRFother = new System.Windows.Forms.NumericUpDown();
+            this.CRF4k = new System.Windows.Forms.NumericUpDown();
+            this.lblCRFConfiguration2 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lblCRFConfiguration = new System.Windows.Forms.Label();
+            this.textPathDownloaded = new System.Windows.Forms.TextBox();
+            this.buttonPathChange = new System.Windows.Forms.Button();
+            this.lblPathDownload = new System.Windows.Forms.Label();
             this.boxTags = new System.Windows.Forms.TextBox();
             this.labelTags = new System.Windows.Forms.Label();
             this.buttonLogOut = new System.Windows.Forms.Button();
@@ -156,9 +165,6 @@ namespace WebMConverter
             this.lblUser = new System.Windows.Forms.Label();
             this.labelMaintained = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.buttonPathChange = new System.Windows.Forms.Button();
-            this.textPathDownloaded = new System.Windows.Forms.TextBox();
-            this.lblPathDownload = new System.Windows.Forms.Label();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelContainTheProgressBar = new System.Windows.Forms.Panel();
             this.boxIndexingProgressDetails = new System.Windows.Forms.CheckBox();
@@ -229,6 +235,7 @@ namespace WebMConverter
             labelEncodingSlices = new System.Windows.Forms.Label();
             labelEncodingSlicesHint = new System.Windows.Forms.Label();
             labelEncodingArguments = new System.Windows.Forms.Label();
+            groupBox1 = new System.Windows.Forms.GroupBox();
             groupGfycat = new System.Windows.Forms.GroupBox();
             statusStrip = new System.Windows.Forms.StatusStrip();
             tableMainForm.SuspendLayout();
@@ -265,6 +272,9 @@ namespace WebMConverter
             ((System.ComponentModel.ISupportInitialize)(this.trackThreads)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackSlices)).BeginInit();
             this.tabPage1.SuspendLayout();
+            groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CRFother)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CRF4k)).BeginInit();
             groupGfycat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             statusStrip.SuspendLayout();
@@ -417,7 +427,7 @@ namespace WebMConverter
             tabProcessing.Controls.Add(tableProcessing);
             tabProcessing.Location = new System.Drawing.Point(4, 22);
             tabProcessing.Name = "tabProcessing";
-            tabProcessing.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            tabProcessing.Padding = new System.Windows.Forms.Padding(3);
             tabProcessing.Size = new System.Drawing.Size(1053, 307);
             tabProcessing.TabIndex = 3;
             tabProcessing.Text = "Processing";
@@ -713,8 +723,8 @@ namespace WebMConverter
             tabEncoding.Controls.Add(tableEncoding);
             tabEncoding.Location = new System.Drawing.Point(4, 22);
             tabEncoding.Name = "tabEncoding";
-            tabEncoding.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            tabEncoding.Size = new System.Drawing.Size(1053, 306);
+            tabEncoding.Padding = new System.Windows.Forms.Padding(3);
+            tabEncoding.Size = new System.Drawing.Size(1053, 307);
             tabEncoding.TabIndex = 0;
             tabEncoding.Text = "Encoding";
             // 
@@ -733,7 +743,7 @@ namespace WebMConverter
             tableEncoding.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 107F));
             tableEncoding.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 79F));
             tableEncoding.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableEncoding.Size = new System.Drawing.Size(1047, 300);
+            tableEncoding.Size = new System.Drawing.Size(1047, 301);
             tableEncoding.TabIndex = 0;
             // 
             // groupEncodingGeneral
@@ -1419,8 +1429,8 @@ namespace WebMConverter
             tabAdvanced.Controls.Add(tableAdvanced);
             tabAdvanced.Location = new System.Drawing.Point(4, 22);
             tabAdvanced.Name = "tabAdvanced";
-            tabAdvanced.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            tabAdvanced.Size = new System.Drawing.Size(1053, 306);
+            tabAdvanced.Padding = new System.Windows.Forms.Padding(3);
+            tabAdvanced.Size = new System.Drawing.Size(1053, 307);
             tabAdvanced.TabIndex = 4;
             tabAdvanced.Text = "Advanced";
             // 
@@ -1438,7 +1448,7 @@ namespace WebMConverter
             tableAdvanced.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 119F));
             tableAdvanced.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 173F));
             tableAdvanced.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableAdvanced.Size = new System.Drawing.Size(1047, 300);
+            tableAdvanced.Size = new System.Drawing.Size(1047, 301);
             tableAdvanced.TabIndex = 1;
             // 
             // groupAdvancedProcessing
@@ -1804,19 +1814,119 @@ namespace WebMConverter
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(groupBox1);
             this.tabPage1.Controls.Add(groupGfycat);
             this.tabPage1.Controls.Add(this.labelMaintained);
             this.tabPage1.Controls.Add(this.linkLabel1);
-            this.tabPage1.Controls.Add(this.buttonPathChange);
-            this.tabPage1.Controls.Add(this.textPathDownloaded);
-            this.tabPage1.Controls.Add(this.lblPathDownload);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPage1.Size = new System.Drawing.Size(1053, 306);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage1.Size = new System.Drawing.Size(1053, 307);
             this.tabPage1.TabIndex = 5;
             this.tabPage1.Text = "General";
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(this.CRFother);
+            groupBox1.Controls.Add(this.CRF4k);
+            groupBox1.Controls.Add(this.lblCRFConfiguration2);
+            groupBox1.Controls.Add(this.label7);
+            groupBox1.Controls.Add(this.lblCRFConfiguration);
+            groupBox1.Controls.Add(this.textPathDownloaded);
+            groupBox1.Controls.Add(this.buttonPathChange);
+            groupBox1.Controls.Add(this.lblPathDownload);
+            groupBox1.Location = new System.Drawing.Point(5, 11);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new System.Drawing.Size(1043, 85);
+            groupBox1.TabIndex = 6;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Configuration";
+            // 
+            // CRFother
+            // 
+            this.CRFother.Location = new System.Drawing.Point(293, 50);
+            this.CRFother.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.CRFother.Name = "CRFother";
+            this.CRFother.Size = new System.Drawing.Size(41, 20);
+            this.CRFother.TabIndex = 4;
+            this.CRFother.ValueChanged += new System.EventHandler(this.CRFother_ValueChanged);
+            // 
+            // CRF4k
+            // 
+            this.CRF4k.Location = new System.Drawing.Point(161, 50);
+            this.CRF4k.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.CRF4k.Name = "CRF4k";
+            this.CRF4k.Size = new System.Drawing.Size(42, 20);
+            this.CRF4k.TabIndex = 3;
+            this.CRF4k.ValueChanged += new System.EventHandler(this.CRF4k_ValueChanged);
+            // 
+            // lblCRFConfiguration2
+            // 
+            this.lblCRFConfiguration2.AutoSize = true;
+            this.lblCRFConfiguration2.Location = new System.Drawing.Point(208, 52);
+            this.lblCRFConfiguration2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCRFConfiguration2.Name = "lblCRFConfiguration2";
+            this.lblCRFConfiguration2.Size = new System.Drawing.Size(81, 13);
+            this.lblCRFConfiguration2.TabIndex = 2;
+            this.lblCRFConfiguration2.Text = "otherwise set to";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(135, 19);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(0, 13);
+            this.label7.TabIndex = 1;
+            // 
+            // lblCRFConfiguration
+            // 
+            this.lblCRFConfiguration.AutoSize = true;
+            this.lblCRFConfiguration.Location = new System.Drawing.Point(10, 51);
+            this.lblCRFConfiguration.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCRFConfiguration.Name = "lblCRFConfiguration";
+            this.lblCRFConfiguration.Size = new System.Drawing.Size(149, 13);
+            this.lblCRFConfiguration.TabIndex = 0;
+            this.lblCRFConfiguration.Text = "When source is 4k set CRF to";
+            // 
+            // textPathDownloaded
+            // 
+            this.textPathDownloaded.Enabled = false;
+            this.textPathDownloaded.Location = new System.Drawing.Point(138, 19);
+            this.textPathDownloaded.Margin = new System.Windows.Forms.Padding(2);
+            this.textPathDownloaded.Name = "textPathDownloaded";
+            this.textPathDownloaded.Size = new System.Drawing.Size(754, 20);
+            this.textPathDownloaded.TabIndex = 1;
+            // 
+            // buttonPathChange
+            // 
+            this.buttonPathChange.Location = new System.Drawing.Point(898, 17);
+            this.buttonPathChange.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonPathChange.Name = "buttonPathChange";
+            this.buttonPathChange.Size = new System.Drawing.Size(71, 23);
+            this.buttonPathChange.TabIndex = 2;
+            this.buttonPathChange.Text = "Change";
+            this.buttonPathChange.UseVisualStyleBackColor = true;
+            this.buttonPathChange.Click += new System.EventHandler(this.buttonPathChange_Click);
+            // 
+            // lblPathDownload
+            // 
+            this.lblPathDownload.AutoSize = true;
+            this.lblPathDownload.Location = new System.Drawing.Point(8, 19);
+            this.lblPathDownload.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPathDownload.Name = "lblPathDownload";
+            this.lblPathDownload.Size = new System.Drawing.Size(127, 13);
+            this.lblPathDownload.TabIndex = 0;
+            this.lblPathDownload.Text = "Path downloaded videos:";
             // 
             // groupGfycat
             // 
@@ -1830,7 +1940,7 @@ namespace WebMConverter
             groupGfycat.Controls.Add(this.lblPublicGfys);
             groupGfycat.Controls.Add(this.label2);
             groupGfycat.Controls.Add(this.lblUser);
-            groupGfycat.Location = new System.Drawing.Point(5, 37);
+            groupGfycat.Location = new System.Drawing.Point(5, 101);
             groupGfycat.Name = "groupGfycat";
             groupGfycat.Size = new System.Drawing.Size(1043, 96);
             groupGfycat.TabIndex = 5;
@@ -1840,7 +1950,7 @@ namespace WebMConverter
             // boxTags
             // 
             this.boxTags.Location = new System.Drawing.Point(308, 68);
-            this.boxTags.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.boxTags.Margin = new System.Windows.Forms.Padding(2);
             this.boxTags.Name = "boxTags";
             this.boxTags.Size = new System.Drawing.Size(386, 20);
             this.boxTags.TabIndex = 9;
@@ -1858,7 +1968,7 @@ namespace WebMConverter
             // buttonLogOut
             // 
             this.buttonLogOut.Location = new System.Drawing.Point(8, 69);
-            this.buttonLogOut.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonLogOut.Margin = new System.Windows.Forms.Padding(2);
             this.buttonLogOut.Name = "buttonLogOut";
             this.buttonLogOut.Size = new System.Drawing.Size(69, 21);
             this.buttonLogOut.TabIndex = 7;
@@ -1869,7 +1979,7 @@ namespace WebMConverter
             // pictureBox
             // 
             this.pictureBox.Location = new System.Drawing.Point(905, 19);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(64, 60);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1957,36 +2067,6 @@ namespace WebMConverter
             this.linkLabel1.Text = "Visit the website";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // buttonPathChange
-            // 
-            this.buttonPathChange.Location = new System.Drawing.Point(904, 13);
-            this.buttonPathChange.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.buttonPathChange.Name = "buttonPathChange";
-            this.buttonPathChange.Size = new System.Drawing.Size(71, 23);
-            this.buttonPathChange.TabIndex = 2;
-            this.buttonPathChange.Text = "Change";
-            this.buttonPathChange.UseVisualStyleBackColor = true;
-            this.buttonPathChange.Click += new System.EventHandler(this.buttonPathChange_Click);
-            // 
-            // textPathDownloaded
-            // 
-            this.textPathDownloaded.Enabled = false;
-            this.textPathDownloaded.Location = new System.Drawing.Point(132, 15);
-            this.textPathDownloaded.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.textPathDownloaded.Name = "textPathDownloaded";
-            this.textPathDownloaded.Size = new System.Drawing.Size(767, 20);
-            this.textPathDownloaded.TabIndex = 1;
-            // 
-            // lblPathDownload
-            // 
-            this.lblPathDownload.AutoSize = true;
-            this.lblPathDownload.Location = new System.Drawing.Point(6, 15);
-            this.lblPathDownload.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblPathDownload.Name = "lblPathDownload";
-            this.lblPathDownload.Size = new System.Drawing.Size(127, 13);
-            this.lblPathDownload.TabIndex = 0;
-            this.lblPathDownload.Text = "Path downloaded videos:";
-            // 
             // statusStrip
             // 
             statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -2058,7 +2138,7 @@ namespace WebMConverter
             // progressBarIndexing
             // 
             this.progressBarIndexing.Location = new System.Drawing.Point(6, 32);
-            this.progressBarIndexing.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.progressBarIndexing.Margin = new System.Windows.Forms.Padding(6);
             this.progressBarIndexing.Name = "progressBarIndexing";
             this.progressBarIndexing.Size = new System.Drawing.Size(457, 23);
             this.progressBarIndexing.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -2168,6 +2248,10 @@ namespace WebMConverter
             ((System.ComponentModel.ISupportInitialize)(this.trackSlices)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CRFother)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CRF4k)).EndInit();
             groupGfycat.ResumeLayout(false);
             groupGfycat.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
@@ -2263,6 +2347,12 @@ namespace WebMConverter
         private System.Windows.Forms.Button buttonLogOut;
         private System.Windows.Forms.TextBox boxTags;
         private System.Windows.Forms.Label labelTags;
+        private System.Windows.Forms.NumericUpDown CRFother;
+        private System.Windows.Forms.NumericUpDown CRF4k;
+        private System.Windows.Forms.Label lblCRFConfiguration2;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblCRFConfiguration;
         private System.Windows.Forms.GroupBox groupGfycat;
+        // private System.Windows.Forms.GroupBox groupGfycat;
     }
 }
