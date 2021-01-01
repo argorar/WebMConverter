@@ -72,12 +72,12 @@ namespace WebMConverter
         [STAThread]
         static void Main()
         {
-            Process thisProc = Process.GetCurrentProcess();
-            if (Process.GetProcessesByName(thisProc.ProcessName).Length > 1)
-            {
-                MessageBox.Show("Application is already running.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
+            //Process thisProc = Process.GetCurrentProcess();
+            //if (Process.GetProcessesByName(thisProc.ProcessName).Length > 1)
+            //{
+            //    MessageBox.Show("Application is already running.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    return;
+            //}
             // Check for AviSynth
             if (NativeMethods.LoadLibrary("avisynth") == IntPtr.Zero)
             {

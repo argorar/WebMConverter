@@ -125,8 +125,7 @@ See user details in tab *General*. If you are creating several gfys of the same 
 ## Changelog
 
 #### Version 3.9.3
-* Check if the application is already running to avoid errors
-* When you add a new multi trim, it load at the end of previous trim.
+* When you add a new multi trim, it load at the end of previous trim
 
 #### Version 3.9.2
 * Add option to choose which CRF value to use depending on the resolution of the source. Check the general tab
