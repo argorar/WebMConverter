@@ -7,13 +7,13 @@ namespace WebMConverter
     public partial class MultipleTrimForm : Form
     {
         public MultipleTrimFilter GeneratedFilter;
-
+        private Stack<int> ends;
         private enum MoveDirection { Up = -1, Down = 1 };
 
         public MultipleTrimForm(MultipleTrimFilter filterToEdit = null)
         {
             InitializeComponent();
-
+            ends = new Stack<int>();
             if (filterToEdit != null)
             {
                 foreach (TrimFilter trim in filterToEdit.Trims)
@@ -55,11 +55,18 @@ namespace WebMConverter
 
         private void buttonAddTrim_Click(object sender, EventArgs e)
         {
-            using (var form = new TrimForm())
+            TrimForm form;
+            if (ends.Count > 0)
+                form = new TrimForm(new TrimFilter(trimStart: ends.Pop(), trimEnd: Program.VideoSource.NumberOfFrames - 1));
+            else
+                form = new TrimForm();
+
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                    listViewTrims.Items.Add(form.GeneratedFilter.ToString()).Tag = form.GeneratedFilter;
+                listViewTrims.Items.Add(form.GeneratedFilter.ToString()).Tag = form.GeneratedFilter;
+                ends.Push(form.GeneratedFilter.TrimEnd);
             }
+            
         }
 
         private void buttonConfirm_Click(object sender, EventArgs e)
