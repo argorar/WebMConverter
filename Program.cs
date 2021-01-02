@@ -52,7 +52,6 @@ namespace WebMConverter
 
     static class Program
     {
-        private const string AppId = "c1d3hdb1-50ad-4c32-bdb2-688f7fd10155";
         public static FFMSSharp.VideoSource VideoSource;
         public static FFMSSharp.ColorRange VideoColorRange;
         public static Size Resolution;
@@ -72,12 +71,6 @@ namespace WebMConverter
         [STAThread]
         static void Main()
         {
-            //Process thisProc = Process.GetCurrentProcess();
-            //if (Process.GetProcessesByName(thisProc.ProcessName).Length > 1)
-            //{
-            //    MessageBox.Show("Application is already running.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //    return;
-            //}
             // Check for AviSynth
             if (NativeMethods.LoadLibrary("avisynth") == IntPtr.Zero)
             {

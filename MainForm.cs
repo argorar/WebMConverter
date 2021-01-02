@@ -21,6 +21,7 @@ using WebMConverter.Objects;
 using Newtonsoft.Json;
 using System.Configuration;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace WebMConverter
 {
@@ -90,7 +91,7 @@ namespace WebMConverter
         private readonly string client_id = "2_yqoPwt";
         private readonly string client_secret = "ueECdMt4wIn6L7TybyqcUaTXbcZ2pBcs-EERURkI5ey00p6KxHYWmXLs8h6Mr7Lv";
         private readonly string prefixe = "http://127.0.0.1:57585/";
-        public const string VersionUrl = @"https://argorar.github.io/WebMConverter/NewUpdate/latest";
+        public static readonly string VersionUrl = @"https://argorar.github.io/WebMConverter/NewUpdate/latest";
         private readonly Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         private const int EM_SETCUEBANNER = 0x1501;
 
@@ -137,7 +138,33 @@ namespace WebMConverter
             if (!configuration.AppSettings.Settings.AllKeys.Contains("CRFother"))
                 configuration.AppSettings.Settings.Add("CRFother", "30");
 
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("AllowMultiInstances"))
+                configuration.AppSettings.Settings.Add("AllowMultiInstances", "false");
+
+            CheckProccess();
             LoadConfiguration();
+        }
+
+        private void CheckProccess()
+        {
+            if (configuration.AppSettings.Settings["AllowMultiInstances"].Value.Equals("false"))
+            {
+                Process thisProc = Process.GetCurrentProcess();
+                if (Process.GetProcessesByName(thisProc.ProcessName).Length > 1)
+                {
+                    var result = MessageBox.Show(
+                       $"Application is already running. If you continue, you can get errors.{Environment.NewLine}" +
+                        "Do you want to disable this warning?",
+                        "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
+                    {
+                        UpdateConfiguration("AllowMultiInstances", "true");
+                        Dispose();
+                    }
+                    else if (result == DialogResult.Cancel)
+                        Dispose();
+                }
+            }            
         }
 
         private void LoadConfiguration()

@@ -31,7 +31,7 @@ namespace WebMConverter
                     dataToProbeAsString.Append(" -show_");
                     dataToProbeAsString.Append(Type);
                 }
-                StartInfo.Arguments = string.Format(templateArguments, format, inputFile, dataToProbeAsString.ToString());
+                StartInfo.Arguments = string.Format(templateArguments, format, inputFile, dataToProbeAsString);
             }
             else
             {

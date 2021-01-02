@@ -26,20 +26,18 @@ namespace WebMConverter.Updater
             }
 
             var mode = args[0];
-            switch (mode)
+            if (mode.Equals("check"))
             {
-                case "check":
-                    var current = args[1];
-                    string output;
-
-                    var success = CheckUpdate(current, out output);
-
-                    return success ? 0 : 1;
-
-                case "update":
-                    Application.Run(new UpdateUI());
-                    return 0;
+               var current = args[1];
+               string output;
+               var success = CheckUpdate(current, out output);
+               return success ? 0 : 1;
             }
+            else if (mode.Equals("update"))
+            {
+                Application.Run(new UpdateUI());
+                return 0;
+            } 
             return 1;
         }
     }
