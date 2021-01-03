@@ -124,6 +124,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.10.0
+*Add advanced filter. Now you can change contrast, gamma and saturation and find the right values for your video
+
 #### Version 3.9.4
 * Check if the application is already running to avoid errors, shows a warning to user. It can be disable
 

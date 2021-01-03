@@ -200,6 +200,11 @@ namespace WebMConverter
         {
             return Application.ProductVersion.Substring(0, Application.ProductVersion.LastIndexOf('.'));
         }
+
+        public static string Dot(decimal number)
+        {
+            return number.ToString().Replace(',', '.');
+        }
     }
     
     public enum FileType

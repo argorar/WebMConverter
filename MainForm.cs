@@ -77,6 +77,7 @@ namespace WebMConverter
         /// {0} is audio quality scale
         /// </summary>
         private const string VariableAudioArguments = " -qscale:a {0}";
+        private const string AdvancedFilter = "eq=gamma={0}:saturation={1}:contrast={2}";
         private const string DarkFilter = "eq=gamma=0.6:saturation=2";
         private const string LightFilter = "eq=gamma=1.4:saturation=1.6";
         private const string LoopFilter = "[0]reverse[r];[0][r]concat,loop=2";
@@ -115,7 +116,7 @@ namespace WebMConverter
         public int SarHeight;
 
         private TaskbarManager taskbarManager;
-
+        private ToolTip toolTip = new ToolTip();
         #region MainForm
 
         public MainForm()
@@ -143,6 +144,15 @@ namespace WebMConverter
 
             CheckProccess();
             LoadConfiguration();
+            ToolTip();
+        }
+
+        private void ToolTip()
+        {
+            toolTip.SetToolTip(comboLevels, "Apply differents filters to your video");
+            toolTip.SetToolTip(boxDeinterlace, "Deinterlace an interlaced input video. Use trim to process only the important");
+            toolTip.SetToolTip(boxDenoise, "Denoise the video, resulting in less detailed video but more bang for your buck when it comes to bitrate");
+            toolTip.SetToolTip(boxLoop, "Forward and reverse effect merged");
         }
 
         private void CheckProccess()
@@ -1288,6 +1298,9 @@ namespace WebMConverter
             numericCrf.Value = 30;
             numericCrfTolerance.Value = 2;
             numericAudioQuality.Value = 10;
+            numericGamma.Value = 1;
+            numericSaturation.Value = 1;
+            numericContrast.Value = 1;
 
             comboLevels.SelectedIndex = 0;
 
@@ -1327,6 +1340,7 @@ namespace WebMConverter
 
             buttonGo.Enabled = false;
             buttonPreview.Enabled = false;
+            buttonPreview2.Enabled = false;
             buttonBrowseIn.Enabled = false;
             textBoxIn.Enabled = false;
 
@@ -1734,6 +1748,7 @@ namespace WebMConverter
 
                 buttonGo.Enabled = true;
                 buttonPreview.Enabled = true;
+                buttonPreview2.Enabled = true;
                 buttonBrowseIn.Enabled = true;
                 textBoxIn.Enabled = true;
                 toolStripFilterButtonsEnabled(true);
@@ -1946,6 +1961,9 @@ namespace WebMConverter
                 case 2:
                     levels = DarkFilter;
                     break;
+                case 3:
+                    levels = string.Format(AdvancedFilter, Dot(numericGamma.Value), Dot(numericSaturation.Value), Dot(numericContrast.Value));
+                    break;
             }
 
             if (!string.IsNullOrEmpty(levels))
@@ -2150,6 +2168,9 @@ namespace WebMConverter
                     break;
                 case 2:
                     levels = DarkFilter;
+                    break;
+                case 3:
+                    levels = string.Format(AdvancedFilter, Dot(numericGamma.Value), Dot(numericSaturation.Value), Dot(numericContrast.Value));
                     break;
             }
 
@@ -2568,6 +2589,18 @@ namespace WebMConverter
 
         private void comboLevels_SelectedIndexChanged_1(object sender, EventArgs e)
         {
+            if (comboLevels.SelectedIndex == 3)
+            {
+                numericContrast.Enabled = true;
+                numericGamma.Enabled = true;
+                numericSaturation.Enabled = true;
+            }
+            else
+            {
+                numericContrast.Enabled = false;
+                numericGamma.Enabled = false;
+                numericSaturation.Enabled = false;
+            }
             UpdateArguments(sender, e);
         }
 
@@ -2680,5 +2713,18 @@ namespace WebMConverter
         {
             UpdateConfiguration("CRFother", CRFother.Value.ToString());
         }
+
+        private void buttonPreview2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Preview();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }

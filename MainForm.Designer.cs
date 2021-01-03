@@ -77,9 +77,6 @@ namespace WebMConverter
             System.Windows.Forms.GroupBox groupAdvancedProcessing;
             System.Windows.Forms.TableLayoutPanel tableAdvancedProcessing;
             System.Windows.Forms.Label labelProcessingLevels;
-            System.Windows.Forms.Label labelProcessingLevelsHint;
-            System.Windows.Forms.Label labelProcessingDeinterlaceHint;
-            System.Windows.Forms.Label labelProcessingDenoiseHint;
             System.Windows.Forms.GroupBox groupAdvancedEncoding;
             System.Windows.Forms.TableLayoutPanel tableAdvancedEncoding;
             System.Windows.Forms.Label labelEncodingFrameRateHint;
@@ -137,6 +134,10 @@ namespace WebMConverter
             this.boxDeinterlace = new System.Windows.Forms.CheckBox();
             this.boxDenoise = new System.Windows.Forms.CheckBox();
             this.boxLoop = new System.Windows.Forms.CheckBox();
+            this.labelSaturation = new System.Windows.Forms.Label();
+            this.numericGamma = new System.Windows.Forms.NumericUpDown();
+            this.numericSaturation = new System.Windows.Forms.NumericUpDown();
+            this.labelGamma = new System.Windows.Forms.Label();
             this.boxFrameRate = new System.Windows.Forms.TextBox();
             this.boxNGOV = new System.Windows.Forms.CheckBox();
             this.trackThreads = new System.Windows.Forms.TrackBar();
@@ -153,6 +154,9 @@ namespace WebMConverter
             this.textPathDownloaded = new System.Windows.Forms.TextBox();
             this.buttonPathChange = new System.Windows.Forms.Button();
             this.lblPathDownload = new System.Windows.Forms.Label();
+            this.labelMaintained = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.groupGfycat = new System.Windows.Forms.GroupBox();
             this.boxTags = new System.Windows.Forms.TextBox();
             this.labelTags = new System.Windows.Forms.Label();
             this.buttonLogOut = new System.Windows.Forms.Button();
@@ -163,8 +167,6 @@ namespace WebMConverter
             this.lblPublicGfys = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblUser = new System.Windows.Forms.Label();
-            this.labelMaintained = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelContainTheProgressBar = new System.Windows.Forms.Panel();
             this.boxIndexingProgressDetails = new System.Windows.Forms.CheckBox();
@@ -175,6 +177,9 @@ namespace WebMConverter
             this.listViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.listViewContextMenuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewContextMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonPreview2 = new System.Windows.Forms.Button();
+            this.labelContrast = new System.Windows.Forms.Label();
+            this.numericContrast = new System.Windows.Forms.NumericUpDown();
             tableMainForm = new System.Windows.Forms.TableLayoutPanel();
             groupMain = new System.Windows.Forms.GroupBox();
             tableMain = new System.Windows.Forms.TableLayoutPanel();
@@ -222,9 +227,6 @@ namespace WebMConverter
             groupAdvancedProcessing = new System.Windows.Forms.GroupBox();
             tableAdvancedProcessing = new System.Windows.Forms.TableLayoutPanel();
             labelProcessingLevels = new System.Windows.Forms.Label();
-            labelProcessingLevelsHint = new System.Windows.Forms.Label();
-            labelProcessingDeinterlaceHint = new System.Windows.Forms.Label();
-            labelProcessingDenoiseHint = new System.Windows.Forms.Label();
             groupAdvancedEncoding = new System.Windows.Forms.GroupBox();
             tableAdvancedEncoding = new System.Windows.Forms.TableLayoutPanel();
             labelEncodingFrameRateHint = new System.Windows.Forms.Label();
@@ -236,7 +238,6 @@ namespace WebMConverter
             labelEncodingSlicesHint = new System.Windows.Forms.Label();
             labelEncodingArguments = new System.Windows.Forms.Label();
             groupBox1 = new System.Windows.Forms.GroupBox();
-            groupGfycat = new System.Windows.Forms.GroupBox();
             statusStrip = new System.Windows.Forms.StatusStrip();
             tableMainForm.SuspendLayout();
             groupMain.SuspendLayout();
@@ -267,6 +268,8 @@ namespace WebMConverter
             tableAdvanced.SuspendLayout();
             groupAdvancedProcessing.SuspendLayout();
             tableAdvancedProcessing.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericGamma)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericSaturation)).BeginInit();
             groupAdvancedEncoding.SuspendLayout();
             tableAdvancedEncoding.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackThreads)).BeginInit();
@@ -275,12 +278,13 @@ namespace WebMConverter
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CRFother)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CRF4k)).BeginInit();
-            groupGfycat.SuspendLayout();
+            this.groupGfycat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             statusStrip.SuspendLayout();
             this.panelContainTheProgressBar.SuspendLayout();
             this.panelHideTheOptions.SuspendLayout();
             this.listViewContextMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericContrast)).BeginInit();
             this.SuspendLayout();
             // 
             // tableMainForm
@@ -427,7 +431,7 @@ namespace WebMConverter
             tabProcessing.Controls.Add(tableProcessing);
             tabProcessing.Location = new System.Drawing.Point(4, 22);
             tabProcessing.Name = "tabProcessing";
-            tabProcessing.Padding = new System.Windows.Forms.Padding(3);
+            tabProcessing.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             tabProcessing.Size = new System.Drawing.Size(1053, 307);
             tabProcessing.TabIndex = 3;
             tabProcessing.Text = "Processing";
@@ -723,8 +727,8 @@ namespace WebMConverter
             tabEncoding.Controls.Add(tableEncoding);
             tabEncoding.Location = new System.Drawing.Point(4, 22);
             tabEncoding.Name = "tabEncoding";
-            tabEncoding.Padding = new System.Windows.Forms.Padding(3);
-            tabEncoding.Size = new System.Drawing.Size(1053, 307);
+            tabEncoding.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            tabEncoding.Size = new System.Drawing.Size(1053, 306);
             tabEncoding.TabIndex = 0;
             tabEncoding.Text = "Encoding";
             // 
@@ -743,7 +747,7 @@ namespace WebMConverter
             tableEncoding.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 107F));
             tableEncoding.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 79F));
             tableEncoding.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableEncoding.Size = new System.Drawing.Size(1047, 301);
+            tableEncoding.Size = new System.Drawing.Size(1047, 300);
             tableEncoding.TabIndex = 0;
             // 
             // groupEncodingGeneral
@@ -1429,7 +1433,7 @@ namespace WebMConverter
             tabAdvanced.Controls.Add(tableAdvanced);
             tabAdvanced.Location = new System.Drawing.Point(4, 22);
             tabAdvanced.Name = "tabAdvanced";
-            tabAdvanced.Padding = new System.Windows.Forms.Padding(3);
+            tabAdvanced.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             tabAdvanced.Size = new System.Drawing.Size(1053, 307);
             tabAdvanced.TabIndex = 4;
             tabAdvanced.Text = "Advanced";
@@ -1464,18 +1468,27 @@ namespace WebMConverter
             // 
             // tableAdvancedProcessing
             // 
-            tableAdvancedProcessing.ColumnCount = 3;
+            tableAdvancedProcessing.ColumnCount = 8;
             tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 103F));
             tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 121F));
             tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 64F));
+            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 43F));
+            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 77F));
+            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 534F));
             tableAdvancedProcessing.Controls.Add(labelProcessingLevels, 0, 0);
             tableAdvancedProcessing.Controls.Add(this.comboLevels, 1, 0);
             tableAdvancedProcessing.Controls.Add(this.boxDeinterlace, 1, 1);
             tableAdvancedProcessing.Controls.Add(this.boxDenoise, 1, 2);
             tableAdvancedProcessing.Controls.Add(this.boxLoop, 0, 1);
-            tableAdvancedProcessing.Controls.Add(labelProcessingLevelsHint, 2, 0);
-            tableAdvancedProcessing.Controls.Add(labelProcessingDeinterlaceHint, 2, 1);
-            tableAdvancedProcessing.Controls.Add(labelProcessingDenoiseHint, 2, 2);
+            tableAdvancedProcessing.Controls.Add(this.labelSaturation, 4, 0);
+            tableAdvancedProcessing.Controls.Add(this.numericGamma, 3, 0);
+            tableAdvancedProcessing.Controls.Add(this.numericSaturation, 5, 0);
+            tableAdvancedProcessing.Controls.Add(this.labelGamma, 2, 0);
+            tableAdvancedProcessing.Controls.Add(this.labelContrast, 2, 1);
+            tableAdvancedProcessing.Controls.Add(this.numericContrast, 3, 1);
+            tableAdvancedProcessing.Controls.Add(this.buttonPreview2, 4, 1);
             tableAdvancedProcessing.Location = new System.Drawing.Point(3, 15);
             tableAdvancedProcessing.Name = "tableAdvancedProcessing";
             tableAdvancedProcessing.RowCount = 3;
@@ -1503,7 +1516,8 @@ namespace WebMConverter
             this.comboLevels.Items.AddRange(new object[] {
             "Original",
             "Light Filter",
-            "Dark Filter"});
+            "Dark Filter",
+            "Advanced"});
             this.comboLevels.Location = new System.Drawing.Point(106, 3);
             this.comboLevels.Name = "comboLevels";
             this.comboLevels.Size = new System.Drawing.Size(115, 21);
@@ -1550,39 +1564,78 @@ namespace WebMConverter
             this.boxLoop.UseVisualStyleBackColor = true;
             this.boxLoop.CheckedChanged += new System.EventHandler(this.boxLoop_CheckedChanged);
             // 
-            // labelProcessingLevelsHint
+            // labelSaturation
             // 
-            labelProcessingLevelsHint.AutoSize = true;
-            labelProcessingLevelsHint.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelProcessingLevelsHint.Location = new System.Drawing.Point(227, 0);
-            labelProcessingLevelsHint.Name = "labelProcessingLevelsHint";
-            labelProcessingLevelsHint.Size = new System.Drawing.Size(807, 28);
-            labelProcessingLevelsHint.TabIndex = 17;
-            labelProcessingLevelsHint.Text = "Apply differents filters to your video.";
-            labelProcessingLevelsHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelSaturation.AutoSize = true;
+            this.labelSaturation.Location = new System.Drawing.Point(321, 6);
+            this.labelSaturation.Margin = new System.Windows.Forms.Padding(2, 6, 2, 0);
+            this.labelSaturation.Name = "labelSaturation";
+            this.labelSaturation.Size = new System.Drawing.Size(55, 13);
+            this.labelSaturation.TabIndex = 18;
+            this.labelSaturation.Text = "Saturation";
             // 
-            // labelProcessingDeinterlaceHint
+            // numericGamma
             // 
-            labelProcessingDeinterlaceHint.AutoSize = true;
-            labelProcessingDeinterlaceHint.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelProcessingDeinterlaceHint.Location = new System.Drawing.Point(227, 28);
-            labelProcessingDeinterlaceHint.Name = "labelProcessingDeinterlaceHint";
-            labelProcessingDeinterlaceHint.Size = new System.Drawing.Size(807, 28);
-            labelProcessingDeinterlaceHint.TabIndex = 18;
-            labelProcessingDeinterlaceHint.Text = "Deinterlace an interlaced input video. Use trim to process only the important. ";
-            labelProcessingDeinterlaceHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.numericGamma.DecimalPlaces = 1;
+            this.numericGamma.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericGamma.Enabled = false;
+            this.numericGamma.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericGamma.Location = new System.Drawing.Point(279, 2);
+            this.numericGamma.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numericGamma.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericGamma.Name = "numericGamma";
+            this.numericGamma.Size = new System.Drawing.Size(38, 20);
+            this.numericGamma.TabIndex = 19;
+            this.numericGamma.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
-            // labelProcessingDenoiseHint
+            // numericSaturation
             // 
-            labelProcessingDenoiseHint.AutoSize = true;
-            labelProcessingDenoiseHint.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelProcessingDenoiseHint.Location = new System.Drawing.Point(227, 56);
-            labelProcessingDenoiseHint.Name = "labelProcessingDenoiseHint";
-            labelProcessingDenoiseHint.Size = new System.Drawing.Size(807, 28);
-            labelProcessingDenoiseHint.TabIndex = 19;
-            labelProcessingDenoiseHint.Text = "Denoise the video, resulting in less detailed video but more bang for your buck w" +
-    "hen it comes to bitrate.";
-            labelProcessingDenoiseHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.numericSaturation.DecimalPlaces = 1;
+            this.numericSaturation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericSaturation.Enabled = false;
+            this.numericSaturation.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericSaturation.Location = new System.Drawing.Point(385, 2);
+            this.numericSaturation.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numericSaturation.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericSaturation.Name = "numericSaturation";
+            this.numericSaturation.Size = new System.Drawing.Size(39, 20);
+            this.numericSaturation.TabIndex = 20;
+            this.numericSaturation.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // labelGamma
+            // 
+            this.labelGamma.AutoSize = true;
+            this.labelGamma.Location = new System.Drawing.Point(226, 0);
+            this.labelGamma.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelGamma.Name = "labelGamma";
+            this.labelGamma.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
+            this.labelGamma.Size = new System.Drawing.Size(43, 19);
+            this.labelGamma.TabIndex = 17;
+            this.labelGamma.Text = "Gamma";
             // 
             // groupAdvancedEncoding
             // 
@@ -1815,14 +1868,14 @@ namespace WebMConverter
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage1.Controls.Add(groupBox1);
-            this.tabPage1.Controls.Add(groupGfycat);
             this.tabPage1.Controls.Add(this.labelMaintained);
             this.tabPage1.Controls.Add(this.linkLabel1);
+            this.tabPage1.Controls.Add(this.groupGfycat);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(1053, 307);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Size = new System.Drawing.Size(1053, 306);
             this.tabPage1.TabIndex = 5;
             this.tabPage1.Text = "General";
             // 
@@ -1902,7 +1955,7 @@ namespace WebMConverter
             // 
             this.textPathDownloaded.Enabled = false;
             this.textPathDownloaded.Location = new System.Drawing.Point(138, 19);
-            this.textPathDownloaded.Margin = new System.Windows.Forms.Padding(2);
+            this.textPathDownloaded.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textPathDownloaded.Name = "textPathDownloaded";
             this.textPathDownloaded.Size = new System.Drawing.Size(754, 20);
             this.textPathDownloaded.TabIndex = 1;
@@ -1910,7 +1963,7 @@ namespace WebMConverter
             // buttonPathChange
             // 
             this.buttonPathChange.Location = new System.Drawing.Point(898, 17);
-            this.buttonPathChange.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonPathChange.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonPathChange.Name = "buttonPathChange";
             this.buttonPathChange.Size = new System.Drawing.Size(71, 23);
             this.buttonPathChange.TabIndex = 2;
@@ -1927,123 +1980,6 @@ namespace WebMConverter
             this.lblPathDownload.Size = new System.Drawing.Size(127, 13);
             this.lblPathDownload.TabIndex = 0;
             this.lblPathDownload.Text = "Path downloaded videos:";
-            // 
-            // groupGfycat
-            // 
-            groupGfycat.Controls.Add(this.boxTags);
-            groupGfycat.Controls.Add(this.labelTags);
-            groupGfycat.Controls.Add(this.buttonLogOut);
-            groupGfycat.Controls.Add(this.pictureBox);
-            groupGfycat.Controls.Add(this.lblFollowers);
-            groupGfycat.Controls.Add(this.lblViews);
-            groupGfycat.Controls.Add(this.lblTotalGfys);
-            groupGfycat.Controls.Add(this.lblPublicGfys);
-            groupGfycat.Controls.Add(this.label2);
-            groupGfycat.Controls.Add(this.lblUser);
-            groupGfycat.Location = new System.Drawing.Point(5, 101);
-            groupGfycat.Name = "groupGfycat";
-            groupGfycat.Size = new System.Drawing.Size(1043, 96);
-            groupGfycat.TabIndex = 5;
-            groupGfycat.TabStop = false;
-            groupGfycat.Text = "Gfycat";
-            // 
-            // boxTags
-            // 
-            this.boxTags.Location = new System.Drawing.Point(308, 68);
-            this.boxTags.Margin = new System.Windows.Forms.Padding(2);
-            this.boxTags.Name = "boxTags";
-            this.boxTags.Size = new System.Drawing.Size(386, 20);
-            this.boxTags.TabIndex = 9;
-            // 
-            // labelTags
-            // 
-            this.labelTags.AutoSize = true;
-            this.labelTags.Location = new System.Drawing.Point(268, 69);
-            this.labelTags.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelTags.Name = "labelTags";
-            this.labelTags.Size = new System.Drawing.Size(37, 13);
-            this.labelTags.TabIndex = 8;
-            this.labelTags.Text = "Tags: ";
-            // 
-            // buttonLogOut
-            // 
-            this.buttonLogOut.Location = new System.Drawing.Point(8, 69);
-            this.buttonLogOut.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonLogOut.Name = "buttonLogOut";
-            this.buttonLogOut.Size = new System.Drawing.Size(69, 21);
-            this.buttonLogOut.TabIndex = 7;
-            this.buttonLogOut.Text = "Log Out";
-            this.buttonLogOut.UseVisualStyleBackColor = true;
-            this.buttonLogOut.Click += new System.EventHandler(this.buttonLogOut_Click);
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.Location = new System.Drawing.Point(905, 19);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(64, 60);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox.TabIndex = 6;
-            this.pictureBox.TabStop = false;
-            // 
-            // lblFollowers
-            // 
-            this.lblFollowers.AutoSize = true;
-            this.lblFollowers.Location = new System.Drawing.Point(599, 41);
-            this.lblFollowers.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblFollowers.Name = "lblFollowers";
-            this.lblFollowers.Size = new System.Drawing.Size(71, 13);
-            this.lblFollowers.TabIndex = 5;
-            this.lblFollowers.Text = "Followers: {0}";
-            // 
-            // lblViews
-            // 
-            this.lblViews.AutoSize = true;
-            this.lblViews.Location = new System.Drawing.Point(599, 19);
-            this.lblViews.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblViews.Name = "lblViews";
-            this.lblViews.Size = new System.Drawing.Size(55, 13);
-            this.lblViews.TabIndex = 4;
-            this.lblViews.Text = "Views: {0}";
-            // 
-            // lblTotalGfys
-            // 
-            this.lblTotalGfys.AutoSize = true;
-            this.lblTotalGfys.Location = new System.Drawing.Point(266, 41);
-            this.lblTotalGfys.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblTotalGfys.Name = "lblTotalGfys";
-            this.lblTotalGfys.Size = new System.Drawing.Size(93, 13);
-            this.lblTotalGfys.TabIndex = 3;
-            this.lblTotalGfys.Text = "Total Gfycats: {0} ";
-            // 
-            // lblPublicGfys
-            // 
-            this.lblPublicGfys.AutoSize = true;
-            this.lblPublicGfys.Location = new System.Drawing.Point(266, 19);
-            this.lblPublicGfys.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblPublicGfys.Name = "lblPublicGfys";
-            this.lblPublicGfys.Size = new System.Drawing.Size(95, 13);
-            this.lblPublicGfys.TabIndex = 2;
-            this.lblPublicGfys.Text = "Public Gfycats: {0}";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(135, 19);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 13);
-            this.label2.TabIndex = 1;
-            // 
-            // lblUser
-            // 
-            this.lblUser.AutoSize = true;
-            this.lblUser.Location = new System.Drawing.Point(6, 19);
-            this.lblUser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblUser.Name = "lblUser";
-            this.lblUser.Size = new System.Drawing.Size(109, 13);
-            this.lblUser.TabIndex = 0;
-            this.lblUser.Text = "You are log in as {0}. ";
             // 
             // labelMaintained
             // 
@@ -2066,6 +2002,125 @@ namespace WebMConverter
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Visit the website";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // groupGfycat
+            // 
+            this.groupGfycat.Controls.Add(this.boxTags);
+            this.groupGfycat.Controls.Add(this.labelTags);
+            this.groupGfycat.Controls.Add(this.buttonLogOut);
+            this.groupGfycat.Controls.Add(this.pictureBox);
+            this.groupGfycat.Controls.Add(this.lblFollowers);
+            this.groupGfycat.Controls.Add(this.lblViews);
+            this.groupGfycat.Controls.Add(this.lblTotalGfys);
+            this.groupGfycat.Controls.Add(this.lblPublicGfys);
+            this.groupGfycat.Controls.Add(this.label2);
+            this.groupGfycat.Controls.Add(this.lblUser);
+            this.groupGfycat.Location = new System.Drawing.Point(4, 99);
+            this.groupGfycat.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupGfycat.Name = "groupGfycat";
+            this.groupGfycat.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupGfycat.Size = new System.Drawing.Size(1045, 88);
+            this.groupGfycat.TabIndex = 5;
+            this.groupGfycat.TabStop = false;
+            this.groupGfycat.Text = "Gfycat";
+            // 
+            // boxTags
+            // 
+            this.boxTags.Location = new System.Drawing.Point(231, 57);
+            this.boxTags.Margin = new System.Windows.Forms.Padding(2);
+            this.boxTags.Name = "boxTags";
+            this.boxTags.Size = new System.Drawing.Size(290, 20);
+            this.boxTags.TabIndex = 9;
+            // 
+            // labelTags
+            // 
+            this.labelTags.AutoSize = true;
+            this.labelTags.Location = new System.Drawing.Point(201, 58);
+            this.labelTags.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelTags.Name = "labelTags";
+            this.labelTags.Size = new System.Drawing.Size(37, 13);
+            this.labelTags.TabIndex = 8;
+            this.labelTags.Text = "Tags: ";
+            // 
+            // buttonLogOut
+            // 
+            this.buttonLogOut.Location = new System.Drawing.Point(6, 49);
+            this.buttonLogOut.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonLogOut.Name = "buttonLogOut";
+            this.buttonLogOut.Size = new System.Drawing.Size(56, 26);
+            this.buttonLogOut.TabIndex = 7;
+            this.buttonLogOut.Text = "Log Out";
+            this.buttonLogOut.UseVisualStyleBackColor = true;
+            this.buttonLogOut.Click += new System.EventHandler(this.buttonLogOut_Click);
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.Location = new System.Drawing.Point(900, 16);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(48, 49);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox.TabIndex = 6;
+            this.pictureBox.TabStop = false;
+            // 
+            // lblFollowers
+            // 
+            this.lblFollowers.AutoSize = true;
+            this.lblFollowers.Location = new System.Drawing.Point(449, 35);
+            this.lblFollowers.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFollowers.Name = "lblFollowers";
+            this.lblFollowers.Size = new System.Drawing.Size(71, 13);
+            this.lblFollowers.TabIndex = 5;
+            this.lblFollowers.Text = "Followers: {0}";
+            // 
+            // lblViews
+            // 
+            this.lblViews.AutoSize = true;
+            this.lblViews.Location = new System.Drawing.Point(449, 15);
+            this.lblViews.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblViews.Name = "lblViews";
+            this.lblViews.Size = new System.Drawing.Size(55, 13);
+            this.lblViews.TabIndex = 4;
+            this.lblViews.Text = "Views: {0}";
+            // 
+            // lblTotalGfys
+            // 
+            this.lblTotalGfys.AutoSize = true;
+            this.lblTotalGfys.Location = new System.Drawing.Point(200, 35);
+            this.lblTotalGfys.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTotalGfys.Name = "lblTotalGfys";
+            this.lblTotalGfys.Size = new System.Drawing.Size(93, 13);
+            this.lblTotalGfys.TabIndex = 3;
+            this.lblTotalGfys.Text = "Total Gfycats: {0} ";
+            // 
+            // lblPublicGfys
+            // 
+            this.lblPublicGfys.AutoSize = true;
+            this.lblPublicGfys.Location = new System.Drawing.Point(200, 15);
+            this.lblPublicGfys.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPublicGfys.Name = "lblPublicGfys";
+            this.lblPublicGfys.Size = new System.Drawing.Size(95, 13);
+            this.lblPublicGfys.TabIndex = 2;
+            this.lblPublicGfys.Text = "Public Gfycats: {0}";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(101, 15);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(0, 13);
+            this.label2.TabIndex = 1;
+            // 
+            // lblUser
+            // 
+            this.lblUser.AutoSize = true;
+            this.lblUser.Location = new System.Drawing.Point(4, 15);
+            this.lblUser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblUser.Name = "lblUser";
+            this.lblUser.Size = new System.Drawing.Size(109, 13);
+            this.lblUser.TabIndex = 0;
+            this.lblUser.Text = "You are log in as {0}. ";
             // 
             // statusStrip
             // 
@@ -2138,7 +2193,7 @@ namespace WebMConverter
             // progressBarIndexing
             // 
             this.progressBarIndexing.Location = new System.Drawing.Point(6, 32);
-            this.progressBarIndexing.Margin = new System.Windows.Forms.Padding(6);
+            this.progressBarIndexing.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.progressBarIndexing.Name = "progressBarIndexing";
             this.progressBarIndexing.Size = new System.Drawing.Size(457, 23);
             this.progressBarIndexing.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -2175,6 +2230,54 @@ namespace WebMConverter
             this.listViewContextMenuDelete.Size = new System.Drawing.Size(104, 22);
             this.listViewContextMenuDelete.Text = "Delete";
             this.listViewContextMenuDelete.Click += new System.EventHandler(this.listViewContextMenuDelete_Click);
+            // 
+            // buttonPreview2
+            // 
+            tableAdvancedProcessing.SetColumnSpan(this.buttonPreview2, 2);
+            this.buttonPreview2.Enabled = false;
+            this.buttonPreview2.Location = new System.Drawing.Point(321, 30);
+            this.buttonPreview2.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonPreview2.Name = "buttonPreview2";
+            tableAdvancedProcessing.SetRowSpan(this.buttonPreview2, 2);
+            this.buttonPreview2.Size = new System.Drawing.Size(103, 23);
+            this.buttonPreview2.TabIndex = 21;
+            this.buttonPreview2.Text = "Preview";
+            this.buttonPreview2.UseVisualStyleBackColor = true;
+            this.buttonPreview2.Click += new System.EventHandler(this.buttonPreview2_Click);
+            // 
+            // labelContrast
+            // 
+            this.labelContrast.AutoSize = true;
+            this.labelContrast.Location = new System.Drawing.Point(227, 28);
+            this.labelContrast.Name = "labelContrast";
+            this.labelContrast.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
+            this.labelContrast.Size = new System.Drawing.Size(46, 19);
+            this.labelContrast.TabIndex = 22;
+            this.labelContrast.Text = "Contrast";
+            // 
+            // numericContrast
+            // 
+            this.numericContrast.DecimalPlaces = 1;
+            this.numericContrast.Enabled = false;
+            this.numericContrast.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericContrast.Location = new System.Drawing.Point(280, 31);
+            this.numericContrast.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericContrast.Name = "numericContrast";
+            this.numericContrast.Size = new System.Drawing.Size(36, 20);
+            this.numericContrast.TabIndex = 23;
+            this.numericContrast.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // MainForm
             // 
@@ -2241,6 +2344,8 @@ namespace WebMConverter
             groupAdvancedProcessing.ResumeLayout(false);
             tableAdvancedProcessing.ResumeLayout(false);
             tableAdvancedProcessing.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericGamma)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericSaturation)).EndInit();
             groupAdvancedEncoding.ResumeLayout(false);
             tableAdvancedEncoding.ResumeLayout(false);
             tableAdvancedEncoding.PerformLayout();
@@ -2252,8 +2357,8 @@ namespace WebMConverter
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CRFother)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CRF4k)).EndInit();
-            groupGfycat.ResumeLayout(false);
-            groupGfycat.PerformLayout();
+            this.groupGfycat.ResumeLayout(false);
+            this.groupGfycat.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             statusStrip.ResumeLayout(false);
             statusStrip.PerformLayout();
@@ -2262,6 +2367,7 @@ namespace WebMConverter
             this.panelHideTheOptions.ResumeLayout(false);
             this.panelHideTheOptions.PerformLayout();
             this.listViewContextMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericContrast)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2352,7 +2458,14 @@ namespace WebMConverter
         private System.Windows.Forms.Label lblCRFConfiguration2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblCRFConfiguration;
+        private System.Windows.Forms.Label labelGamma;
+        private System.Windows.Forms.Label labelSaturation;
+        private System.Windows.Forms.NumericUpDown numericGamma;
+        private System.Windows.Forms.NumericUpDown numericSaturation;
         private System.Windows.Forms.GroupBox groupGfycat;
+        private System.Windows.Forms.Button buttonPreview2;
+        private System.Windows.Forms.Label labelContrast;
+        private System.Windows.Forms.NumericUpDown numericContrast;
         // private System.Windows.Forms.GroupBox groupGfycat;
     }
 }
