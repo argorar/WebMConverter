@@ -1993,13 +1993,10 @@ namespace WebMConverter
             if (input == output)
                 throw new Exception("Input and output files are the same!");
 
-            string options = boxArguments.Text;
+            string options = GenerateArguments();
 
             ValidateInputFile(input);
             ValidateOutputFile(output);
-
-            if (options.Trim() == "" || _argumentError)
-                options = GenerateArguments();
 
             string avsFileName = null;
             switch (Program.InputType)
