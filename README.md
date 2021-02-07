@@ -64,7 +64,7 @@ Trim precisely the length, with a simple interface. You can do multiple trims if
 
 ### Crop
 
-Crop what is just important for you, just move the edges with the mouse or use the keys.
+Crop what is just important for you, you can see in real time the new resolution also you can set the exact size that you want. Just move the edges with the mouse or use the keys to select the area.
 * ```Row keys``` to move
 * ```Shift + Row keys``` to move faster
 * ```Alt + Row Keys``` to increase/decrease the size 
@@ -75,7 +75,7 @@ Crop what is just important for you, just move the edges with the mouse or use t
 
 ### Filter
 
-If your video looks dark, you can try with some filters.
+If your video looks dark, you can try with some pre-set filters. Now you can create your own filter using *Advanced* option, change gamma, contrast and saturation.
 
 ![filter](img/light.JPG)
 
