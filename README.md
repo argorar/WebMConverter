@@ -124,6 +124,12 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.11.0
+* Add button to open downloaded videos folder
+* Add simple option to convert to mp4 for shared files into platforms where webm is not supported. Option is in tab general
+* Internal structure changed, now is dynamic allowing to do cool things on future
+* Update binaries
+
 #### Version 3.10.1
 * Fix arguments for advanced filter
 * Update binaries to fix JS player extraction in download feature

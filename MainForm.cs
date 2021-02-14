@@ -33,8 +33,9 @@ namespace WebMConverter
         /// {0} is output file
         /// {1} is TemplateArguments
         /// {2} is PassArgument if HQ mode enabled, otherwise blank
+        /// {3} is format, can be mp4 and webm
         /// </summary>
-        private const string Template = " {1}{2} -f webm -y \"{0}\"";
+        private const string Template = " {1}{2} -f {3} -y \"{0}\"";
 
         /// <summary>
         /// {0} is pass number (1 or 2)
@@ -142,6 +143,9 @@ namespace WebMConverter
             if (!configuration.AppSettings.Settings.AllKeys.Contains("AllowMultiInstances"))
                 configuration.AppSettings.Settings.Add("AllowMultiInstances", "false");
 
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("MP4"))
+                configuration.AppSettings.Settings.Add("MP4", "false");
+
             CheckProccess();
             LoadConfiguration();
             ToolTip();
@@ -179,7 +183,7 @@ namespace WebMConverter
 
         private void LoadConfiguration()
         {
-            if (configuration.AppSettings.Settings["HighQuality"].Value.Equals("true"))
+            if (configuration.AppSettings.Settings["HighQuality"].Value.Equals("true") || configuration.AppSettings.Settings["HighQuality"].Value.Equals("True"))
                 boxHQ.Checked = true;
             else
                 boxHQ.Checked = false;
@@ -189,15 +193,20 @@ namespace WebMConverter
             else
                 boxVariable.Checked = true;
 
-            if (configuration.AppSettings.Settings["AudioEnabled"].Value.Equals("true"))
+            if (configuration.AppSettings.Settings["AudioEnabled"].Value.Equals("true") || configuration.AppSettings.Settings["AudioEnabled"].Value.Equals("True"))
                 boxAudio.Checked = true;
             else
                 boxAudio.Checked = false;
 
-            if (configuration.AppSettings.Settings["VP9"].Value.Equals("true"))
+            if (configuration.AppSettings.Settings["VP9"].Value.Equals("true") || configuration.AppSettings.Settings["VP9"].Value.Equals("True"))
                 boxNGOV.Checked = true;
             else
                 boxNGOV.Checked = false;
+
+            if (configuration.AppSettings.Settings["MP4"].Value.Equals("True"))
+                checkMP4.Checked = true;
+            else
+                checkMP4.Checked = false;
 
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["PathDownload"].Value))
                 textPathDownloaded.Text = configuration.AppSettings.Settings["PathDownload"].Value;
@@ -1161,11 +1170,7 @@ namespace WebMConverter
 
         private void BoxHighQuality_CheckedChanged(object sender, EventArgs e)
         {
-            if (boxHQ.Checked)
-                UpdateConfiguration("HighQuality", "true");
-            else
-                UpdateConfiguration("HighQuality", "false");
-
+            UpdateConfiguration("HighQuality", boxHQ.Checked.ToString());
             UpdateArguments(sender, e);
         }
 
@@ -1214,13 +1219,8 @@ namespace WebMConverter
             if (boxNGOV.Checked)
                 numericAudioQuality.Enabled = false;
 
-            if (boxAudio.Checked)
-                UpdateConfiguration("AudioEnabled", "true");
-            else
-                UpdateConfiguration("AudioEnabled", "false");
-
+            UpdateConfiguration("AudioEnabled", boxAudio.Checked.ToString());
             UpdateArguments(sender, e);
-
             opusQualityScalingTooltip();
         }
 
@@ -1268,12 +1268,7 @@ namespace WebMConverter
         {
             numericAudioQuality.Enabled = !(sender as CheckBox).Checked;
             UpdateArguments(sender, e);
-
-            if (boxNGOV.Checked)
-                UpdateConfiguration("VP9", "true");
-            else
-                UpdateConfiguration("VP9", "false");
-
+            UpdateConfiguration("VP9", boxNGOV.Checked.ToString());
             opusQualityScalingTooltip();
         }
 
@@ -1329,8 +1324,9 @@ namespace WebMConverter
             string fullPath = Path.GetDirectoryName(path);
             string name = Path.GetFileNameWithoutExtension(path);
             string title = name;
+            string format = checkMP4.Checked ? @".mp4" : @".webm";
             if (textBoxOut.Text == _autoOutput || textBoxOut.Text == "")
-                textBoxOut.Text = _autoOutput = Path.Combine(string.IsNullOrWhiteSpace(Properties.Settings.Default.RememberedFolderOut) ? fullPath : Properties.Settings.Default.RememberedFolderOut, name + ".webm");
+                textBoxOut.Text = _autoOutput = Path.Combine(string.IsNullOrWhiteSpace(Properties.Settings.Default.RememberedFolderOut) ? fullPath : Properties.Settings.Default.RememberedFolderOut, name + format);
             audioDisabled = false;
 
             progressBarIndexing.Style = ProgressBarStyle.Marquee;
@@ -1941,6 +1937,7 @@ namespace WebMConverter
         {
             string input = textBoxIn.Text;
             buttonPreview.Enabled = false;
+            buttonPreview2.Enabled = false;
 
             ValidateInputFile(input);
 
@@ -1980,6 +1977,7 @@ namespace WebMConverter
                     if (error.Length > 0)
                         MessageBox.Show(error, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     buttonPreview.Enabled = true;
+                    buttonPreview2.Enabled = true;
                 });
             };
             ffplay.Start();
@@ -2015,21 +2013,22 @@ namespace WebMConverter
                     break;
             }
 
-            string[] arguments;
-            if (!boxHQ.Checked)
-                arguments = new[] { string.Format(Template, output, options, "") };
+            string format = checkMP4.Checked ? "mp4" : "webm";
+
+            List<string> arguments = new List<string>();
+            if (checkMP4.Checked || !boxHQ.Checked)
+                arguments.Add(string.Format(Template, output, options, "", format));
             else
             {
                 var passlogfile = GetTemporaryLogFile();
-                arguments = new string[2];
-                arguments[0] = string.Format(Template, "NUL", options, string.Format(PassArgument, 1, passlogfile));
-                arguments[1] = string.Format(Template, output, options, string.Format(PassArgument, 2, passlogfile));
-
+                arguments.Add(string.Format(Template, "NUL", options, string.Format(PassArgument, 1, passlogfile), format));
+                arguments.Add(string.Format(Template, output, options, string.Format(PassArgument, 2, passlogfile), format));
+                
                 if (!arguments[0].Contains("-an")) // skip audio encoding on the first pass
                     arguments[0] = arguments[0].Replace("-c:v libvpx", "-an -c:v libvpx");
             }
 
-            new ConverterDialog(avsFileName, arguments, output).ShowDialog(this);
+            new ConverterDialog(avsFileName, arguments.ToArray(), output).ShowDialog(this);
         }
 
         string GenerateArguments()
@@ -2139,6 +2138,7 @@ namespace WebMConverter
                 hq = @" -lag-in-frames 16 -auto-alt-ref 1";
 
             var vcodec = boxNGOV.Checked ? @"libvpx-vp9" : @"libvpx";
+            vcodec = checkMP4.Checked ? @"libx264" : vcodec;
             var acodec = boxNGOV.Checked ? @"libopus" : @"libvorbis";
 
             string audio;
@@ -2723,5 +2723,20 @@ namespace WebMConverter
             }
         }
 
+        private void checkIndividualFiles_CheckedChanged(object sender, EventArgs e)
+        {
+            if(!String.IsNullOrEmpty(textBoxOut.Text) && checkMP4.Checked)
+                textBoxOut.Text = textBoxOut.Text.Split('.')[0] + ".mp4";
+            else if (!String.IsNullOrEmpty(textBoxOut.Text))
+                textBoxOut.Text = textBoxOut.Text.Split('.')[0] + ".webm";
+
+            UpdateConfiguration("MP4", checkMP4.Checked.ToString());
+        }
+
+        private void buttonOpenPath_Click(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(textPathDownloaded.Text))
+                Process.Start(@textPathDownloaded.Text);
+        }
     }
 }

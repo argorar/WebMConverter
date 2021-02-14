@@ -138,6 +138,9 @@ namespace WebMConverter
             this.numericGamma = new System.Windows.Forms.NumericUpDown();
             this.numericSaturation = new System.Windows.Forms.NumericUpDown();
             this.labelGamma = new System.Windows.Forms.Label();
+            this.labelContrast = new System.Windows.Forms.Label();
+            this.numericContrast = new System.Windows.Forms.NumericUpDown();
+            this.buttonPreview2 = new System.Windows.Forms.Button();
             this.boxFrameRate = new System.Windows.Forms.TextBox();
             this.boxNGOV = new System.Windows.Forms.CheckBox();
             this.trackThreads = new System.Windows.Forms.TrackBar();
@@ -146,6 +149,7 @@ namespace WebMConverter
             this.labelSlices = new System.Windows.Forms.Label();
             this.boxArguments = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkMP4 = new System.Windows.Forms.CheckBox();
             this.CRFother = new System.Windows.Forms.NumericUpDown();
             this.CRF4k = new System.Windows.Forms.NumericUpDown();
             this.lblCRFConfiguration2 = new System.Windows.Forms.Label();
@@ -177,9 +181,7 @@ namespace WebMConverter
             this.listViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.listViewContextMenuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewContextMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonPreview2 = new System.Windows.Forms.Button();
-            this.labelContrast = new System.Windows.Forms.Label();
-            this.numericContrast = new System.Windows.Forms.NumericUpDown();
+            this.buttonOpenPath = new System.Windows.Forms.Button();
             tableMainForm = new System.Windows.Forms.TableLayoutPanel();
             groupMain = new System.Windows.Forms.GroupBox();
             tableMain = new System.Windows.Forms.TableLayoutPanel();
@@ -270,6 +272,7 @@ namespace WebMConverter
             tableAdvancedProcessing.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericGamma)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSaturation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericContrast)).BeginInit();
             groupAdvancedEncoding.SuspendLayout();
             tableAdvancedEncoding.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackThreads)).BeginInit();
@@ -284,7 +287,6 @@ namespace WebMConverter
             this.panelContainTheProgressBar.SuspendLayout();
             this.panelHideTheOptions.SuspendLayout();
             this.listViewContextMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericContrast)).BeginInit();
             this.SuspendLayout();
             // 
             // tableMainForm
@@ -486,7 +488,7 @@ namespace WebMConverter
             this.buttonTrim.Enabled = false;
             this.buttonTrim.Margin = new System.Windows.Forms.Padding(0, 1, 3, 2);
             this.buttonTrim.Name = "buttonTrim";
-            this.buttonTrim.Size = new System.Drawing.Size(43, 22);
+            this.buttonTrim.Size = new System.Drawing.Size(46, 22);
             this.buttonTrim.Text = "Trim";
             this.buttonTrim.ButtonClick += new System.EventHandler(this.buttonTrim_Click);
             this.buttonTrim.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -496,7 +498,7 @@ namespace WebMConverter
             // 
             this.buttonMultipleTrim.AccessibleDescription = "Select many clips from your video, and sort them on a timeline.";
             this.buttonMultipleTrim.Name = "buttonMultipleTrim";
-            this.buttonMultipleTrim.Size = new System.Drawing.Size(132, 22);
+            this.buttonMultipleTrim.Size = new System.Drawing.Size(144, 22);
             this.buttonMultipleTrim.Text = "Multiple Trim";
             this.buttonMultipleTrim.Click += new System.EventHandler(this.buttonMultipleTrim_Click);
             this.buttonMultipleTrim.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -508,7 +510,7 @@ namespace WebMConverter
             this.buttonCrop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonCrop.Enabled = false;
             this.buttonCrop.Name = "buttonCrop";
-            this.buttonCrop.Size = new System.Drawing.Size(34, 22);
+            this.buttonCrop.Size = new System.Drawing.Size(37, 22);
             this.buttonCrop.Text = "Crop";
             this.buttonCrop.Click += new System.EventHandler(this.buttonCrop_Click);
             this.buttonCrop.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -520,7 +522,7 @@ namespace WebMConverter
             this.buttonResize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonResize.Enabled = false;
             this.buttonResize.Name = "buttonResize";
-            this.buttonResize.Size = new System.Drawing.Size(44, 22);
+            this.buttonResize.Size = new System.Drawing.Size(43, 22);
             this.buttonResize.Text = "Resize";
             this.buttonResize.Click += new System.EventHandler(this.buttonResize_Click);
             this.buttonResize.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -532,7 +534,7 @@ namespace WebMConverter
             this.buttonSubtitle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonSubtitle.Enabled = false;
             this.buttonSubtitle.Name = "buttonSubtitle";
-            this.buttonSubtitle.Size = new System.Drawing.Size(52, 22);
+            this.buttonSubtitle.Size = new System.Drawing.Size(56, 22);
             this.buttonSubtitle.Text = "Subtitles";
             this.buttonSubtitle.Click += new System.EventHandler(this.buttonSubtitle_Click);
             this.buttonSubtitle.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -544,7 +546,7 @@ namespace WebMConverter
             this.buttonReverse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonReverse.Enabled = false;
             this.buttonReverse.Name = "buttonReverse";
-            this.buttonReverse.Size = new System.Drawing.Size(52, 22);
+            this.buttonReverse.Size = new System.Drawing.Size(51, 22);
             this.buttonReverse.Text = "Reverse";
             this.buttonReverse.Click += new System.EventHandler(this.buttonReverse_Click);
             this.buttonReverse.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -556,7 +558,7 @@ namespace WebMConverter
             this.buttonOverlay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonOverlay.Enabled = false;
             this.buttonOverlay.Name = "buttonOverlay";
-            this.buttonOverlay.Size = new System.Drawing.Size(49, 22);
+            this.buttonOverlay.Size = new System.Drawing.Size(51, 22);
             this.buttonOverlay.Text = "Overlay";
             this.buttonOverlay.Click += new System.EventHandler(this.buttonOverlay_Click);
             this.buttonOverlay.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -568,7 +570,7 @@ namespace WebMConverter
             this.buttonCaption.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonCaption.Enabled = false;
             this.buttonCaption.Name = "buttonCaption";
-            this.buttonCaption.Size = new System.Drawing.Size(47, 22);
+            this.buttonCaption.Size = new System.Drawing.Size(53, 22);
             this.buttonCaption.Text = "Caption";
             this.buttonCaption.Click += new System.EventHandler(this.buttonCaption_Click);
             this.buttonCaption.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -580,7 +582,7 @@ namespace WebMConverter
     "t over if you fuck up.";
             this.boxAdvancedScripting.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.boxAdvancedScripting.Name = "boxAdvancedScripting";
-            this.boxAdvancedScripting.Size = new System.Drawing.Size(61, 22);
+            this.boxAdvancedScripting.Size = new System.Drawing.Size(64, 22);
             this.boxAdvancedScripting.Text = "Advanced";
             this.boxAdvancedScripting.Click += new System.EventHandler(this.boxAdvancedScripting_Click);
             this.boxAdvancedScripting.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -594,7 +596,7 @@ namespace WebMConverter
             this.buttonExportProcessing.Image = ((System.Drawing.Image)(resources.GetObject("buttonExportProcessing.Image")));
             this.buttonExportProcessing.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonExportProcessing.Name = "buttonExportProcessing";
-            this.buttonExportProcessing.Size = new System.Drawing.Size(42, 22);
+            this.buttonExportProcessing.Size = new System.Drawing.Size(45, 22);
             this.buttonExportProcessing.Text = "Export";
             this.buttonExportProcessing.Click += new System.EventHandler(this.buttonExportProcessing_Click);
             // 
@@ -606,7 +608,7 @@ namespace WebMConverter
             this.buttonPreview.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonPreview.Enabled = false;
             this.buttonPreview.Name = "buttonPreview";
-            this.buttonPreview.Size = new System.Drawing.Size(81, 22);
+            this.buttonPreview.Size = new System.Drawing.Size(84, 22);
             this.buttonPreview.Text = "Preview filters";
             this.buttonPreview.Click += new System.EventHandler(this.buttonPreview_Click);
             this.buttonPreview.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -618,7 +620,7 @@ namespace WebMConverter
             this.buttonDub.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonDub.Enabled = false;
             this.buttonDub.Name = "buttonDub";
-            this.buttonDub.Size = new System.Drawing.Size(30, 22);
+            this.buttonDub.Size = new System.Drawing.Size(33, 22);
             this.buttonDub.Text = "Dub";
             this.buttonDub.Click += new System.EventHandler(this.buttonDub_Click);
             this.buttonDub.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -630,7 +632,7 @@ namespace WebMConverter
             this.buttonRate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonRate.Enabled = false;
             this.buttonRate.Name = "buttonRate";
-            this.buttonRate.Size = new System.Drawing.Size(73, 22);
+            this.buttonRate.Size = new System.Drawing.Size(78, 22);
             this.buttonRate.Text = "Change Rate";
             this.buttonRate.Click += new System.EventHandler(this.buttonRate_Click);
             this.buttonRate.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -642,7 +644,7 @@ namespace WebMConverter
             this.buttonRotate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonRotate.Enabled = false;
             this.buttonRotate.Name = "buttonRotate";
-            this.buttonRotate.Size = new System.Drawing.Size(42, 22);
+            this.buttonRotate.Size = new System.Drawing.Size(45, 22);
             this.buttonRotate.Text = "Rotate";
             this.buttonRotate.Click += new System.EventHandler(this.buttonRotate_Click);
             this.buttonRotate.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -654,7 +656,7 @@ namespace WebMConverter
             this.buttonFade.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonFade.Enabled = false;
             this.buttonFade.Name = "buttonFade";
-            this.buttonFade.Size = new System.Drawing.Size(35, 22);
+            this.buttonFade.Size = new System.Drawing.Size(36, 22);
             this.buttonFade.Text = "Fade";
             this.buttonFade.Click += new System.EventHandler(this.buttonFade_Click);
             this.buttonFade.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -1434,7 +1436,7 @@ namespace WebMConverter
             tabAdvanced.Location = new System.Drawing.Point(4, 22);
             tabAdvanced.Name = "tabAdvanced";
             tabAdvanced.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            tabAdvanced.Size = new System.Drawing.Size(1053, 307);
+            tabAdvanced.Size = new System.Drawing.Size(1053, 306);
             tabAdvanced.TabIndex = 4;
             tabAdvanced.Text = "Advanced";
             // 
@@ -1452,7 +1454,7 @@ namespace WebMConverter
             tableAdvanced.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 119F));
             tableAdvanced.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 173F));
             tableAdvanced.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableAdvanced.Size = new System.Drawing.Size(1047, 301);
+            tableAdvanced.Size = new System.Drawing.Size(1047, 300);
             tableAdvanced.TabIndex = 1;
             // 
             // groupAdvancedProcessing
@@ -1636,6 +1638,54 @@ namespace WebMConverter
             this.labelGamma.Size = new System.Drawing.Size(43, 19);
             this.labelGamma.TabIndex = 17;
             this.labelGamma.Text = "Gamma";
+            // 
+            // labelContrast
+            // 
+            this.labelContrast.AutoSize = true;
+            this.labelContrast.Location = new System.Drawing.Point(227, 28);
+            this.labelContrast.Name = "labelContrast";
+            this.labelContrast.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
+            this.labelContrast.Size = new System.Drawing.Size(46, 19);
+            this.labelContrast.TabIndex = 22;
+            this.labelContrast.Text = "Contrast";
+            // 
+            // numericContrast
+            // 
+            this.numericContrast.DecimalPlaces = 1;
+            this.numericContrast.Enabled = false;
+            this.numericContrast.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericContrast.Location = new System.Drawing.Point(280, 31);
+            this.numericContrast.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericContrast.Name = "numericContrast";
+            this.numericContrast.Size = new System.Drawing.Size(36, 20);
+            this.numericContrast.TabIndex = 23;
+            this.numericContrast.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // buttonPreview2
+            // 
+            tableAdvancedProcessing.SetColumnSpan(this.buttonPreview2, 2);
+            this.buttonPreview2.Enabled = false;
+            this.buttonPreview2.Location = new System.Drawing.Point(321, 30);
+            this.buttonPreview2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonPreview2.Name = "buttonPreview2";
+            tableAdvancedProcessing.SetRowSpan(this.buttonPreview2, 2);
+            this.buttonPreview2.Size = new System.Drawing.Size(102, 23);
+            this.buttonPreview2.TabIndex = 21;
+            this.buttonPreview2.Text = "Preview";
+            this.buttonPreview2.UseVisualStyleBackColor = true;
+            this.buttonPreview2.Click += new System.EventHandler(this.buttonPreview2_Click);
             // 
             // groupAdvancedEncoding
             // 
@@ -1875,12 +1925,14 @@ namespace WebMConverter
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPage1.Size = new System.Drawing.Size(1053, 306);
+            this.tabPage1.Size = new System.Drawing.Size(1053, 307);
             this.tabPage1.TabIndex = 5;
             this.tabPage1.Text = "General";
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(this.buttonOpenPath);
+            groupBox1.Controls.Add(this.checkMP4);
             groupBox1.Controls.Add(this.CRFother);
             groupBox1.Controls.Add(this.CRF4k);
             groupBox1.Controls.Add(this.lblCRFConfiguration2);
@@ -1895,6 +1947,18 @@ namespace WebMConverter
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
             groupBox1.Text = "Configuration";
+            // 
+            // checkMP4
+            // 
+            this.checkMP4.AutoSize = true;
+            this.checkMP4.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkMP4.Location = new System.Drawing.Point(386, 53);
+            this.checkMP4.Name = "checkMP4";
+            this.checkMP4.Size = new System.Drawing.Size(141, 17);
+            this.checkMP4.TabIndex = 5;
+            this.checkMP4.Text = "Activate mp4 convertion";
+            this.checkMP4.UseVisualStyleBackColor = true;
+            this.checkMP4.CheckedChanged += new System.EventHandler(this.checkIndividualFiles_CheckedChanged);
             // 
             // CRFother
             // 
@@ -2027,7 +2091,7 @@ namespace WebMConverter
             // boxTags
             // 
             this.boxTags.Location = new System.Drawing.Point(231, 57);
-            this.boxTags.Margin = new System.Windows.Forms.Padding(2);
+            this.boxTags.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.boxTags.Name = "boxTags";
             this.boxTags.Size = new System.Drawing.Size(290, 20);
             this.boxTags.TabIndex = 9;
@@ -2045,7 +2109,7 @@ namespace WebMConverter
             // buttonLogOut
             // 
             this.buttonLogOut.Location = new System.Drawing.Point(6, 49);
-            this.buttonLogOut.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonLogOut.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonLogOut.Name = "buttonLogOut";
             this.buttonLogOut.Size = new System.Drawing.Size(56, 26);
             this.buttonLogOut.TabIndex = 7;
@@ -2056,7 +2120,7 @@ namespace WebMConverter
             // pictureBox
             // 
             this.pictureBox.Location = new System.Drawing.Point(900, 16);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(48, 49);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -2215,69 +2279,31 @@ namespace WebMConverter
             this.listViewContextMenuEdit,
             this.listViewContextMenuDelete});
             this.listViewContextMenu.Name = "listViewContextMenu";
-            this.listViewContextMenu.Size = new System.Drawing.Size(105, 48);
+            this.listViewContextMenu.Size = new System.Drawing.Size(108, 48);
             // 
             // listViewContextMenuEdit
             // 
             this.listViewContextMenuEdit.Name = "listViewContextMenuEdit";
-            this.listViewContextMenuEdit.Size = new System.Drawing.Size(104, 22);
+            this.listViewContextMenuEdit.Size = new System.Drawing.Size(107, 22);
             this.listViewContextMenuEdit.Text = "Edit...";
             this.listViewContextMenuEdit.Click += new System.EventHandler(this.listViewContextMenuEdit_Click);
             // 
             // listViewContextMenuDelete
             // 
             this.listViewContextMenuDelete.Name = "listViewContextMenuDelete";
-            this.listViewContextMenuDelete.Size = new System.Drawing.Size(104, 22);
+            this.listViewContextMenuDelete.Size = new System.Drawing.Size(107, 22);
             this.listViewContextMenuDelete.Text = "Delete";
             this.listViewContextMenuDelete.Click += new System.EventHandler(this.listViewContextMenuDelete_Click);
             // 
-            // buttonPreview2
+            // buttonOpenPath
             // 
-            tableAdvancedProcessing.SetColumnSpan(this.buttonPreview2, 2);
-            this.buttonPreview2.Enabled = false;
-            this.buttonPreview2.Location = new System.Drawing.Point(321, 30);
-            this.buttonPreview2.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonPreview2.Name = "buttonPreview2";
-            tableAdvancedProcessing.SetRowSpan(this.buttonPreview2, 2);
-            this.buttonPreview2.Size = new System.Drawing.Size(103, 23);
-            this.buttonPreview2.TabIndex = 21;
-            this.buttonPreview2.Text = "Preview";
-            this.buttonPreview2.UseVisualStyleBackColor = true;
-            this.buttonPreview2.Click += new System.EventHandler(this.buttonPreview2_Click);
-            // 
-            // labelContrast
-            // 
-            this.labelContrast.AutoSize = true;
-            this.labelContrast.Location = new System.Drawing.Point(227, 28);
-            this.labelContrast.Name = "labelContrast";
-            this.labelContrast.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
-            this.labelContrast.Size = new System.Drawing.Size(46, 19);
-            this.labelContrast.TabIndex = 22;
-            this.labelContrast.Text = "Contrast";
-            // 
-            // numericContrast
-            // 
-            this.numericContrast.DecimalPlaces = 1;
-            this.numericContrast.Enabled = false;
-            this.numericContrast.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numericContrast.Location = new System.Drawing.Point(280, 31);
-            this.numericContrast.Maximum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericContrast.Name = "numericContrast";
-            this.numericContrast.Size = new System.Drawing.Size(36, 20);
-            this.numericContrast.TabIndex = 23;
-            this.numericContrast.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.buttonOpenPath.Location = new System.Drawing.Point(970, 17);
+            this.buttonOpenPath.Name = "buttonOpenPath";
+            this.buttonOpenPath.Size = new System.Drawing.Size(67, 23);
+            this.buttonOpenPath.TabIndex = 6;
+            this.buttonOpenPath.Text = "Open";
+            this.buttonOpenPath.UseVisualStyleBackColor = true;
+            this.buttonOpenPath.Click += new System.EventHandler(this.buttonOpenPath_Click);
             // 
             // MainForm
             // 
@@ -2292,7 +2318,7 @@ namespace WebMConverter
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(975, 268);
+            this.MinimumSize = new System.Drawing.Size(975, 267);
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -2346,6 +2372,7 @@ namespace WebMConverter
             tableAdvancedProcessing.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericGamma)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSaturation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericContrast)).EndInit();
             groupAdvancedEncoding.ResumeLayout(false);
             tableAdvancedEncoding.ResumeLayout(false);
             tableAdvancedEncoding.PerformLayout();
@@ -2367,7 +2394,6 @@ namespace WebMConverter
             this.panelHideTheOptions.ResumeLayout(false);
             this.panelHideTheOptions.PerformLayout();
             this.listViewContextMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericContrast)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2466,6 +2492,8 @@ namespace WebMConverter
         private System.Windows.Forms.Button buttonPreview2;
         private System.Windows.Forms.Label labelContrast;
         private System.Windows.Forms.NumericUpDown numericContrast;
+        private System.Windows.Forms.CheckBox checkMP4;
+        private System.Windows.Forms.Button buttonOpenPath;
         // private System.Windows.Forms.GroupBox groupGfycat;
     }
 }

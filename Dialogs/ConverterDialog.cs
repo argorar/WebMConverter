@@ -29,8 +29,9 @@ namespace WebMConverter.Dialogs
         private int _currentPass;
         private bool _twopass;
         private bool _cancelTwopass;
+        private bool _extraArguments;
 
-        private readonly bool _needToPipe;
+        private bool _needToPipe;
         private FFmpeg _pipeFFmpeg;
 
         private double _induration;
@@ -57,7 +58,7 @@ namespace WebMConverter.Dialogs
             if (!String.IsNullOrEmpty(_infile))
             {
                 for (var i = 0; i < args.Length; i++)
-                    AddInputFileToArguments(ref args[i]);
+                    AddInputFileToArguments(ref args[i], i);
             }
             _isloop = _arguments[0].Contains("[0]reverse[r];[0][r]concat,loop=2");
             taskbarManager = TaskbarManager.Instance;
@@ -99,7 +100,7 @@ namespace WebMConverter.Dialogs
             if (m.Success)
             {
                 var time = TimeSpan.Parse(m.Groups[1].Value); // happens to be the same format as TimeSpan so yay
-                var progress = (float)time.TotalSeconds/_induration;
+                var progress = (float)time.TotalSeconds / _induration;
                 progress = Math.Min(progress, 1); // sometimes progress becomes more than 100%, which breaks the progressBar
                 progressBar.InvokeIfRequired(() =>
                 {
@@ -137,8 +138,10 @@ namespace WebMConverter.Dialogs
                 SinglePass(argument);
         }
 
-        void AddInputFileToArguments(ref string argument)
+        void AddInputFileToArguments(ref string argument, int argumentNumber)
         {
+            if (argumentNumber > 1)
+                return;
             if (_needToPipe)
                 argument = $@"-f nut -i pipe:0 {argument}";
             else
@@ -158,7 +161,7 @@ namespace WebMConverter.Dialogs
             {
                 try
                 {
-                    boxOutput.Invoke((Action) (() =>
+                    boxOutput.Invoke((Action)(() =>
                     {
                         boxOutput.AppendText(Environment.NewLine + args.Data);
                     }));
@@ -209,7 +212,7 @@ namespace WebMConverter.Dialogs
 
                 _timer = new Timer();
                 _timer.Interval = 500;
-                if(string.IsNullOrEmpty(_infile))
+                if (string.IsNullOrEmpty(_infile))
                     _timer.Tick += ExitedMerge;
                 else
                     _timer.Tick += Exited;
@@ -219,7 +222,7 @@ namespace WebMConverter.Dialogs
             taskbarManager.SetProgressState(TaskbarProgressBarState.Normal);
             _ffmpegProcess.Start();
 
-            if(String.IsNullOrEmpty(_infile))
+            if (String.IsNullOrEmpty(_infile))
                 MergeVideoFile(_ffmpegProcess);
             else
                 StartPipe(_ffmpegProcess);
@@ -269,10 +272,42 @@ namespace WebMConverter.Dialogs
             bw.RunWorkerAsync();
         }
 
+        private void PureArguments(string argument)
+        {
+            int passes = _arguments.Length;
+            dontUpdateProgress = true;
+            _ffmpegProcess = new FFmpeg(argument);
+            _ffmpegProcess.OutputDataReceived += ProcessOnOutputDataReceived;
+            _ffmpegProcess.ErrorDataReceived += ProcessOnErrorDataReceived;
+            _ffmpegProcess.Exited += (o, args) => boxOutput.Invoke((Action)(() =>
+            {
+                if (_panic) return;
+                boxOutput.AppendText($"{Environment.NewLine}--- FFMPEG HAS EXITED ---");
+
+                _currentPass++;
+                if (_currentPass < passes && !_cancelTwopass)
+                {
+                    boxOutput.AppendText($"{Environment.NewLine}--- ENTERING PASS {_currentPass + 1} ---");
+
+                    taskbarManager.SetProgressState(TaskbarProgressBarState.Normal);
+                    PureArguments(_arguments[_currentPass]);
+                    return;
+                }
+
+                buttonCancel.Enabled = false;
+
+                _timer = new Timer();
+                _timer.Interval = 500;
+                _timer.Tick += Exited;
+                _timer.Start();
+            }));
+            _ffmpegProcess.Start(true);
+        }
+
         private void MultiPass(string[] arguments)
         {
             int passes = arguments.Length;
-            dontUpdateProgress = passes != _currentPass + 1;
+            //dontUpdateProgress = _currentPass + 1 == 2;
 
             _ffmpegProcess = new FFmpeg(arguments[_currentPass]);
 
@@ -284,12 +319,22 @@ namespace WebMConverter.Dialogs
                 boxOutput.AppendText($"{Environment.NewLine}--- FFMPEG HAS EXITED ---");
 
                 _currentPass++;
+                if (_currentPass > 1)
+                {
+                    _needToPipe = false;
+                    _extraArguments = true;
+                }
                 if (_currentPass < passes && !_cancelTwopass)
                 {
                     boxOutput.AppendText($"{Environment.NewLine}--- ENTERING PASS {_currentPass + 1} ---");
 
                     taskbarManager.SetProgressState(TaskbarProgressBarState.Normal);
-                    MultiPass(arguments); //Sort of recursion going on here, be careful with stack overflows and shit
+
+                    if (!_extraArguments)
+                        MultiPass(arguments);
+                    else
+                        PureArguments(_arguments[_currentPass]);
+
                     return;
                 }
 
@@ -302,7 +347,11 @@ namespace WebMConverter.Dialogs
             }));
 
             _ffmpegProcess.Start();
-            StartPipe(_ffmpegProcess);
+
+            if (_extraArguments)
+                PureArguments(_arguments[_currentPass]);
+            else
+                StartPipe(_ffmpegProcess);
         }
 
         private void Exited(object sender, EventArgs eventArgs)
@@ -347,8 +396,9 @@ namespace WebMConverter.Dialogs
                 else
                 {
                     boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}Video converted succesfully!");
-                    GetFileSize();                    
+                    GetFileSize();
                     pictureStatus.BackgroundImage = StatusImages.Images["Success"];
+                    taskbarManager.SetProgressValue( 1000, 1000);
                 }
 
                 buttonPlay.Enabled = true;
@@ -394,7 +444,7 @@ namespace WebMConverter.Dialogs
                 boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}Video merged succesfully!");
                 GetFileSize();
                 pictureStatus.BackgroundImage = StatusImages.Images["Success"];
-            }   
+            }
             buttonCancel.Text = "Close";
             buttonCancel.Enabled = true;
             _ended = true;
@@ -409,13 +459,13 @@ namespace WebMConverter.Dialogs
 
             if (!_ended || _panic) //Prevent stack overflow
             {
-                if (!_ffmpegProcess.HasExited)
+                if (_ffmpegProcess != null && !_ffmpegProcess.HasExited)
                     _ffmpegProcess.Kill();
 
                 if (!_needToPipe)
                     return;
 
-                if (!_pipeFFmpeg.HasExited)
+                if (_pipeFFmpeg != null && !_pipeFFmpeg.HasExited)
                     _pipeFFmpeg.Kill();
             }
             else
@@ -460,7 +510,7 @@ namespace WebMConverter.Dialogs
                     WebRequest httpWRequest = CreateGfyRequest();
 
                     boxOutput.AppendText($"{Environment.NewLine}Doing request");
-                    
+
                     GfycatResponse newGfycatResponse = GetGfyResponse((HttpWebResponse)httpWRequest.GetResponse());
                     boxOutput.AppendText($"{Environment.NewLine}Congratulations, your new name is {newGfycatResponse.gfyname}");
 
@@ -471,7 +521,7 @@ namespace WebMConverter.Dialogs
                     }
                     else
                         boxOutput.AppendText($"{Environment.NewLine}Sorry, something happened and I can't upload your file :(");
-                    
+
 
                 }
                 catch (WebException ex)
@@ -497,7 +547,7 @@ namespace WebMConverter.Dialogs
                     this.Activate();
                 }
             }
-                
+
         }
 
         private GfycatResponse GetGfyResponse(HttpWebResponse httpWebResponse)
@@ -520,7 +570,7 @@ namespace WebMConverter.Dialogs
             string postData = " {\"title\":\"" + aux[aux.Length - 1].Split('.')[0] + "\",";
             if (!String.IsNullOrEmpty(tmp))
                 postData = postData + "\"tags\": [" + StringTags() + "],";
-            postData = postData +"\"nsfw\": 0}";
+            postData = postData + "\"nsfw\": 0}";
             UTF8Encoding encoding = new UTF8Encoding();
             byte[] byte1 = encoding.GetBytes(postData);
             httpWRequest.GetRequestStream().Write(byte1, 0, byte1.Length);
