@@ -157,6 +157,7 @@ namespace WebMConverter
             toolTip.SetToolTip(boxDeinterlace, "Deinterlace an interlaced input video. Use trim to process only the important");
             toolTip.SetToolTip(boxDenoise, "Denoise the video, resulting in less detailed video but more bang for your buck when it comes to bitrate");
             toolTip.SetToolTip(boxLoop, "Forward and reverse effect merged");
+            toolTip.SetToolTip(numericDelay, "Delay audio in your video, can be positive and negative. The value represent seconds");
         }
 
         private void CheckProccess()
@@ -1214,7 +1215,7 @@ namespace WebMConverter
 
         void boxAudio_CheckedChanged(object sender, EventArgs e)
         {
-            numericAudioQuality.Enabled = boxAudioBitrate.Enabled = ((CheckBox)sender).Checked;
+            numericAudioQuality.Enabled = boxAudioBitrate.Enabled = numericDelay.Enabled = ((CheckBox)sender).Checked;
             
             if (boxNGOV.Checked)
                 numericAudioQuality.Enabled = false;
@@ -1224,33 +1225,9 @@ namespace WebMConverter
             opusQualityScalingTooltip();
         }
 
-        private void buttonAudioEnabledDefault_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.AudioEnabled = boxAudio.Checked;
-            Properties.Settings.Default.Save();
-            buttonAudioEnabledDefault.Visible = false;
-
-            showToolTip("Saved!", 1000);
-        }
-
         #endregion
 
         #region tabAdvanced
-
-        void comboLevels_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateArguments(sender, e);
-        }
-
-        void boxDeinterlace_CheckedChanged(object sender, EventArgs e)
-        {
-            Filters.Deinterlace = (sender as CheckBox).Checked ? new DeinterlaceFilter() : null;
-        }
-
-        void boxDenoise_CheckedChanged(object sender, EventArgs e)
-        {
-            Filters.Denoise = (sender as CheckBox).Checked ? new DenoiseFilter() : null;
-        }
 
         void trackThreads_ValueChanged(object sender, EventArgs e)
         {
@@ -1296,7 +1273,7 @@ namespace WebMConverter
             numericGamma.Value = 1;
             numericSaturation.Value = 1;
             numericContrast.Value = 1;
-
+            numericDelay.Value = 0;
             comboLevels.SelectedIndex = 0;
 
             var threads = Environment.ProcessorCount;
@@ -2310,6 +2287,8 @@ namespace WebMConverter
                 script.AppendLine(Filters.Fade.ToString());
             if (Filters.Rotate != null)
                 script.AppendLine(Filters.Rotate.ToString());
+            if (Filters.DelayAudio != null)
+                script.AppendLine(Filters.DelayAudio.ToString());
 
             textBoxProcessingScript.Text = script.ToString();
         }
@@ -2737,6 +2716,11 @@ namespace WebMConverter
         {
             if (!String.IsNullOrEmpty(textPathDownloaded.Text))
                 Process.Start(@textPathDownloaded.Text);
+        }
+
+        private void numericDelay_ValueChanged(object sender, EventArgs e)
+        {
+            Filters.DelayAudio = numericDelay.Value != 0 ? new DelayAudio(numericDelay.Value.ToString().Replace(',','.')) : null;
         }
     }
 }

@@ -105,6 +105,7 @@ Drag and drop video files inside the app, search for the new video in source pat
 * Change the speed
 * Fade
 * Disable audio
+* Delay audio
 * Get specific filesize in final result
 * Get high quality video
 * Interpolate, more frames to your video
@@ -123,6 +124,11 @@ See user details in tab *General*. If you are creating several gfys of the same 
 * Change Rate: ```Alt + Shift + c```
 
 ## Changelog
+
+#### Version 3.11.1
+* Add delay audio. Explore in Encoding > Audio
+* Change Rotate icon
+* Update binaries
 
 #### Version 3.11.0
 * Add button to open downloaded videos folder
@@ -151,7 +157,7 @@ See user details in tab *General*. If you are creating several gfys of the same 
 * Display just one decimal in crop resolution
 
 #### Version 3.9.0
-* Add shortcut keys for trim, multi trimp, crop, and change rate
+* Add shortcut keys for trim, multi trim, crop, and change rate
 * Now you can see the new resolution of your crop
 
 #### Version 3.8.0
