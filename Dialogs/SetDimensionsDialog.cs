@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WebMConverter.Dialogs
@@ -26,14 +19,24 @@ namespace WebMConverter.Dialogs
             newHight = 0;
         }
 
-        public float GetWight()
+        public float GetWightPercent()
         {
             return newWidth;
         }
 
-        public float GetHeight()
+        public float GetHeightPercent()
         {
             return newHight;
+        }
+
+        public int GetWight()
+        {
+            return (int) numericWidth.Value;
+        }
+
+        public int GetHeight()
+        {
+            return (int) numericHeight.Value;
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)

@@ -125,6 +125,10 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.11.2
+* Fixed accuracy in set dimensions in crop
+* Fixed bug that generate muted clips with dub filter 
+
 #### Version 3.11.1
 * Add delay audio. Explore in Encoding > Audio
 * Change Rotate icon

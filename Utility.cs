@@ -205,6 +205,35 @@ namespace WebMConverter
         {
             return number.ToString().Replace(',', '.');
         }
+
+        public static int CorrectCrop(int border1, int border2, int expected, int lenght)
+        {
+            int aux = border1 + Math.Abs(border2) + expected;
+            if (aux == lenght)
+                return border2;
+            else
+                return border2 - (lenght - aux);
+        }
+
+        public static int[] CorrectCrop(int border1, int border2)
+        {
+            int temp1 = border1;
+            int temp2 = border2;
+            if(border1 % 2 != 0 || border2 % 2 != 0)
+            {
+                if(border1 - 1 != 0)
+                {
+                    temp1 = border1 - 1;
+                    temp2 = border2 - 1;
+                }
+                else
+                {
+                    temp1 = border1 + 1;
+                    temp2 = border2 + 1;
+                }
+            }
+            return new int[] { temp1, temp2 };
+        }
     }
     
     public enum FileType

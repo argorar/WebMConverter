@@ -2260,6 +2260,9 @@ namespace WebMConverter
         {
             StringBuilder script = new StringBuilder();
             script.AppendLine("# This is an AviSynth script. You may write advanced commands below, or just press the buttons above for smooth sailing.");
+
+            if (Filters.Dub != null)
+                script.AppendLine(Filters.Dub.ToString());
             if (Filters.Subtitle != null)
                 script.AppendLine(Filters.Subtitle.ToString());
             if (Filters.Caption != null)
@@ -2281,8 +2284,6 @@ namespace WebMConverter
                 script.AppendLine(Filters.Resize.ToString());
             if (Filters.Reverse != null)
                 script.AppendLine(Filters.Reverse.ToString());
-            if (Filters.Dub != null)
-                script.AppendLine(Filters.Dub.ToString());
             if (Filters.Fade != null)
                 script.AppendLine(Filters.Fade.ToString());
             if (Filters.Rotate != null)

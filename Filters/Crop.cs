@@ -18,6 +18,8 @@ namespace WebMConverter
         private Point mousePos;
         private Point mouseOffset;
         private const int maxDistance = 6;
+        private int newWidth = 0;
+        private int newHeight = 0;
         private RectangleF cropPercent;
         private enum Corner
         {
@@ -303,16 +305,27 @@ namespace WebMConverter
                 width = frame.EncodedResolution.Width;
                 height = frame.EncodedResolution.Height;
             }
-            GeneratedFilter = new CropFilter(
-                (int)(width * cropPercent.Left),
-                (int)(height * cropPercent.Top),
-                -(int)(width - width * cropPercent.Right),
-                -(int)(height - height * cropPercent.Bottom)
-            );
+
+            GenerateFilter(width , height);            
 
             DialogResult = DialogResult.OK;
 
             Close();
+        }
+
+        private void GenerateFilter(int width, int height)
+        {
+            int cropLeft = (int)(width * cropPercent.Left);
+            int cropTop = (int)(height * cropPercent.Top);
+            int cropRight = -(int)(width - width * cropPercent.Right);
+            int cropBottom = -(int)(height - height * cropPercent.Bottom);
+
+            GeneratedFilter = new CropFilter(
+                cropLeft,
+                cropTop,
+                newWidth == 0 ? cropRight : CorrectCrop(cropLeft, cropRight, newWidth, width),
+                newHeight == 0 ? cropBottom : CorrectCrop(cropTop, cropBottom, newHeight, height)
+            );
         }
 
         private void frameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -470,12 +483,14 @@ namespace WebMConverter
             using (var dialog = new SetDimensionsDialog())
             {
                 dialog.ShowDialog();
-                var a = dialog.GetWight();
-                var b = dialog.GetHeight();
-                if (a != 0 && b != 0)
+                var widhtPercent = dialog.GetWightPercent();
+                var heightPercent = dialog.GetHeightPercent();
+                if (widhtPercent != 0 && heightPercent != 0)
                 {
-                    cropPercent.Height = dialog.GetHeight();
-                    cropPercent.Width = dialog.GetWight();
+                    cropPercent.Height = heightPercent;
+                    cropPercent.Width = widhtPercent;
+                    newWidth = dialog.GetWight();
+                    newHeight = dialog.GetHeight();
                     previewFrame.GeneratePreview(true);
                 }
             }
@@ -491,7 +506,16 @@ namespace WebMConverter
 
         public CropFilter(int left, int top, int right, int bottom)
         {
-            Left = (left / 2) * 2; // Make it even
+            int[] tempArray;
+            tempArray = CorrectCrop(left, right);
+            left = tempArray[0];
+            right = tempArray[1];
+
+            tempArray = CorrectCrop(top, bottom);
+            top = tempArray[0];
+            bottom = tempArray[1];
+
+            Left = (left / 2) * 2;
             Top = (top / 2) * 2;
             Right = (right / 2) * 2;
             Bottom = (bottom / 2) * 2;
