@@ -1795,8 +1795,10 @@ namespace WebMConverter
         {
             if (textBoxIn.Text.Equals(textBoxOut.Text))
             {
-                var parts = textBoxOut.Text.Split('.');
-                textBoxOut.Text = $"{parts[0]}-1.{parts[1]}";
+                string filename = Path.GetFileNameWithoutExtension(textBoxOut.Text);
+                string extension = Path.GetExtension(textBoxOut.Text);
+                string directory = Path.GetDirectoryName(textBoxOut.Text);
+                textBoxOut.Text = $"{directory}\\{filename}-1{extension}";
             }
         }
 
