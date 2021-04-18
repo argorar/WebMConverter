@@ -54,7 +54,6 @@ namespace WebMConverter
             System.Windows.Forms.Panel panelEncodingModeSwapper;
             System.Windows.Forms.Label labelVideoSizeLimit;
             System.Windows.Forms.Label labelVideoSizeLimitUnit;
-            System.Windows.Forms.Label labelVideoSizeLimitHint;
             System.Windows.Forms.Label labelVideoBitrate;
             System.Windows.Forms.Label labelVideoBitrateUnit;
             System.Windows.Forms.Label labelVideoBitrateHint;
@@ -62,7 +61,6 @@ namespace WebMConverter
             System.Windows.Forms.Label labelVideoCrfHint;
             System.Windows.Forms.Label labelVideoCrfTolerance;
             System.Windows.Forms.Label labelVideoCrfToleranceHint;
-            System.Windows.Forms.Label labelVideoHQHint;
             System.Windows.Forms.GroupBox groupEncodingAudio;
             System.Windows.Forms.TableLayoutPanel tableEncodingAudio;
             System.Windows.Forms.Label labelAudioHint;
@@ -120,15 +118,20 @@ namespace WebMConverter
             this.tableVideoConstantOptions = new System.Windows.Forms.TableLayoutPanel();
             this.boxLimit = new System.Windows.Forms.TextBox();
             this.boxBitrate = new System.Windows.Forms.TextBox();
+            this.labelSizeLimit = new System.Windows.Forms.Label();
             this.tableVideoVariableOptions = new System.Windows.Forms.TableLayoutPanel();
             this.numericCrf = new System.Windows.Forms.NumericUpDown();
             this.numericCrfTolerance = new System.Windows.Forms.NumericUpDown();
             this.boxHQ = new System.Windows.Forms.CheckBox();
+            this.checkMP4 = new System.Windows.Forms.CheckBox();
+            this.checkHWAcceleration = new System.Windows.Forms.CheckBox();
             this.boxAudio = new System.Windows.Forms.CheckBox();
             this.tableAudioConstantOptions = new System.Windows.Forms.TableLayoutPanel();
             this.boxAudioBitrate = new System.Windows.Forms.TextBox();
             this.tableAudioVariableOptions = new System.Windows.Forms.TableLayoutPanel();
             this.numericAudioQuality = new System.Windows.Forms.NumericUpDown();
+            this.numericDelay = new System.Windows.Forms.NumericUpDown();
+            this.lblDelay = new System.Windows.Forms.Label();
             this.comboLevels = new System.Windows.Forms.ComboBox();
             this.boxDeinterlace = new System.Windows.Forms.CheckBox();
             this.boxDenoise = new System.Windows.Forms.CheckBox();
@@ -149,7 +152,6 @@ namespace WebMConverter
             this.boxArguments = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.buttonOpenPath = new System.Windows.Forms.Button();
-            this.checkMP4 = new System.Windows.Forms.CheckBox();
             this.CRFother = new System.Windows.Forms.NumericUpDown();
             this.CRF4k = new System.Windows.Forms.NumericUpDown();
             this.lblCRFConfiguration2 = new System.Windows.Forms.Label();
@@ -181,8 +183,6 @@ namespace WebMConverter
             this.listViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.listViewContextMenuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewContextMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.numericDelay = new System.Windows.Forms.NumericUpDown();
-            this.lblDelay = new System.Windows.Forms.Label();
             tableMainForm = new System.Windows.Forms.TableLayoutPanel();
             groupMain = new System.Windows.Forms.GroupBox();
             tableMain = new System.Windows.Forms.TableLayoutPanel();
@@ -207,7 +207,6 @@ namespace WebMConverter
             panelEncodingModeSwapper = new System.Windows.Forms.Panel();
             labelVideoSizeLimit = new System.Windows.Forms.Label();
             labelVideoSizeLimitUnit = new System.Windows.Forms.Label();
-            labelVideoSizeLimitHint = new System.Windows.Forms.Label();
             labelVideoBitrate = new System.Windows.Forms.Label();
             labelVideoBitrateUnit = new System.Windows.Forms.Label();
             labelVideoBitrateHint = new System.Windows.Forms.Label();
@@ -215,7 +214,6 @@ namespace WebMConverter
             labelVideoCrfHint = new System.Windows.Forms.Label();
             labelVideoCrfTolerance = new System.Windows.Forms.Label();
             labelVideoCrfToleranceHint = new System.Windows.Forms.Label();
-            labelVideoHQHint = new System.Windows.Forms.Label();
             groupEncodingAudio = new System.Windows.Forms.GroupBox();
             tableEncodingAudio = new System.Windows.Forms.TableLayoutPanel();
             labelAudioHint = new System.Windows.Forms.Label();
@@ -267,6 +265,7 @@ namespace WebMConverter
             this.tableAudioConstantOptions.SuspendLayout();
             this.tableAudioVariableOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericAudioQuality)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericDelay)).BeginInit();
             tabAdvanced.SuspendLayout();
             tableAdvanced.SuspendLayout();
             groupAdvancedProcessing.SuspendLayout();
@@ -288,7 +287,6 @@ namespace WebMConverter
             this.panelContainTheProgressBar.SuspendLayout();
             this.panelHideTheOptions.SuspendLayout();
             this.listViewContextMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericDelay)).BeginInit();
             this.SuspendLayout();
             // 
             // tableMainForm
@@ -925,14 +923,16 @@ namespace WebMConverter
             // 
             // tableLayoutPanelEncodingVideo
             // 
-            this.tableLayoutPanelEncodingVideo.ColumnCount = 4;
+            this.tableLayoutPanelEncodingVideo.ColumnCount = 5;
             this.tableLayoutPanelEncodingVideo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79F));
             this.tableLayoutPanelEncodingVideo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118F));
-            this.tableLayoutPanelEncodingVideo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanelEncodingVideo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelEncodingVideo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanelEncodingVideo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 481F));
+            this.tableLayoutPanelEncodingVideo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 332F));
             this.tableLayoutPanelEncodingVideo.Controls.Add(panelEncodingModeSwapper, 0, 1);
             this.tableLayoutPanelEncodingVideo.Controls.Add(this.boxHQ, 0, 0);
-            this.tableLayoutPanelEncodingVideo.Controls.Add(labelVideoHQHint, 3, 0);
+            this.tableLayoutPanelEncodingVideo.Controls.Add(this.checkMP4, 3, 0);
+            this.tableLayoutPanelEncodingVideo.Controls.Add(this.checkHWAcceleration, 4, 0);
             this.tableLayoutPanelEncodingVideo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelEncodingVideo.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanelEncodingVideo.Name = "tableLayoutPanelEncodingVideo";
@@ -940,8 +940,6 @@ namespace WebMConverter
             this.tableLayoutPanelEncodingVideo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanelEncodingVideo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanelEncodingVideo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanelEncodingVideo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelEncodingVideo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanelEncodingVideo.Size = new System.Drawing.Size(1035, 82);
             this.tableLayoutPanelEncodingVideo.TabIndex = 0;
             // 
@@ -955,25 +953,26 @@ namespace WebMConverter
             panelEncodingModeSwapper.Margin = new System.Windows.Forms.Padding(0);
             panelEncodingModeSwapper.Name = "panelEncodingModeSwapper";
             this.tableLayoutPanelEncodingVideo.SetRowSpan(panelEncodingModeSwapper, 2);
-            panelEncodingModeSwapper.Size = new System.Drawing.Size(1035, 56);
+            panelEncodingModeSwapper.Size = new System.Drawing.Size(703, 56);
             panelEncodingModeSwapper.TabIndex = 2;
             // 
             // tableVideoConstantOptions
             // 
-            this.tableVideoConstantOptions.ColumnCount = 4;
+            this.tableVideoConstantOptions.ColumnCount = 5;
             this.tableVideoConstantOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79F));
             this.tableVideoConstantOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118F));
-            this.tableVideoConstantOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableVideoConstantOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33F));
             this.tableVideoConstantOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableVideoConstantOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 8F));
             this.tableVideoConstantOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableVideoConstantOptions.Controls.Add(labelVideoSizeLimit, 0, 0);
             this.tableVideoConstantOptions.Controls.Add(this.boxLimit, 1, 0);
             this.tableVideoConstantOptions.Controls.Add(labelVideoSizeLimitUnit, 2, 0);
-            this.tableVideoConstantOptions.Controls.Add(labelVideoSizeLimitHint, 3, 0);
             this.tableVideoConstantOptions.Controls.Add(labelVideoBitrate, 0, 1);
             this.tableVideoConstantOptions.Controls.Add(this.boxBitrate, 1, 1);
             this.tableVideoConstantOptions.Controls.Add(labelVideoBitrateUnit, 2, 1);
             this.tableVideoConstantOptions.Controls.Add(labelVideoBitrateHint, 3, 1);
+            this.tableVideoConstantOptions.Controls.Add(this.labelSizeLimit, 3, 0);
             this.tableVideoConstantOptions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableVideoConstantOptions.Location = new System.Drawing.Point(0, 0);
             this.tableVideoConstantOptions.Margin = new System.Windows.Forms.Padding(0);
@@ -981,7 +980,13 @@ namespace WebMConverter
             this.tableVideoConstantOptions.RowCount = 2;
             this.tableVideoConstantOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableVideoConstantOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableVideoConstantOptions.Size = new System.Drawing.Size(1035, 56);
+            this.tableVideoConstantOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableVideoConstantOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableVideoConstantOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableVideoConstantOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableVideoConstantOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableVideoConstantOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableVideoConstantOptions.Size = new System.Drawing.Size(703, 56);
             this.tableVideoConstantOptions.TabIndex = 0;
             // 
             // labelVideoSizeLimit
@@ -1013,22 +1018,10 @@ namespace WebMConverter
             labelVideoSizeLimitUnit.Location = new System.Drawing.Point(197, 0);
             labelVideoSizeLimitUnit.Margin = new System.Windows.Forms.Padding(0);
             labelVideoSizeLimitUnit.Name = "labelVideoSizeLimitUnit";
-            labelVideoSizeLimitUnit.Size = new System.Drawing.Size(30, 28);
+            labelVideoSizeLimitUnit.Size = new System.Drawing.Size(33, 28);
             labelVideoSizeLimitUnit.TabIndex = 0;
             labelVideoSizeLimitUnit.Text = "MiB";
             labelVideoSizeLimitUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // labelVideoSizeLimitHint
-            // 
-            labelVideoSizeLimitHint.AutoSize = true;
-            labelVideoSizeLimitHint.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelVideoSizeLimitHint.Location = new System.Drawing.Point(230, 0);
-            labelVideoSizeLimitHint.Name = "labelVideoSizeLimitHint";
-            labelVideoSizeLimitHint.Size = new System.Drawing.Size(802, 28);
-            labelVideoSizeLimitHint.TabIndex = 0;
-            labelVideoSizeLimitHint.Text = "Will adjust the quality to attempt to stay below this limit, and cut off the end " +
-    "of a video if needed. Leave blank for no limit. The limit on 4chan is 3 MB.";
-            labelVideoSizeLimitHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelVideoBitrate
             // 
@@ -1055,11 +1048,11 @@ namespace WebMConverter
             // labelVideoBitrateUnit
             // 
             labelVideoBitrateUnit.AutoSize = true;
-            labelVideoBitrateUnit.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelVideoBitrateUnit.Dock = System.Windows.Forms.DockStyle.Left;
             labelVideoBitrateUnit.Location = new System.Drawing.Point(197, 28);
             labelVideoBitrateUnit.Margin = new System.Windows.Forms.Padding(0);
             labelVideoBitrateUnit.Name = "labelVideoBitrateUnit";
-            labelVideoBitrateUnit.Size = new System.Drawing.Size(30, 28);
+            labelVideoBitrateUnit.Size = new System.Drawing.Size(29, 28);
             labelVideoBitrateUnit.TabIndex = 0;
             labelVideoBitrateUnit.Text = "kb/s";
             labelVideoBitrateUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1067,14 +1060,27 @@ namespace WebMConverter
             // labelVideoBitrateHint
             // 
             labelVideoBitrateHint.AutoSize = true;
+            this.tableVideoConstantOptions.SetColumnSpan(labelVideoBitrateHint, 2);
             labelVideoBitrateHint.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelVideoBitrateHint.Location = new System.Drawing.Point(230, 28);
+            labelVideoBitrateHint.Location = new System.Drawing.Point(233, 28);
             labelVideoBitrateHint.Name = "labelVideoBitrateHint";
-            labelVideoBitrateHint.Size = new System.Drawing.Size(802, 28);
+            labelVideoBitrateHint.Size = new System.Drawing.Size(467, 28);
             labelVideoBitrateHint.TabIndex = 0;
-            labelVideoBitrateHint.Text = "Determines the quality of the video. Keep blank to let the program pick one based" +
-    " on size limit and duration.";
+            labelVideoBitrateHint.Text = "Determines the quality of the video.";
             labelVideoBitrateHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelSizeLimit
+            // 
+            this.labelSizeLimit.AutoSize = true;
+            this.tableVideoConstantOptions.SetColumnSpan(this.labelSizeLimit, 2);
+            this.labelSizeLimit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelSizeLimit.Location = new System.Drawing.Point(233, 0);
+            this.labelSizeLimit.Name = "labelSizeLimit";
+            this.labelSizeLimit.Size = new System.Drawing.Size(467, 28);
+            this.labelSizeLimit.TabIndex = 3;
+            this.labelSizeLimit.Text = "Will adjust the quality to attempt to stay below this limit, and cut off the end " +
+    "of a video if needed.";
+            this.labelSizeLimit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tableVideoVariableOptions
             // 
@@ -1097,7 +1103,7 @@ namespace WebMConverter
             this.tableVideoVariableOptions.RowCount = 2;
             this.tableVideoVariableOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableVideoVariableOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableVideoVariableOptions.Size = new System.Drawing.Size(1035, 56);
+            this.tableVideoVariableOptions.Size = new System.Drawing.Size(703, 56);
             this.tableVideoVariableOptions.TabIndex = 0;
             // 
             // labelVideoCrf
@@ -1138,7 +1144,7 @@ namespace WebMConverter
             labelVideoCrfHint.Dock = System.Windows.Forms.DockStyle.Fill;
             labelVideoCrfHint.Location = new System.Drawing.Point(230, 0);
             labelVideoCrfHint.Name = "labelVideoCrfHint";
-            labelVideoCrfHint.Size = new System.Drawing.Size(802, 28);
+            labelVideoCrfHint.Size = new System.Drawing.Size(470, 28);
             labelVideoCrfHint.TabIndex = 0;
             labelVideoCrfHint.Text = "The constant rate factor of the video determines what level of quality the video " +
     "should get.";
@@ -1182,7 +1188,7 @@ namespace WebMConverter
             labelVideoCrfToleranceHint.Dock = System.Windows.Forms.DockStyle.Fill;
             labelVideoCrfToleranceHint.Location = new System.Drawing.Point(230, 28);
             labelVideoCrfToleranceHint.Name = "labelVideoCrfToleranceHint";
-            labelVideoCrfToleranceHint.Size = new System.Drawing.Size(802, 28);
+            labelVideoCrfToleranceHint.Size = new System.Drawing.Size(470, 28);
             labelVideoCrfToleranceHint.TabIndex = 0;
             labelVideoCrfToleranceHint.Text = "This value determines how far the encoder is allowed to stray from the CRF value " +
     "in order to not waste too many bits on some frames.";
@@ -1197,24 +1203,40 @@ namespace WebMConverter
             this.boxHQ.Location = new System.Drawing.Point(6, 3);
             this.boxHQ.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
             this.boxHQ.Name = "boxHQ";
-            this.boxHQ.Size = new System.Drawing.Size(215, 22);
+            this.boxHQ.Size = new System.Drawing.Size(210, 22);
             this.boxHQ.TabIndex = 1;
             this.boxHQ.Text = "Enable high quality mode:";
             this.boxHQ.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.boxHQ.UseVisualStyleBackColor = true;
             this.boxHQ.CheckedChanged += new System.EventHandler(this.BoxHighQuality_CheckedChanged);
             // 
-            // labelVideoHQHint
+            // checkMP4
             // 
-            labelVideoHQHint.AutoSize = true;
-            labelVideoHQHint.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelVideoHQHint.Location = new System.Drawing.Point(230, 0);
-            labelVideoHQHint.Name = "labelVideoHQHint";
-            labelVideoHQHint.Size = new System.Drawing.Size(802, 28);
-            labelVideoHQHint.TabIndex = 0;
-            labelVideoHQHint.Text = "Enables two-pass encoding and adds some extra encoding arguments, increasing outp" +
-    "ut quality, but increases the time it takes to encode your file.";
-            labelVideoHQHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.checkMP4.AutoSize = true;
+            this.checkMP4.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkMP4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkMP4.Location = new System.Drawing.Point(225, 3);
+            this.checkMP4.Name = "checkMP4";
+            this.checkMP4.Padding = new System.Windows.Forms.Padding(200, 0, 130, 0);
+            this.checkMP4.Size = new System.Drawing.Size(475, 22);
+            this.checkMP4.TabIndex = 6;
+            this.checkMP4.Text = "Activate mp4 conversion";
+            this.checkMP4.UseVisualStyleBackColor = true;
+            this.checkMP4.CheckedChanged += new System.EventHandler(this.checkMP4_CheckedChanged);
+            // 
+            // checkHWAcceleration
+            // 
+            this.checkHWAcceleration.AutoSize = true;
+            this.checkHWAcceleration.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkHWAcceleration.Enabled = false;
+            this.checkHWAcceleration.Location = new System.Drawing.Point(706, 3);
+            this.checkHWAcceleration.Name = "checkHWAcceleration";
+            this.checkHWAcceleration.Padding = new System.Windows.Forms.Padding(40, 2, 0, 0);
+            this.checkHWAcceleration.Size = new System.Drawing.Size(245, 19);
+            this.checkHWAcceleration.TabIndex = 7;
+            this.checkHWAcceleration.Text = "Hardware Acceleration (NVIDIA GPU)";
+            this.checkHWAcceleration.UseVisualStyleBackColor = true;
+            this.checkHWAcceleration.CheckedChanged += new System.EventHandler(this.checkHWAcceleration_CheckedChanged);
             // 
             // groupEncodingAudio
             // 
@@ -1417,6 +1439,42 @@ namespace WebMConverter
             labelAudioQualityHint.TabIndex = 0;
             labelAudioQualityHint.Text = "Determines the average quality of the audio. 10 is the highest quality.";
             labelAudioQualityHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // numericDelay
+            // 
+            this.numericDelay.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.numericDelay.DecimalPlaces = 1;
+            this.numericDelay.Enabled = false;
+            this.numericDelay.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericDelay.Location = new System.Drawing.Point(175, 4);
+            this.numericDelay.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericDelay.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            -2147483648});
+            this.numericDelay.Name = "numericDelay";
+            this.numericDelay.Size = new System.Drawing.Size(49, 20);
+            this.numericDelay.TabIndex = 3;
+            this.numericDelay.ValueChanged += new System.EventHandler(this.numericDelay_ValueChanged);
+            // 
+            // lblDelay
+            // 
+            this.lblDelay.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblDelay.AutoSize = true;
+            this.lblDelay.Location = new System.Drawing.Point(132, 7);
+            this.lblDelay.Name = "lblDelay";
+            this.lblDelay.Size = new System.Drawing.Size(37, 13);
+            this.lblDelay.TabIndex = 4;
+            this.lblDelay.Text = "Delay:";
             // 
             // tabAdvanced
             // 
@@ -1922,7 +1980,6 @@ namespace WebMConverter
             // groupBox1
             // 
             groupBox1.Controls.Add(this.buttonOpenPath);
-            groupBox1.Controls.Add(this.checkMP4);
             groupBox1.Controls.Add(this.CRFother);
             groupBox1.Controls.Add(this.CRF4k);
             groupBox1.Controls.Add(this.lblCRFConfiguration2);
@@ -1947,18 +2004,6 @@ namespace WebMConverter
             this.buttonOpenPath.Text = "Open";
             this.buttonOpenPath.UseVisualStyleBackColor = true;
             this.buttonOpenPath.Click += new System.EventHandler(this.buttonOpenPath_Click);
-            // 
-            // checkMP4
-            // 
-            this.checkMP4.AutoSize = true;
-            this.checkMP4.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkMP4.Location = new System.Drawing.Point(386, 53);
-            this.checkMP4.Name = "checkMP4";
-            this.checkMP4.Size = new System.Drawing.Size(143, 17);
-            this.checkMP4.TabIndex = 5;
-            this.checkMP4.Text = "Activate mp4 conversion";
-            this.checkMP4.UseVisualStyleBackColor = true;
-            this.checkMP4.CheckedChanged += new System.EventHandler(this.checkIndividualFiles_CheckedChanged);
             // 
             // CRFother
             // 
@@ -2295,42 +2340,6 @@ namespace WebMConverter
             this.listViewContextMenuDelete.Text = "Delete";
             this.listViewContextMenuDelete.Click += new System.EventHandler(this.listViewContextMenuDelete_Click);
             // 
-            // numericDelay
-            // 
-            this.numericDelay.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.numericDelay.DecimalPlaces = 1;
-            this.numericDelay.Enabled = false;
-            this.numericDelay.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            this.numericDelay.Location = new System.Drawing.Point(175, 4);
-            this.numericDelay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericDelay.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            -2147483648});
-            this.numericDelay.Name = "numericDelay";
-            this.numericDelay.Size = new System.Drawing.Size(49, 20);
-            this.numericDelay.TabIndex = 3;
-            this.numericDelay.ValueChanged += new System.EventHandler(this.numericDelay_ValueChanged);
-            // 
-            // lblDelay
-            // 
-            this.lblDelay.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lblDelay.AutoSize = true;
-            this.lblDelay.Location = new System.Drawing.Point(132, 7);
-            this.lblDelay.Name = "lblDelay";
-            this.lblDelay.Size = new System.Drawing.Size(37, 13);
-            this.lblDelay.TabIndex = 4;
-            this.lblDelay.Text = "Delay:";
-            // 
             // MainForm
             // 
             this.AcceptButton = this.buttonGo;
@@ -2390,6 +2399,7 @@ namespace WebMConverter
             this.tableAudioVariableOptions.ResumeLayout(false);
             this.tableAudioVariableOptions.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericAudioQuality)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericDelay)).EndInit();
             tabAdvanced.ResumeLayout(false);
             tableAdvanced.ResumeLayout(false);
             tableAdvanced.PerformLayout();
@@ -2420,7 +2430,6 @@ namespace WebMConverter
             this.panelHideTheOptions.ResumeLayout(false);
             this.panelHideTheOptions.PerformLayout();
             this.listViewContextMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericDelay)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2518,10 +2527,12 @@ namespace WebMConverter
         private System.Windows.Forms.Button buttonPreview2;
         private System.Windows.Forms.Label labelContrast;
         private System.Windows.Forms.NumericUpDown numericContrast;
-        private System.Windows.Forms.CheckBox checkMP4;
         private System.Windows.Forms.Button buttonOpenPath;
         private System.Windows.Forms.NumericUpDown numericDelay;
         private System.Windows.Forms.Label lblDelay;
+        private System.Windows.Forms.CheckBox checkMP4;
+        private System.Windows.Forms.Label labelSizeLimit;
+        private System.Windows.Forms.CheckBox checkHWAcceleration;
         // private System.Windows.Forms.GroupBox groupGfycat;
     }
 }

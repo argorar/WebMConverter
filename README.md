@@ -125,6 +125,11 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.12.0
+* Since gfycat is changing webm for mp4, now you can convert in high quality in mp4 format. Options in Encoding>Video
+* Add Hardware Acceleration to encode for users with NVIDIA GPU
+* Add validation of output name, if is the same as input *-1.xxx* is added
+
 #### Version 3.11.2
 * Fixed accuracy in set dimensions in crop
 * Fixed bug that generate muted clips with dub filter 

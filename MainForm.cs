@@ -134,6 +134,14 @@ namespace WebMConverter
             else
                 groupGfycat.Visible = false;
 
+            CheckAppSettings();
+            CheckProccess();
+            LoadConfiguration();
+            ToolTip();
+        }
+
+        private void CheckAppSettings()
+        {
             if (!configuration.AppSettings.Settings.AllKeys.Contains("CRF4k"))
                 configuration.AppSettings.Settings.Add("CRF4k", "16");
 
@@ -141,14 +149,13 @@ namespace WebMConverter
                 configuration.AppSettings.Settings.Add("CRFother", "30");
 
             if (!configuration.AppSettings.Settings.AllKeys.Contains("AllowMultiInstances"))
-                configuration.AppSettings.Settings.Add("AllowMultiInstances", "false");
+                configuration.AppSettings.Settings.Add("AllowMultiInstances", "False");
 
             if (!configuration.AppSettings.Settings.AllKeys.Contains("MP4"))
-                configuration.AppSettings.Settings.Add("MP4", "false");
+                configuration.AppSettings.Settings.Add("MP4", "False");
 
-            CheckProccess();
-            LoadConfiguration();
-            ToolTip();
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("HAMP4"))
+                configuration.AppSettings.Settings.Add("HAMP4", "False");
         }
 
         private void ToolTip()
@@ -158,6 +165,7 @@ namespace WebMConverter
             toolTip.SetToolTip(boxDenoise, "Denoise the video, resulting in less detailed video but more bang for your buck when it comes to bitrate");
             toolTip.SetToolTip(boxLoop, "Forward and reverse effect merged");
             toolTip.SetToolTip(numericDelay, "Delay audio in your video, can be positive and negative. The value represent seconds");
+            toolTip.SetToolTip(boxHQ, "Enables two-pass encoding and adds some extra encoding arguments, increasing output quality, but increases the time it takes to encode your file.");
         }
 
         private void CheckProccess()
@@ -208,6 +216,11 @@ namespace WebMConverter
                 checkMP4.Checked = true;
             else
                 checkMP4.Checked = false;
+
+            if (configuration.AppSettings.Settings["HAMP4"].Value.Equals("True"))
+                checkHWAcceleration.Checked = true;
+            else
+                checkHWAcceleration.Checked = false;
 
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["PathDownload"].Value))
                 textPathDownloaded.Text = configuration.AppSettings.Settings["PathDownload"].Value;
@@ -1713,7 +1726,7 @@ namespace WebMConverter
                 if (e.Error != null)
                 {
                     CancelIndexing();
-                    MessageBox.Show($"We couldn't find any video tracks!{Environment.NewLine}Please use another input file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"We couldn't find any video tracks!{Environment.NewLine}Please use another input file.{e.Error.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 boxAudio.Enabled = Program.InputHasAudio = true;
                 if (audioDisabled)
@@ -1734,6 +1747,7 @@ namespace WebMConverter
 
                 panelHideTheOptions.SendToBack();
                 taskbarManager.SetProgressState(TaskbarProgressBarState.NoProgress);
+                ValidateInOutput();
             };
 
             if (File.Exists(_indexFile))
@@ -1775,6 +1789,15 @@ namespace WebMConverter
             taskbarManager.SetProgressState(TaskbarProgressBarState.Normal);
             labelIndexingProgress.Text = "Indexing...";
             indexbw.RunWorkerAsync();
+        }
+
+        private void ValidateInOutput()
+        {
+            if (textBoxIn.Text.Equals(textBoxOut.Text))
+            {
+                var parts = textBoxOut.Text.Split('.');
+                textBoxOut.Text = $"{parts[0]}-1.{parts[1]}";
+            }
         }
 
         private void SetFPS()
@@ -1993,7 +2016,7 @@ namespace WebMConverter
             string format = checkMP4.Checked ? "mp4" : "webm";
 
             List<string> arguments = new List<string>();
-            if (checkMP4.Checked || !boxHQ.Checked)
+            if (!boxHQ.Checked || checkHWAcceleration.Checked)
                 arguments.Add(string.Format(Template, output, options, "", format));
             else
             {
@@ -2115,7 +2138,12 @@ namespace WebMConverter
                 hq = @" -lag-in-frames 16 -auto-alt-ref 1";
 
             var vcodec = boxNGOV.Checked ? @"libvpx-vp9" : @"libvpx";
-            vcodec = checkMP4.Checked ? @"libx264" : vcodec;
+
+            if (checkMP4.Checked && checkHWAcceleration.Checked)
+                vcodec = @"h264_nvenc";
+            else
+                vcodec = checkMP4.Checked ? @"libx265" : vcodec;
+
             var acodec = boxNGOV.Checked ? @"libopus" : @"libvorbis";
 
             string audio;
@@ -2703,16 +2731,6 @@ namespace WebMConverter
             }
         }
 
-        private void checkIndividualFiles_CheckedChanged(object sender, EventArgs e)
-        {
-            if(!String.IsNullOrEmpty(textBoxOut.Text) && checkMP4.Checked)
-                textBoxOut.Text = textBoxOut.Text.Split('.')[0] + ".mp4";
-            else if (!String.IsNullOrEmpty(textBoxOut.Text))
-                textBoxOut.Text = textBoxOut.Text.Split('.')[0] + ".webm";
-
-            UpdateConfiguration("MP4", checkMP4.Checked.ToString());
-        }
-
         private void buttonOpenPath_Click(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(textPathDownloaded.Text))
@@ -2722,6 +2740,34 @@ namespace WebMConverter
         private void numericDelay_ValueChanged(object sender, EventArgs e)
         {
             Filters.DelayAudio = numericDelay.Value != 0 ? new DelayAudio(numericDelay.Value.ToString().Replace(',','.')) : null;
+        }
+
+        private void checkMP4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(textBoxOut.Text) && checkMP4.Checked)
+                textBoxOut.Text = textBoxOut.Text.Split('.')[0] + ".mp4";
+            else if (!String.IsNullOrEmpty(textBoxOut.Text))
+                textBoxOut.Text = textBoxOut.Text.Split('.')[0] + ".webm";
+
+            if (checkMP4.Checked)
+            {
+                boxNGOV.Enabled = false;
+                checkHWAcceleration.Enabled = true;
+            }
+            else
+            {
+                boxNGOV.Enabled = true;
+                checkHWAcceleration.Enabled = false;
+                checkHWAcceleration.Checked = false;
+            }
+                
+            UpdateConfiguration("MP4", checkMP4.Checked.ToString());
+
+        }
+
+        private void checkHWAcceleration_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateConfiguration("HAMP4", checkHWAcceleration.Checked.ToString());
         }
     }
 }
