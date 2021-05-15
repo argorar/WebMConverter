@@ -136,6 +136,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+### Version 3.13.1
+* Fix a bug with progress bar that closed the program
+
 ### Version 3.13.0
 * Add stabilization filter. Find it in Advanced>Processing. It comes with different levels of stabilization 
 

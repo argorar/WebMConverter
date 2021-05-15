@@ -100,7 +100,7 @@ namespace WebMConverter.Dialogs
             if (m.Success)
             {
                 var time = TimeSpan.Parse(m.Groups[1].Value); // happens to be the same format as TimeSpan so yay
-                var progress = (float)time.TotalSeconds / _induration;
+                var progress = Math.Abs((float)time.TotalSeconds / _induration); // sometimes the progress is negative, breaking the progressBar
                 progress = Math.Min(progress, 1); // sometimes progress becomes more than 100%, which breaks the progressBar
                 progressBar.InvokeIfRequired(() =>
                 {
@@ -378,7 +378,7 @@ namespace WebMConverter.Dialogs
                 if(Program.Stabilization != null)
                 {
                     File.Delete(Program.Stabilization.Name);
-                    File.Move(Program.Stabilization.TempName, Program.Stabilization.Name);                  
+                    File.Move(Program.Stabilization.TempName, Program.Stabilization.Name);              
                 }
                 _outduration = ProbeDuration(_outfile, false);
                 if (_isloop)
