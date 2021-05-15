@@ -7,6 +7,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WebMConverter.Objects;
 
 namespace WebMConverter
 {
@@ -67,6 +68,7 @@ namespace WebMConverter
         public static Dictionary<int, Tuple<string, SubtitleType, string>> SubtitleTracks; // stream id, <tag:title OR codec_name, textsub/vobsub, extension>
         public static List<string> AttachmentList;
         public static string token;
+        public static StabilizationData Stabilization;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

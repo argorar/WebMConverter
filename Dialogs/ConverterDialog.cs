@@ -140,7 +140,7 @@ namespace WebMConverter.Dialogs
 
         void AddInputFileToArguments(ref string argument, int argumentNumber)
         {
-            if (argumentNumber > 1)
+            if (argumentNumber > 1 || argument.Contains("vidstab"))
                 return;
             if (_needToPipe)
                 argument = $@"-f nut -i pipe:0 {argument}";
@@ -275,7 +275,6 @@ namespace WebMConverter.Dialogs
         private void PureArguments(string argument)
         {
             int passes = _arguments.Length;
-            dontUpdateProgress = true;
             _ffmpegProcess = new FFmpeg(argument);
             _ffmpegProcess.OutputDataReceived += ProcessOnOutputDataReceived;
             _ffmpegProcess.ErrorDataReceived += ProcessOnErrorDataReceived;
@@ -307,7 +306,6 @@ namespace WebMConverter.Dialogs
         private void MultiPass(string[] arguments)
         {
             int passes = arguments.Length;
-            //dontUpdateProgress = _currentPass + 1 == 2;
 
             _ffmpegProcess = new FFmpeg(arguments[_currentPass]);
 
@@ -377,7 +375,11 @@ namespace WebMConverter.Dialogs
             }
             else
             {
-
+                if(Program.Stabilization != null)
+                {
+                    File.Delete(Program.Stabilization.Name);
+                    File.Move(Program.Stabilization.TempName, Program.Stabilization.Name);                  
+                }
                 _outduration = ProbeDuration(_outfile, false);
                 if (_isloop)
                     _induration *= 2;
@@ -468,8 +470,12 @@ namespace WebMConverter.Dialogs
                 if (_pipeFFmpeg != null && !_pipeFFmpeg.HasExited)
                     _pipeFFmpeg.Kill();
             }
-            else
+            else{
+                if (_pipeFFmpeg != null && !_pipeFFmpeg.HasExited)
+                    _pipeFFmpeg.Kill();
+
                 Close();
+            }
         }
 
         private void ConverterForm_FormClosing(object sender, FormClosingEventArgs e)

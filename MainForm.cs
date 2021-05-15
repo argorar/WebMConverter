@@ -22,6 +22,7 @@ using Newtonsoft.Json;
 using System.Configuration;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Collections;
 
 namespace WebMConverter
 {
@@ -138,6 +139,21 @@ namespace WebMConverter
             CheckProccess();
             LoadConfiguration();
             ToolTip();
+            LoadComboBox();
+        }
+
+        private void LoadComboBox()
+        {
+            ArrayList vidstabList = new ArrayList();
+            vidstabList.Add(new Vidstab("2","0.05","2", "Very Weak"));
+            vidstabList.Add(new Vidstab("4","0.1","4", "Weak"));
+            vidstabList.Add(new Vidstab("6","0.2","6", "Medium"));
+            vidstabList.Add(new Vidstab("8","0.3","10", "Strong"));
+            vidstabList.Add(new Vidstab("10","0.4","16", "Very Strong"));
+            vidstabList.Add(new Vidstab("10","0.5","22", "Strongest"));
+            comboBoxLevels.DisplayMember = "desc";
+            comboBoxLevels.DataSource = vidstabList;
+            comboBoxLevels.SelectedIndex = 3;
         }
 
         private void CheckAppSettings()
@@ -389,7 +405,10 @@ namespace WebMConverter
             UnloadFonts();
 
             foreach (var temporaryFile in _temporaryFilesList)
-                File.Delete(temporaryFile);
+            {
+                if (File.Exists(temporaryFile))
+                    File.Delete(temporaryFile);
+            }
         }
 
         void boxIndexingProgressDetails_CheckedChanged(object sender, EventArgs e)
@@ -2029,6 +2048,23 @@ namespace WebMConverter
                 if (!arguments[0].Contains("-an")) // skip audio encoding on the first pass
                     arguments[0] = arguments[0].Replace("-c:v libvpx", "-an -c:v libvpx");
             }
+            string tempName = String.Empty;
+            if (boxStabilization.Checked)
+            {
+                string filename = Path.GetFileNameWithoutExtension(textBoxOut.Text);
+                string extension = Path.GetExtension(textBoxOut.Text);
+                string directory = Path.GetDirectoryName(textBoxOut.Text);
+                tempName = $"{directory}\\{filename}-1{extension}";
+                Vidstab selected = (Vidstab)comboBoxLevels.SelectedItem;
+
+                arguments.Add($@"-y -i ""{textBoxOut.Text}"" -vf vidstabdetect=stepsize=6:shakiness={selected.shakiness}:accuracy=10:result=transforms.trf -f null -");
+                arguments.Add($@"-y -i ""{textBoxOut.Text}"" -crf 16 -vf vidstabtransform=input=transforms.trf:zoomspeed={selected.zoom}:smoothing={selected.smoothing},unsharp=5:5:0.8:3:3:0.4 ""{tempName}""");
+            }
+
+            if (boxStabilization.Checked)
+                Program.Stabilization = new StabilizationData(textBoxOut.Text, tempName);
+            else
+                Program.Stabilization = null;
 
             new ConverterDialog(avsFileName, arguments.ToArray(), output).ShowDialog(this);
         }

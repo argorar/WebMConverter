@@ -1,3 +1,6 @@
+using System.Collections;
+using WebMConverter.Objects;
+
 namespace WebMConverter
 {
     partial class MainForm
@@ -134,15 +137,17 @@ namespace WebMConverter
             this.lblDelay = new System.Windows.Forms.Label();
             this.comboLevels = new System.Windows.Forms.ComboBox();
             this.boxDeinterlace = new System.Windows.Forms.CheckBox();
-            this.boxDenoise = new System.Windows.Forms.CheckBox();
             this.boxLoop = new System.Windows.Forms.CheckBox();
             this.labelSaturation = new System.Windows.Forms.Label();
             this.numericGamma = new System.Windows.Forms.NumericUpDown();
             this.numericSaturation = new System.Windows.Forms.NumericUpDown();
             this.labelGamma = new System.Windows.Forms.Label();
-            this.labelContrast = new System.Windows.Forms.Label();
+            this.boxDenoise = new System.Windows.Forms.CheckBox();
+            this.boxStabilization = new System.Windows.Forms.CheckBox();
             this.numericContrast = new System.Windows.Forms.NumericUpDown();
+            this.labelContrast = new System.Windows.Forms.Label();
             this.buttonPreview2 = new System.Windows.Forms.Button();
+            this.txtLevel = new System.Windows.Forms.Label();
             this.boxFrameRate = new System.Windows.Forms.TextBox();
             this.boxNGOV = new System.Windows.Forms.CheckBox();
             this.trackThreads = new System.Windows.Forms.TrackBar();
@@ -183,6 +188,7 @@ namespace WebMConverter
             this.listViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.listViewContextMenuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewContextMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.comboBoxLevels = new System.Windows.Forms.ComboBox();
             tableMainForm = new System.Windows.Forms.TableLayoutPanel();
             groupMain = new System.Windows.Forms.GroupBox();
             tableMain = new System.Windows.Forms.TableLayoutPanel();
@@ -1518,27 +1524,31 @@ namespace WebMConverter
             // 
             // tableAdvancedProcessing
             // 
-            tableAdvancedProcessing.ColumnCount = 8;
+            tableAdvancedProcessing.ColumnCount = 9;
             tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 103F));
             tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 121F));
             tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 42F));
-            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 64F));
-            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 43F));
-            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 77F));
-            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 534F));
+            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 44F));
+            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 59F));
+            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 41F));
+            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 63F));
+            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53F));
+            tableAdvancedProcessing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 505F));
             tableAdvancedProcessing.Controls.Add(labelProcessingLevels, 0, 0);
             tableAdvancedProcessing.Controls.Add(this.comboLevels, 1, 0);
             tableAdvancedProcessing.Controls.Add(this.boxDeinterlace, 1, 1);
-            tableAdvancedProcessing.Controls.Add(this.boxDenoise, 1, 2);
             tableAdvancedProcessing.Controls.Add(this.boxLoop, 0, 1);
             tableAdvancedProcessing.Controls.Add(this.labelSaturation, 4, 0);
             tableAdvancedProcessing.Controls.Add(this.numericGamma, 3, 0);
             tableAdvancedProcessing.Controls.Add(this.numericSaturation, 5, 0);
             tableAdvancedProcessing.Controls.Add(this.labelGamma, 2, 0);
-            tableAdvancedProcessing.Controls.Add(this.labelContrast, 2, 1);
-            tableAdvancedProcessing.Controls.Add(this.numericContrast, 3, 1);
-            tableAdvancedProcessing.Controls.Add(this.buttonPreview2, 4, 1);
+            tableAdvancedProcessing.Controls.Add(this.boxDenoise, 0, 2);
+            tableAdvancedProcessing.Controls.Add(this.boxStabilization, 1, 2);
+            tableAdvancedProcessing.Controls.Add(this.numericContrast, 7, 0);
+            tableAdvancedProcessing.Controls.Add(this.labelContrast, 6, 0);
+            tableAdvancedProcessing.Controls.Add(this.buttonPreview2, 8, 0);
+            tableAdvancedProcessing.Controls.Add(this.txtLevel, 2, 2);
+            tableAdvancedProcessing.Controls.Add(this.comboBoxLevels, 3, 2);
             tableAdvancedProcessing.Location = new System.Drawing.Point(3, 15);
             tableAdvancedProcessing.Name = "tableAdvancedProcessing";
             tableAdvancedProcessing.RowCount = 3;
@@ -1587,19 +1597,6 @@ namespace WebMConverter
             this.boxDeinterlace.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.boxDeinterlace.UseVisualStyleBackColor = true;
             // 
-            // boxDenoise
-            // 
-            this.boxDenoise.AutoSize = true;
-            this.boxDenoise.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.boxDenoise.Dock = System.Windows.Forms.DockStyle.Right;
-            this.boxDenoise.Location = new System.Drawing.Point(153, 59);
-            this.boxDenoise.Name = "boxDenoise";
-            this.boxDenoise.Size = new System.Drawing.Size(68, 22);
-            this.boxDenoise.TabIndex = 15;
-            this.boxDenoise.Text = "Denoise:";
-            this.boxDenoise.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.boxDenoise.UseVisualStyleBackColor = true;
-            // 
             // boxLoop
             // 
             this.boxLoop.AutoSize = true;
@@ -1617,7 +1614,7 @@ namespace WebMConverter
             // labelSaturation
             // 
             this.labelSaturation.AutoSize = true;
-            this.labelSaturation.Location = new System.Drawing.Point(321, 6);
+            this.labelSaturation.Location = new System.Drawing.Point(318, 6);
             this.labelSaturation.Margin = new System.Windows.Forms.Padding(2, 6, 2, 0);
             this.labelSaturation.Name = "labelSaturation";
             this.labelSaturation.Size = new System.Drawing.Size(55, 13);
@@ -1634,7 +1631,7 @@ namespace WebMConverter
             0,
             0,
             65536});
-            this.numericGamma.Location = new System.Drawing.Point(279, 2);
+            this.numericGamma.Location = new System.Drawing.Point(274, 2);
             this.numericGamma.Margin = new System.Windows.Forms.Padding(2);
             this.numericGamma.Maximum = new decimal(new int[] {
             2,
@@ -1642,7 +1639,7 @@ namespace WebMConverter
             0,
             0});
             this.numericGamma.Name = "numericGamma";
-            this.numericGamma.Size = new System.Drawing.Size(38, 20);
+            this.numericGamma.Size = new System.Drawing.Size(40, 20);
             this.numericGamma.TabIndex = 19;
             this.numericGamma.Value = new decimal(new int[] {
             1,
@@ -1660,7 +1657,7 @@ namespace WebMConverter
             0,
             0,
             65536});
-            this.numericSaturation.Location = new System.Drawing.Point(385, 2);
+            this.numericSaturation.Location = new System.Drawing.Point(377, 2);
             this.numericSaturation.Margin = new System.Windows.Forms.Padding(2);
             this.numericSaturation.Maximum = new decimal(new int[] {
             2,
@@ -1668,7 +1665,7 @@ namespace WebMConverter
             0,
             0});
             this.numericSaturation.Name = "numericSaturation";
-            this.numericSaturation.Size = new System.Drawing.Size(39, 20);
+            this.numericSaturation.Size = new System.Drawing.Size(37, 20);
             this.numericSaturation.TabIndex = 20;
             this.numericSaturation.Value = new decimal(new int[] {
             1,
@@ -1687,15 +1684,30 @@ namespace WebMConverter
             this.labelGamma.TabIndex = 17;
             this.labelGamma.Text = "Gamma";
             // 
-            // labelContrast
+            // boxDenoise
             // 
-            this.labelContrast.AutoSize = true;
-            this.labelContrast.Location = new System.Drawing.Point(227, 28);
-            this.labelContrast.Name = "labelContrast";
-            this.labelContrast.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
-            this.labelContrast.Size = new System.Drawing.Size(46, 19);
-            this.labelContrast.TabIndex = 22;
-            this.labelContrast.Text = "Contrast";
+            this.boxDenoise.AutoSize = true;
+            this.boxDenoise.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.boxDenoise.Dock = System.Windows.Forms.DockStyle.Right;
+            this.boxDenoise.Location = new System.Drawing.Point(32, 59);
+            this.boxDenoise.Name = "boxDenoise";
+            this.boxDenoise.Size = new System.Drawing.Size(68, 22);
+            this.boxDenoise.TabIndex = 15;
+            this.boxDenoise.Text = "Denoise:";
+            this.boxDenoise.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.boxDenoise.UseVisualStyleBackColor = true;
+            // 
+            // boxStabilization
+            // 
+            this.boxStabilization.AutoSize = true;
+            this.boxStabilization.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.boxStabilization.Dock = System.Windows.Forms.DockStyle.Right;
+            this.boxStabilization.Location = new System.Drawing.Point(136, 59);
+            this.boxStabilization.Name = "boxStabilization";
+            this.boxStabilization.Size = new System.Drawing.Size(85, 22);
+            this.boxStabilization.TabIndex = 24;
+            this.boxStabilization.Text = "Stabilization:";
+            this.boxStabilization.UseVisualStyleBackColor = true;
             // 
             // numericContrast
             // 
@@ -1706,7 +1718,7 @@ namespace WebMConverter
             0,
             0,
             65536});
-            this.numericContrast.Location = new System.Drawing.Point(280, 31);
+            this.numericContrast.Location = new System.Drawing.Point(482, 3);
             this.numericContrast.Maximum = new decimal(new int[] {
             2,
             0,
@@ -1721,11 +1733,20 @@ namespace WebMConverter
             0,
             0});
             // 
+            // labelContrast
+            // 
+            this.labelContrast.AutoSize = true;
+            this.labelContrast.Location = new System.Drawing.Point(419, 0);
+            this.labelContrast.Name = "labelContrast";
+            this.labelContrast.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
+            this.labelContrast.Size = new System.Drawing.Size(46, 19);
+            this.labelContrast.TabIndex = 22;
+            this.labelContrast.Text = "Contrast";
+            // 
             // buttonPreview2
             // 
-            tableAdvancedProcessing.SetColumnSpan(this.buttonPreview2, 2);
             this.buttonPreview2.Enabled = false;
-            this.buttonPreview2.Location = new System.Drawing.Point(321, 30);
+            this.buttonPreview2.Location = new System.Drawing.Point(534, 2);
             this.buttonPreview2.Margin = new System.Windows.Forms.Padding(2);
             this.buttonPreview2.Name = "buttonPreview2";
             tableAdvancedProcessing.SetRowSpan(this.buttonPreview2, 2);
@@ -1734,6 +1755,17 @@ namespace WebMConverter
             this.buttonPreview2.Text = "Preview";
             this.buttonPreview2.UseVisualStyleBackColor = true;
             this.buttonPreview2.Click += new System.EventHandler(this.buttonPreview2_Click);
+            // 
+            // txtLevel
+            // 
+            this.txtLevel.AutoSize = true;
+            this.txtLevel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtLevel.Location = new System.Drawing.Point(227, 56);
+            this.txtLevel.Name = "txtLevel";
+            this.txtLevel.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
+            this.txtLevel.Size = new System.Drawing.Size(42, 28);
+            this.txtLevel.TabIndex = 25;
+            this.txtLevel.Text = "Level";
             // 
             // groupAdvancedEncoding
             // 
@@ -2340,6 +2372,15 @@ namespace WebMConverter
             this.listViewContextMenuDelete.Text = "Delete";
             this.listViewContextMenuDelete.Click += new System.EventHandler(this.listViewContextMenuDelete_Click);
             // 
+            // comboBoxLevels
+            // 
+            tableAdvancedProcessing.SetColumnSpan(this.comboBoxLevels, 2);
+            this.comboBoxLevels.FormattingEnabled = true;
+            this.comboBoxLevels.Location = new System.Drawing.Point(275, 59);
+            this.comboBoxLevels.Name = "comboBoxLevels";
+            this.comboBoxLevels.Size = new System.Drawing.Size(97, 21);
+            this.comboBoxLevels.TabIndex = 26;
+            // 
             // MainForm
             // 
             this.AcceptButton = this.buttonGo;
@@ -2533,6 +2574,9 @@ namespace WebMConverter
         private System.Windows.Forms.CheckBox checkMP4;
         private System.Windows.Forms.Label labelSizeLimit;
         private System.Windows.Forms.CheckBox checkHWAcceleration;
+        private System.Windows.Forms.CheckBox boxStabilization;
+        private System.Windows.Forms.Label txtLevel;
+        private System.Windows.Forms.ComboBox comboBoxLevels;
         // private System.Windows.Forms.GroupBox groupGfycat;
     }
 }
