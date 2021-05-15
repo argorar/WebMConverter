@@ -92,10 +92,21 @@ Add text, change font, size, position, also set when it start and end.
 ### Loop
 
 Loop function, forward and reverse making an infinite effect. You _can't_ use filter or interpolation with it.
-<div style='position:relative; padding-bottom:calc(56.25% + 44px)'><iframe src='https://gfycat.com/ifr/AnimatedUnimportantAlligatorsnappingturtle' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;'></iframe></div>
+<div style='position:relative; padding-bottom:calc(56.25% + 44px'>
+    <iframe src='https://gfycat.com/ifr/AnimatedUnimportantAlligatorsnappingturtle' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;'></iframe>
+</div>
+
+### Stabilization
+
+Use different levels of stabilization for your clip. Left side original, right side processed. Find it in Advanced>Processing.
+
+<div style='position:relative; padding-bottom:calc(28.13% + 44px)'>
+    <iframe src='https://gfycat.com/ifr/DentalAnchoredHedgehog' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen></iframe>
+</div>
 
 ### Merge
 Drag and drop video files inside the app, search for the new video in source path. *The group of videos must have the same encodes / dimensions*.
+
 ### There is More that you can do
 
 * Add subtitle
@@ -124,6 +135,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 * Change Rate: ```Alt + Shift + c```
 
 ## Changelog
+
+### Version 3.13.0
+* Add stabilization filter. Find it in Advanced>Processing. It comes with different levels of stabilization 
 
 #### Version 3.12.1
 * Fix validation of output name
