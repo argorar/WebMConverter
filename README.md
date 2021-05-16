@@ -136,6 +136,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+### Version 3.13.2
+* Update binaries
+
 ### Version 3.13.1
 * Fix a bug with progress bar that closed the program
 
