@@ -136,6 +136,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+### Version 3.13.3
+* Update binaries to fix JS player extraction in download feature
+
 ### Version 3.13.2
 * Update binaries
 
