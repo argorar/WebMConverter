@@ -120,6 +120,12 @@
     <Compile Include="Dialogs\ConverterDialog.Designer.cs">
       <DependentUpon>ConverterDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\UpdateBinaries.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\UpdateBinaries.Designer.cs">
+      <DependentUpon>UpdateBinaries.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\SetDimensionsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -227,6 +233,8 @@
       <DependentUpon>PreviewFrame.cs</DependentUpon>
     </Compile>
     <Compile Include="Objects\GfycatResponse.cs" />
+    <Compile Include="Objects\Asset.cs" />
+    <Compile Include="Objects\ReleaseInfo.cs" />
     <Compile Include="Objects\StabilizationData.cs" />
     <Compile Include="Objects\TokenResponse.cs" />
     <Compile Include="Objects\UserDetailsResponse.cs" />
@@ -271,6 +279,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ConverterDialog.resx">
       <DependentUpon>ConverterDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\UpdateBinaries.resx">
+      <DependentUpon>UpdateBinaries.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\SetDimensionsDialog.resx">
       <DependentUpon>SetDimensionsDialog.cs</DependentUpon>

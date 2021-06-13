@@ -172,6 +172,9 @@ namespace WebMConverter
 
             if (!configuration.AppSettings.Settings.AllKeys.Contains("HAMP4"))
                 configuration.AppSettings.Settings.Add("HAMP4", "False");
+
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("YTDLV"))
+                configuration.AppSettings.Settings.Add("YTDLV", "20210505");
         }
 
         private void ToolTip()
@@ -397,6 +400,17 @@ namespace WebMConverter
             SendMessage(boxTags.Handle, EM_SETCUEBANNER, 0, "tag1,tag2,tag3...");
             this.ActiveControl = buttonBrowseIn;
             CheckUpdate();
+            CheckUpdateBinaries();
+        }
+
+        private void CheckUpdateBinaries()
+        {
+            if (Utility.IsConnectedToInternet())
+            {
+                int installedVersion = Int32.Parse(configuration.AppSettings.Settings["YTDLV"].Value);
+                UpdateBinaries updateBinaries = new UpdateBinaries(installedVersion);
+                updateBinaries.GetLatestVersion();
+            }
         }
 
         void MainForm_FormClosing(object sender, FormClosingEventArgs e)

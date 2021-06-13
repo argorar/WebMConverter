@@ -2,6 +2,7 @@ WebM for Lazys
 =============
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ab09accc7a9c478badac99fed7ca52cf)](https://www.codacy.com/gh/argorar/WebMConverter/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=argorar/WebMConverter&amp;utm_campaign=Badge_Grade)
 ![License Badge](https://camo.githubusercontent.com/df812feb31ffa1b3ced0b0315573848259bae29dfb59a2a931dab2bf2f0def5c/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6963656e73652f63686174776f6f742f63686174776f6f74)
+[![Downloads](https://img.shields.io/github/downloads/argorar/WebMConverter/total.svg)]()
 
 A wrapper around ffmpeg and AviSynth made for converting videos to WebM without having to use the command line, fork of [this project](https://gitgud.io/nixx/WebMConverter#webm-for-retards-).
 
@@ -135,6 +136,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 * Change Rate: ```Alt + Shift + c```
 
 ## Changelog
+
+### Version 3.14.0
+* Add automatic update of binaries. You always will have the latest updates
 
 ### Version 3.13.3
 * Update binaries to fix JS player extraction in download feature
