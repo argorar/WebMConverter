@@ -88,6 +88,7 @@ Add text, change font, size, position, also set when it start and end.
 ![caption](img/caption.JPG)
 
 ### Rotate
+Rotate your video to any direction with just one click.
 
 ![rotate](img/rotate.JPG)
 
@@ -107,7 +108,7 @@ Use different levels of stabilization for your clip. Left side original, right s
 </div>
 
 ### Merge
-Drag and drop video files inside the app, search for the new video in source path. *The group of videos must have the same encodes / dimensions*.
+Drag and drop video files inside the application, search for the new video in source path. *The group of videos must have the same encodes / dimensions*.
 
 ### There is More that you can do
 
@@ -120,7 +121,7 @@ Drag and drop video files inside the app, search for the new video in source pat
 * Disable audio
 * Delay audio
 * Get specific filesize in final result
-* Get high quality video
+* Get high quality video in webm and mp4 format
 * Interpolate, more frames to your video
 * Deinterlace
 
@@ -138,19 +139,19 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
-### Version 3.14.0
+#### Version 3.14.0
 * Add automatic update of binaries. You always will have the latest updates
 
-### Version 3.13.3
+#### Version 3.13.3
 * Update binaries to fix JS player extraction in download feature
 
-### Version 3.13.2
+#### Version 3.13.2
 * Update binaries
 
-### Version 3.13.1
+#### Version 3.13.1
 * Fix a bug with progress bar that closed the program
 
-### Version 3.13.0
+#### Version 3.13.0
 * Add stabilization filter. Find it in Advanced>Processing. It comes with different levels of stabilization 
 
 #### Version 3.12.1
