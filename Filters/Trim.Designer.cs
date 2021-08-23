@@ -36,7 +36,6 @@
             this.labelTrimEnd = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.labelTrimDuration = new System.Windows.Forms.Label();
-            this.previewFrame = new WebMConverter.PreviewFrame();
             this.trackVideoTimeline = new System.Windows.Forms.TrackBar();
             this.flowDialogButtons = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonConfirm = new System.Windows.Forms.Button();
@@ -46,6 +45,7 @@
             this.toolStripMenuGoTo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuGoToFrame = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuGoToTime = new System.Windows.Forms.ToolStripMenuItem();
+            this.previewFrame = new WebMConverter.PreviewFrame();
             this.tableLayoutPanel.SuspendLayout();
             this.flowTrimButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackVideoTimeline)).BeginInit();
@@ -112,7 +112,7 @@
             this.labelTrimStart.MaximumSize = new System.Drawing.Size(133, 0);
             this.labelTrimStart.MinimumSize = new System.Drawing.Size(133, 0);
             this.labelTrimStart.Name = "labelTrimStart";
-            this.labelTrimStart.Size = new System.Drawing.Size(133, 36);
+            this.labelTrimStart.Size = new System.Drawing.Size(133, 0);
             this.labelTrimStart.TabIndex = 2;
             this.labelTrimStart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -138,7 +138,7 @@
             this.labelTrimEnd.MaximumSize = new System.Drawing.Size(133, 0);
             this.labelTrimEnd.MinimumSize = new System.Drawing.Size(133, 0);
             this.labelTrimEnd.Name = "labelTrimEnd";
-            this.labelTrimEnd.Size = new System.Drawing.Size(133, 36);
+            this.labelTrimEnd.Size = new System.Drawing.Size(133, 0);
             this.labelTrimEnd.TabIndex = 3;
             this.labelTrimEnd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -164,21 +164,9 @@
             this.labelTrimDuration.MaximumSize = new System.Drawing.Size(133, 0);
             this.labelTrimDuration.MinimumSize = new System.Drawing.Size(133, 0);
             this.labelTrimDuration.Name = "labelTrimDuration";
-            this.labelTrimDuration.Size = new System.Drawing.Size(133, 36);
+            this.labelTrimDuration.Size = new System.Drawing.Size(133, 0);
             this.labelTrimDuration.TabIndex = 4;
             this.labelTrimDuration.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // previewFrame
-            // 
-            this.previewFrame.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.tableLayoutPanel.SetColumnSpan(this.previewFrame, 3);
-            this.previewFrame.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.previewFrame.Location = new System.Drawing.Point(0, 0);
-            this.previewFrame.Margin = new System.Windows.Forms.Padding(0);
-            this.previewFrame.Name = "previewFrame";
-            this.previewFrame.Size = new System.Drawing.Size(992, 592);
-            this.previewFrame.TabIndex = 0;
-            this.previewFrame.TabStop = false;
             // 
             // trackVideoTimeline
             // 
@@ -275,6 +263,18 @@
             this.ToolStripMenuGoToTime.Size = new System.Drawing.Size(133, 26);
             this.ToolStripMenuGoToTime.Text = "Time";
             this.ToolStripMenuGoToTime.Click += new System.EventHandler(this.ToolStripMenuGoToTime_Click);
+            // 
+            // previewFrame
+            // 
+            this.previewFrame.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.tableLayoutPanel.SetColumnSpan(this.previewFrame, 3);
+            this.previewFrame.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.previewFrame.Location = new System.Drawing.Point(0, 0);
+            this.previewFrame.Margin = new System.Windows.Forms.Padding(0);
+            this.previewFrame.Name = "previewFrame";
+            this.previewFrame.Size = new System.Drawing.Size(992, 592);
+            this.previewFrame.TabIndex = 0;
+            this.previewFrame.TabStop = false;
             // 
             // TrimForm
             // 

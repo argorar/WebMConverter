@@ -154,6 +154,7 @@ namespace WebMConverter
             comboBoxLevels.DisplayMember = "desc";
             comboBoxLevels.DataSource = vidstabList;
             comboBoxLevels.SelectedIndex = 3;
+            comboBoxLevels.Enabled = boxStabilization.Checked;
         }
 
         private void CheckAppSettings()
@@ -421,7 +422,14 @@ namespace WebMConverter
             foreach (var temporaryFile in _temporaryFilesList)
             {
                 if (File.Exists(temporaryFile))
-                    File.Delete(temporaryFile);
+                {
+                    try
+                    {
+                        File.Delete(temporaryFile);
+                    }
+                    catch (Exception) { //avoided
+                    }
+                }
             }
         }
 
@@ -2820,6 +2828,11 @@ namespace WebMConverter
         private void checkHWAcceleration_CheckedChanged(object sender, EventArgs e)
         {
             UpdateConfiguration("HAMP4", checkHWAcceleration.Checked.ToString());
+        }
+
+        private void boxStabilization_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBoxLevels.Enabled = boxStabilization.Checked;
         }
     }
 }

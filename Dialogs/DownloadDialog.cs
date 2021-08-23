@@ -89,10 +89,10 @@ namespace WebMConverter.Dialogs
             boxOutput.AppendText($"{Environment.NewLine}Starting Process");
             _downloaderProcess = new YoutubeDL(null);
 
-            if(_infile.Contains("youtube"))
+            if(_infile.Contains("youtu"))
                 _downloaderProcess.StartInfo.Arguments = $@"-f bestvideo+bestaudio  {_infile}";
             else
-                _downloaderProcess.StartInfo.Arguments = $@" {_infile}";
+                _downloaderProcess.StartInfo.Arguments = $@"-f best { _infile}";
 
             _downloaderProcess.ErrorDataReceived += ProcessOnErrorDataReceived;
             _downloaderProcess.OutputDataReceived += ProcessOnOutputDataReceived;

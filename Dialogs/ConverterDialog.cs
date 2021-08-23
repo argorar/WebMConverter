@@ -383,7 +383,7 @@ namespace WebMConverter.Dialogs
                 _outduration = ProbeDuration(_outfile, false);
                 if (_isloop)
                     _induration *= 2;
-                if (Math.Abs(_induration - _outduration) > 0.01 && !_arguments[0].Contains("minterpolate"))
+                if (Math.Abs(_induration - _outduration) > 0.1 && !_arguments[0].Contains("minterpolate"))
                 {
                     boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}Restraints are too high!");
 
@@ -463,9 +463,6 @@ namespace WebMConverter.Dialogs
             {
                 if (_ffmpegProcess != null && !_ffmpegProcess.HasExited)
                     _ffmpegProcess.Kill();
-
-                if (!_needToPipe)
-                    return;
 
                 if (_pipeFFmpeg != null && !_pipeFFmpeg.HasExited)
                     _pipeFFmpeg.Kill();
