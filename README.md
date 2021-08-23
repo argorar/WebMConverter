@@ -139,6 +139,10 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.14.1
+* Fix bug to download best quality from youtube
+* Minor corrections in workflow
+
 #### Version 3.14.0
 * Add automatic update of binaries. You always will have the latest updates
 
