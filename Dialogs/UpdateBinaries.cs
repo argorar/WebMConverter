@@ -13,8 +13,8 @@ namespace WebMConverter.Dialogs
     public partial class UpdateBinaries : Form
     {
         private readonly Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-        private static readonly string repository = @"https://api.github.com/repos/ytdl-org/youtube-dl/releases/latest";
-        private static string updateExePath = Path.Combine(Path.GetTempPath(), "youtube-dl.exe");
+        private static readonly string repository = @"https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest";
+        private static string updateExePath = Path.Combine(Path.GetTempPath(), Program.yt_dl);
         private int installedVersion;
         private int latestVersion;
 
@@ -41,7 +41,7 @@ namespace WebMConverter.Dialogs
                 if (installedVersion < latestVersion)
                 {
                     this.Show();
-                    DownloadRelease(releaseInfo.assets.FirstOrDefault(x => x.name.Equals("youtube-dl.exe")).browser_download_url);
+                    DownloadRelease(releaseInfo.assets.FirstOrDefault(x => x.name.Equals(Program.yt_dl)).browser_download_url);
                 }
 
             }

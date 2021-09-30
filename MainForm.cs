@@ -591,8 +591,7 @@ namespace WebMConverter
                 if (!VideoDownload.Enabled)
                 {
                     var result = MessageBox.Show(
-                       $"Couldn't find Youtube-DL. Either download it and put it somewhere in your %PATH%, or place it inside Binaries/Win64.{Environment.NewLine}" + 
-                        "You can download it from yt-dl.org",
+                       $"Couldn't find {Program.yt_dl}. Either download it and put it somewhere in your %PATH%, or place it inside Binaries/Win64.{Environment.NewLine}", 
                         "ERROR", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
                     if (result == DialogResult.Retry)
                     {

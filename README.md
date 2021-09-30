@@ -139,6 +139,10 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.15.0
+* Changed youtube-dl to yt-dlp to get last updates and fixes to download videos without problem
+* Update link to download C++ required package for begginers
+
 #### Version 3.14.1
 * Fix bug to download best quality from youtube
 * Minor corrections in workflow

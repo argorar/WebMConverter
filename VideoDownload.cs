@@ -27,7 +27,7 @@ namespace WebMConverter
     {
         public YoutubeDL(string arguments)
         {
-            StartInfo.FileName = "Binaries//Win64//youtube-dl.exe";
+            StartInfo.FileName = "Binaries//Win64//" + Program.yt_dl;
             StartInfo.Arguments = arguments;
             StartInfo.RedirectStandardInput = true;
             StartInfo.RedirectStandardOutput = true;

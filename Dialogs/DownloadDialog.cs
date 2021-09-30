@@ -60,7 +60,7 @@ namespace WebMConverter.Dialogs
         private void GetId(string data)
         {
             if(data.Contains("Destination:"))
-                Outfile = data.Split('-').LastOrDefault().Split('.')[0];
+                Outfile = data.Split('[').LastOrDefault().Split(']')[0];
         }
 
         // example youtube-dl line:
@@ -98,7 +98,7 @@ namespace WebMConverter.Dialogs
             _downloaderProcess.OutputDataReceived += ProcessOnOutputDataReceived;
             _downloaderProcess.Exited += (o, args) => boxOutput.Invoke((Action)(() =>
             {
-                boxOutput.AppendText($"{Environment.NewLine}--- YOUTUBE-DL HAS EXITED ---");
+                boxOutput.AppendText($"{Environment.NewLine}--- YT-DLP HAS EXITED ---");
                 buttonCancel.Enabled = false;
 
                 _timer = new Timer {Interval = 500};
@@ -117,7 +117,7 @@ namespace WebMConverter.Dialogs
 
             if (_downloaderProcess.ExitCode != 0)
             {
-                boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}youtube-dl.exe exited with exit code {_downloaderProcess.ExitCode}. That's usually bad.");
+                boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}{Program.yt_dl} exited with exit code {_downloaderProcess.ExitCode}. That's usually bad.");
                 boxOutput.AppendText($"{Environment.NewLine}If you have no idea what went wrong, open an issue on GitGud and copy paste the output of this window there.");
                 pictureStatus.BackgroundImage = StatusImages.Images["Failure"];
                 buttonCancel.Enabled = true;

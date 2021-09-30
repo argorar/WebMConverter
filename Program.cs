@@ -69,6 +69,8 @@ namespace WebMConverter
         public static List<string> AttachmentList;
         public static string token;
         public static StabilizationData Stabilization;
+        public static readonly string yt_dl = "yt-dlp.exe";
+  
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -96,7 +98,7 @@ namespace WebMConverter
                    $"You need Microsoft Visual C++ 2010 (x86) for the full experience.{Environment.NewLine}" +
                     "I'll open the download page, go ahead and install it.",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Process.Start($"https://www.microsoft.com/en-us/download/details.aspx?id=8328");
+                Process.Start($"https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe");
                 return;
             }
             Task.Factory.StartNew(ShareXUpload.CheckEnabled);
