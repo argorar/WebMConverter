@@ -316,6 +316,6 @@ If you have any issues with this program, you may report them on [here][NewIssue
  [DotNet45]: https://www.microsoft.com/en-us/download/details.aspx?id=30653
  [AviSynth]: http://avisynth.nl/index.php/Main_Page#Official_builds
  [NewIssue]: https://github.com/argorar/WebMConverter/issues
- [MVC]: https://www.microsoft.com/en-us/download/details.aspx?id=8328
+ [MVC]: https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe
  [Sites]: https://ytdl-org.github.io/youtube-dl/supportedsites.html
  [FAQ]: https://www.webmproject.org/about/faq/
