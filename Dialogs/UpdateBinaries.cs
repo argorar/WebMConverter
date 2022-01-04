@@ -15,11 +15,11 @@ namespace WebMConverter.Dialogs
         private readonly Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         private static readonly string repository = @"https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest";
         private static string updateExePath = Path.Combine(Path.GetTempPath(), Program.yt_dl);
-        private int installedVersion;
-        private int latestVersion;
+        private string installedVersion;
+        private string latestVersion;
 
 
-        public UpdateBinaries(int installedVersion)
+        public UpdateBinaries(string installedVersion)
         {
             this.installedVersion = installedVersion;
             InitializeComponent();
@@ -35,10 +35,18 @@ namespace WebMConverter.Dialogs
                 releaseInfo = JsonConvert.DeserializeObject<ReleaseInfo>(json);
             }
 
-            if(releaseInfo != null)
+            if (releaseInfo != null)
             {
-                latestVersion = Int32.Parse(releaseInfo.tag_name.Replace(".", string.Empty));
-                if (installedVersion < latestVersion)
+                latestVersion = releaseInfo.tag_name;
+                if (!installedVersion.Contains('.'))
+                {
+                    installedVersion = $"{installedVersion.Substring(0, 4)}.{installedVersion.Substring(4, 2)}.{installedVersion.Substring(6, 2)}" +
+                                       $"{(installedVersion.Length > 8 ? '.' + installedVersion.Substring(8, installedVersion.Length - 8) : "")}";
+                }
+
+                Version current = new Version(installedVersion);
+                Version last = new Version(latestVersion);
+                if (current.CompareTo(last) < 0)
                 {
                     this.Show();
                     DownloadRelease(releaseInfo.assets.FirstOrDefault(x => x.name.Equals(Program.yt_dl)).browser_download_url);
@@ -84,6 +92,7 @@ namespace WebMConverter.Dialogs
                 labelStatus.Text = $"Moving file ....";
                 var source = new FileInfo(updateExePath);
                 source.CopyTo(Path.Combine(Path.Combine(Environment.CurrentDirectory, "Binaries\\Win64"), source.Name), true);
+                UpdateLastVersion();
             }
             catch (Exception)
             {
@@ -91,10 +100,14 @@ namespace WebMConverter.Dialogs
             }
 
             File.Delete(updateExePath);
-            configuration.AppSettings.Settings["YTDLV"].Value = latestVersion.ToString();
+            this.Dispose();
+        }
+
+        private void UpdateLastVersion()
+        {
+            configuration.AppSettings.Settings["YTDLV"].Value = latestVersion;
             configuration.Save();
             ConfigurationManager.RefreshSection("userSettings");
-            this.Dispose();
         }
 
         private void Abort()

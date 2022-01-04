@@ -21,10 +21,10 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>3AE900F349047EE3182C803D28774D59BC5DA119</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>6A8F219F97804BB4B154EF42430BC93C127A6F13</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>WebMConverter_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>WebMConverter_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -350,6 +350,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="WebMConverter_1_TemporaryKey.pfx" />
     <None Include="WebMConverter_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

@@ -408,7 +408,7 @@ namespace WebMConverter
         {
             if (Utility.IsConnectedToInternet())
             {
-                int installedVersion = Int32.Parse(configuration.AppSettings.Settings["YTDLV"].Value);
+                string installedVersion = configuration.AppSettings.Settings["YTDLV"].Value;
                 UpdateBinaries updateBinaries = new UpdateBinaries(installedVersion);
                 updateBinaries.GetLatestVersion();
             }
@@ -1970,7 +1970,6 @@ namespace WebMConverter
 
                 if (SarCompensate)
                     avscript.WriteLine(new ResizeFilter(SarWidth, SarHeight));
-
                 avscript.Write(textBoxProcessingScript.Text);
             }
         }
