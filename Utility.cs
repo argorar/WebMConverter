@@ -234,6 +234,11 @@ namespace WebMConverter
             }
             return new int[] { temp1, temp2 };
         }
+        
+        public static int Mod2(int number)
+        {
+            return (number / 2) * 2;
+        }
     }
     
     public enum FileType

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using WebMConverter.Dialogs;
 using static WebMConverter.Utility;
@@ -21,6 +22,8 @@ namespace WebMConverter
         private int newWidth = 0;
         private int newHeight = 0;
         private RectangleF cropPercent;
+        private int currentFrame;
+        private IDictionary<int, string> cropsList = new Dictionary<int, string>();
         private enum Corner
         {
             TopLeft,
@@ -32,6 +35,7 @@ namespace WebMConverter
 
         readonly CropFilter InputFilter;
         public CropFilter GeneratedFilter;
+        public DynamicCropFilter GeneratedCropPanFilter;
 
         public CropForm(CropFilter CropPixels = null)
         {
@@ -59,6 +63,7 @@ namespace WebMConverter
             }
             else
             {
+                currentFrame = 0;
                 int width, height;
                 if ((Owner as MainForm).SarCompensate)
                 {
@@ -83,20 +88,26 @@ namespace WebMConverter
                 previewFrame.GeneratePreview(true);
             }
 
-            if ((Owner as MainForm).boxAdvancedScripting.Checked) return;
-
             if (Filters.Trim != null)
             {
+                currentFrame = Filters.Trim.TrimStart;
                 previewFrame.Frame = Filters.Trim.TrimStart;
                 trackVideoTimeline.Value = Filters.Trim.TrimStart;
+                trackVideoTimeline.Minimum = Filters.Trim.TrimStart;
+                trackVideoTimeline.Maximum = Filters.Trim.TrimEnd;
                 trimTimingToolStripMenuItem.Enabled = true;
             }
             if (Filters.MultipleTrim != null)
             {
+                currentFrame = Filters.MultipleTrim.Trims[0].TrimStart;
                 previewFrame.Frame = Filters.MultipleTrim.Trims[0].TrimStart;
                 trackVideoTimeline.Value = Filters.MultipleTrim.Trims[0].TrimStart;
+                trackVideoTimeline.Minimum = Filters.MultipleTrim.Trims[0].TrimStart;
+                trackVideoTimeline.Maximum = Filters.MultipleTrim.Trims[Filters.MultipleTrim.Trims.Count-1].TrimEnd;
                 trimTimingToolStripMenuItem.Enabled = true;
             }
+
+            if ((Owner as MainForm).boxAdvancedScripting.Checked) return;
         }
 
         private void previewPicture_MouseDown(object sender, MouseEventArgs e)
@@ -153,8 +164,11 @@ namespace WebMConverter
                 //Clamp mouse pos to picture box, that way you shouldn't be able to move the cropping rectangle out of bounds
                 Point min = new Point(0, 0);
                 Point max = new Point(previewFrame.Picture.Size);
-                float clampedMouseX = Math.Max(min.X, Math.Min(max.X, e.X));
-                float clampedMouseY = Math.Max(min.Y, Math.Min(max.Y, e.Y));
+                float clampedMouseX = Mod2(Math.Max(min.X, Math.Min(max.X, e.X)));
+                float clampedMouseY = Mod2(Math.Max(min.Y, Math.Min(max.Y, e.Y)));
+
+                if (dynamicCropActive.Checked)
+                    GetCropPan();
 
                 float newWidth = 0;
                 float newHeight = 0;
@@ -268,6 +282,23 @@ namespace WebMConverter
             previewFrame.Picture.Invalidate();
         }
 
+        private void GetCropPan()
+        {
+            int width, height;
+            if ((Owner as MainForm).SarCompensate)
+            {
+                width = (Owner as MainForm).SarWidth;
+                height = (Owner as MainForm).SarHeight;
+            }
+            else
+            {
+                FFMSSharp.Frame frame = Program.VideoSource.GetFrame(previewFrame.Frame);
+                width = frame.EncodedResolution.Width;
+                height = frame.EncodedResolution.Height;
+            }
+            AddCropPan(width, height);
+        }
+
         private void buttonConfirm_Click(object sender, EventArgs e)
         {
             if (cropPercent.Left >= cropPercent.Right || cropPercent.Top >= cropPercent.Bottom)
@@ -286,6 +317,18 @@ namespace WebMConverter
                 return;
             }
 
+            if (dynamicCropActive.Checked)
+            {
+                float finalWidth = Program.Resolution.Width * cropPercent.Width;
+                float finalHeight = Program.Resolution.Height * cropPercent.Height;
+
+                if (finalHeight % 2 != 0 && finalWidth % 2 != 0)
+                {
+                    MessageBox.Show("Fix your crop resolution, must be an even number.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            
             cropPercent.X = Math.Max(0, cropPercent.X);
             cropPercent.Y = Math.Max(0, cropPercent.Y);
             if (cropPercent.Right > 1)
@@ -306,13 +349,47 @@ namespace WebMConverter
                 height = frame.EncodedResolution.Height;
             }
 
-            GenerateFilter(width , height);            
+            if (dynamicCropActive.Checked)
+                GenerateFilter(cropsList);
+            else
+                GenerateFilter(width , height);            
 
             DialogResult = DialogResult.OK;
 
             Close();
         }
 
+        private void AddCropPan(int width, int height)
+        {
+            int cropLeft = (int)(width * cropPercent.Left);
+            int cropTop = (int)(height * cropPercent.Top);
+            int cropRight = -(int)(width - width * cropPercent.Right);
+            int cropBottom = -(int)(height - height * cropPercent.Bottom);
+
+            cropLeft = (cropLeft / 2) * 2;
+            cropRight = (cropRight / 2) * 2;
+            cropTop = (cropTop / 2) * 2;
+            cropBottom = (cropBottom / 2) * 2;
+
+            int endFrame = Filters.Trim != null ? Filters.Trim.TrimEnd : currentFrame;
+            string commands = $"Trim({currentFrame},{(trackVideoTimeline.Value == currentFrame ? endFrame : trackVideoTimeline.Value)})" +
+                $".Crop({cropLeft},{cropTop},{(newWidth == 0 ? cropRight : CorrectCrop(cropLeft, cropRight, newWidth, width))}," +
+                $"{(newHeight == 0 ? cropBottom : CorrectCrop(cropTop, cropBottom, newHeight, height))})" +
+                $".Spline64Resize({Mod2((int)(Program.Resolution.Width * cropPercent.Width))}," +
+                $"{Mod2((int)(Program.Resolution.Height * cropPercent.Height))})";
+
+            if (!cropsList.ContainsKey(currentFrame))
+                cropsList.Add(currentFrame, commands);
+            else
+                cropsList[currentFrame] = commands;
+
+            currentFrame = trackVideoTimeline.Value;
+        }
+
+        private void GenerateFilter(IDictionary<int, string> cropsList)
+        {
+            GeneratedCropPanFilter = new DynamicCropFilter(cropsList);
+        }
         private void GenerateFilter(int width, int height)
         {
             int cropLeft = (int)(width * cropPercent.Left);
@@ -358,8 +435,8 @@ namespace WebMConverter
         private void startToolStripMenuItem_Click(object sender, EventArgs e) => previewFrame.Frame = Filters.Trim.TrimStart;
         private void endToolStripMenuItem_Click(object sender, EventArgs e) => previewFrame.Frame = Filters.Trim.TrimEnd;
 
-        private const float arrowKeyIncrement = 0.001f;
-        private const float arrowKeyShiftIncrement = 0.01f;
+        private const float arrowKeyIncrement = 0.002f;
+        private const float arrowKeyShiftIncrement = 0.02f;
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             switch (keyData)
@@ -472,10 +549,10 @@ namespace WebMConverter
 
         private void ShowNewSize()
         {
-            float newWidth = Program.Resolution.Width * cropPercent.Width;
-            float newHeight = Program.Resolution.Height * cropPercent.Height;
-            if(newWidth > 0 && newHeight > 0)
-                labelNewResolution.Text = $"New resolution: {newWidth.ToString("#.#")} x {newHeight.ToString("#.#")}";
+            float finalWidth = Program.Resolution.Width * cropPercent.Width;
+            float finalHeight = Program.Resolution.Height * cropPercent.Height;
+            if(finalWidth > 0 && finalHeight > 0)
+                labelNewResolution.Text = $"New resolution: {finalWidth.ToString("#.#")} x {finalHeight.ToString("#.#")}";
         }
 
         private void setNewSizeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -494,6 +571,12 @@ namespace WebMConverter
                     previewFrame.GeneratePreview(true);
                 }
             }
+        }
+
+        private void dynamicCropActive_CheckedChanged(object sender, EventArgs e)
+        {
+            dynamicCropActive.ForeColor = dynamicCropActive.Checked ? Color.Green : Color.Black;
+
         }
     }
 
@@ -515,12 +598,32 @@ namespace WebMConverter
             top = tempArray[0];
             bottom = tempArray[1];
 
-            Left = (left / 2) * 2;
-            Top = (top / 2) * 2;
-            Right = (right / 2) * 2;
-            Bottom = (bottom / 2) * 2;
+            Left = Mod2(left);
+            Top = Mod2(top);
+            Right = Mod2(right);
+            Bottom = Mod2(bottom);
         }
 
         public override string ToString() => $"Crop({Left}, {Top}, {Right}, {Bottom})";
+    }
+
+    public class DynamicCropFilter
+    {
+        private StringBuilder fragments = new StringBuilder();
+        private StringBuilder alignFragments = new StringBuilder();
+
+        public DynamicCropFilter(IDictionary<int, string> cropsList)
+        {
+            alignFragments.Append("UnalignedSplice(");
+            foreach (KeyValuePair<int, string> entry in cropsList)
+            {
+                fragments.AppendLine($"D{entry.Key}={entry.Value}");
+                alignFragments.Append($"D{entry.Key},");
+            }
+
+            alignFragments.Append(")").Replace(",)",")");
+        }
+
+        public override string ToString() => $"{fragments} \n {alignFragments}";
     }
 }

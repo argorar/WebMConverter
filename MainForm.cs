@@ -737,17 +737,21 @@ namespace WebMConverter
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    if (boxAdvancedScripting.Checked)
-                    {
+                    if (boxAdvancedScripting.Checked && form.GeneratedFilter != null)
                         textBoxProcessingScript.AppendText(Environment.NewLine + form.GeneratedFilter.ToString());
-                    }
-                    else
-                    {
+
+                    else if (boxAdvancedScripting.Checked && form.GeneratedCropPanFilter != null)
+                        textBoxProcessingScript.AppendText(Environment.NewLine + form.GeneratedCropPanFilter.ToString());
+
+                    else if (form.GeneratedFilter != null)
                         Filters.Crop = form.GeneratedFilter;
-                        listViewProcessingScript.Items.Add("Crop", "crop");
-                        SetSlices();
-                        buttonCrop.Enabled = false;
-                    }
+
+                    else
+                        Filters.DynamicCrop = form.GeneratedCropPanFilter;
+
+                    listViewProcessingScript.Items.Add("Crop", "crop");
+                    SetSlices();
+                    buttonCrop.Enabled = false;
                 }
             }
         }
@@ -937,17 +941,17 @@ namespace WebMConverter
 
         void buttonTrim_Click(object sender, EventArgs e)
         {
-            using (var form = new TrimForm())
+            using (var form = new TrimForm(Filters.Trim != null ? Filters.Trim : null))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
+                    Filters.Trim = form.GeneratedFilter;
                     if (boxAdvancedScripting.Checked)
                     {
                         textBoxProcessingScript.AppendText(Environment.NewLine + form.GeneratedFilter.ToString());
                     }
                     else
                     {
-                        Filters.Trim = form.GeneratedFilter;
                         listViewProcessingScript.Items.Add("Trim", "trim");
                         UpdateArguments(sender, e);
                         buttonTrim.Enabled = false;
@@ -1131,6 +1135,7 @@ namespace WebMConverter
                     break;
                 case "Crop":
                     Filters.Crop = null;
+                    Filters.DynamicCrop = null;
                     buttonCrop.Enabled = true;
                     SetSlices();
                     break;
@@ -2358,7 +2363,7 @@ namespace WebMConverter
             }
             if (Filters.Overlay != null)
                 script.AppendLine(Filters.Overlay.ToString());
-            if (Filters.Trim != null)
+            if (Filters.Trim != null && Filters.DynamicCrop == null)
                 script.AppendLine(Filters.Trim.ToString());
             if (Filters.MultipleTrim != null)
                 script.AppendLine(Filters.MultipleTrim.ToString());
@@ -2376,6 +2381,8 @@ namespace WebMConverter
                 script.AppendLine(Filters.Rotate.ToString());
             if (Filters.DelayAudio != null)
                 script.AppendLine(Filters.DelayAudio.ToString());
+            if (Filters.DynamicCrop != null)
+                script.AppendLine(Filters.DynamicCrop.ToString());
 
             textBoxProcessingScript.Text = script.ToString();
         }

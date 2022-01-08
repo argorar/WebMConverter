@@ -17,6 +17,7 @@ namespace WebMConverter
     {
         internal static CaptionFilter Caption;
         internal static CropFilter Crop;
+        internal static DynamicCropFilter DynamicCrop;
         internal static DeinterlaceFilter Deinterlace;
         internal static DelayAudio DelayAudio;
         internal static DenoiseFilter Denoise;
@@ -35,6 +36,7 @@ namespace WebMConverter
         {
             Caption = null;
             Crop = null;
+            DynamicCrop = null;
             Deinterlace = null;
             DelayAudio = null;
             Denoise = null;

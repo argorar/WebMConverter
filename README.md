@@ -1,7 +1,7 @@
 WebM for Lazys 
 =============
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ab09accc7a9c478badac99fed7ca52cf)](https://www.codacy.com/gh/argorar/WebMConverter/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=argorar/WebMConverter&amp;utm_campaign=Badge_Grade)
-![License Badge](https://camo.githubusercontent.com/df812feb31ffa1b3ced0b0315573848259bae29dfb59a2a931dab2bf2f0def5c/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6963656e73652f63686174776f6f742f63686174776f6f74)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Downloads](https://img.shields.io/github/downloads/argorar/WebMConverter/total.svg)]()
 [![CodeLines](https://tokei.rs/b1/github/argorar/WebMConverter)]()
 
@@ -75,6 +75,30 @@ Crop what is just important for you, you can see in real time the new resolution
 
 ![crop](img/crop.JPG)
 
+### Dynamic Crop
+
+Follow an object on the canvas easly. Steps for a correct workflow:
+    1. Use trim to define the clip lenght
+    2. Open Crop filter and define the crop size, use ```New resolution``` as guide. **Even numbers are required**. You can use ```Set dimensions``` for exact values
+    ![new resolution](img/newResolution.png)
+    ![set dimensions](img/setDimensions.png)
+    3. Select click ```Dynamic Crop```. When it is actived will be green which means that each movement will be registered
+    ![dynamicCrop](img/dynamicCrop.png)
+    4. Set stabilitation level on ```Advanced>Processing``` to get a smooth effect
+
+#### Tutorial
+
+<div style='position:relative; padding-bottom:calc(56.25% + 44px'>
+    <iframe src='https://gfycat.com/ifr/aridcomplexkawala' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;'></iframe>
+</div>
+
+#### Final result
+
+Right side was processed  with dynamic crop.
+<div style='position:relative; padding-bottom:calc(56.25% + 44px'>
+    <iframe src='https://gfycat.com/ifr/weeklyemptydalmatian' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;'></iframe>
+</div>
+
 ### Filter
 
 If your video looks dark, you can try with some pre-set filters. Now you can create your own filter using *Advanced* option, change gamma, contrast and saturation.
@@ -138,6 +162,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 * Change Rate: ```Alt + Shift + c```
 
 ## Changelog
+
+#### Version 3.16.0
+* Add dynamic crop. Follow an object on the canvas easly [check the instructions](#dynamic-Crop)
 
 #### Version 3.15.1
 * Fix bug cheking yt-dlp version
