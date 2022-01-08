@@ -88,6 +88,7 @@ Follow an object on the canvas easly. Steps for a correct workflow:
 
 #### Tutorial
 
+For this example the edition requires 30 seconds. 
 <div style='position:relative; padding-bottom:calc(56.25% + 44px'>
     <iframe src='https://gfycat.com/ifr/aridcomplexkawala' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;'></iframe>
 </div>
@@ -164,7 +165,7 @@ See user details in tab *General*. If you are creating several gfys of the same 
 ## Changelog
 
 #### Version 3.16.0
-* Add dynamic crop. Follow an object on the canvas easly [check the instructions](#dynamic-Crop)
+* Add dynamic crop. Follow an object on the canvas easly [check the instructions](#dynamic-crop)
 
 #### Version 3.15.1
 * Fix bug cheking yt-dlp version
