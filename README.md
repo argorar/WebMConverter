@@ -78,13 +78,15 @@ Crop what is just important for you, you can see in real time the new resolution
 ### Dynamic Crop
 
 Follow an object on the canvas easly. Steps for a correct workflow:
-    1. Use trim to define the clip lenght
-    2. Open Crop filter and define the crop size, use ```New resolution``` as guide. **Even numbers are required**. You can use ```Set dimensions``` for exact values
+    
+1. Use trim to define the clip lenght
+
+2. Open Crop filter and define the crop size, use ```New resolution``` as guide. **Even numbers are required**. You can use ```Set dimensions``` for exact values
     ![new resolution](img/newResolution.png)
     ![set dimensions](img/setDimensions.png)
-    3. Select click ```Dynamic Crop```. When it is actived will be green which means that each movement will be registered
+3. Select click ```Dynamic Crop```. When it is actived will be green which means that each movement will be registered
     ![dynamicCrop](img/dynamicCrop.png)
-    4. Set stabilitation level on ```Advanced>Processing``` to get a smooth effect
+4. Set stabilitation level on ```Advanced>Processing``` to get a smooth effect
 
 #### Tutorial
 
