@@ -158,8 +158,11 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.16.1
+* Fix bug in output filename when change destination folder
+
 #### Version 3.16.0
-* Add dynamic crop. Follow an object on the canvas easly [check the instructions](#dynamic-crop)
+* Add dynamic crop. Follow an object on the canvas easily [check the instructions](#dynamic-crop)
 
 #### Version 3.15.1
 * Fix bug cheking yt-dlp version

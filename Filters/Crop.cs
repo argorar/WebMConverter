@@ -19,8 +19,8 @@ namespace WebMConverter
         private Point mousePos;
         private Point mouseOffset;
         private const int maxDistance = 6;
-        private int newWidth = 0;
-        private int newHeight = 0;
+        private int newWidth;
+        private int newHeight;
         private RectangleF cropPercent;
         private int currentFrame;
         private IDictionary<int, string> cropsList = new Dictionary<int, string>();
@@ -34,8 +34,9 @@ namespace WebMConverter
         }
 
         readonly CropFilter InputFilter;
-        public CropFilter GeneratedFilter;
-        public DynamicCropFilter GeneratedCropPanFilter;
+        public CropFilter GeneratedFilter { get; set; }
+
+        public DynamicCropFilter GeneratedCropPanFilter { get; set; }
 
         public CropForm(CropFilter CropPixels = null)
         {
@@ -322,7 +323,7 @@ namespace WebMConverter
                 float finalWidth = Program.Resolution.Width * cropPercent.Width;
                 float finalHeight = Program.Resolution.Height * cropPercent.Height;
 
-                if (finalHeight % 2 != 0 && finalWidth % 2 != 0)
+                if (Math.Abs(finalHeight % 2) > 0.0001 && Math.Abs(finalWidth % 2) > 0.0001)
                 {
                     MessageBox.Show("Fix your crop resolution, must be an even number.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -530,15 +531,12 @@ namespace WebMConverter
         private void trackVideoTimeline_KeyDown(object sender, KeyEventArgs e)
         {
             int modifier = 0;
-            switch (e.KeyData)
-            {
-                case Keys.Left:
-                    modifier = -1;
-                    break;
-                case Keys.Right:
-                    modifier = 1;
-                    break;
-            }
+
+            if(e.KeyData == Keys.Left)
+                modifier = -1;
+
+            else if (e.KeyData == Keys.Right)
+                modifier = 1;
 
             if (modifier != 0)
             {
@@ -564,6 +562,8 @@ namespace WebMConverter
                 var heightPercent = dialog.GetHeightPercent();
                 if (widhtPercent != 0 && heightPercent != 0)
                 {
+                    cropPercent.X = 0;
+                    cropPercent.Y = 0;
                     cropPercent.Height = heightPercent;
                     cropPercent.Width = widhtPercent;
                     newWidth = dialog.GetWight();
@@ -609,8 +609,8 @@ namespace WebMConverter
 
     public class DynamicCropFilter
     {
-        private StringBuilder fragments = new StringBuilder();
-        private StringBuilder alignFragments = new StringBuilder();
+        private readonly StringBuilder fragments = new StringBuilder();
+        private readonly StringBuilder alignFragments = new StringBuilder();
 
         public DynamicCropFilter(IDictionary<int, string> cropsList)
         {

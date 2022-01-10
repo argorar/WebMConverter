@@ -656,11 +656,12 @@ namespace WebMConverter
         {
             using (var dialog = new SaveFileDialog())
             {
+                string format = checkMP4.Checked ? ".mp4" : ".webm";
                 dialog.OverwritePrompt = true;
                 dialog.ValidateNames = true;
-                dialog.Filter = "WebM files|*.webm";
+                dialog.Filter = $"WebM files|*{format}";
                 dialog.InitialDirectory = Properties.Settings.Default.RememberedFolderOut;
-                dialog.FileName = Path.ChangeExtension(Path.GetFileName(Program.InputFile), ".webm");
+                dialog.FileName = Path.ChangeExtension(Path.GetFileName(Program.InputFile), format);
 
                 if (dialog.ShowDialog(this) != DialogResult.OK || string.IsNullOrWhiteSpace(dialog.FileName))
                     return;
