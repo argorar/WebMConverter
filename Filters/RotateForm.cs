@@ -8,7 +8,7 @@ namespace WebMConverter
 {
     public partial class RotateForm : Form
     {
-        public RotateFilter GeneratedFilter;
+        public RotateFilter GeneratedFilter { get; set; }
 
         public RotateForm(RotateFilter filterToEdit = null)
         {

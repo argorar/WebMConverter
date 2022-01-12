@@ -6,7 +6,7 @@ namespace WebMConverter
 {
     public partial class MultipleTrimForm : Form
     {
-        public MultipleTrimFilter GeneratedFilter;
+        public MultipleTrimFilter GeneratedFilter { get; set; }
         private Stack<int> ends;
         private enum MoveDirection { Up = -1, Down = 1 };
 

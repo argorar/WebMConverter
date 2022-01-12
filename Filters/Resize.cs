@@ -9,7 +9,7 @@ namespace WebMConverter
         float inwidth;
         float inheight;
 
-        public ResizeFilter GeneratedFilter;
+        public ResizeFilter GeneratedFilter { get; set; }
 
         public ResizeForm()
         {

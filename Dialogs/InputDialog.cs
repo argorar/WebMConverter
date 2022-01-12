@@ -5,7 +5,7 @@ namespace WebMConverter.Dialogs
 {
     public partial class InputDialog<T> : Form
     {
-        public T Value;
+        public T Value { get; set; }
 
         dynamic _inputField;
 

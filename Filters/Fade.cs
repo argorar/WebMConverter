@@ -5,7 +5,7 @@ namespace WebMConverter
 {
     public partial class FadeForm : Form
     {
-        public FadeFilter GeneratedFilter;
+        public FadeFilter GeneratedFilter { get; set; }
 
         public FadeForm()
         {

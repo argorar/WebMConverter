@@ -15,7 +15,7 @@ namespace WebMConverter
 {
     public partial class DubForm : Form
     {
-        public DubFilter GeneratedFilter;
+        public DubFilter GeneratedFilter { get; set; }
 
         private BackgroundWorker _worker;
 

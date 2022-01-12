@@ -8,7 +8,7 @@ namespace WebMConverter
 {
     public partial class SubtitleForm : Form
     {
-        public SubtitleFilter GeneratedFilter;
+        public SubtitleFilter GeneratedFilter { get; set; }
 
         public SubtitleForm()
         {

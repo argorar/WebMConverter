@@ -8,12 +8,11 @@ namespace WebMConverter.Components
     public class Updater : Process
     {
         public readonly string UpdaterPath;
-        private readonly string UpdatedUpdaterPath;
 
         public Updater()
         {
             UpdaterPath = Path.Combine(Environment.CurrentDirectory, "WebMConverter.Updater.exe");
-            UpdatedUpdaterPath = Path.Combine(Environment.CurrentDirectory, "WebMConverter.Updater.update.exe");
+            string UpdatedUpdaterPath = Path.Combine(Environment.CurrentDirectory, "WebMConverter.Updater.update.exe");
 
             if (File.Exists(UpdatedUpdaterPath))
             {

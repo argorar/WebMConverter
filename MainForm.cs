@@ -113,9 +113,9 @@ namespace WebMConverter
 
         private List<string> _temporaryFilesList;
 
-        public bool SarCompensate;
-        public int SarWidth;
-        public int SarHeight;
+        public bool SarCompensate { get; set; }
+        public int SarWidth { get; set; }
+        public int SarHeight { get; set; }
 
         private TaskbarManager taskbarManager;
         private ToolTip toolTip = new ToolTip();

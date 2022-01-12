@@ -11,7 +11,7 @@ namespace WebMConverter
     public partial class CaptionForm : Form
     {
         readonly CaptionFilter InputFilter;
-        public CaptionFilter GeneratedFilter;
+        public CaptionFilter GeneratedFilter { get; set; }
 
         Point point;
 

@@ -12,8 +12,8 @@ namespace WebMConverter.Dialogs
 {
     public partial class DownloadDialog : Form
     {
-        public string Outfile;
-        public string OutputPath;
+        public string Outfile { get; set; }
+        public string OutputPath { get; set; }
 
         private readonly string _infile;
         private YoutubeDL _downloaderProcess;

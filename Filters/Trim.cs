@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebMConverter.Dialogs;
 using static WebMConverter.Utility;
@@ -11,7 +9,7 @@ namespace WebMConverter
     {
         private int trimStart;
         private int trimEnd;
-        public TrimFilter GeneratedFilter;
+        public TrimFilter GeneratedFilter { get; set; }
 
         public TrimForm(TrimFilter FilterToEdit = null)
         {

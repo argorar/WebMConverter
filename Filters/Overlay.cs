@@ -9,7 +9,7 @@ namespace WebMConverter
     public partial class OverlayForm : Form
     {
         readonly OverlayFilter InputFilter;
-        public OverlayFilter GeneratedFilter;
+        public OverlayFilter GeneratedFilter { get; set; }
 
         Point point;
         string filename;

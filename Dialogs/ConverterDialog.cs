@@ -84,7 +84,7 @@ namespace WebMConverter.Dialogs
         // example ffmpeg line:
         // frame=  121 fps= 48 q=0.0 size=     552kB time=00:00:05.08 bitrate= 888.7kbits/s
 
-        private bool dontUpdateProgress;
+        private bool dontUpdateProgress = false;
         private bool DataContainsProgress(string data)
         {
             if (dontUpdateProgress)
@@ -128,14 +128,13 @@ namespace WebMConverter.Dialogs
             {
                 boxOutput.AppendText($"Arguments for pass 1: {_arguments[0]}");
                 boxOutput.AppendText($"{Environment.NewLine}Arguments for pass 2: {_arguments[1]}");
+                MultiPass(_arguments);
             }
             else
+            {
                 boxOutput.AppendText($"Arguments: {argument}");
-
-            if (_twopass)
-                MultiPass(_arguments);
-            else
                 SinglePass(argument);
+            }
         }
 
         void AddInputFileToArguments(ref string argument, int argumentNumber)

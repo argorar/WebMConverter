@@ -1,14 +1,11 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Globalization;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace WebMConverter
 {
     public partial class RateForm : Form
     {
-        public RateFilter GeneratedFilter;
+        public RateFilter GeneratedFilter { get; set; }
 
         private TimeSpan _originalDuration;
         private const string PreviewBoxFormat = @"hh\:mm\:ss";
