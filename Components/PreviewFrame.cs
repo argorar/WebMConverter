@@ -46,7 +46,12 @@ namespace WebMConverter
             InitializeComponent();
         }
 
-        public void GeneratePreview(bool force = false)
+        public void GeneratePreview()
+        {
+            GeneratePreview(false);
+        }
+
+        public void GeneratePreview(bool force)
         {
             if (Program.VideoSource == null)
                 return;

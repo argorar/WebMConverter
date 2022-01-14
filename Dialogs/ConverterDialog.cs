@@ -83,13 +83,8 @@ namespace WebMConverter.Dialogs
 
         // example ffmpeg line:
         // frame=  121 fps= 48 q=0.0 size=     552kB time=00:00:05.08 bitrate= 888.7kbits/s
-
-        private bool dontUpdateProgress = false;
         private bool DataContainsProgress(string data)
         {
-            if (dontUpdateProgress)
-                return false;
-
             return data.StartsWith("frame=");
         }
 

@@ -19,19 +19,34 @@ namespace WebMConverter
         Point held;
         Point beforeheld;
 
-        public CaptionForm(CaptionFilter filterToEdit = null)
+        public CaptionForm()
+        {
+            InitializeComponent();
+            SetFrameRange();
+            SetEvents();
+        }
+
+        public CaptionForm(CaptionFilter filterToEdit)
         {
             InitializeComponent();
 
+            SetFrameRange();
+
+            numericStartFrame.Value = filterToEdit.Start;
+            numericEndFrame.Value = filterToEdit.End;
+            InputFilter = filterToEdit;
+
+            SetEvents();
+        }
+
+        private void SetFrameRange()
+        {
             numericStartFrame.Maximum = Program.VideoSource.NumberOfFrames;
             numericEndFrame.Maximum = Program.VideoSource.NumberOfFrames;
+        }
 
-            if(filterToEdit != null)
-            {
-                numericStartFrame.Value = filterToEdit.Start;
-                numericEndFrame.Value = filterToEdit.End;
-            }
-            InputFilter = filterToEdit;
+        private void SetEvents()
+        {
             previewFrame.Picture.Paint += new PaintEventHandler(this.previewPicture_Paint);
             previewFrame.Picture.MouseDown += new MouseEventHandler(this.previewPicture_MouseDown);
             previewFrame.Picture.MouseMove += new MouseEventHandler(this.previewPicture_MouseMove);
