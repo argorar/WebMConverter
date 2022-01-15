@@ -93,10 +93,14 @@ Follow an object on the canvas easly. Steps for a correct workflow:
 For this example the edition requires 30 seconds. 
 <video style="width:100%" controls src="https://giant.gfycat.com/AridComplexKawala.mp4" type="video/mp4" autoplay loop></video>
 
+[External link](https://gfycat.com/AridComplexKawala)
+
 #### Final result
 
 Right side was processed  with dynamic crop.
 <video style="width:100%" controls src="https://giant.gfycat.com/WeeklyEmptyDalmatian.mp4" type="video/mp4" autoplay loop></video>
+
+[External link](https://gfycat.com/WeeklyEmptyDalmatian)
 
 ### Filter
 
@@ -120,11 +124,15 @@ Rotate your video to any direction with just one click.
 Loop function, forward and reverse making an infinite effect. You _can't_ use filter or interpolation with it.
 <video style="width:100%" controls src="https://giant.gfycat.com/AnimatedUnimportantAlligatorsnappingturtle.mp4" type="video/mp4" autoplay loop></video>
 
+[External link](https://gfycat.com/AnimatedUnimportantAlligatorsnappingturtle)
+
 ### Stabilization
 
 Use different levels of stabilization for your clip. Left side original, right side processed. Find it in Advanced>Processing.
 
 <video style="width:100%" controls src="https://giant.gfycat.com/DentalAnchoredHedgehog.mp4" type="video/mp4" autoplay loop></video>
+
+[External link](https://gfycat.com/DentalAnchoredHedgehog)
 
 ### Merge
 Drag and drop video files inside the application, search for the new video in source path. *The group of videos must have the same encodes / dimensions*.
@@ -157,6 +165,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 * Change Rate: ```Alt + Shift + c```
 
 ## Changelog
+
+#### Version 3.16.2
+* Fix duplicated frames in dynamic crop
 
 #### Version 3.16.1
 * Fix bug in output filename when change destination folder

@@ -362,6 +362,9 @@ namespace WebMConverter
 
         private void AddCropPan(int width, int height)
         {
+            if (currentFrame + 1 > trackVideoTimeline.Maximum)
+                return;
+
             int cropLeft = (int)(width * cropPercent.Left);
             int cropTop = (int)(height * cropPercent.Top);
             int cropRight = -(int)(width - width * cropPercent.Right);
@@ -373,7 +376,11 @@ namespace WebMConverter
             cropBottom = (cropBottom / 2) * 2;
 
             int endFrame = Filters.Trim != null ? Filters.Trim.TrimEnd : currentFrame;
-            string commands = $"Trim({currentFrame},{(trackVideoTimeline.Value == currentFrame ? endFrame : trackVideoTimeline.Value)})" +
+
+            bool initialFrame = Filters.Trim != null && Filters.Trim.TrimStart == currentFrame;
+
+            string commands = $"Trim({currentFrame + ((currentFrame == 0) || initialFrame ? 0 : 1)}," +
+                $"{(trackVideoTimeline.Value == currentFrame ? endFrame : trackVideoTimeline.Value)})" +
                 $".Crop({cropLeft},{cropTop},{(newWidth == 0 ? cropRight : CorrectCrop(cropLeft, cropRight, newWidth, width))}," +
                 $"{(newHeight == 0 ? cropBottom : CorrectCrop(cropTop, cropBottom, newHeight, height))})" +
                 $".Spline64Resize({Mod2((int)(Program.Resolution.Width * cropPercent.Width))}," +
