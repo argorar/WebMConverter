@@ -166,6 +166,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.16.3
+* Fix a bug in dynamic crop using keyboard arrows
+
 #### Version 3.16.2
 * Fix duplicated frames in dynamic crop
 

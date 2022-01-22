@@ -502,6 +502,10 @@ namespace WebMConverter
             }
             ShowNewSize();
             previewFrame.Picture.Invalidate();
+
+            if (dynamicCropActive.Checked)
+                GetCropPan();
+
             return true;
         }
 
