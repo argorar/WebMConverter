@@ -155,6 +155,8 @@ namespace WebMConverter
             comboBoxLevels.DataSource = vidstabList;
             comboBoxLevels.SelectedIndex = 3;
             comboBoxLevels.Enabled = boxStabilization.Checked;
+            comboStabType.Enabled = boxStabilization.Checked;
+            comboStabType.SelectedIndex = 0;
         }
 
         private void CheckAppSettings()
@@ -748,7 +750,11 @@ namespace WebMConverter
                         Filters.Crop = form.GeneratedFilter;
 
                     else
+                    {
                         Filters.DynamicCrop = form.GeneratedCropPanFilter;
+                        boxStabilization.Checked = true;
+                    }
+                        
 
                     listViewProcessingScript.Items.Add("Crop", "crop");
                     SetSlices();
@@ -1138,6 +1144,7 @@ namespace WebMConverter
                     Filters.Crop = null;
                     Filters.DynamicCrop = null;
                     buttonCrop.Enabled = true;
+                    boxStabilization.Checked = false;
                     SetSlices();
                     break;
                 case @"Dub":
@@ -2083,8 +2090,8 @@ namespace WebMConverter
                 tempName = $"{directory}\\{filename}-1{extension}";
                 Vidstab selected = (Vidstab)comboBoxLevels.SelectedItem;
 
-                arguments.Add($@"-y -i ""{textBoxOut.Text}"" -vf vidstabdetect=stepsize=6:shakiness={selected.shakiness}:accuracy=10:result=transforms.trf -f null -");
-                arguments.Add($@"-y -i ""{textBoxOut.Text}"" -crf 16 -vf vidstabtransform=input=transforms.trf:zoomspeed={selected.zoom}:smoothing={selected.smoothing},unsharp=5:5:0.8:3:3:0.4 ""{tempName}""");
+                arguments.Add($@"-y -i ""{textBoxOut.Text}"" -vf vidstabdetect=stepsize=6:shakiness={selected.shakiness}:accuracy=15:result=transforms.trf -f null -");
+                arguments.Add($@"-y -i ""{textBoxOut.Text}"" -crf 16 -vf vidstabtransform=input=transforms.trf:interpol={comboStabType.SelectedItem}:zoomspeed={selected.zoom}:smoothing={selected.smoothing},unsharp=5:5:0.8:3:3:0.4 ""{tempName}""");
             }
 
             if (boxStabilization.Checked)
@@ -2839,6 +2846,7 @@ namespace WebMConverter
         private void boxStabilization_CheckedChanged(object sender, EventArgs e)
         {
             comboBoxLevels.Enabled = boxStabilization.Checked;
+            comboStabType.Enabled = boxStabilization.Checked;
         }
     }
 }

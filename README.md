@@ -166,6 +166,12 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+
+#### Version 3.16.4
+* Change interpolation type for stabilization to get a better result in dynamic crop
+* Add option to change interpolation type for stabilization if you want to experiment with other options
+* Add rotation to trim's preview if the filter is applied
+
 #### Version 3.16.3
 * Fix a bug in dynamic crop using keyboard arrows
 

@@ -10,6 +10,8 @@ namespace WebMConverter
     {
         public RotateFilter GeneratedFilter { get; set; }
 
+        RotateFlipType rotateFlip;
+
         public RotateForm(RotateFilter filterToEdit = null)
         {
             InitializeComponent();
@@ -122,7 +124,7 @@ namespace WebMConverter
 
         private void rotatePictureFrame()
         {
-            var rotateFlip = RotateFlipType.RotateNoneFlipNone;
+            rotateFlip = RotateFlipType.RotateNoneFlipNone;
 
             if (checkTurnRight.Checked)
                 rotateFlip = RotateFlipType.Rotate90FlipNone;
@@ -181,7 +183,7 @@ namespace WebMConverter
             if (checkTurnLeft.Checked)
                 mode = RotateFilter.RotateMode.Left;
 
-            GeneratedFilter = new RotateFilter(mode, checkFlipHorizontal.Checked, checkFlipVertical.Checked);
+            GeneratedFilter = new RotateFilter(mode, checkFlipHorizontal.Checked, checkFlipVertical.Checked, rotateFlip);
             DialogResult = DialogResult.OK;
         }
     }
@@ -191,12 +193,14 @@ namespace WebMConverter
         public RotateMode Mode { get; }
         public bool FlipHorizontal { get; }
         public bool FlipVertical { get; }
+        public RotateFlipType rotation { get; }
 
-        public RotateFilter(RotateMode mode, bool flipHorizontal, bool flipVertical)
+        public RotateFilter(RotateMode mode, bool flipHorizontal, bool flipVertical, RotateFlipType rotateFlip)
         {
             Mode = mode;
             FlipHorizontal = flipHorizontal;
             FlipVertical = flipVertical;
+            rotation = rotateFlip;
         }
 
         public override string ToString()

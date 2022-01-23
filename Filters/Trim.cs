@@ -41,6 +41,13 @@ namespace WebMConverter
 
             checktrims();
 
+            if (Filters.Rotate != null)
+            {
+                previewFrame.RotateFlip = Filters.Rotate.rotation;
+                if (Filters.Rotate.Mode == RotateFilter.RotateMode.Left || Filters.Rotate.Mode == RotateFilter.RotateMode.Right)
+                    previewFrame.Size = new System.Drawing.Size(previewFrame.Size.Height, previewFrame.Size.Width);
+            }
+
             trackVideoTimeline.MouseWheel += trackVideoTimeline_MouseWheel;
         }
 
