@@ -83,6 +83,8 @@ namespace WebMConverter
         private const string DarkFilter = "eq=gamma=0.6:saturation=2";
         private const string LightFilter = "eq=gamma=1.4:saturation=1.6";
         private const string LoopFilter = "[0]reverse[r];[0][r]concat,loop=2";
+        private const string StabilizationFilter1 = @"-y -i ""{0}"" -vf vidstabdetect=stepsize=2:shakiness={1}:accuracy=15:result=transforms.trf -f null -";
+        private const string StabilizationFilter2 = @"-y -i ""{0}"" -crf 16 -vf vidstabtransform=input=transforms.trf:interpol={1}:zoomspeed={2}:smoothing={3}:maxangle=0.0:maxshift=-1,unsharp=5:5:0.8:3:3:0.4 ""{4}""";
 
         #endregion
 
@@ -336,6 +338,18 @@ namespace WebMConverter
                             boxAudio.Checked = boxAudio.Enabled = true;
                         }
                         return;
+                    case ".mp4":
+                    case ".avi":
+                    case ".mkv":
+                    case ".flv":
+                    case ".mov":
+                    case ".webm":
+                        string path = files[0];
+                        string fullPath = Path.GetDirectoryName(path);
+                        string name = Path.GetFileNameWithoutExtension(path);
+                        string format = checkMP4.Checked ? @".mp4" : @".webm";
+                        textBoxOut.Text = Path.Combine(string.IsNullOrWhiteSpace(Properties.Settings.Default.RememberedFolderOut) ? fullPath : Properties.Settings.Default.RememberedFolderOut, name + format);
+                        break;
                 }
             }
 
@@ -2090,8 +2104,9 @@ namespace WebMConverter
                 tempName = $"{directory}\\{filename}-1{extension}";
                 Vidstab selected = (Vidstab)comboBoxLevels.SelectedItem;
 
-                arguments.Add($@"-y -i ""{textBoxOut.Text}"" -vf vidstabdetect=stepsize=6:shakiness={selected.shakiness}:accuracy=15:result=transforms.trf -f null -");
-                arguments.Add($@"-y -i ""{textBoxOut.Text}"" -crf 16 -vf vidstabtransform=input=transforms.trf:interpol={comboStabType.SelectedItem}:zoomspeed={selected.zoom}:smoothing={selected.smoothing},unsharp=5:5:0.8:3:3:0.4 ""{tempName}""");
+                arguments.Add(String.Format(StabilizationFilter1, textBoxOut.Text, selected.shakiness));
+                arguments.Add(String.Format(StabilizationFilter2, textBoxOut.Text, comboStabType.SelectedItem, 
+                    selected.zoom, selected.smoothing, tempName));
             }
 
             if (boxStabilization.Checked)

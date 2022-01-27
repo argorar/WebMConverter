@@ -166,6 +166,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.16.5
+* Improved stabilization
+* Fix bug when drop a video and doesn't update output filename
 
 #### Version 3.16.4
 * Change interpolation type for stabilization to get a better result in dynamic crop
