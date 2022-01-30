@@ -186,73 +186,43 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 #### Version 3.16.0
 * Add dynamic crop. Follow an object on the canvas easily [check the instructions](#dynamic-crop)
-
-#### Version 3.15.1
 * Fix bug cheking yt-dlp version
 
 #### Version 3.15.0
 * Changed youtube-dl to yt-dlp to get last updates and fixes to download videos without problem
 * Update link to download C++ required package for beginners
-
-#### Version 3.14.1
 * Fix bug to download best quality from youtube
 * Minor corrections in workflow
 
 #### Version 3.14.0
 * Add automatic update of binaries. You always will have the latest updates
-
-#### Version 3.13.3
-* Update binaries to fix JS player extraction in download feature
-
-#### Version 3.13.2
-* Update binaries
-
-#### Version 3.13.1
 * Fix a bug with progress bar that closed the program
 
 #### Version 3.13.0
 * Add stabilization filter. Find it in Advanced>Processing. It comes with different levels of stabilization 
-
-#### Version 3.12.1
 * Fix validation of output name
 
 #### Version 3.12.0
 * Since gfycat is changing webm for mp4, now you can convert in high quality in mp4 format. Options in Encoding>Video
 * Add Hardware Acceleration to encode for users with NVIDIA GPU
 * Add validation of output name, if is the same as input *-1.xxx* is added
-
-#### Version 3.11.2
 * Fixed accuracy in set dimensions in crop
-* Fixed bug that generate muted clips with dub filter 
-
-#### Version 3.11.1
+* Fixed bug that generate muted clips with dub filter
 * Add delay audio. Explore in Encoding > Audio
 * Change Rotate icon
-* Update binaries
 
 #### Version 3.11.0
 * Add button to open downloaded videos folder
 * Add simple option to convert to mp4 for shared files into platforms where webm is not supported. Option is in tab general
 * Internal structure changed, now is dynamic allowing to do cool things on future
-* Update binaries
-
-#### Version 3.10.1
 * Fix arguments for advanced filter
 * Update binaries to fix JS player extraction in download feature
 
 #### Version 3.10.0
 * Add advanced filter. Now you can change contrast, gamma and saturation and find the right values for your video
-
-#### Version 3.9.4
 * Check if the application is already running to avoid errors, shows a warning to user. It can be disable
-
-#### Version 3.9.3
 * When you add a new multi trim, it load at the end of previous trim
-
-#### Version 3.9.2
 * Add option to choose which CRF value to use depending on the resolution of the source. Check the general tab
-
-#### Version 3.9.1
 * Add option to set the exact dimensions to crop
 * Display just one decimal in crop resolution
 
@@ -272,21 +242,12 @@ See user details in tab *General*. If you are creating several gfys of the same 
 * Gfycat stats, see them in tab *General*
 * Add option to log out of Gfycat
 * Add feedback to merge files to avoid errors
-
-#### Version 3.6.4
-* Fix arguments when filter change
 * When you check VP9, the configuration will be remembered
-
-#### Version 3.6.3
-* Update binaries to fix JS player extraction in download feature
-
-#### Version 3.6.2
 * Add time line to crop filter
 * Redundancy in preview eliminated in the filter trim, can bring a small improvement in performance
-
-#### Version 3.6.1
 * Set CRF to 16 with 4k videos
 * Set max audio quality as default
+* Fix arguments when filter change
 * Fix incorrect result message when convert with loop 
 
 #### Version 3.6.0
@@ -295,11 +256,7 @@ See user details in tab *General*. If you are creating several gfys of the same 
 * Enable ShareX option after convert
 * Now sort files by the filename in merge videos
 * Fix Unauthorized issue with gfycat
-
-#### Version 3.5.2
 * Fix bug that break updates, some problem to get DNS with IPS
-
-#### Version 3.5.1
 * Fix message error when you use interpolation
 * Fix errors when you work offline
 * Check if Microsoft Visual C++ 2010 (x86) is installed, if not, it will open the download page
@@ -310,31 +267,14 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 #### Version 3.4.0
 * Deinterlace gets the job done efficiently. Remember to do this before editing, so the overall experience is not affected. You can use trim to save time and get what you need.
-
-
-#### Version 3.3.3
-* Lighten Filter is back, come and say hi
-
-#### Version 3.3.2
-* Revert new filter, it is causing collateral issues
-
-#### Version 3.3.1
 * Bring dark videos to light, try it in Advanced> Processing> Filters
 * Minor changes to performance in filters
 
 #### Version 3.3.0
 * Download your video is easy now (support +1000 sites), [see more information.][Sites]
-
-#### Version 3.2.4
 * Now you can working editing other video while the file upload to gfycat
-
-#### Version 3.2.3
 * Improved performance of function to get frames on multiprocessor systems
-
-#### Version 3.2.2
 * Fixed Gfycat title
-
-#### Version 3.2.1
 * Interpolation result is better now
 * Minor changes in *New update available*
 * Fixed when your drop a file, that make your settings reset
