@@ -38,11 +38,23 @@ namespace WebMConverter
 
         public DynamicCropFilter GeneratedCropPanFilter { get; set; }
 
-        public CropForm(CropFilter CropPixels = null)
+        public CropForm(CropFilter CropPixels)
         {
             InitializeComponent();
-
+            SetEvents();
             InputFilter = CropPixels;
+
+        }
+
+        public CropForm()
+        {
+            InitializeComponent();
+            SetEvents();
+
+        }
+
+        private void SetEvents()
+        {
             trackVideoTimeline.Maximum = Program.VideoSource.NumberOfFrames - 1;
             trackVideoTimeline.TickFrequency = trackVideoTimeline.Maximum / 60;
 
@@ -107,8 +119,6 @@ namespace WebMConverter
                 trackVideoTimeline.Maximum = Filters.MultipleTrim.Trims[Filters.MultipleTrim.Trims.Count-1].TrimEnd;
                 trimTimingToolStripMenuItem.Enabled = true;
             }
-
-            if ((Owner as MainForm).boxAdvancedScripting.Checked) return;
         }
 
         private void previewPicture_MouseDown(object sender, MouseEventArgs e)
@@ -171,32 +181,32 @@ namespace WebMConverter
                 if (dynamicCropActive.Checked)
                     GetCropPan();
 
-                float newWidth = 0;
-                float newHeight = 0;
+                float tempWidth = 0;
+                float tempHeight = 0;
                 switch (heldCorner)
                 {
                     case Corner.TopLeft:
-                        newWidth = cropPercent.Width - (clampedMouseX / previewFrame.Picture.Width - cropPercent.X);
-                        newHeight = cropPercent.Height - (clampedMouseY / previewFrame.Picture.Height - cropPercent.Y);
+                        tempWidth = cropPercent.Width - (clampedMouseX / previewFrame.Picture.Width - cropPercent.X);
+                        tempHeight = cropPercent.Height - (clampedMouseY / previewFrame.Picture.Height - cropPercent.Y);
                         cropPercent.X = clampedMouseX / previewFrame.Picture.Width;
                         cropPercent.Y = clampedMouseY / previewFrame.Picture.Height;
                         break;
 
                     case Corner.TopRight:
-                        newWidth = cropPercent.Width + (clampedMouseX / previewFrame.Picture.Width - cropPercent.Right);
-                        newHeight = cropPercent.Height - (clampedMouseY / previewFrame.Picture.Height - cropPercent.Y);
+                        tempWidth = cropPercent.Width + (clampedMouseX / previewFrame.Picture.Width - cropPercent.Right);
+                        tempHeight = cropPercent.Height - (clampedMouseY / previewFrame.Picture.Height - cropPercent.Y);
                         cropPercent.Y = clampedMouseY / previewFrame.Picture.Height;
                         break;
 
                     case Corner.BottomLeft:
-                        newWidth = cropPercent.Width - (clampedMouseX / previewFrame.Picture.Width - cropPercent.X);
-                        newHeight = cropPercent.Height + (clampedMouseY / previewFrame.Picture.Height - cropPercent.Bottom);
+                        tempWidth = cropPercent.Width - (clampedMouseX / previewFrame.Picture.Width - cropPercent.X);
+                        tempHeight = cropPercent.Height + (clampedMouseY / previewFrame.Picture.Height - cropPercent.Bottom);
                         cropPercent.X = clampedMouseX / previewFrame.Picture.Width;
                         break;
 
                     case Corner.BottomRight:
-                        newWidth = cropPercent.Width + (clampedMouseX / previewFrame.Picture.Width - cropPercent.Right);
-                        newHeight = cropPercent.Height + (clampedMouseY / previewFrame.Picture.Height - cropPercent.Bottom);
+                        tempWidth = cropPercent.Width + (clampedMouseX / previewFrame.Picture.Width - cropPercent.Right);
+                        tempHeight = cropPercent.Height + (clampedMouseY / previewFrame.Picture.Height - cropPercent.Bottom);
                         break;
 
                     case Corner.None: //Drag entire rectangle
@@ -210,10 +220,10 @@ namespace WebMConverter
                         break;
                 }
 
-                if (newWidth != 0)
-                    cropPercent.Width = newWidth;
-                if (newHeight != 0)
-                    cropPercent.Height = newHeight;
+                if (tempWidth > 0)
+                    cropPercent.Width = tempWidth;
+                if (tempHeight > 0)
+                    cropPercent.Height = tempHeight;
 
                 ShowNewSize();
             }

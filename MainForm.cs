@@ -96,7 +96,7 @@ namespace WebMConverter
         private readonly string client_id = "2_yqoPwt";
         private readonly string client_secret = "ueECdMt4wIn6L7TybyqcUaTXbcZ2pBcs-EERURkI5ey00p6KxHYWmXLs8h6Mr7Lv";
         private readonly string prefixe = "http://127.0.0.1:57585/";
-        public static readonly string VersionUrl = @"https://argorar.github.io/WebMConverter/NewUpdate/latest";
+        public static readonly string VersionUrl = $"https://argorar.github.io/WebMConverter/NewUpdate/latest";
         private readonly Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         private const int EM_SETCUEBANNER = 0x1501;
 
@@ -132,7 +132,7 @@ namespace WebMConverter
             this.KeyPreview = true;
             taskbarManager = TaskbarManager.Instance;
 
-            if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["RefreshToken"].Value))
+            if (!string.IsNullOrEmpty(configuration.AppSettings.Settings["RefreshToken"].Value))
                 GetToken(string.Empty, Token.Refresh);
             else
                 groupGfycat.Visible = false;
@@ -385,7 +385,7 @@ namespace WebMConverter
             if (File.Exists(list))
                 File.Delete(list);
 
-            System.IO.File.WriteAllText( list, content.ToString());
+            File.WriteAllText( list, content.ToString());
 
             string[] arguments = new string[1];
             string directory = Path.GetDirectoryName(files[0]);
@@ -422,7 +422,7 @@ namespace WebMConverter
 
         private void CheckUpdateBinaries()
         {
-            if (Utility.IsConnectedToInternet())
+            if (IsConnectedToInternet())
             {
                 string installedVersion = configuration.AppSettings.Settings["YTDLV"].Value;
                 UpdateBinaries updateBinaries = new UpdateBinaries(installedVersion);
@@ -617,7 +617,7 @@ namespace WebMConverter
                     }
                 }
 
-                if (!Utility.IsConnectedToInternet())
+                if (!IsConnectedToInternet())
                 {
                     var result = MessageBox.Show(
                        $"Make sure you are connected to internet.{Environment.NewLine}",
@@ -696,11 +696,6 @@ namespace WebMConverter
                 (sender as Button).Enabled = false;
                 return;
             }
-
-            // access the values of the numeric boxes to force TextChanged to happen
-            var junk = numericCrf.Value;
-            junk = numericCrfTolerance.Value;
-            junk = numericAudioQuality.Value;
 
             try
             {
@@ -2506,7 +2501,7 @@ namespace WebMConverter
                 string authorizationRequest = $"https://gfycat.com/oauth/authorize?client_id={client_id}&scope=all&state=all&response_type=code&redirect_uri={prefixe}";
 
                 // Opens request in the browser.
-                System.Diagnostics.Process.Start(authorizationRequest);
+                Process.Start(authorizationRequest);
                 string code = string.Empty;
                 bool demon = true;
                 while (demon)
@@ -2532,9 +2527,9 @@ namespace WebMConverter
                         responseString = "<HTML><body> Working...... <script>setTimeout(function(){ location.replace(\"http://127.0.0.1:57585/\"+window.location.href.split('/')[3].split('#')[1].split('&')[0]); }, 100); </script></body></HTML>";
                     }
 
-                    byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+                    byte[] buffer = Encoding.UTF8.GetBytes(responseString);
                     response.ContentLength64 = buffer.Length;
-                    System.IO.Stream output = response.OutputStream;
+                    Stream output = response.OutputStream;
                     output.Write(buffer, 0, buffer.Length);
                     output.Close();
                 }
@@ -2575,9 +2570,6 @@ namespace WebMConverter
         {
             try
             {
-                WebRequest httpWRequest = WebRequest.Create($"https://api.gfycat.com/v1/oauth/token");
-                httpWRequest.ContentType = "application/json";
-                httpWRequest.Method = "POST";
                 string postData;
 
                 if (action == Token.New)
@@ -2586,11 +2578,9 @@ namespace WebMConverter
                     postData = String.Format("\"grant_type\":\"refresh\", \"client_id\":\"{0}\", \"client_secret\": \"{1}\", \"refresh_token\":\"{2}\"", client_id, client_secret, configuration.AppSettings.Settings["RefreshToken"].Value);
 
                 postData = "{" + postData + "}";
-                ASCIIEncoding encoding = new ASCIIEncoding();
-                byte[] byte1 = encoding.GetBytes(postData);
-                httpWRequest.GetRequestStream().Write(byte1, 0, byte1.Length);
-                string textJson = new StreamReader(httpWRequest.GetResponse().GetResponseStream()).ReadToEnd();
-                TokenResponse tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(textJson);
+                
+                TokenResponse tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(
+                    PostWebRequest($"https://api.gfycat.com/v1/oauth/token", postData));
                 Program.token = tokenResponse.access_token;
                 UpdateConfiguration("RefreshToken", tokenResponse.refresh_token);
                 _ = Task.Run(() => GetUserDetails());
@@ -2612,12 +2602,8 @@ namespace WebMConverter
 
         private void GetUserDetails()
         {
-            WebRequest httpWRequest = WebRequest.Create($"https://api.gfycat.com/v1/me");
-            httpWRequest.ContentType = "application/json";
-            httpWRequest.Method = "GET";
-            httpWRequest.Headers.Add("Authorization", "Bearer " + Program.token);
-            string textJson = new StreamReader(httpWRequest.GetResponse().GetResponseStream()).ReadToEnd();
-            UserDetailsResponse userDetail = JsonConvert.DeserializeObject<UserDetailsResponse>(textJson);
+            UserDetailsResponse userDetail = JsonConvert.DeserializeObject<UserDetailsResponse>(
+                GetWebRequest($"https://api.gfycat.com/v1/me"));
             SetUserDetails(userDetail);
         }
 
@@ -2672,7 +2658,7 @@ namespace WebMConverter
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            _ = System.Diagnostics.Process.Start($"https://argorar.github.io/WebMConverter/");
+            _ = Process.Start($"https://argorar.github.io/WebMConverter/");
         }
 
         private void boxLoop_CheckedChanged(object sender, EventArgs e)
@@ -2862,6 +2848,18 @@ namespace WebMConverter
         {
             comboBoxLevels.Enabled = boxStabilization.Checked;
             comboStabType.Enabled = boxStabilization.Checked;
+        }
+
+        private void buttonPrivateGfys_Click(object sender, EventArgs e)
+        {
+            if (!IsConnectedToInternet())
+            {
+                MessageBox.Show("Make sure you are connected to internet.", 
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            GenerateEmailPrivateGfys();
         }
     }
 }

@@ -12,11 +12,9 @@ namespace WebMConverter
 
         RotateFlipType rotateFlip;
 
-        public RotateForm(RotateFilter filterToEdit = null)
+        public RotateForm(RotateFilter filterToEdit)
         {
             InitializeComponent();
-
-            if (filterToEdit == null) return;
 
             switch (filterToEdit.Mode)
             {
@@ -32,6 +30,11 @@ namespace WebMConverter
             }
             checkFlipHorizontal.Checked = filterToEdit.FlipHorizontal;
             checkFlipVertical.Checked = filterToEdit.FlipVertical;
+        }
+
+        public RotateForm()
+        {
+            InitializeComponent();
         }
 
         private void RotateForm_Load(object sender, EventArgs e)

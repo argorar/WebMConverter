@@ -1,11 +1,16 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
+using System.Diagnostics;
 using System.Globalization;
+using System.IO;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.XPath;
+using WebMConverter.Objects;
 
 namespace WebMConverter
 {
@@ -239,6 +244,39 @@ namespace WebMConverter
         {
             return (number / 2) * 2;
         }
+
+        public static string GetWebRequest(string url)
+        {
+            WebRequest httpWRequest = WebRequest.Create(url);
+            httpWRequest.ContentType = "application/json";
+            httpWRequest.Method = "GET";
+            httpWRequest.Headers.Add("Authorization", "Bearer " + Program.token);
+            return new StreamReader(httpWRequest.GetResponse().GetResponseStream()).ReadToEnd();
+        }
+
+        public static string PostWebRequest(string url, string body)
+        {
+            WebRequest httpWRequest = WebRequest.Create(url);
+            httpWRequest.ContentType = "application/json";
+            httpWRequest.Method = "POST";
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            byte[] byte1 = encoding.GetBytes(body);
+            httpWRequest.GetRequestStream().Write(byte1, 0, byte1.Length);
+            return new StreamReader(httpWRequest.GetResponse().GetResponseStream()).ReadToEnd();
+        }
+
+        public static void GenerateEmailPrivateGfys()
+        {
+            PrivateGfycatsResponse privateGfycats = JsonConvert.DeserializeObject<PrivateGfycatsResponse>(
+                GetWebRequest($"https://api.gfycat.com/v1/me/gfycats"));
+
+            StringBuilder cadena = new StringBuilder();
+            cadena.AppendLine("Hello, %0D%0ACan you help me with review  these gfys. %0D%0AThank you.%0D%0A");
+            privateGfycats.gfycats.ForEach(gfycats => cadena.AppendLine($"<https://gfycat.com/{gfycats.gfyId}>%0A%0D"));
+
+            Process.Start($"mailto:support@gfycat.com?subject=Review gfycats&body={cadena}");
+        }
+
     }
     
     public enum FileType

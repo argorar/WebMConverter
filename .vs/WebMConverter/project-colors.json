@@ -5,7 +5,12 @@
       "ProjectGuid": "6dfd4db4-c541-4cde-904d-c32f7ba7f8c5",
       "DisplayName": "WebMConverter",
       "ColorIndex": 0
+    },
+    "8ea1e414-0956-43db-bc63-5fa24102f0b2": {
+      "ProjectGuid": "8ea1e414-0956-43db-bc63-5fa24102f0b2",
+      "DisplayName": "Updater",
+      "ColorIndex": 1
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 2
 }

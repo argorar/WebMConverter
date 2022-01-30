@@ -129,7 +129,14 @@ namespace WebMConverter
         public SubtitleType Type { get; }
         public int Track { get; }
 
-        public SubtitleFilter(string fileName, SubtitleType type, int track = -1)
+        public SubtitleFilter(string fileName, SubtitleType type)
+        {
+            FileName = fileName;
+            Type = type;
+            Track = -1;
+        }
+
+        public SubtitleFilter(string fileName, SubtitleType type, int track)
         {
             FileName = fileName;
             Type = type;

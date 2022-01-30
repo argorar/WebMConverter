@@ -10,7 +10,7 @@ namespace WebMConverter
         private Stack<int> ends;
         private enum MoveDirection { Up = -1, Down = 1 };
 
-        public MultipleTrimForm(MultipleTrimFilter filterToEdit = null)
+        public MultipleTrimForm(MultipleTrimFilter filterToEdit)
         {
             InitializeComponent();
             ends = new Stack<int>();
@@ -19,6 +19,12 @@ namespace WebMConverter
                 foreach (TrimFilter trim in filterToEdit.Trims)
                     listViewTrims.Items.Add(trim.ToString()).Tag = trim;
             }
+        }
+
+        public MultipleTrimForm()
+        {
+            InitializeComponent();
+            ends = new Stack<int>();
         }
 
         private void listViewTrims_ItemActivate(object sender, EventArgs e)

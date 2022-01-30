@@ -19,12 +19,23 @@ namespace WebMConverter
         Point beforeheld;
         Bitmap picture;
 
-        public OverlayForm(OverlayFilter filterToEdit = null)
+        public OverlayForm(OverlayFilter filterToEdit)
         {
             InitializeComponent();
 
             InputFilter = filterToEdit;
 
+            SetEvents();
+        }
+
+        public OverlayForm()
+        {
+            InitializeComponent();
+            SetEvents();
+        }
+
+        private void SetEvents()
+        {
             previewFrame.Picture.Paint += new PaintEventHandler(previewPicture_Paint);
             previewFrame.Picture.MouseDown += new MouseEventHandler(previewPicture_MouseDown);
             previewFrame.Picture.MouseMove += new MouseEventHandler(previewPicture_MouseMove);
