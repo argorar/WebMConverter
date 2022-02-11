@@ -53,7 +53,7 @@ namespace WebMConverter
                     break;
                 }
 
-                if (Math.Abs(difference) == closest) break; // We've seeked as close as possible.
+                if (Math.Abs(difference) <= closest && Math.Abs(difference) >= closest) break; // We've seeked as close as possible.
 
                 if (Math.Abs(difference) < closest)
                     closest = Math.Abs(difference);
@@ -208,7 +208,7 @@ namespace WebMConverter
 
         public static string Dot(decimal number)
         {
-            return number.ToString().Replace(',', '.');
+            return number.ToString(CultureInfo.InvariantCulture).Replace(',', '.');
         }
 
         public static int CorrectCrop(int border1, int border2, int expected, int lenght)
@@ -263,18 +263,6 @@ namespace WebMConverter
             byte[] byte1 = encoding.GetBytes(body);
             httpWRequest.GetRequestStream().Write(byte1, 0, byte1.Length);
             return new StreamReader(httpWRequest.GetResponse().GetResponseStream()).ReadToEnd();
-        }
-
-        public static void GenerateEmailPrivateGfys()
-        {
-            PrivateGfycatsResponse privateGfycats = JsonConvert.DeserializeObject<PrivateGfycatsResponse>(
-                GetWebRequest($"https://api.gfycat.com/v1/me/gfycats"));
-
-            StringBuilder cadena = new StringBuilder();
-            cadena.AppendLine("Hello, %0D%0ACan you help me with review  these gfys. %0D%0AThank you.%0D%0A");
-            privateGfycats.gfycats.ForEach(gfycats => cadena.AppendLine($"<https://gfycat.com/{gfycats.gfyId}>%0A%0D"));
-
-            Process.Start($"mailto:support@gfycat.com?subject=Review gfycats&body={cadena}");
         }
 
     }

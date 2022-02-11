@@ -139,6 +139,7 @@ Drag and drop video files inside the application, search for the new video in so
 
 ### There is More that you can do
 
+* Export frames
 * Add subtitle
 * Resize 
 * Reverse
@@ -165,6 +166,10 @@ See user details in tab *General*. If you are creating several gfys of the same 
 * Change Rate: ```Alt + Shift + c```
 
 ## Changelog
+
+#### Version 3.17.0
+* Add save frames in trim form
+* Fix code style
 
 #### Version 3.16.5
 * Improved stabilization

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 using WebMConverter.Dialogs;
 using static WebMConverter.Utility;
@@ -49,6 +51,7 @@ namespace WebMConverter
             }
 
             trackVideoTimeline.MouseWheel += trackVideoTimeline_MouseWheel;
+            toolStripMenuSave.Click += ToolStripMenuSave_Click;
         }
 
         private void buttonTrimStart_Click(object sender, EventArgs e)
@@ -121,16 +124,11 @@ namespace WebMConverter
         private void TrimForm_KeyDown(object sender, KeyEventArgs e)
         {
             int modifier = 0;
-            switch (e.KeyData)
-            {
-                case Keys.Left:
-                    modifier = -1;
-                    break;
-                case Keys.Right:
-                    modifier = 1;
-                    break;
-            }
-            
+            if (e.KeyData == Keys.Left)
+                modifier = -1;
+            else if (e.KeyData == Keys.Right)
+                modifier = 1;
+
             if (modifier != 0)
             {
                 SetFrame(modifier, true);
@@ -164,6 +162,16 @@ namespace WebMConverter
 
         private void trackVideoTimeline_Focus(object sender, EventArgs e) => trackVideoTimeline.Focus();
 
+        private void ToolStripMenuSave_Click(object sender, EventArgs e)
+        {
+            string output = ((MainForm)Owner).textBoxOut.Text;
+            string filename = previewFrame.SavePreview(Path.GetDirectoryName(output), Path.GetFileNameWithoutExtension(output));
+            
+            if (!File.Exists(filename))
+                MessageBox.Show("The image doesn't exist", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
+                Process.Start(filename);
+        }
     }
 
     public class TrimFilter

@@ -147,12 +147,12 @@ namespace WebMConverter
         private void LoadComboBox()
         {
             ArrayList vidstabList = new ArrayList();
-            vidstabList.Add(new Vidstab("2","0.05","2", "Very Weak"));
-            vidstabList.Add(new Vidstab("4","0.1","4", "Weak"));
-            vidstabList.Add(new Vidstab("6","0.2","6", "Medium"));
-            vidstabList.Add(new Vidstab("8","0.3","10", "Strong"));
-            vidstabList.Add(new Vidstab("10","0.4","16", "Very Strong"));
-            vidstabList.Add(new Vidstab("10","0.5","22", "Strongest"));
+            vidstabList.Add(new Vidstab("2", "0.05", "2", "Very Weak"));
+            vidstabList.Add(new Vidstab("4", "0.1", "4", "Weak"));
+            vidstabList.Add(new Vidstab("6", "0.2", "6", "Medium"));
+            vidstabList.Add(new Vidstab("8", "0.3", "10", "Strong"));
+            vidstabList.Add(new Vidstab("10", "0.4", "16", "Very Strong"));
+            vidstabList.Add(new Vidstab("10", "0.5", "22", "Strongest"));
             comboBoxLevels.DisplayMember = "desc";
             comboBoxLevels.DataSource = vidstabList;
             comboBoxLevels.SelectedIndex = 3;
@@ -211,7 +211,7 @@ namespace WebMConverter
                     else if (result == DialogResult.Cancel)
                         Dispose();
                 }
-            }            
+            }
         }
 
         private void LoadConfiguration()
@@ -256,7 +256,7 @@ namespace WebMConverter
         void MainForm_Load(object sender, EventArgs e)
         {
             int threads = Environment.ProcessorCount;
-            trackThreads.Value = Math.Min(trackThreads.Maximum, Math.Max(trackThreads.Minimum, threads));            
+            trackThreads.Value = Math.Min(trackThreads.Maximum, Math.Max(trackThreads.Minimum, threads));
             this.Text = string.Format(this.Text, Utility.GetVersion());
         }
 
@@ -385,7 +385,7 @@ namespace WebMConverter
             if (File.Exists(list))
                 File.Delete(list);
 
-            File.WriteAllText( list, content.ToString());
+            File.WriteAllText(list, content.ToString());
 
             string[] arguments = new string[1];
             string directory = Path.GetDirectoryName(files[0]);
@@ -400,10 +400,10 @@ namespace WebMConverter
         {
             if (fileName.Contains("'"))
             {
-                MessageBox.Show($"Check the videos, the filename can't contain -> ' ","Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Check the videos, the filename can't contain -> ' ", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            return true;           
+            return true;
         }
 
         void MainForm_Shown(object sender, EventArgs e)
@@ -443,7 +443,8 @@ namespace WebMConverter
                     {
                         File.Delete(temporaryFile);
                     }
-                    catch (Exception) { //avoided
+                    catch (Exception)
+                    { //avoided
                     }
                 }
             }
@@ -518,12 +519,13 @@ namespace WebMConverter
                     });
                 });
             }
-            catch {
+            catch
+            {
                 // ignored
-            }         
+            }
         }
 
-            [System.Diagnostics.DebuggerStepThrough]
+        [System.Diagnostics.DebuggerStepThrough]
         void setToolTip(string message)
         {
             if (this.IsDisposed || toolStripStatusLabel.IsDisposed)
@@ -607,7 +609,7 @@ namespace WebMConverter
                 if (!VideoDownload.Enabled)
                 {
                     var result = MessageBox.Show(
-                       $"Couldn't find {Program.yt_dl}. Either download it and put it somewhere in your %PATH%, or place it inside Binaries/Win64.{Environment.NewLine}", 
+                       $"Couldn't find {Program.yt_dl}. Either download it and put it somewhere in your %PATH%, or place it inside Binaries/Win64.{Environment.NewLine}",
                         "ERROR", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
                     if (result == DialogResult.Retry)
                     {
@@ -763,7 +765,7 @@ namespace WebMConverter
                         Filters.DynamicCrop = form.GeneratedCropPanFilter;
                         boxStabilization.Checked = true;
                     }
-                        
+
 
                     listViewProcessingScript.Items.Add("Crop", "crop");
                     SetSlices();
@@ -1009,7 +1011,7 @@ namespace WebMConverter
 
         void toolStripFilterButtonsEnabled(bool enabled)
         {
-            buttonCaption.Enabled = 
+            buttonCaption.Enabled =
             buttonCrop.Enabled =
             buttonDub.Enabled =
             buttonFade.Enabled =
@@ -1238,7 +1240,7 @@ namespace WebMConverter
             numericCrf.TabStop = numericCrfTolerance.TabStop = numericAudioQuality.TabStop = false;
 
             buttonVariableDefault.Visible = false;
-            if(boxConstant.Checked)
+            if (boxConstant.Checked)
                 UpdateConfiguration("EncodingMode", EncodingMode.Constant.ToString());
 
             UpdateArguments(sender, e);
@@ -1291,7 +1293,7 @@ namespace WebMConverter
         void boxAudio_CheckedChanged(object sender, EventArgs e)
         {
             numericAudioQuality.Enabled = boxAudioBitrate.Enabled = numericDelay.Enabled = ((CheckBox)sender).Checked;
-            
+
             if (boxNGOV.Checked)
                 numericAudioQuality.Enabled = false;
 
@@ -1333,7 +1335,7 @@ namespace WebMConverter
             boxTitle.Text =
             boxLimit.Text =
             boxBitrate.Text =
-            boxAudioBitrate.Text = 
+            boxAudioBitrate.Text =
             boxFrameRate.Text =
             boxArguments.Text =
                 string.Empty;
@@ -1410,11 +1412,11 @@ namespace WebMConverter
                 Program.InputType = FileType.Avisynth;
 
                 BackgroundWorker probebw = new BackgroundWorker();
-                probebw.DoWork += delegate(object sender, DoWorkEventArgs e)
+                probebw.DoWork += delegate (object sender, DoWorkEventArgs e)
                 {
                     ProbeScript();
                 };
-                probebw.RunWorkerCompleted += delegate(object sender, RunWorkerCompletedEventArgs e)
+                probebw.RunWorkerCompleted += delegate (object sender, RunWorkerCompletedEventArgs e)
                 {
                     boxAdvancedScripting.Enabled = false;
                     listViewProcessingScript.Enabled = false;
@@ -1464,17 +1466,17 @@ namespace WebMConverter
 
             indexbw.WorkerSupportsCancellation = true;
             indexbw.WorkerReportsProgress = true;
-            indexbw.ProgressChanged += new ProgressChangedEventHandler(delegate(object sender, ProgressChangedEventArgs e)
+            indexbw.ProgressChanged += new ProgressChangedEventHandler(delegate (object sender, ProgressChangedEventArgs e)
             {
                 this.progressBarIndexing.Value = e.ProgressPercentage;
                 taskbarManager.SetProgressValue(e.ProgressPercentage, 100);
             });
-            indexbw.DoWork += delegate(object sender, DoWorkEventArgs e)
+            indexbw.DoWork += delegate (object sender, DoWorkEventArgs e)
             {
                 logIndexingProgress("Indexing starting...");
                 FFMSSharp.Indexer indexer = new FFMSSharp.Indexer(path, FFMSSharp.Source.Lavf);
 
-                indexer.UpdateIndexProgress += delegate(object sendertwo, FFMSSharp.IndexingProgressChangeEventArgs etwo)
+                indexer.UpdateIndexProgress += delegate (object sendertwo, FFMSSharp.IndexingProgressChangeEventArgs etwo)
                 {
                     indexbw.ReportProgress((int)(etwo.Current / (double)etwo.Total * 100));
                     indexer.CancelIndexing = indexbw.CancellationPending;
@@ -1484,7 +1486,7 @@ namespace WebMConverter
                 {
                     if (!audioDisabled) // Indexing failed because of the audio, so the user disabled it.
                         indexer.SetTrackTypeIndexSettings(FFMSSharp.TrackType.Audio, true);
-                    
+
                     index = indexer.Index();
                 }
                 catch (OperationCanceledException)
@@ -1505,7 +1507,7 @@ namespace WebMConverter
                         {
                             result = MessageBox.Show(
                                 $"Indexing error: {error.Message}{Environment.NewLine}" +
-                                $"If you were planning on making a WebM with audio, I'm afraid that's not going to happen.{Environment.NewLine}" + 
+                                $"If you were planning on making a WebM with audio, I'm afraid that's not going to happen.{Environment.NewLine}" +
                                 "Would you like to index the file without audio?",
                                 "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                         });
@@ -1529,15 +1531,10 @@ namespace WebMConverter
                 List<int> videoTracks = new List<int>(), audioTracks = new List<int>();
                 for (int i = 0; i < index.NumberOfTracks; i++)
                 {
-                    switch (index.GetTrack(i).TrackType)
-                    {
-                        case FFMSSharp.TrackType.Video:
-                            videoTracks.Add(i);
-                            break;
-                        case FFMSSharp.TrackType.Audio:
-                            audioTracks.Add(i);
-                            break;
-                    }
+                    if (index.GetTrack(i).TrackType == FFMSSharp.TrackType.Video)
+                        videoTracks.Add(i);
+                    else if (index.GetTrack(i).TrackType == FFMSSharp.TrackType.Audio)
+                        audioTracks.Add(i);
                 }
 
                 if (videoTracks.Count == 0)
@@ -1673,7 +1670,7 @@ namespace WebMConverter
                                             extension = "." + streamtitle;
                                             break;
                                     }
-                                    
+
                                     file = Path.Combine(Program.AttachmentDirectory, $"sub{streamindex}{extension}");
                                     logIndexingProgress($"Found subtitle track #{streamindex}");
 
@@ -1759,7 +1756,7 @@ namespace WebMConverter
                 SetFPS();
                 LoadFonts(msg => logIndexingProgress((string)msg));
             });
-            indexbw.RunWorkerCompleted += delegate(object sender, RunWorkerCompletedEventArgs e)
+            indexbw.RunWorkerCompleted += delegate (object sender, RunWorkerCompletedEventArgs e)
             {
                 if (audioDisabled && e.Cancelled)
                 {
@@ -1783,7 +1780,7 @@ namespace WebMConverter
                     extractbw.RunWorkerAsync();
                 }
             };
-            extractbw.RunWorkerCompleted += delegate(object sender, RunWorkerCompletedEventArgs e)
+            extractbw.RunWorkerCompleted += delegate (object sender, RunWorkerCompletedEventArgs e)
             {
                 if (e.Error != null)
                 {
@@ -1870,7 +1867,7 @@ namespace WebMConverter
             this.InvokeIfRequired(() =>
             {
                 SendMessage(boxFrameRate.Handle, EM_SETCUEBANNER, 0, $"Original FPS {Math.Round(originalFPS, 1)}");
-            });            
+            });
         }
 
         private void SetCRF(Size resolution)
@@ -1969,7 +1966,7 @@ namespace WebMConverter
                         default:
                             throw new NotImplementedException();
                     }
-                    
+
                     avscript.WriteLine($@"LoadPlugin(PluginPath+""{plugin}"")");
                 }
 
@@ -2086,7 +2083,7 @@ namespace WebMConverter
                 var passlogfile = GetTemporaryLogFile();
                 arguments.Add(string.Format(Template, "NUL", options, string.Format(PassArgument, 1, passlogfile), format));
                 arguments.Add(string.Format(Template, output, options, string.Format(PassArgument, 2, passlogfile), format));
-                
+
                 if (!arguments[0].Contains("-an")) // skip audio encoding on the first pass
                     arguments[0] = arguments[0].Replace("-c:v libvpx", "-an -c:v libvpx");
             }
@@ -2100,12 +2097,11 @@ namespace WebMConverter
                 Vidstab selected = (Vidstab)comboBoxLevels.SelectedItem;
 
                 arguments.Add(String.Format(StabilizationFilter1, textBoxOut.Text, selected.shakiness));
-                arguments.Add(String.Format(StabilizationFilter2, textBoxOut.Text, comboStabType.SelectedItem, 
+                arguments.Add(String.Format(StabilizationFilter2, textBoxOut.Text, comboStabType.SelectedItem,
                     selected.zoom, selected.smoothing, tempName));
-            }
 
-            if (boxStabilization.Checked)
                 Program.Stabilization = new StabilizationData(textBoxOut.Text, tempName);
+            }
             else
                 Program.Stabilization = null;
 
@@ -2115,96 +2111,94 @@ namespace WebMConverter
         string GenerateArguments()
         {
             string qualityarguments = null;
-            switch (encodingMode)
+            if (encodingMode == EncodingMode.Constant)
             {
-                case EncodingMode.Constant:
-                    float limit = 0;
-                    var limitTo = string.Empty;
-                    if (!string.IsNullOrWhiteSpace(boxLimit.Text))
-                    {
-                        if (!float.TryParse(boxLimit.Text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out limit))
-                            throw new ArgumentException("Invalid size limit!");
+                float limit = 0;
+                var limitTo = string.Empty;
+                if (!string.IsNullOrWhiteSpace(boxLimit.Text))
+                {
+                    if (!float.TryParse(boxLimit.Text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out limit))
+                        throw new ArgumentException("Invalid size limit!");
 
-                        // known issue for 2 years: https://trac.ffmpeg.org/ticket/1771
-                        limit -= 0.01f;
-                        // also, ffmpeg's filesize interpreter is unreliable, so we expand the filesize ourselves.
-                        // see https://github.com/nixxquality/WebMConverter/issues/120
-                        limit = limit * 1024 * 1024;
+                    // known issue for 2 years: https://trac.ffmpeg.org/ticket/1771
+                    limit -= 0.01f;
+                    // also, ffmpeg's filesize interpreter is unreliable, so we expand the filesize ourselves.
+                    // see https://github.com/nixxquality/WebMConverter/issues/120
+                    limit = limit * 1024 * 1024;
 
-                        limitTo = $@" -fs {(int)limit}";
-                    }
+                    limitTo = $@" -fs {(int)limit}";
+                }
 
-                    var audiobitrate = -1;
-                    if (boxAudio.Checked)
-                        audiobitrate = 64;
+                var audiobitrate = -1;
+                if (boxAudio.Checked)
+                    audiobitrate = 64;
 
-                    if (!string.IsNullOrWhiteSpace(boxAudioBitrate.Text))
-                    {
-                        if (!int.TryParse(boxAudioBitrate.Text, out audiobitrate))
-                            throw new ArgumentException("Invalid audio bitrate!");
+                if (!string.IsNullOrWhiteSpace(boxAudioBitrate.Text))
+                {
+                    if (!int.TryParse(boxAudioBitrate.Text, out audiobitrate))
+                        throw new ArgumentException("Invalid audio bitrate!");
 
-                        if (audiobitrate < 45)
-                            throw new ArgumentException("Audio bitrate is too low! It has to be at least 45Kb/s");
+                    if (audiobitrate < 45)
+                        throw new ArgumentException("Audio bitrate is too low! It has to be at least 45Kb/s");
 
-                        if (audiobitrate > 500)
-                            throw new ArgumentException("Audio bitrate is too high! It can not be higher than 500Kb/s");
-                    }
+                    if (audiobitrate > 500)
+                        throw new ArgumentException("Audio bitrate is too high! It can not be higher than 500Kb/s");
+                }
 
-                    var videobitrate = 900;
-                    if (!string.IsNullOrWhiteSpace(boxBitrate.Text))
-                    {
-                        if (!int.TryParse(boxBitrate.Text, out videobitrate))
-                            throw new ArgumentException("Invalid video bitrate!");
-                    }
-                    else if (limitTo != string.Empty)
-                    {
-                        var duration = GetDuration();
+                var videobitrate = 900;
+                if (!string.IsNullOrWhiteSpace(boxBitrate.Text))
+                {
+                    if (!int.TryParse(boxBitrate.Text, out videobitrate))
+                        throw new ArgumentException("Invalid video bitrate!");
+                }
+                else if (limitTo != string.Empty)
+                {
+                    var duration = GetDuration();
 
-                        if (duration > 0)
-                            videobitrate = (int)(limit / duration / 1024 * 8) - audiobitrate;
+                    if (duration > 0)
+                        videobitrate = (int)(limit / duration / 1024 * 8) - audiobitrate;
 
-                        if (videobitrate < 0)
-                            throw new ArgumentException("Your size constraints are too tight! Trim your video or lower your audio bitrate.");
-                    }
+                    if (videobitrate < 0)
+                        throw new ArgumentException("Your size constraints are too tight! Trim your video or lower your audio bitrate.");
+                }
 
-                    /*
-                     * ffmpeg doesn't let you input the cbr arguments manually (I think) so we do a bit of math here.
-                     * ffmpeg lists this in the documentation (https://ffmpeg.org/ffmpeg-all.html#libvpx):
-                     *  rc_buf_sz         = (bufsize * 1000 / vb)
-                     *  rc_buf_optimal_sz = (bufsize * 1000 / vb * 5 / 6)
-                     *  rc_buf_initial_sz = (rc_init_occupancy * 1000 / vb)
-                     * libvpx lists this in the documentation (https://www.webmproject.org/docs/encoder-parameters/#vbr-cbr-and-cq-mode):
-                     *  --buf-initial-sz=<arg>
-                     *  --buf-optimal-sz=<arg>
-                     *  --buf-sz=<arg>
-                     *  These three parameters set (respectively) the initial assumed buffer level,
-                     *   the optimal level and an upper limit that the codec should try not to exceed.
-                     *  The numbers given are in 'milliseconds worth of data' so the actual number of bits
-                     *   that these number represent depends also on the target bit rate that the user has set.
-                     *  Typical recommended values for these three parameters might be 4000, 5000 and 6000 ms, respectively.
-                     * a bit of algebra leads us to the following conclusion:
-                     *  bufsize           = vb * 6
-                     *  rc_init_occupancy = vb * 4
-                     * However, because ffmpeg is really weird or something, init_occupancy doesn't seem to work properly
-                     *  unless we divide bufsize by 10. Don't ask me why! I don't know!
-                     */
-                    var bufsize = videobitrate * 6 / 10;
-                    var initoccupancy = videobitrate * 4;
+                /*
+                 * ffmpeg doesn't let you input the cbr arguments manually (I think) so we do a bit of math here.
+                 * ffmpeg lists this in the documentation (https://ffmpeg.org/ffmpeg-all.html#libvpx):
+                 *  rc_buf_sz         = (bufsize * 1000 / vb)
+                 *  rc_buf_optimal_sz = (bufsize * 1000 / vb * 5 / 6)
+                 *  rc_buf_initial_sz = (rc_init_occupancy * 1000 / vb)
+                 * libvpx lists this in the documentation (https://www.webmproject.org/docs/encoder-parameters/#vbr-cbr-and-cq-mode):
+                 *  --buf-initial-sz=<arg>
+                 *  --buf-optimal-sz=<arg>
+                 *  --buf-sz=<arg>
+                 *  These three parameters set (respectively) the initial assumed buffer level,
+                 *   the optimal level and an upper limit that the codec should try not to exceed.
+                 *  The numbers given are in 'milliseconds worth of data' so the actual number of bits
+                 *   that these number represent depends also on the target bit rate that the user has set.
+                 *  Typical recommended values for these three parameters might be 4000, 5000 and 6000 ms, respectively.
+                 * a bit of algebra leads us to the following conclusion:
+                 *  bufsize           = vb * 6
+                 *  rc_init_occupancy = vb * 4
+                 * However, because ffmpeg is really weird or something, init_occupancy doesn't seem to work properly
+                 *  unless we divide bufsize by 10. Don't ask me why! I don't know!
+                 */
+                var bufsize = videobitrate * 6 / 10;
+                var initoccupancy = videobitrate * 4;
 
-                    qualityarguments = string.Format(ConstantVideoArguments, videobitrate, limitTo, bufsize, initoccupancy);
-                    if (audiobitrate != -1)
-                        qualityarguments += string.Format(ConstantAudioArguments, audiobitrate);
+                qualityarguments = string.Format(ConstantVideoArguments, videobitrate, limitTo, bufsize, initoccupancy);
+                if (audiobitrate != -1)
+                    qualityarguments += string.Format(ConstantAudioArguments, audiobitrate);
 
-                    break;
-                case EncodingMode.Variable:
-                    var qmin = Math.Max(0, (int)(numericCrf.Value - numericCrfTolerance.Value));
-                    var qmax = Math.Min(63, (int)(numericCrf.Value + numericCrfTolerance.Value));
+            }
+            else if (encodingMode == EncodingMode.Variable)
+            {
+                var qmin = Math.Max(0, (int)(numericCrf.Value - numericCrfTolerance.Value));
+                var qmax = Math.Min(63, (int)(numericCrf.Value + numericCrfTolerance.Value));
 
-                    qualityarguments = string.Format(VariableVideoArguments, qmin, numericCrf.Value, qmax);
-                    if (boxAudio.Checked &! boxNGOV.Checked) // only for vorbis
-                        qualityarguments += string.Format(VariableAudioArguments, numericAudioQuality.Value);
-
-                    break;
+                qualityarguments = string.Format(VariableVideoArguments, qmin, numericCrf.Value, qmax);
+                if (boxAudio.Checked & !boxNGOV.Checked) // only for vorbis
+                    qualityarguments += string.Format(VariableAudioArguments, numericAudioQuality.Value);
             }
 
             var threads = trackThreads.Value;
@@ -2307,7 +2301,7 @@ namespace WebMConverter
                     duration = Filters.Trim.GetDuration();
                 else if (Filters.MultipleTrim != null)
                     duration = Filters.MultipleTrim.GetDuration();
-                else 
+                else
                     duration = FrameToTimeSpan(Program.VideoSource.NumberOfFrames - 1).TotalSeconds;
 
                 if (Filters.Rate != null)
@@ -2409,15 +2403,14 @@ namespace WebMConverter
         {
             string avsFileName = null;
 
-            switch (Program.InputType)
+            if (Program.InputType == FileType.Video)
             {
-                case FileType.Video:
-                    avsFileName = GetTemporaryFile();
-                    WriteAvisynthScript(avsFileName, textBoxIn.Text);
-                    break;
-                case FileType.Avisynth:
-                    avsFileName = Program.InputFile;
-                    break;
+                avsFileName = GetTemporaryFile();
+                WriteAvisynthScript(avsFileName, textBoxIn.Text);
+            }
+            else if (Program.InputType == FileType.Avisynth)
+            {
+                avsFileName = Program.InputFile;
             }
 
             var ffprobe = new FFprobe(avsFileName);
@@ -2433,13 +2426,13 @@ namespace WebMConverter
 
             if (resolution.Width * resolution.Height >= 2073600) // 1080p (1920*1080)
                 slices = 4;
-            
+
             else if (resolution.Width * resolution.Height >= 921600) // 720p (1280*720)
                 slices = 3;
-            
+
             else if (resolution.Width * resolution.Height >= 307200) // 480p (640*480)
                 slices = 2;
-            
+
             else
                 slices = 1;
 
@@ -2519,7 +2512,7 @@ namespace WebMConverter
                     if (context.Request.Url.Query.Contains("code"))
                     {
                         demon = false;
-                        code = context.Request.Url.Query.Substring(6).Split('&')[0];                        
+                        code = context.Request.Url.Query.Substring(6).Split('&')[0];
                         responseString = "<HTML><body><script>location.replace(\"https://thumbs.gfycat.com/WanDescriptiveCrossbill-small.gif\");</script></body></HTML>";
                     }
                     else
@@ -2534,7 +2527,7 @@ namespace WebMConverter
                     output.Close();
                 }
 
-                if(!String.IsNullOrEmpty(code))
+                if (!String.IsNullOrEmpty(code))
                     GetToken(code, Token.New);
             }
             catch (WebException ex)
@@ -2578,7 +2571,7 @@ namespace WebMConverter
                     postData = String.Format("\"grant_type\":\"refresh\", \"client_id\":\"{0}\", \"client_secret\": \"{1}\", \"refresh_token\":\"{2}\"", client_id, client_secret, configuration.AppSettings.Settings["RefreshToken"].Value);
 
                 postData = "{" + postData + "}";
-                
+
                 TokenResponse tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(
                     PostWebRequest($"https://api.gfycat.com/v1/oauth/token", postData));
                 Program.token = tokenResponse.access_token;
@@ -2597,7 +2590,7 @@ namespace WebMConverter
             {
                 this.Activate();
                 MessageBox.Show(ex.Message);
-            }            
+            }
         }
 
         private void GetUserDetails()
@@ -2618,11 +2611,11 @@ namespace WebMConverter
                 lblViews.Text = string.Format(lblViews.Text, string.Format("{0:#,0}", userDetail.views));
                 lblFollowers.Text = string.Format(lblFollowers.Text, userDetail.followers);
                 pictureBox.LoadAsync(userDetail.profileImageUrl);
-            });            
+            });
         }
 
         private void UpdateConfiguration(string key, string value)
-        {            
+        {
             configuration.AppSettings.Settings[key].Value = value;
             configuration.Save();
             ConfigurationManager.RefreshSection("userSettings");
@@ -2654,7 +2647,7 @@ namespace WebMConverter
                 textPathDownloaded.Text = dialog.SelectedPath;
                 UpdateConfiguration("PathDownload", dialog.SelectedPath);
             }
-        }       
+        }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -2698,7 +2691,7 @@ namespace WebMConverter
 
         public string[] GetGfyTags()
         {
-            return String.IsNullOrEmpty(boxTags.Text) ? null : boxTags.Text.Split(',') ;
+            return String.IsNullOrEmpty(boxTags.Text) ? null : boxTags.Text.Split(',');
         }
 
         private void listViewProcessingScript_KeyDown(object sender, KeyEventArgs e)
@@ -2714,14 +2707,14 @@ namespace WebMConverter
                 }
                 if (e.Alt && e.Shift && e.KeyCode == Keys.T)
                 {
-                    if(Filters.MultipleTrim == null)
+                    if (Filters.MultipleTrim == null)
                         buttonMultipleTrim_Click(sender, e);
                     else
-                        EditMultiTrimFilter(sender, e);    
+                        EditMultiTrimFilter(sender, e);
                 }
                 if (e.Alt && !e.Shift && e.KeyCode == Keys.C)
                 {
-                    if(Filters.Crop == null)
+                    if (Filters.Crop == null)
                         buttonCrop_Click(sender, e);
                     else
                         EditCropFilter(sender, e);
@@ -2813,7 +2806,7 @@ namespace WebMConverter
 
         private void numericDelay_ValueChanged(object sender, EventArgs e)
         {
-            Filters.DelayAudio = numericDelay.Value != 0 ? new DelayAudio(numericDelay.Value.ToString().Replace(',','.')) : null;
+            Filters.DelayAudio = numericDelay.Value != 0 ? new DelayAudio(numericDelay.Value.ToString().Replace(',', '.')) : null;
         }
 
         private void checkMP4_CheckedChanged(object sender, EventArgs e)
@@ -2834,7 +2827,7 @@ namespace WebMConverter
                 checkHWAcceleration.Enabled = false;
                 checkHWAcceleration.Checked = false;
             }
-                
+
             UpdateConfiguration("MP4", checkMP4.Checked.ToString());
 
         }
@@ -2848,18 +2841,6 @@ namespace WebMConverter
         {
             comboBoxLevels.Enabled = boxStabilization.Checked;
             comboStabType.Enabled = boxStabilization.Checked;
-        }
-
-        private void buttonPrivateGfys_Click(object sender, EventArgs e)
-        {
-            if (!IsConnectedToInternet())
-            {
-                MessageBox.Show("Make sure you are connected to internet.", 
-                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            GenerateEmailPrivateGfys();
         }
     }
 }

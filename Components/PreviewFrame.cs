@@ -129,5 +129,30 @@ namespace WebMConverter
         {
             GeneratePreview();
         }
+
+        public string SavePreview(string directory, string name)
+        {
+            EncoderParameters myEncoderParameters = new EncoderParameters(1);
+            Encoder myEncoder = Encoder.Quality;
+            ImageCodecInfo myImageCodecInfo = GetEncoderInfo("image/jpeg");
+            EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 100L);
+            myEncoderParameters.Param[0] = myEncoderParameter;
+            string filename = $"{directory}//{name}-{framenumber}.jpg";
+            frame.Bitmap.Save(filename, myImageCodecInfo, myEncoderParameters);
+            return filename;
+        }
+
+        private static ImageCodecInfo GetEncoderInfo(String mimeType)
+        {
+            int j;
+            ImageCodecInfo[] encoders;
+            encoders = ImageCodecInfo.GetImageEncoders();
+            for (j = 0; j < encoders.Length; ++j)
+            {
+                if (encoders[j].MimeType == mimeType)
+                    return encoders[j];
+            }
+            return null;
+        }
     }
 }

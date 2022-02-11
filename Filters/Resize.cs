@@ -124,10 +124,10 @@ namespace WebMConverter
                 }
             }
 
-            labelWidthIn.Text = inwidth.ToString();
-            textWidthOut.Text = inwidth.ToString();
-            labelHeightIn.Text = inheight.ToString();
-            textHeightOut.Text = inheight.ToString();
+            labelWidthIn.Text = inwidth.ToString(CultureInfo.InvariantCulture);
+            textWidthOut.Text = inwidth.ToString(CultureInfo.InvariantCulture);
+            labelHeightIn.Text = inheight.ToString(CultureInfo.InvariantCulture);
+            textHeightOut.Text = inheight.ToString(CultureInfo.InvariantCulture);
 
             textWidthOut.TextChanged += textWidthOut_TextChanged;
             textHeightOut.TextChanged += textHeightOut_TextChanged;

@@ -1,4 +1,6 @@
-﻿namespace WebMConverter
+﻿using System.Windows.Forms;
+
+namespace WebMConverter
 {
     partial class TrimForm
     {
@@ -43,6 +45,7 @@
             this.labelTimeStamp = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuGoTo = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuSave = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuGoToFrame = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuGoToTime = new System.Windows.Forms.ToolStripMenuItem();
             this.previewFrame = new WebMConverter.PreviewFrame();
@@ -234,12 +237,18 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuGoTo});
+            this.toolStripMenuGoTo, this.toolStripMenuSave});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(992, 30);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
+            //
+            //toolStripMenuSave
+            //
+            this.toolStripMenuSave.Name = "toolStripMenuSave";
+            this.toolStripMenuSave.Size = new System.Drawing.Size(69, 26);
+            this.toolStripMenuSave.Text = "Save frame";
             // 
             // toolStripMenuGoTo
             // 
@@ -323,6 +332,7 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuGoTo;
+        private ToolStripMenuItem toolStripMenuSave;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuGoToFrame;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuGoToTime;
         private System.Windows.Forms.Label labelTimeStamp;
