@@ -168,6 +168,7 @@ See user details in tab *General*. If you are creating several gfys of the same 
 ## Changelog
 
 #### Version 3.17.1
+* fix broken WebMConverter.Updater.exe
 * fix a bug in change rate form, press enter after changes values doesn't save them
 * fix a bug in resize form, it doesn't load the values saved previously
 

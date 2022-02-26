@@ -26,8 +26,10 @@ namespace WebMConverter.Updater
 
                 if (latestVersion > currentVersion)
                 {
+
                     output = latestVersion.ToString();
                     output += Environment.NewLine;
+
                     return true;
                 }
                 return false;

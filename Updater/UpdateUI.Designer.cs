@@ -34,33 +34,30 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(17, 16);
-            this.progressBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.progressBar.Location = new System.Drawing.Point(13, 13);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(489, 28);
+            this.progressBar.Size = new System.Drawing.Size(367, 23);
             this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar.TabIndex = 0;
             this.progressBar.Value = 30;
             // 
             // labelStatus
             // 
-            this.labelStatus.Location = new System.Drawing.Point(16, 50);
-            this.labelStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelStatus.Location = new System.Drawing.Point(12, 41);
             this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(491, 30);
+            this.labelStatus.Size = new System.Drawing.Size(368, 24);
             this.labelStatus.TabIndex = 1;
             this.labelStatus.Text = "Initializing...";
             this.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // UpdateUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(523, 86);
+            this.ClientSize = new System.Drawing.Size(392, 70);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.progressBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "UpdateUI";
             this.Text = "WebM for Lazys Updater";
             this.Load += new System.EventHandler(this.UpdateUI_Load);
