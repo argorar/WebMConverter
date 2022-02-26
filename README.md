@@ -167,27 +167,21 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.17.1
+* fix a bug in change rate form, press enter after changes values doesn't save them
+* fix a bug in resize form, it doesn't load the values saved previously
+
 #### Version 3.17.0
 * Add save frames in trim form
-* Fix code style
-
-#### Version 3.16.5
-* Improved stabilization
-* Fix bug when drop a video and doesn't update output filename
-
-#### Version 3.16.4
-* Change interpolation type for stabilization to get a better result in dynamic crop
 * Add option to change interpolation type for stabilization if you want to experiment with other options
 * Add rotation to trim's preview if the filter is applied
-
-#### Version 3.16.3
+* Change interpolation type for stabilization to get a better result in dynamic crop
+* Improved stabilization
+* Fix bug when drop a video and doesn't update output filename
 * Fix a bug in dynamic crop using keyboard arrows
-
-#### Version 3.16.2
 * Fix duplicated frames in dynamic crop
-
-#### Version 3.16.1
 * Fix bug in output filename when change destination folder
+* Fix code style
 
 #### Version 3.16.0
 * Add dynamic crop. Follow an object on the canvas easily [check the instructions](#dynamic-crop)

@@ -16,10 +16,11 @@ namespace WebMConverter
             InitializeComponent();
         }
 
-        public ResizeForm(ResizeFilter ResizeFilter) : this()
+        public ResizeForm(ResizeFilter ResizeFilter)
         {
-            textWidthOut.Text = ResizeFilter.TargetWidth.ToString();
-            textHeightOut.Text = ResizeFilter.TargetHeight.ToString();
+            InitializeComponent();
+            inwidth = ResizeFilter.TargetWidth;
+            inheight = ResizeFilter.TargetHeight;
         }
 
         private void buttonConfirm_Click(object sender, EventArgs e)
@@ -110,7 +111,7 @@ namespace WebMConverter
                 inwidth = frame.EncodedResolution.Width - Filters.Crop.Left + Filters.Crop.Right;
                 inheight = frame.EncodedResolution.Height - Filters.Crop.Top + Filters.Crop.Bottom;
             }
-            else
+            else if (inwidth == 0 && inheight == 0)
             {
                 if ((Owner as MainForm).SarCompensate)
                 {

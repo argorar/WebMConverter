@@ -60,8 +60,10 @@ namespace WebMConverter
             boxPreviewScaled.Text = new TimeSpan((long)(_originalDuration.Ticks / outvalue)).ToString(PreviewBoxFormat);
         }
 
-        private void buttonConfirm_Click(object sender, EventArgs e) => GeneratedFilter = new RateFilter(trackRate.Value);
-
+        private void buttonConfirm_Click(object sender, EventArgs e) {
+            this.Focus();
+            GeneratedFilter = new RateFilter(trackRate.Value);
+        }
         private void numericUpDown_ValueChanged(object sender, EventArgs e)
         {
             trackRate.Value = Convert.ToInt32(numericUpDown.Value);
