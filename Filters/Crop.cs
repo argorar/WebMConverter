@@ -466,10 +466,12 @@ namespace WebMConverter
                     cropPercent.X -= arrowKeyIncrement;
                     break;
                 case Keys.Right:
-                    cropPercent.X += arrowKeyIncrement;
+                    if (cropPercent.Width + arrowKeyIncrement + cropPercent.X < 1)
+                        cropPercent.X += arrowKeyIncrement;
                     break;
                 case Keys.Down:
-                    cropPercent.Y += arrowKeyIncrement;
+                    if (cropPercent.Height + arrowKeyIncrement + cropPercent.Y < 1)
+                        cropPercent.Y += arrowKeyIncrement;
                     break;
                 case Keys.Shift | Keys.Up:
                     cropPercent.Y -= arrowKeyShiftIncrement;
@@ -478,10 +480,12 @@ namespace WebMConverter
                     cropPercent.X -= arrowKeyShiftIncrement;
                     break;
                 case Keys.Shift | Keys.Right:
-                    cropPercent.X += arrowKeyShiftIncrement;
+                    if (cropPercent.Width + arrowKeyShiftIncrement + cropPercent.X < 1)
+                        cropPercent.X += arrowKeyShiftIncrement;
                     break;
                 case Keys.Shift | Keys.Down:
-                    cropPercent.Y += arrowKeyShiftIncrement;
+                    if (cropPercent.Height + arrowKeyShiftIncrement + cropPercent.Y < 1)
+                        cropPercent.Y += arrowKeyShiftIncrement;
                     break;
                 case Keys.Alt | Keys.Up:
                     cropPercent.Height = Math.Max(0, cropPercent.Height - arrowKeyIncrement);
@@ -490,10 +494,12 @@ namespace WebMConverter
                     cropPercent.Width = Math.Max(0, cropPercent.Width - arrowKeyIncrement);
                     break;
                 case Keys.Alt | Keys.Right:
-                    cropPercent.Width += arrowKeyIncrement;
+                    if (cropPercent.Width + arrowKeyIncrement + cropPercent.X < 1)
+                        cropPercent.Width += arrowKeyIncrement;
                     break;
                 case Keys.Alt | Keys.Down:
-                    cropPercent.Height += arrowKeyIncrement;
+                    if (cropPercent.Height + arrowKeyIncrement + cropPercent.Y < 1)
+                        cropPercent.Height += arrowKeyIncrement;
                     break;
                 case Keys.Alt | Keys.Shift | Keys.Up:
                     cropPercent.Height = Math.Max(0, cropPercent.Height - arrowKeyShiftIncrement);
@@ -502,14 +508,20 @@ namespace WebMConverter
                     cropPercent.Width = Math.Max(0, cropPercent.Width - arrowKeyShiftIncrement);
                     break;
                 case Keys.Alt | Keys.Shift | Keys.Right:
-                    cropPercent.Width += arrowKeyShiftIncrement;
+                    if (cropPercent.Width + arrowKeyShiftIncrement + cropPercent.X < 1)
+                        cropPercent.Width += arrowKeyShiftIncrement;
                     break;
                 case Keys.Alt | Keys.Shift | Keys.Down:
-                    cropPercent.Height += arrowKeyShiftIncrement;
+                    if(cropPercent.Height + arrowKeyShiftIncrement + cropPercent.Y < 1 )
+                        cropPercent.Height += arrowKeyShiftIncrement;
                     break;
                 default:
                     return base.ProcessCmdKey(ref msg, keyData);
             }
+
+            cropPercent.X = Math.Max(0, cropPercent.X);
+            cropPercent.Y = Math.Max(0, cropPercent.Y);
+
             ShowNewSize();
             previewFrame.Picture.Invalidate();
 
