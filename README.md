@@ -167,6 +167,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.17.3
+* Changed convert console output for more easy reading. Thanks to **@myblindy**
+
 #### Version 3.17.2
 * fix out of bounds moving crop with keyboard
 * Depured download console
