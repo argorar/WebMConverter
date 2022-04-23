@@ -60,7 +60,7 @@ namespace WebMConverter
 
                 if (difference < 0)
                     frame += 1;
-                
+
                 else
                     frame -= 1;
             }
@@ -167,7 +167,8 @@ namespace WebMConverter
                 if (reply.Status == IPStatus.Success)
                     return true;
             }
-            catch { 
+            catch
+            {
                 // ignored    
             }
             return result;
@@ -179,7 +180,7 @@ namespace WebMConverter
             string[] SizeSuffixes = { "bytes", "KB", "MB", "GB" };
             if (value < 0)
                 return "-" + SizeSuffix(-value);
-            if (value == 0) 
+            if (value == 0)
                 return string.Format("{0:n" + decimalPlaces + "} bytes", 0);
 
             // mag is 0 for bytes, 1 for KB, 2, for MB, etc.
@@ -224,9 +225,9 @@ namespace WebMConverter
         {
             int temp1 = border1;
             int temp2 = border2;
-            if(border1 % 2 != 0 || border2 % 2 != 0)
+            if (border1 % 2 != 0 || border2 % 2 != 0)
             {
-                if(border1 - 1 != 0)
+                if (border1 - 1 != 0)
                 {
                     temp1 = border1 - 1;
                     temp2 = border2 - 1;
@@ -239,7 +240,7 @@ namespace WebMConverter
             }
             return new int[] { temp1, temp2 };
         }
-        
+
         public static int Mod2(int number)
         {
             return (number / 2) * 2;
@@ -266,7 +267,7 @@ namespace WebMConverter
         }
 
     }
-    
+
     public enum FileType
     {
         Video,
@@ -295,12 +296,12 @@ namespace WebMConverter
     public static class Extensions
     {
         // http://stackoverflow.com/a/12179408/174466
+        static readonly object[] EmptyObjectArray = new object[0];
         public static void InvokeIfRequired(this System.ComponentModel.ISynchronizeInvoke obj, System.Windows.Forms.MethodInvoker action)
         {
             if (obj.InvokeRequired)
             {
-                var args = new object[0];
-                obj.Invoke(action, args);
+                obj.Invoke(action, EmptyObjectArray);
             }
             else
             {

@@ -68,17 +68,17 @@ namespace WebMConverter.Dialogs
         {
             if (args.Data != null)
             {
-                boxOutput.Invoke((Action)(() => boxOutput.AppendText(Environment.NewLine + args.Data)));
-
                 if (DataContainsProgress(args.Data))
                     ParseAndUpdateProgress(args.Data);
+                else
+                    boxOutput.InvokeIfRequired(() => boxOutput.AppendText(Environment.NewLine + args.Data));
             }
         }
 
         private void ProcessOnOutputDataReceived(object sender, DataReceivedEventArgs args)
         {
             if (args.Data != null)
-                boxOutput.Invoke((Action)(() => boxOutput.AppendText(Environment.NewLine + args.Data)));
+                boxOutput.InvokeIfRequired(() => boxOutput.AppendText(Environment.NewLine + args.Data));
         }
 
         // example ffmpeg line:
@@ -100,6 +100,18 @@ namespace WebMConverter.Dialogs
                 progressBar.InvokeIfRequired(() =>
                 {
                     progressBar.Value = (int)(progress * 1000); // progressBar maximum is 1000
+
+                    // find the last new line in the current string log
+                    var lastNewLineIndex = boxOutput.Text.LastIndexOf('\n');
+
+                    // and replace it
+                    if (lastNewLineIndex >= 0)
+                        if (lastNewLineIndex < boxOutput.Text.Length - 5 && string.Compare(boxOutput.Text, lastNewLineIndex + 1, "frame", 0, 5) == 0)
+                            boxOutput.Text = boxOutput.Text.Substring(0, lastNewLineIndex + 1) + input;     // replace the previous frame line
+                        else
+                            boxOutput.Text += "\n" + input;    // previously not a frame line, insert as normal
+                    else
+                        boxOutput.Text = input;         // no new lines at all, so it's the first line, replace it
                 });
                 taskbarManager.SetProgressValue((int)(progress * 1000), 1000);
             }
@@ -369,10 +381,10 @@ namespace WebMConverter.Dialogs
             }
             else
             {
-                if(Program.Stabilization != null)
+                if (Program.Stabilization != null)
                 {
                     File.Delete(Program.Stabilization.Name);
-                    File.Move(Program.Stabilization.TempName, Program.Stabilization.Name);              
+                    File.Move(Program.Stabilization.TempName, Program.Stabilization.Name);
                 }
                 _outduration = ProbeDuration(_outfile, false);
                 if (_isloop)
@@ -394,7 +406,7 @@ namespace WebMConverter.Dialogs
                     boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}Video converted succesfully!");
                     GetFileSize();
                     pictureStatus.BackgroundImage = StatusImages.Images["Success"];
-                    taskbarManager.SetProgressValue( 1000, 1000);
+                    taskbarManager.SetProgressValue(1000, 1000);
                 }
 
                 buttonPlay.Enabled = true;
@@ -461,7 +473,8 @@ namespace WebMConverter.Dialogs
                 if (_pipeFFmpeg != null && !_pipeFFmpeg.HasExited)
                     _pipeFFmpeg.Kill();
             }
-            else{
+            else
+            {
                 if (_pipeFFmpeg != null && !_pipeFFmpeg.HasExited)
                     _pipeFFmpeg.Kill();
 
