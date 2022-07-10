@@ -1895,7 +1895,7 @@ namespace WebMConverter
             labelEncodingNGOVHint.Name = "labelEncodingNGOVHint";
             labelEncodingNGOVHint.Size = new System.Drawing.Size(804, 28);
             labelEncodingNGOVHint.TabIndex = 0;
-            labelEncodingNGOVHint.Text = "Use the next-gen VP9/Opus encoders instead of the standard VP8/Vorbis. It can tak" +
+            labelEncodingNGOVHint.Text = "«Now 4chan support it» Use the next-gen VP9/Opus encoders instead of the standard VP8/Vorbis. It can tak" +
     "e more time.";
             labelEncodingNGOVHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 

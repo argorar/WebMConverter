@@ -167,6 +167,11 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.18.0
+* VP9 now is default for fresh installs, your current setting will be remembered
+* Advance users can edit/add arguments before convert in ```Advanced>Arguments```
+* ffmpeg updated
+
 #### Version 3.17.3
 * Changed convert console output for more easy reading. Thanks to **@myblindy**
 

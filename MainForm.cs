@@ -2051,7 +2051,7 @@ namespace WebMConverter
             if (input == output)
                 throw new Exception("Input and output files are the same!");
 
-            string options = GenerateArguments();
+            string options = boxArguments.Text;
 
             ValidateInputFile(input);
             ValidateOutputFile(output);
@@ -2680,6 +2680,7 @@ namespace WebMConverter
         {
             if (boxFrameRate.Text.Equals("0"))
                 boxFrameRate.Text = string.Empty;
+            UpdateArguments(sender, e);
         }
 
         private void buttonLogOut_Click(object sender, EventArgs e)
@@ -2807,6 +2808,7 @@ namespace WebMConverter
         private void numericDelay_ValueChanged(object sender, EventArgs e)
         {
             Filters.DelayAudio = numericDelay.Value != 0 ? new DelayAudio(numericDelay.Value.ToString().Replace(',', '.')) : null;
+            UpdateArguments(sender, e);
         }
 
         private void checkMP4_CheckedChanged(object sender, EventArgs e)
@@ -2828,12 +2830,14 @@ namespace WebMConverter
                 checkHWAcceleration.Checked = false;
             }
 
+            UpdateArguments(sender, e);
             UpdateConfiguration("MP4", checkMP4.Checked.ToString());
 
         }
 
         private void checkHWAcceleration_CheckedChanged(object sender, EventArgs e)
         {
+            UpdateArguments(sender, e);
             UpdateConfiguration("HAMP4", checkHWAcceleration.Checked.ToString());
         }
 
@@ -2841,6 +2845,7 @@ namespace WebMConverter
         {
             comboBoxLevels.Enabled = boxStabilization.Checked;
             comboStabType.Enabled = boxStabilization.Checked;
+            UpdateArguments(sender, e);
         }
     }
 }
