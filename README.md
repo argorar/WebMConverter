@@ -11,7 +11,6 @@ A wrapper around ffmpeg and AviSynth made for converting videos to WebM without 
 
 _Important to know:_
 * Requires .NET Framework 4.5 (Windows 7 comes with 3.5, so you might want to [update][DotNet45])
-* Requires Microsoft Visual C++ 2010 (x86) [Download here][MVC]
 * Requires [AviSynth][AviSynth] (2.6.0, 32-bit)
 * Already includes ffmpeg
 * Only works on Windows 
@@ -167,6 +166,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.18.1
+* Not longer requires Microsoft Visual C++ 2010 (x86)
+
 #### Version 3.18.0
 * VP9 now is default for fresh installs, your current setting will be remembered
 * Advance users can edit/add arguments before convert in ```Advanced>Arguments```
@@ -319,6 +321,5 @@ If you have any issues with this program, you may report them on [here][NewIssue
  [DotNet45]: https://www.microsoft.com/en-us/download/details.aspx?id=30653
  [AviSynth]: http://avisynth.nl/index.php/Main_Page#Official_builds
  [NewIssue]: https://github.com/argorar/WebMConverter/issues
- [MVC]: https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe
  [Sites]: https://ytdl-org.github.io/youtube-dl/supportedsites.html
  [FAQ]: https://www.webmproject.org/about/faq/

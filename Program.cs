@@ -90,19 +90,8 @@ namespace WebMConverter
                 Process.Start($"http://avisynth.nl/index.php/Main_Page#Official_builds");
                 return;
             }
-
-
-            if(Utility.CheckVC2010x86())
-                Task.Factory.StartNew(VideoDownload.CheckEnabled);
-            else
-            {
-                MessageBox.Show(
-                   $"You need Microsoft Visual C++ 2010 (x86) for the full experience.{Environment.NewLine}" +
-                    "I'll open the download page, go ahead and install it.",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Process.Start($"https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe");
-                return;
-            }
+            
+            Task.Factory.StartNew(VideoDownload.CheckEnabled);
             Task.Factory.StartNew(ShareXUpload.CheckEnabled);
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
