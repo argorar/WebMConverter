@@ -54,8 +54,9 @@ namespace WebMConverter
         /// {6} is ' -ac 2 -c:a libopus/libvorbis' if audio is enabled, changing depending on NGOV mode
         /// {7} is ' -r XX' if frame rate is modified, otherwise blank
         /// {8} is encoding mode-dependent arguments
+        /// {9} is '-tile-columns 1 -row-mt 1' if VP9 is selectec, otherwise blank
         /// </summary>
-        private const string TemplateArguments = "{0} -c:v {5} -pix_fmt yuv420p -threads {1} -slices {2}{3}{4}{6}{7}{8}";
+        private const string TemplateArguments = "{0} -c:v {5} -pix_fmt yuv420p -threads {1} -slices {2}{3}{4}{6}{7}{8}{9}";
 
         /// <summary>
         /// {0} is video bitrate
@@ -2208,11 +2209,12 @@ namespace WebMConverter
             if (!string.IsNullOrWhiteSpace(boxTitle.Text))
                 metadataTitle = string.Format(@" -metadata title=""{0}""", boxTitle.Text.Replace("\"", "\\\""));
 
-            var hq = "";
+            var hq = string.Empty;
             if (boxHQ.Checked)
                 hq = @" -lag-in-frames 16 -auto-alt-ref 1";
 
             var vcodec = boxNGOV.Checked ? @"libvpx-vp9" : @"libvpx";
+            var extraArguments = boxNGOV.Checked && boxNGOV.Enabled ? @" -tile-columns 1 -row-mt 1" : @"";
 
             if (checkMP4.Checked && checkHWAcceleration.Checked)
                 vcodec = @"h264_nvenc";
@@ -2262,7 +2264,7 @@ namespace WebMConverter
             if (boxLoop.Checked && string.IsNullOrEmpty(filter))
                 filter = $" -filter_complex {LoopFilter} ";
 
-            return string.Format(TemplateArguments, audio, threads, slices, metadataTitle, hq, vcodec, acodec, filter, qualityarguments);
+            return string.Format(TemplateArguments, audio, threads, slices, metadataTitle, hq, vcodec, acodec, filter, qualityarguments, extraArguments);
         }
 
         /// <summary>

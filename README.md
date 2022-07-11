@@ -166,6 +166,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.18.2
+* VP9 convertion is more fast now
+
 #### Version 3.18.1
 * Not longer requires Microsoft Visual C++ 2010 (x86)
 
