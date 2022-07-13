@@ -166,6 +166,10 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.18.3
+* Size limit feature now is more reliable
+* Managed error saving configuration
+
 #### Version 3.18.2
 * VP9 convertion is more fast now
 
@@ -176,15 +180,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 * VP9 now is default for fresh installs, your current setting will be remembered
 * Advance users can edit/add arguments before convert in ```Advanced>Arguments```
 * ffmpeg updated
-
-#### Version 3.17.3
 * Changed convert console output for more easy reading. Thanks to **@myblindy**
-
-#### Version 3.17.2
 * fix out of bounds moving crop with keyboard
 * Depured download console
-
-#### Version 3.17.1
 * fix broken WebMConverter.Updater.exe
 * fix a bug in change rate form, press enter after changes values doesn't save them
 * fix a bug in resize form, it doesn't load the values saved previously
