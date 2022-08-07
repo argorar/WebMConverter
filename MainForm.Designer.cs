@@ -1647,6 +1647,7 @@ namespace WebMConverter
             0,
             0,
             0});
+            this.numericGamma.ValueChanged += valueChanged;
             // 
             // numericSaturation
             // 
@@ -1673,6 +1674,7 @@ namespace WebMConverter
             0,
             0,
             0});
+            this.numericSaturation.ValueChanged += valueChanged;
             // 
             // labelGamma
             // 
@@ -1734,6 +1736,7 @@ namespace WebMConverter
             0,
             0,
             0});
+            this.numericContrast.ValueChanged += valueChanged;
             // 
             // labelContrast
             // 

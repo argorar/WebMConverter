@@ -166,6 +166,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.18.4
+* Fix update arguments when advanced filter settings change
+
 #### Version 3.18.3
 * Size limit feature now is more reliable
 * Managed error saving configuration

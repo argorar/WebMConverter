@@ -2825,5 +2825,10 @@ namespace WebMConverter
             comboStabType.Enabled = boxStabilization.Checked;
             UpdateArguments(sender, e);
         }
+
+        private void valueChanged(object sender, EventArgs e)
+        {
+            UpdateArguments(sender, e);
+        }
     }
 }
