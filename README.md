@@ -5,6 +5,10 @@ WebM for Lazys
 [![Downloads](https://img.shields.io/github/downloads/argorar/WebMConverter/total.svg)]()
 [![CodeLines](https://tokei.rs/b1/github/argorar/WebMConverter)]()
 
+If you want to support this project.
+
+<a href='https://ko-fi.com/argorar' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a> 
+
 A wrapper around ffmpeg and AviSynth made for converting videos to WebM without having to use the command line, fork of [this project](https://gitgud.io/nixx/WebMConverter#webm-for-retards-).
 
 - **Download it [here][LatestDownload].**
