@@ -170,6 +170,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.18.5
+* Add option to enable alpha channel aside with VP9
+
 #### Version 3.18.4
 * Fix update arguments when advanced filter settings change
 

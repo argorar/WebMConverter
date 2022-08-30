@@ -55,8 +55,9 @@ namespace WebMConverter
         /// {7} is ' -r XX' if frame rate is modified, otherwise blank
         /// {8} is encoding mode-dependent arguments
         /// {9} is '-tile-columns 1 -row-mt 1' if VP9 is selectec, otherwise blank
+        /// {10} is 'yuv420p' or 'yuva420p' when alpha is selected in advanced setings
         /// </summary>
-        private const string TemplateArguments = "{0} -c:v {5} -pix_fmt yuv420p -threads {1} -slices {2}{3}{4}{6}{7}{8}{9}";
+        private const string TemplateArguments = "{0} -c:v {5} -pix_fmt {10} -threads {1} -slices {2}{3}{4}{6}{7}{8}{9}";
 
         /// <summary>
         /// {0} is video bitrate
@@ -250,6 +251,7 @@ namespace WebMConverter
 
             CRF4k.Value = Decimal.Parse(configuration.AppSettings.Settings["CRF4k"].Value);
             CRFother.Value = Decimal.Parse(configuration.AppSettings.Settings["CRFother"].Value);
+            checkBoxAlpha.Enabled = boxNGOV.Checked && !checkMP4.Checked;
         }
 
         void MainForm_Load(object sender, EventArgs e)
@@ -1320,6 +1322,7 @@ namespace WebMConverter
         private void boxNGOV_CheckedChanged(object sender, EventArgs e)
         {
             numericAudioQuality.Enabled = !(sender as CheckBox).Checked;
+            checkBoxAlpha.Enabled = (sender as CheckBox).Checked;
             UpdateArguments(sender, e);
             UpdateConfiguration("VP9", boxNGOV.Checked.ToString());
             opusQualityScalingTooltip();
@@ -2172,6 +2175,7 @@ namespace WebMConverter
                     qualityarguments += string.Format(VariableAudioArguments, numericAudioQuality.Value);
             }
 
+            var pixelFormat = checkBoxAlpha.Checked && checkBoxAlpha.Enabled ? "yuva420p" : "yuv420p";
             var threads = trackThreads.Value;
             var slices = GetSlices();
 
@@ -2179,9 +2183,7 @@ namespace WebMConverter
             if (!string.IsNullOrWhiteSpace(boxTitle.Text))
                 metadataTitle = string.Format(@" -metadata title=""{0}""", boxTitle.Text.Replace("\"", "\\\""));
 
-            var hq = string.Empty;
-            if (boxHQ.Checked)
-                hq = @" -lag-in-frames 16 -auto-alt-ref 1";
+            var hq = boxHQ.Checked ? @" -lag-in-frames 16 -auto-alt-ref 1" : string.Empty;
 
             var vcodec = boxNGOV.Checked ? @"libvpx-vp9" : @"libvpx";
             var extraArguments = boxNGOV.Checked && boxNGOV.Enabled ? @" -tile-columns 1 -row-mt 1" : @"";
@@ -2234,7 +2236,8 @@ namespace WebMConverter
             if (boxLoop.Checked && string.IsNullOrEmpty(filter))
                 filter = $" -filter_complex {LoopFilter} ";
 
-            return string.Format(TemplateArguments, audio, threads, slices, metadataTitle, hq, vcodec, acodec, filter, qualityarguments, extraArguments);
+            return string.Format(TemplateArguments, audio, threads, slices, metadataTitle, hq,
+                                vcodec, acodec, filter, qualityarguments, extraArguments, pixelFormat);
         }
 
         /// <summary>
@@ -2799,11 +2802,13 @@ namespace WebMConverter
             if (checkMP4.Checked)
             {
                 boxNGOV.Enabled = false;
+                checkBoxAlpha.Enabled = false;
                 checkHWAcceleration.Enabled = true;
             }
             else
             {
                 boxNGOV.Enabled = true;
+                checkBoxAlpha.Enabled = true;
                 checkHWAcceleration.Enabled = false;
                 checkHWAcceleration.Checked = false;
             }
@@ -2827,6 +2832,11 @@ namespace WebMConverter
         }
 
         private void valueChanged(object sender, EventArgs e)
+        {
+            UpdateArguments(sender, e);
+        }
+
+        private void checkBoxAlpha_CheckedChanged(object sender, EventArgs e)
         {
             UpdateArguments(sender, e);
         }
