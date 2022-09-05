@@ -170,6 +170,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.18.6
+* Fix audio desync with some encodes like footage recorded by Nvidia Geforce Experience.
+
 #### Version 3.18.5
 * Add option to enable alpha channel aside with VP9 encoders for WebM. Find it in Advanced section. 
 

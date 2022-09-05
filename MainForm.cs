@@ -1951,7 +1951,7 @@ namespace WebMConverter
                 var shortPluginPath = GetCompatiblePath(pluginPath);
 
                 avscript.WriteLine($@"PluginPath = ""{shortPluginPath}\""");
-                avscript.WriteLine(@"try { LoadPlugin(PluginPath+""ffms2.dll"") } catch (_) { LoadCPlugin(PluginPath+""ffms2.dll"") }");
+                avscript.WriteLine(@"try { LoadPlugin(PluginPath+""ffms1.dll"") } catch (_) { LoadCPlugin(PluginPath+""ffms1.dll"") }");
                 if (Filters.Subtitle != null)
                 {
                     string plugin;
