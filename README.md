@@ -170,24 +170,27 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.18.7
+* Fix utf8 support in filenames, bug introduced in previus update
+
 #### Version 3.18.6
-* Fix audio desync with some encodes like footage recorded by Nvidia Geforce Experience.
+* Fix audio desync with some encodes like footage recorded by Nvidia Geforce Experience. See related [issue](https://github.com/argorar/WebMConverter/issues/17)
 
 #### Version 3.18.5
-* Add option to enable alpha channel aside with VP9 encoders for WebM. Find it in Advanced section. 
+* Add option to enable alpha channel aside with VP9 encoders for WebM. Find it in Advanced section. See related [issue](https://github.com/argorar/WebMConverter/issues/19)
 
 #### Version 3.18.4
 * Fix update arguments when advanced filter settings change
 
 #### Version 3.18.3
-* Size limit feature now is more reliable
+* Size limit feature now is more reliable. See related [issue](https://github.com/argorar/WebMConverter/issues/14)
 * Managed error saving configuration
 
 #### Version 3.18.2
 * VP9 convertion is more fast now
 
 #### Version 3.18.1
-* Not longer requires Microsoft Visual C++ 2010 (x86)
+* Not longer requires Microsoft Visual C++ 2010 (x86). See related [issue](https://github.com/argorar/WebMConverter/issues/11)
 
 #### Version 3.18.0
 * VP9 now is default for fresh installs, your current setting will be remembered
