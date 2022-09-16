@@ -170,6 +170,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.18.8
+* Added checkbox to fix audio desync, feature introduced in 3.18.6
+
 #### Version 3.18.7
 * Fix utf8 support in filenames, bug introduced in previus update
 

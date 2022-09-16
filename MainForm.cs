@@ -252,6 +252,7 @@ namespace WebMConverter
             CRF4k.Value = Decimal.Parse(configuration.AppSettings.Settings["CRF4k"].Value);
             CRFother.Value = Decimal.Parse(configuration.AppSettings.Settings["CRFother"].Value);
             checkBoxAlpha.Enabled = boxNGOV.Checked && !checkMP4.Checked;
+            checkFixAudio.Enabled = boxAudio.Checked;
         }
 
         void MainForm_Load(object sender, EventArgs e)
@@ -1294,6 +1295,7 @@ namespace WebMConverter
         void boxAudio_CheckedChanged(object sender, EventArgs e)
         {
             numericAudioQuality.Enabled = boxAudioBitrate.Enabled = numericDelay.Enabled = ((CheckBox)sender).Checked;
+            checkFixAudio.Enabled = boxAudio.Checked;
 
             if (boxNGOV.Checked)
                 numericAudioQuality.Enabled = false;
@@ -1471,7 +1473,8 @@ namespace WebMConverter
             indexbw.ProgressChanged += new ProgressChangedEventHandler(delegate (object sender, ProgressChangedEventArgs e)
             {
                 this.progressBarIndexing.Value = e.ProgressPercentage;
-                taskbarManager.SetProgressValue(e.ProgressPercentage, 100);
+                if(e.ProgressPercentage != 1)
+                    taskbarManager.SetProgressValue(e.ProgressPercentage, 100);
             });
             indexbw.DoWork += delegate (object sender, DoWorkEventArgs e)
             {
@@ -1950,8 +1953,9 @@ namespace WebMConverter
                 var pluginPath = Path.Combine(Environment.CurrentDirectory, "Binaries", "Win32");
                 var shortPluginPath = GetCompatiblePath(pluginPath);
 
+                string version = checkFixAudio.Checked ? "1" : "2";
                 avscript.WriteLine($@"PluginPath = ""{shortPluginPath}\""");
-                avscript.WriteLine(@"try { LoadPlugin(PluginPath+""ffms1.dll"") } catch (_) { LoadCPlugin(PluginPath+""ffms1.dll"") }");
+                avscript.WriteLine(@"try { LoadPlugin(PluginPath+""ffms"+version+@".dll"") } catch (_) { LoadCPlugin(PluginPath+""ffms"+version+@".dll"") }");
                 if (Filters.Subtitle != null)
                 {
                     string plugin;
@@ -2837,6 +2841,11 @@ namespace WebMConverter
         }
 
         private void checkBoxAlpha_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateArguments(sender, e);
+        }
+
+        private void checkFixAudio_CheckedChanged(object sender, EventArgs e)
         {
             UpdateArguments(sender, e);
         }

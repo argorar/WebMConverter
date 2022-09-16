@@ -63,7 +63,6 @@ namespace WebMConverter
             System.Windows.Forms.Label labelVideoCrfToleranceHint;
             System.Windows.Forms.GroupBox groupEncodingAudio;
             System.Windows.Forms.TableLayoutPanel tableEncodingAudio;
-            System.Windows.Forms.Label labelAudioHint;
             System.Windows.Forms.Panel panelEncodingModeSwapperTwo;
             System.Windows.Forms.Label labelAudioBitrate;
             System.Windows.Forms.Label labelAudioBitrateUnit;
@@ -132,6 +131,7 @@ namespace WebMConverter
             this.numericAudioQuality = new System.Windows.Forms.NumericUpDown();
             this.numericDelay = new System.Windows.Forms.NumericUpDown();
             this.lblDelay = new System.Windows.Forms.Label();
+            this.checkFixAudio = new System.Windows.Forms.CheckBox();
             this.comboLevels = new System.Windows.Forms.ComboBox();
             this.boxDeinterlace = new System.Windows.Forms.CheckBox();
             this.boxLoop = new System.Windows.Forms.CheckBox();
@@ -222,7 +222,6 @@ namespace WebMConverter
             labelVideoCrfToleranceHint = new System.Windows.Forms.Label();
             groupEncodingAudio = new System.Windows.Forms.GroupBox();
             tableEncodingAudio = new System.Windows.Forms.TableLayoutPanel();
-            labelAudioHint = new System.Windows.Forms.Label();
             panelEncodingModeSwapperTwo = new System.Windows.Forms.Panel();
             labelAudioBitrate = new System.Windows.Forms.Label();
             labelAudioBitrateUnit = new System.Windows.Forms.Label();
@@ -1310,10 +1309,10 @@ namespace WebMConverter
             tableEncodingAudio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 73F));
             tableEncodingAudio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableEncodingAudio.Controls.Add(this.boxAudio, 0, 0);
-            tableEncodingAudio.Controls.Add(labelAudioHint, 4, 0);
             tableEncodingAudio.Controls.Add(panelEncodingModeSwapperTwo, 0, 1);
             tableEncodingAudio.Controls.Add(this.numericDelay, 3, 0);
             tableEncodingAudio.Controls.Add(this.lblDelay, 2, 0);
+            tableEncodingAudio.Controls.Add(this.checkFixAudio, 4, 0);
             tableEncodingAudio.Dock = System.Windows.Forms.DockStyle.Fill;
             tableEncodingAudio.Location = new System.Drawing.Point(4, 19);
             tableEncodingAudio.Margin = new System.Windows.Forms.Padding(0);
@@ -1339,18 +1338,6 @@ namespace WebMConverter
             this.boxAudio.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.boxAudio.UseVisualStyleBackColor = true;
             this.boxAudio.CheckedChanged += new System.EventHandler(this.boxAudio_CheckedChanged);
-            // 
-            // labelAudioHint
-            // 
-            labelAudioHint.AutoSize = true;
-            labelAudioHint.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelAudioHint.Location = new System.Drawing.Point(306, 0);
-            labelAudioHint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            labelAudioHint.Name = "labelAudioHint";
-            labelAudioHint.Size = new System.Drawing.Size(1073, 34);
-            labelAudioHint.TabIndex = 0;
-            labelAudioHint.Text = "Do you want a WebM with sound? You found the setting for it.";
-            labelAudioHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panelEncodingModeSwapperTwo
             // 
@@ -1535,6 +1522,19 @@ namespace WebMConverter
             this.lblDelay.Size = new System.Drawing.Size(46, 16);
             this.lblDelay.TabIndex = 4;
             this.lblDelay.Text = "Delay:";
+            // 
+            // checkFixAudio
+            // 
+            this.checkFixAudio.AutoSize = true;
+            this.checkFixAudio.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkFixAudio.Dock = System.Windows.Forms.DockStyle.Left;
+            this.checkFixAudio.Location = new System.Drawing.Point(305, 3);
+            this.checkFixAudio.Name = "checkFixAudio";
+            this.checkFixAudio.Size = new System.Drawing.Size(130, 28);
+            this.checkFixAudio.TabIndex = 5;
+            this.checkFixAudio.Text = "Fix desync audio";
+            this.checkFixAudio.UseVisualStyleBackColor = true;
+            this.checkFixAudio.CheckedChanged += new System.EventHandler(this.checkFixAudio_CheckedChanged);
             // 
             // tabAdvanced
             // 
@@ -2700,6 +2700,7 @@ namespace WebMConverter
         private System.Windows.Forms.Label txtType;
         private System.Windows.Forms.ComboBox comboStabType;
         private System.Windows.Forms.CheckBox checkBoxAlpha;
+        private System.Windows.Forms.CheckBox checkFixAudio;
         // private System.Windows.Forms.GroupBox groupGfycat;
     }
 }
