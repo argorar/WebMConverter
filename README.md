@@ -170,6 +170,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.18.9
+* Convert mp4 with audio now is compatible with popular web pages
+
 #### Version 3.18.8
 * Added checkbox to fix audio desync, feature introduced in 3.18.6
 

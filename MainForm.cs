@@ -2197,7 +2197,8 @@ namespace WebMConverter
             else
                 vcodec = checkMP4.Checked ? @"libx265" : vcodec;
 
-            var acodec = boxNGOV.Checked ? @"libopus" : @"libvorbis";
+            string webmAcodec = (boxNGOV.Checked ? @"libopus" : @"libvorbis");
+            var acodec = checkMP4.Checked ? @"aac" : webmAcodec;
 
             string audio;
             if (boxAudio.Checked)
