@@ -112,6 +112,7 @@ namespace WebMConverter
         int videotrack = -1;
         int audiotrack = -1;
         bool audioDisabled;
+        bool yuvj420p;
 
         private List<string> _temporaryFilesList;
 
@@ -1612,7 +1613,7 @@ namespace WebMConverter
                                 case "video":
                                     if (streamindex != videotrack) break;
 
-                                    // Check if this is a FRAPS yuvj420p video - if so, we need to do something weird here.
+                                    // Check if this is a FRAPS yuvj420p video
                                     if (nav.GetAttribute("codec_name", "") == "fraps" && nav.GetAttribute("pix_fmt", "") == "yuvj420p")
                                     {
                                         logIndexingProgress("Detected yuvj420p FRAPS video, the Color Level fixing setting has been set for you.");
@@ -1620,8 +1621,15 @@ namespace WebMConverter
                                         {
                                             comboLevels.SelectedIndex = 2; // PC -> TV conversion
                                         });
-                                        // If we don't do this, the contrast gets fucked.
-                                        // See: https://github.com/nixxquality/WebMConverter/issues/89
+                                    }
+                                    else if (nav.GetAttribute("pix_fmt", "") == "yuvj420p")
+                                    {
+                                        logIndexingProgress("Detected yuvj420p video, the Color Level fixing setting has been set for you.");
+                                        yuvj420p = true;
+                                    }
+                                    else
+                                    {
+                                        yuvj420p= false;    
                                     }
 
                                     // Check if this is a Hi444p video - if so, we'll need to do something weird if you wanna add subs later.
@@ -2191,6 +2199,7 @@ namespace WebMConverter
 
             var vcodec = boxNGOV.Checked ? @"libvpx-vp9" : @"libvpx";
             var extraArguments = boxNGOV.Checked && boxNGOV.Enabled ? @" -tile-columns 1 -row-mt 1" : @"";
+            extraArguments = yuvj420p ? extraArguments + @" -color_range 2" : extraArguments;
 
             if (checkMP4.Checked && checkHWAcceleration.Checked)
                 vcodec = @"h264_nvenc";
