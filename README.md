@@ -170,6 +170,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.18.10
+* Fix contrast to videos with full color range (yuvj420p format). See related [issue](https://github.com/argorar/WebMConverter/issues/22)
+
 #### Version 3.18.9
 * Convert mp4 with audio now is compatible with popular web pages. See related [issue](https://github.com/argorar/WebMConverter/issues/23)
 
