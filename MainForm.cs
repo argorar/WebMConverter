@@ -85,6 +85,8 @@ namespace WebMConverter
         private const string LoopFilter = "[0]reverse[r];[0][r]concat,loop=2";
         private const string StabilizationFilter1 = @"-y -i ""{0}"" -vf vidstabdetect=stepsize=2:shakiness={1}:accuracy=15:result=transforms.trf -f null -";
         private const string StabilizationFilter2 = @"-y -i ""{0}"" -crf 16 -vf vidstabtransform=input=transforms.trf:interpol={1}:zoomspeed={2}:smoothing={3}:maxangle=0.0:maxshift=-1,unsharp=5:5:0.8:3:3:0.4 ""{4}""";
+        private const string GridHorizontal = @"-i ""{0}"" -i ""{1}"" -filter_complex hstack  ""{2}"" -crf 16 -qcomp 1 -b:v 0";
+        private const string GridVertical = @"-i ""{0}"" -i ""{1}"" -filter_complex vstack  ""{2}"" -crf 16 -qcomp 1 -b:v 0";
 
         #endregion
 
@@ -1613,16 +1615,7 @@ namespace WebMConverter
                                 case "video":
                                     if (streamindex != videotrack) break;
 
-                                    // Check if this is a FRAPS yuvj420p video
-                                    if (nav.GetAttribute("codec_name", "") == "fraps" && nav.GetAttribute("pix_fmt", "") == "yuvj420p")
-                                    {
-                                        logIndexingProgress("Detected yuvj420p FRAPS video, the Color Level fixing setting has been set for you.");
-                                        this.InvokeIfRequired(() =>
-                                        {
-                                            comboLevels.SelectedIndex = 2; // PC -> TV conversion
-                                        });
-                                    }
-                                    else if (nav.GetAttribute("pix_fmt", "") == "yuvj420p")
+                                    if (nav.GetAttribute("pix_fmt", "") == "yuvj420p")
                                     {
                                         logIndexingProgress("Detected yuvj420p video, the Color Level fixing setting has been set for you.");
                                         yuvj420p = true;
@@ -2644,6 +2637,17 @@ namespace WebMConverter
             }
         }
 
+        private String VideoPathDialog()
+        {
+            using (var dialog = new OpenFileDialog())
+            {
+                if (dialog.ShowDialog(this) != DialogResult.OK || string.IsNullOrEmpty(dialog.FileName))
+                    return string.Empty;
+
+                return dialog.FileName;
+            }
+        }
+
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             _ = Process.Start($"https://argorar.github.io/WebMConverter/");
@@ -2859,5 +2863,40 @@ namespace WebMConverter
         {
             UpdateArguments(sender, e);
         }
+
+        private void buttonVideo1_Click(object sender, EventArgs e)
+        {
+            string videoPath = VideoPathDialog();
+            textVideo1.Text = videoPath;
+        }
+
+        private void buttonVideo2_Click(object sender, EventArgs e)
+        {
+            string videoPath = VideoPathDialog();
+            textVideo2.Text = videoPath;
+        }
+
+        private void tableLayoutPanel1_Click(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(textVideo1.Text) && !string.IsNullOrEmpty(textVideo2.Text))
+                GridConvert(GridVertical, "_grid_vertical");
+        }
+
+        private void tableLayoutPanel2_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textVideo1.Text) && !string.IsNullOrEmpty(textVideo2.Text))
+                GridConvert(GridHorizontal, "_grid_horizontal");
+        }
+
+        private void GridConvert(string gridArgument, string gridMethod)
+        {
+            List<string> arguments = new List<string>();
+            string path = Path.GetDirectoryName(textVideo1.Text);
+            string extension = Path.GetExtension(textVideo1.Text);
+            string name = Path.GetFileNameWithoutExtension(textVideo1.Text);
+            arguments.Add(string.Format(gridArgument, textVideo1.Text, textVideo2.Text, path + "\\" + name + gridMethod + extension));
+            new ConverterDialog(string.Empty, arguments.ToArray(), string.Empty).ShowDialog(this);
+        }
+
     }
 }

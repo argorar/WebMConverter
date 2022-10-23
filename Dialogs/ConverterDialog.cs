@@ -364,6 +364,9 @@ namespace WebMConverter.Dialogs
 
             var process = _ffmpegProcess;
 
+            buttonPlay.Visible = false;
+            buttonUpload.Visible = false;
+
             if (process.ExitCode != 0)
             {
                 if (_cancelTwopass)
@@ -421,15 +424,17 @@ namespace WebMConverter.Dialogs
 
         private void GetFileSize()
         {
-            FileInfo fileInfo = new FileInfo(_outfile);
-            string fileSize = Utility.SizeSuffix(fileInfo.Length);
-            boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}--- Final file size is {fileSize} ---");
+            if (!string.IsNullOrEmpty(_outfile))
+            {
+                FileInfo fileInfo = new FileInfo(_outfile);
+                string fileSize = Utility.SizeSuffix(fileInfo.Length);
+                boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}--- Final file size is {fileSize} ---");
+            }
         }
 
         private void ExitedMerge(object sender, EventArgs eventArgs)
         {
             _timer.Stop();
-
             var process = _ffmpegProcess;
 
             if (process.ExitCode != 0)
@@ -449,15 +454,13 @@ namespace WebMConverter.Dialogs
             }
             else
             {
-                boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}Video merged succesfully!");
+                boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}Video converted succesfully!");
                 GetFileSize();
                 pictureStatus.BackgroundImage = StatusImages.Images["Success"];
             }
             buttonCancel.Text = "Close";
             buttonCancel.Enabled = true;
             _ended = true;
-            _panic = true;
-            Dispose();
             this.Activate();
         }
 
