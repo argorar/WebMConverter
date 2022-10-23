@@ -364,8 +364,6 @@ namespace WebMConverter.Dialogs
 
             var process = _ffmpegProcess;
 
-            buttonPlay.Visible = false;
-            buttonUpload.Visible = false;
 
             if (process.ExitCode != 0)
             {
@@ -436,6 +434,9 @@ namespace WebMConverter.Dialogs
         {
             _timer.Stop();
             var process = _ffmpegProcess;
+
+            buttonPlay.Visible = false;
+            buttonUpload.Visible = false;
 
             if (process.ExitCode != 0)
             {

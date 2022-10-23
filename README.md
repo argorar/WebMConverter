@@ -170,6 +170,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.19.1
+* Fix a minor bug with interface
+
 #### Version 3.19.0
 * Added feature to create grid videos, check the tab *Grid*. It requires that both videos share codecs, size, length. Output file is in same path as video #1 
 
