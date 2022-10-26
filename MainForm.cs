@@ -395,8 +395,9 @@ namespace WebMConverter
             string[] arguments = new string[1];
             string directory = Path.GetDirectoryName(files[0]);
             string auxName = Path.GetFileNameWithoutExtension(files[0]);
-            arguments[0] = $" -f concat -i {list} -c copy -y \"{directory}\\{auxName}-merged{tempExtension}\"";
-            new ConverterDialog(string.Empty, arguments, string.Empty).ShowDialog(this);
+            string output = $"{ directory }\\{ auxName}-merged{ tempExtension}";
+            arguments[0] = $" -f concat -safe 0 -i {list} -c:v copy -y \"{output}\"";
+            new ConverterDialog(string.Empty, arguments, output).ShowDialog(this);
 
             return true;
         }
@@ -2894,8 +2895,9 @@ namespace WebMConverter
             string path = Path.GetDirectoryName(textVideo1.Text);
             string extension = Path.GetExtension(textVideo1.Text);
             string name = Path.GetFileNameWithoutExtension(textVideo1.Text);
-            arguments.Add(string.Format(gridArgument, textVideo1.Text, textVideo2.Text, path + "\\" + name + gridMethod + extension));
-            new ConverterDialog(string.Empty, arguments.ToArray(), string.Empty).ShowDialog(this);
+            string output = $"{path}\\{name}{gridMethod}{extension}";    
+            arguments.Add(string.Format(gridArgument, textVideo1.Text, textVideo2.Text, output));
+            new ConverterDialog(string.Empty, arguments.ToArray(), output).ShowDialog(this);
         }
 
     }

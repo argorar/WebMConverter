@@ -170,6 +170,10 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.19.2
+* Enable option to play and upload result of merge and grid after finish the process
+* Fix false error in merge
+
 #### Version 3.19.1
 * Fix a minor bug with interface
 

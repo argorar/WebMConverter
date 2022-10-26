@@ -435,9 +435,6 @@ namespace WebMConverter.Dialogs
             _timer.Stop();
             var process = _ffmpegProcess;
 
-            buttonPlay.Visible = false;
-            buttonUpload.Visible = false;
-
             if (process.ExitCode != 0)
             {
                 if (_cancelTwopass)
@@ -461,6 +458,8 @@ namespace WebMConverter.Dialogs
             }
             buttonCancel.Text = "Close";
             buttonCancel.Enabled = true;
+            buttonPlay.Enabled = true;
+            buttonUpload.Enabled = true;
             _ended = true;
             this.Activate();
         }
