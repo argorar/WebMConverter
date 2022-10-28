@@ -105,6 +105,12 @@ Right side was processed  with dynamic crop.
 
 [External link](https://gfycat.com/WeeklyEmptyDalmatian)
 
+### Grid
+
+Make grid videos to compare or shared different views. You can choose between horizontal or vertical. Above you can find an example.
+
+![grid](img/grid.png)
+
 ### Filter
 
 If your video looks dark, you can try with some pre-set filters. Now you can create your own filter using *Advanced* option, change gamma, contrast and saturation.
@@ -179,36 +185,16 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 #### Version 3.19.0
 * Added feature to create grid videos, check the tab *Grid*. It requires that both videos share codecs, size, length. Output file is in same path as video #1 
-
-#### Version 3.18.10
 * Fix contrast to videos with full color range (yuvj420p format). See related [issue](https://github.com/argorar/WebMConverter/issues/22)
-
-#### Version 3.18.9
 * Convert mp4 with audio now is compatible with popular web pages. See related [issue](https://github.com/argorar/WebMConverter/issues/23)
-
-#### Version 3.18.8
-* Added checkbox to fix audio desync, feature introduced in 3.18.6
-
-#### Version 3.18.7
+* Added checkbox to fix audio desync
 * Fix utf8 support in filenames, bug introduced in previus update
-
-#### Version 3.18.6
 * Fix audio desync with some encodes like footage recorded by Nvidia Geforce Experience. See related [issue](https://github.com/argorar/WebMConverter/issues/17)
-
-#### Version 3.18.5
 * Add option to enable alpha channel aside with VP9 encoders for WebM. Find it in Advanced section. See related [issue](https://github.com/argorar/WebMConverter/issues/19)
-
-#### Version 3.18.4
 * Fix update arguments when advanced filter settings change
-
-#### Version 3.18.3
 * Size limit feature now is more reliable. See related [issue](https://github.com/argorar/WebMConverter/issues/14)
 * Managed error saving configuration
-
-#### Version 3.18.2
 * VP9 convertion is more fast now
-
-#### Version 3.18.1
 * Not longer requires Microsoft Visual C++ 2010 (x86). See related [issue](https://github.com/argorar/WebMConverter/issues/11)
 
 #### Version 3.18.0
@@ -351,7 +337,7 @@ This software is released under the MIT license.
 
 
 ## Issues
-If you have any issues with this program, you may report them on [here][NewIssue].
+If you have any issues with this program, you may report them on [here][NewIssue]. Add the respective video to test.
 
  [LatestDownload]: https://github.com/argorar/WebMConverter/releases/latest
  [DotNet45]: https://www.microsoft.com/en-us/download/details.aspx?id=30653
