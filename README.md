@@ -177,7 +177,7 @@ See user details in tab *General*. If you are creating several gfys of the same 
 ## Changelog
 
 #### Version 3.19.3
-* Add option to disable pop in front when convert process is finished. See related [issue](https://github.com/argorar/WebMConverter/issues/25)
+* Add option to disable pop in front when convert process is finished. Check *general* tab. See related [issue](https://github.com/argorar/WebMConverter/issues/25)
 
 #### Version 3.19.2
 * Enable option to play and upload result of merge and grid after finish the process
