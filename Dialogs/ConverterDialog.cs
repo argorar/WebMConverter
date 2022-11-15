@@ -417,7 +417,9 @@ namespace WebMConverter.Dialogs
             buttonCancel.Text = "Close";
             buttonCancel.Enabled = true;
             _ended = true;
-            this.Activate();
+
+            if (!Program.DisablePop)
+                this.Activate();
         }
 
         private void GetFileSize()
@@ -461,7 +463,9 @@ namespace WebMConverter.Dialogs
             buttonPlay.Enabled = true;
             buttonUpload.Enabled = true;
             _ended = true;
-            this.Activate();
+
+            if (!Program.DisablePop)
+                this.Activate();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

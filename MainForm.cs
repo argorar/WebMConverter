@@ -183,6 +183,9 @@ namespace WebMConverter
 
             if (!configuration.AppSettings.Settings.AllKeys.Contains("YTDLV"))
                 configuration.AppSettings.Settings.Add("YTDLV", "20210505");
+
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("POP"))
+                configuration.AppSettings.Settings.Add("POP", "False");
         }
 
         private void ToolTip()
@@ -249,6 +252,11 @@ namespace WebMConverter
             else
                 checkHWAcceleration.Checked = false;
 
+            if (configuration.AppSettings.Settings["POP"].Value.Equals("True"))
+                boxDisablePop.Checked = true;
+            else
+                boxDisablePop.Checked = false;
+
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["PathDownload"].Value))
                 textPathDownloaded.Text = configuration.AppSettings.Settings["PathDownload"].Value;
 
@@ -256,6 +264,7 @@ namespace WebMConverter
             CRFother.Value = Decimal.Parse(configuration.AppSettings.Settings["CRFother"].Value);
             checkBoxAlpha.Enabled = boxNGOV.Checked && !checkMP4.Checked;
             checkFixAudio.Enabled = boxAudio.Checked;
+            Program.DisablePop = boxDisablePop.Checked;
         }
 
         void MainForm_Load(object sender, EventArgs e)
@@ -2900,5 +2909,10 @@ namespace WebMConverter
             new ConverterDialog(string.Empty, arguments.ToArray(), output).ShowDialog(this);
         }
 
+        private void boxDisablePop_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateConfiguration("POP", boxDisablePop.Checked.ToString());
+            Program.DisablePop = boxDisablePop.Checked;
+        }
     }
 }

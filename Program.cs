@@ -61,6 +61,7 @@ namespace WebMConverter
         public static FFMSSharp.ColorRange VideoColorRange { get; set; }
         public static Size Resolution { get; set; }
         public static bool VideoInterlaced { get; set; }
+        public static bool DisablePop { get; set; }
         public static string InputFile { get; set; }
         public static FileType InputType { get; set; }
         public static bool InputHasAudio { get; set; }
