@@ -63,7 +63,8 @@ namespace WebMConverter
         /// {0} is video bitrate
         /// {1} is ' -fs XM' if X MB limit enabled otherwise blank
         /// </summary>
-        private const string ConstantVideoArguments = " -b:v {0}k -qcomp 0{1}";
+        private const string ConstantVideoArgumentsWebm = " -b:v {0}k -qcomp 0{1}";
+        private const string ConstantVideoArgumentsMp4 = " -b:v {0}k{1}";
         /// <summary>
         /// {0} is audio bitrate
         /// </summary>
@@ -2202,6 +2203,7 @@ namespace WebMConverter
                         throw new ArgumentException("Your size constraints are too tight! Trim your video or lower your audio bitrate.");
                 }
 
+                var ConstantVideoArguments = checkMP4.Checked ? ConstantVideoArgumentsMp4 : ConstantVideoArgumentsWebm;
                 qualityarguments = string.Format(ConstantVideoArguments, videobitrate, limitTo);
                 if (audiobitrate != -1)
                     qualityarguments += string.Format(ConstantAudioArguments, audiobitrate);
