@@ -186,6 +186,9 @@ namespace WebMConverter
 
             if (!configuration.AppSettings.Settings.AllKeys.Contains("POP"))
                 configuration.AppSettings.Settings.Add("POP", "False");
+
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("DWO"))
+                configuration.AppSettings.Settings.Add("DWO", "False");
         }
 
         private void ToolTip()
@@ -256,6 +259,11 @@ namespace WebMConverter
                 boxDisablePop.Checked = true;
             else
                 boxDisablePop.Checked = false;
+
+            if (configuration.AppSettings.Settings["DWO"].Value.Equals("True"))
+                boxDownloadOptions.Checked = true;
+            else
+                boxDownloadOptions.Checked = false;
 
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["PathDownload"].Value))
                 textPathDownloaded.Text = configuration.AppSettings.Settings["PathDownload"].Value;
@@ -652,19 +660,38 @@ namespace WebMConverter
                 if (String.IsNullOrEmpty(textPathDownloaded.Text))
                     FolderDownloads();
 
-                using (var dialog = new DownloadDialog(textBoxIn.Text, textPathDownloaded.Text))
-                {
-                    var result = dialog.ShowDialog(this);
-
-                    if (result == DialogResult.OK)
+                if (boxDownloadOptions.Checked) {
+                    using (var dialog = new DownloadOptionsDialog(textBoxIn.Text, textPathDownloaded.Text))
                     {
-                        var url = textBoxIn.Text;
-                        textBoxIn.Text = dialog.GetOutfile();
-                        buttonBrowseIn.Text = "Browse";
-                        SetFile(textBoxIn.Text);
-                        boxTitle.Text = url;
+                        var result = dialog.ShowDialog(this);
+
+                        if (result == DialogResult.OK)
+                        {
+                            var url = textBoxIn.Text;
+                            textBoxIn.Text = dialog.GetOutfile();
+                            buttonBrowseIn.Text = "Browse";
+                            SetFile(textBoxIn.Text);
+                            boxTitle.Text = url;
+                        }
                     }
                 }
+                else
+                {
+                    using (var dialog = new DownloadDialog(textBoxIn.Text, textPathDownloaded.Text))
+                    {
+                        var result = dialog.ShowDialog(this);
+
+                        if (result == DialogResult.OK)
+                        {
+                            var url = textBoxIn.Text;
+                            textBoxIn.Text = dialog.GetOutfile();
+                            buttonBrowseIn.Text = "Browse";
+                            SetFile(textBoxIn.Text);
+                            boxTitle.Text = url;
+                        }
+                    }
+                }
+
             }
             else
             {
@@ -2913,6 +2940,16 @@ namespace WebMConverter
         {
             UpdateConfiguration("POP", boxDisablePop.Checked.ToString());
             Program.DisablePop = boxDisablePop.Checked;
+        }
+
+        private void numericGamma_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateArguments(sender, e);
+        }
+
+        private void checkBoxDownloadOptions_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateConfiguration("DWO", boxDownloadOptions.Checked.ToString());
         }
     }
 }

@@ -108,6 +108,12 @@
     <Compile Include="Components\Updater.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Dialogs\DownloadOptionsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DownloadOptionsDialog.Designer.cs">
+      <DependentUpon>DownloadOptionsDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\DownloadDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,6 +281,9 @@
     <Compile Include="ShareXUpload.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="VideoDownload.cs" />
+    <EmbeddedResource Include="Dialogs\DownloadOptionsDialog.resx">
+      <DependentUpon>DownloadOptionsDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DownloadDialog.resx">
       <DependentUpon>DownloadDialog.cs</DependentUpon>
     </EmbeddedResource>

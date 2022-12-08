@@ -158,6 +158,7 @@ namespace WebMConverter
             this.boxArguments = new System.Windows.Forms.TextBox();
             this.checkBoxAlpha = new System.Windows.Forms.CheckBox();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.boxDisablePop = new System.Windows.Forms.CheckBox();
             this.buttonOpenPath = new System.Windows.Forms.Button();
             this.CRFother = new System.Windows.Forms.NumericUpDown();
             this.CRF4k = new System.Windows.Forms.NumericUpDown();
@@ -202,7 +203,7 @@ namespace WebMConverter
             this.listViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.listViewContextMenuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewContextMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.boxDisablePop = new System.Windows.Forms.CheckBox();
+            this.boxDownloadOptions = new System.Windows.Forms.CheckBox();
             tableMainForm = new System.Windows.Forms.TableLayoutPanel();
             groupMain = new System.Windows.Forms.GroupBox();
             tableMain = new System.Windows.Forms.TableLayoutPanel();
@@ -1738,6 +1739,7 @@ namespace WebMConverter
             0,
             0,
             0});
+            this.numericGamma.ValueChanged += new System.EventHandler(this.numericGamma_ValueChanged);
             // 
             // numericSaturation
             // 
@@ -1764,6 +1766,7 @@ namespace WebMConverter
             0,
             0,
             0});
+            this.numericSaturation.ValueChanged += new System.EventHandler(this.numericGamma_ValueChanged);
             // 
             // labelGamma
             // 
@@ -1827,6 +1830,7 @@ namespace WebMConverter
             0,
             0,
             0});
+            this.numericContrast.ValueChanged += new System.EventHandler(this.numericGamma_ValueChanged);
             // 
             // labelContrast
             // 
@@ -2171,6 +2175,7 @@ namespace WebMConverter
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(this.boxDownloadOptions);
             groupBox1.Controls.Add(this.boxDisablePop);
             groupBox1.Controls.Add(this.buttonOpenPath);
             groupBox1.Controls.Add(this.CRFother);
@@ -2185,10 +2190,23 @@ namespace WebMConverter
             groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            groupBox1.Size = new System.Drawing.Size(1391, 118);
+            groupBox1.Size = new System.Drawing.Size(1391, 148);
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
             groupBox1.Text = "Configuration";
+            // 
+            // boxDisablePop
+            // 
+            this.boxDisablePop.AutoSize = true;
+            this.boxDisablePop.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.boxDisablePop.Location = new System.Drawing.Point(12, 91);
+            this.boxDisablePop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.boxDisablePop.Name = "boxDisablePop";
+            this.boxDisablePop.Size = new System.Drawing.Size(336, 20);
+            this.boxDisablePop.TabIndex = 7;
+            this.boxDisablePop.Text = "Disable pop in front when convert process is finished";
+            this.boxDisablePop.UseVisualStyleBackColor = true;
+            this.boxDisablePop.CheckedChanged += new System.EventHandler(this.boxDisablePop_CheckedChanged);
             // 
             // buttonOpenPath
             // 
@@ -2316,7 +2334,7 @@ namespace WebMConverter
             this.groupGfycat.Controls.Add(this.lblPublicGfys);
             this.groupGfycat.Controls.Add(this.label2);
             this.groupGfycat.Controls.Add(this.lblUser);
-            this.groupGfycat.Location = new System.Drawing.Point(5, 138);
+            this.groupGfycat.Location = new System.Drawing.Point(5, 168);
             this.groupGfycat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupGfycat.Name = "groupGfycat";
             this.groupGfycat.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -2443,7 +2461,7 @@ namespace WebMConverter
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(1399, 373);
-            this.splitContainer1.SplitterDistance = 672;
+            this.splitContainer1.SplitterDistance = 670;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -2461,7 +2479,7 @@ namespace WebMConverter
             groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            groupBox2.Size = new System.Drawing.Size(672, 373);
+            groupBox2.Size = new System.Drawing.Size(670, 373);
             groupBox2.TabIndex = 14;
             groupBox2.TabStop = false;
             groupBox2.Text = "Files";
@@ -2548,8 +2566,8 @@ namespace WebMConverter
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel2);
-            this.splitContainer2.Size = new System.Drawing.Size(722, 373);
-            this.splitContainer2.SplitterDistance = 356;
+            this.splitContainer2.Size = new System.Drawing.Size(724, 373);
+            this.splitContainer2.SplitterDistance = 355;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -2623,7 +2641,7 @@ namespace WebMConverter
             this.boxIndexingProgressDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boxIndexingProgressDetails.Appearance = System.Windows.Forms.Appearance.Button;
             this.boxIndexingProgressDetails.AutoSize = true;
-            this.boxIndexingProgressDetails.Location = new System.Drawing.Point(560, 6);
+            this.boxIndexingProgressDetails.Location = new System.Drawing.Point(561, 6);
             this.boxIndexingProgressDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.boxIndexingProgressDetails.Name = "boxIndexingProgressDetails";
             this.boxIndexingProgressDetails.Size = new System.Drawing.Size(59, 26);
@@ -2697,17 +2715,18 @@ namespace WebMConverter
             this.listViewContextMenuDelete.Text = "Delete";
             this.listViewContextMenuDelete.Click += new System.EventHandler(this.listViewContextMenuDelete_Click);
             // 
-            // boxDisablePop
+            // boxDownloadOptions
             // 
-            this.boxDisablePop.AutoSize = true;
-            this.boxDisablePop.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.boxDisablePop.Location = new System.Drawing.Point(12, 91);
-            this.boxDisablePop.Name = "boxDisablePop";
-            this.boxDisablePop.Size = new System.Drawing.Size(336, 20);
-            this.boxDisablePop.TabIndex = 7;
-            this.boxDisablePop.Text = "Disable pop in front when convert process is finished";
-            this.boxDisablePop.UseVisualStyleBackColor = true;
-            this.boxDisablePop.CheckedChanged += new System.EventHandler(this.boxDisablePop_CheckedChanged);
+            this.boxDownloadOptions.AutoSize = true;
+            this.boxDownloadOptions.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.boxDownloadOptions.Location = new System.Drawing.Point(12, 115);
+            this.boxDownloadOptions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.boxDownloadOptions.Name = "boxDownloadOptions";
+            this.boxDownloadOptions.Size = new System.Drawing.Size(347, 20);
+            this.boxDownloadOptions.TabIndex = 8;
+            this.boxDownloadOptions.Text = "Disable select automatically format to download video";
+            this.boxDownloadOptions.UseVisualStyleBackColor = true;
+            this.boxDownloadOptions.CheckedChanged += new System.EventHandler(this.checkBoxDownloadOptions_CheckedChanged);
             // 
             // MainForm
             // 
@@ -2933,6 +2952,7 @@ namespace WebMConverter
         private System.Windows.Forms.Button buttonVideo1;
         private System.Windows.Forms.Label labelGrid;
         private System.Windows.Forms.CheckBox boxDisablePop;
+        private System.Windows.Forms.CheckBox boxDownloadOptions;
         // private System.Windows.Forms.GroupBox groupGfycat;
     }
 }
