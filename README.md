@@ -61,6 +61,9 @@ Paste the url of the video you want and press enter, the download will start. Yo
 
 ![download](img/download.JPG)
 
+Disable option in *general* tab to select manually the format do you want.
+
+![format](img/format.png)
 ### Trim
 
 Trim precisely the length, with a simple interface. You can do multiple trims if you need.
@@ -177,7 +180,7 @@ See user details in tab *General*. If you are creating several gfys of the same 
 ## Changelog
 
 #### Version 3.20.0
-* Add feature to download specific format from youtube
+* Add feature to download specific format from youtube. Check *general* tab
 * Fix constant arguments for mp4
 * Fix update arguments to advanced filter
 
