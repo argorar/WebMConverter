@@ -67,6 +67,7 @@ Disable option in *general* tab to select manually the format do you want.
 ### Trim
 
 Trim precisely the length, with a simple interface. You can do multiple trims if you need.
+**Go to..** the exact frame or time you want to start the trim, also save the current frame to source path. 
 
 ![trim](img/trim.JPG)
 
