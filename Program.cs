@@ -63,6 +63,7 @@ namespace WebMConverter
         public static bool VideoInterlaced { get; set; }
         public static bool DisablePop { get; set; }
         public static string InputFile { get; set; }
+        public static bool DisableUpdates { get; set; }
         public static FileType InputType { get; set; }
         public static bool InputHasAudio { get; set; }
         public static bool InputHasWeirdPixelFormat { get; set; } // for something that xy-VSFilter can't render on
