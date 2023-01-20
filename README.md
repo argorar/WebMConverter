@@ -180,10 +180,6 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
-#### Version 3.20.1
-* Add option to disable check for updates
-* Fix error handling in request to check new version
-
 #### Version 3.20.0
 * Add feature to download specific format from youtube. Check *general* tab
 * Fix constant arguments for mp4

@@ -31,16 +31,8 @@ namespace WebMConverter.Dialogs
             using (WebClient wc = new WebClient())
             {
                 wc.Headers.Add(HttpRequestHeader.UserAgent,"request");
-                try
-                {
-                    var json = wc.DownloadString(repository);
-                    releaseInfo = JsonConvert.DeserializeObject<ReleaseInfo>(json);
-                }
-                catch (WebException ex)
-                {
-                    return;
-                }
-                
+                var json = wc.DownloadString(repository);
+                releaseInfo = JsonConvert.DeserializeObject<ReleaseInfo>(json);
             }
 
             if (releaseInfo != null)

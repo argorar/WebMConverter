@@ -190,9 +190,6 @@ namespace WebMConverter
 
             if (!configuration.AppSettings.Settings.AllKeys.Contains("DWO"))
                 configuration.AppSettings.Settings.Add("DWO", "False");
-
-            if (!configuration.AppSettings.Settings.AllKeys.Contains("DisableUpdates"))
-                configuration.AppSettings.Settings.Add("DisableUpdates", "False");
         }
 
         private void ToolTip()
@@ -264,11 +261,6 @@ namespace WebMConverter
             else
                 boxDisablePop.Checked = false;
 
-            if (configuration.AppSettings.Settings["DisableUpdates"].Value.Equals("True"))
-                boxDisableUpdates.Checked = true;
-            else
-                boxDisableUpdates.Checked = false;
-
             if (configuration.AppSettings.Settings["DWO"].Value.Equals("True"))
                 boxDownloadOptions.Checked = true;
             else
@@ -282,7 +274,6 @@ namespace WebMConverter
             checkBoxAlpha.Enabled = boxNGOV.Checked && !checkMP4.Checked;
             checkFixAudio.Enabled = boxAudio.Checked;
             Program.DisablePop = boxDisablePop.Checked;
-            Program.DisableUpdates = boxDisableUpdates.Checked;
         }
 
         void MainForm_Load(object sender, EventArgs e)
@@ -449,21 +440,18 @@ namespace WebMConverter
             SendMessage(textBoxIn.Handle, EM_SETCUEBANNER, 0, "Paste URL here if you want to download a video");
             SendMessage(boxTags.Handle, EM_SETCUEBANNER, 0, "tag1,tag2,tag3...");
             this.ActiveControl = buttonBrowseIn;
-            if (!Program.DisableUpdates)
-            {
-                CheckUpdate();
-                CheckUpdateBinaries();
-            }            
+            CheckUpdate();
+            CheckUpdateBinaries();
         }
 
         private void CheckUpdateBinaries()
         {
-             if(IsConnectedToInternet())
-             {
-                 string installedVersion = configuration.AppSettings.Settings["YTDLV"].Value;
-                 UpdateBinaries updateBinaries = new UpdateBinaries(installedVersion);
-                 updateBinaries.GetLatestVersion();
-             }
+            if (IsConnectedToInternet())
+            {
+                string installedVersion = configuration.AppSettings.Settings["YTDLV"].Value;
+                UpdateBinaries updateBinaries = new UpdateBinaries(installedVersion);
+                updateBinaries.GetLatestVersion();
+            }
         }
 
         void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -2964,12 +2952,6 @@ namespace WebMConverter
         private void checkBoxDownloadOptions_CheckedChanged(object sender, EventArgs e)
         {
             UpdateConfiguration("DWO", boxDownloadOptions.Checked.ToString());
-        }
-
-        private void boxDisableUpdates_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateConfiguration("DisableUpdates", boxDisableUpdates.Checked.ToString());
-            Program.DisableUpdates = boxDisableUpdates.Checked;
         }
     }
 }

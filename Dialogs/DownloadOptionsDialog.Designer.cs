@@ -47,11 +47,11 @@
             // table
             // 
             table.ColumnCount = 5;
-            table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 41F));
+            table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.48193F));
             table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.51807F));
-            table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 219F));
-            table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 231F));
+            table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 164F));
+            table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 172F));
             table.Controls.Add(this.boxOutput, 0, 0);
             table.Controls.Add(this.pictureStatus, 0, 2);
             table.Controls.Add(this.buttonLoad, 3, 2);
@@ -60,14 +60,13 @@
             table.Controls.Add(this.labelWriteFormat, 1, 2);
             table.Controls.Add(this.txtFormatNumber, 2, 2);
             table.Dock = System.Windows.Forms.DockStyle.Fill;
-            table.Location = new System.Drawing.Point(4, 4);
-            table.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            table.Location = new System.Drawing.Point(3, 3);
             table.Name = "table";
             table.RowCount = 3;
             table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            table.Size = new System.Drawing.Size(1031, 535);
+            table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            table.Size = new System.Drawing.Size(773, 435);
             table.TabIndex = 0;
             // 
             // boxOutput
@@ -77,11 +76,10 @@
             this.boxOutput.DetectUrls = false;
             this.boxOutput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.boxOutput.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.boxOutput.Location = new System.Drawing.Point(4, 4);
-            this.boxOutput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.boxOutput.Location = new System.Drawing.Point(3, 3);
             this.boxOutput.Name = "boxOutput";
             this.boxOutput.ReadOnly = true;
-            this.boxOutput.Size = new System.Drawing.Size(1023, 451);
+            this.boxOutput.Size = new System.Drawing.Size(767, 367);
             this.boxOutput.TabIndex = 0;
             this.boxOutput.Text = "";
             this.boxOutput.TextChanged += new System.EventHandler(this.boxOutput_TextChanged);
@@ -92,10 +90,9 @@
             this.pictureStatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pictureStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureStatus.Location = new System.Drawing.Point(4, 501);
-            this.pictureStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureStatus.Location = new System.Drawing.Point(3, 407);
             this.pictureStatus.Name = "pictureStatus";
-            this.pictureStatus.Size = new System.Drawing.Size(33, 30);
+            this.pictureStatus.Size = new System.Drawing.Size(25, 25);
             this.pictureStatus.TabIndex = 4;
             this.pictureStatus.TabStop = false;
             // 
@@ -103,10 +100,9 @@
             // 
             this.buttonLoad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonLoad.Enabled = false;
-            this.buttonLoad.Location = new System.Drawing.Point(584, 501);
-            this.buttonLoad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonLoad.Location = new System.Drawing.Point(439, 407);
             this.buttonLoad.Name = "buttonLoad";
-            this.buttonLoad.Size = new System.Drawing.Size(211, 30);
+            this.buttonLoad.Size = new System.Drawing.Size(158, 25);
             this.buttonLoad.TabIndex = 1;
             this.buttonLoad.Text = "Download";
             this.buttonLoad.UseVisualStyleBackColor = true;
@@ -115,10 +111,9 @@
             // buttonCancel
             // 
             this.buttonCancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonCancel.Location = new System.Drawing.Point(803, 501);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonCancel.Location = new System.Drawing.Point(603, 407);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(224, 30);
+            this.buttonCancel.Size = new System.Drawing.Size(167, 25);
             this.buttonCancel.TabIndex = 2;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -128,20 +123,20 @@
             // 
             table.SetColumnSpan(this.progressBar, 5);
             this.progressBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressBar.Location = new System.Drawing.Point(4, 463);
-            this.progressBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.progressBar.Location = new System.Drawing.Point(3, 376);
             this.progressBar.Maximum = 1000;
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(1023, 30);
+            this.progressBar.Size = new System.Drawing.Size(767, 25);
             this.progressBar.TabIndex = 0;
             // 
             // labelWriteFormat
             // 
             this.labelWriteFormat.AutoSize = true;
             this.labelWriteFormat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelWriteFormat.Location = new System.Drawing.Point(44, 497);
+            this.labelWriteFormat.Location = new System.Drawing.Point(33, 404);
+            this.labelWriteFormat.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelWriteFormat.Name = "labelWriteFormat";
-            this.labelWriteFormat.Size = new System.Drawing.Size(428, 38);
+            this.labelWriteFormat.Size = new System.Drawing.Size(322, 31);
             this.labelWriteFormat.TabIndex = 5;
             this.labelWriteFormat.Text = "Write ID of format in the next box";
             this.labelWriteFormat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -149,10 +144,9 @@
             // txtFormatNumber
             // 
             this.txtFormatNumber.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtFormatNumber.Location = new System.Drawing.Point(479, 501);
-            this.txtFormatNumber.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFormatNumber.Location = new System.Drawing.Point(360, 407);
             this.txtFormatNumber.Name = "txtFormatNumber";
-            this.txtFormatNumber.Size = new System.Drawing.Size(97, 22);
+            this.txtFormatNumber.Size = new System.Drawing.Size(73, 20);
             this.txtFormatNumber.TabIndex = 6;
             // 
             // StatusImages
@@ -165,14 +159,13 @@
             // 
             // DownloadOptionsDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1039, 543);
+            this.ClientSize = new System.Drawing.Size(779, 441);
             this.ControlBox = false;
             this.Controls.Add(table);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "DownloadOptionsDialog";
-            this.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Download Progress";
