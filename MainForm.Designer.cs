@@ -205,6 +205,7 @@ namespace WebMConverter
             this.listViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.listViewContextMenuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewContextMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.boxDisableExtractSubtitles = new System.Windows.Forms.CheckBox();
             tableMainForm = new System.Windows.Forms.TableLayoutPanel();
             groupMain = new System.Windows.Forms.GroupBox();
             tableMain = new System.Windows.Forms.TableLayoutPanel();
@@ -2176,6 +2177,7 @@ namespace WebMConverter
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(this.boxDisableExtractSubtitles);
             groupBox1.Controls.Add(this.boxDisableUpdates);
             groupBox1.Controls.Add(this.boxDownloadOptions);
             groupBox1.Controls.Add(this.boxDisablePop);
@@ -2740,6 +2742,18 @@ namespace WebMConverter
             this.listViewContextMenuDelete.Text = "Delete";
             this.listViewContextMenuDelete.Click += new System.EventHandler(this.listViewContextMenuDelete_Click);
             // 
+            // boxDisableExtractSubtitles
+            // 
+            this.boxDisableExtractSubtitles.AutoSize = true;
+            this.boxDisableExtractSubtitles.Location = new System.Drawing.Point(700, 91);
+            this.boxDisableExtractSubtitles.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.boxDisableExtractSubtitles.Name = "boxDisableExtractSubtitles";
+            this.boxDisableExtractSubtitles.Size = new System.Drawing.Size(330, 20);
+            this.boxDisableExtractSubtitles.TabIndex = 10;
+            this.boxDisableExtractSubtitles.Text = "Disable extract subtitles. Big videos will load faster ";
+            this.boxDisableExtractSubtitles.UseVisualStyleBackColor = true;
+            this.boxDisableExtractSubtitles.CheckedChanged += new System.EventHandler(this.boxDisableExtractSubtitles_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.buttonGo;
@@ -2966,6 +2980,7 @@ namespace WebMConverter
         private System.Windows.Forms.CheckBox boxDisablePop;
         private System.Windows.Forms.CheckBox boxDownloadOptions;
         private System.Windows.Forms.CheckBox boxDisableUpdates;
+        private System.Windows.Forms.CheckBox boxDisableExtractSubtitles;
         // private System.Windows.Forms.GroupBox groupGfycat;
     }
 }

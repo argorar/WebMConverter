@@ -193,6 +193,9 @@ namespace WebMConverter
 
             if (!configuration.AppSettings.Settings.AllKeys.Contains("DisableUpdates"))
                 configuration.AppSettings.Settings.Add("DisableUpdates", "False");
+            
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("DisableSubtitles"))
+                configuration.AppSettings.Settings.Add("DisableSubtitles", "False");
         }
 
         private void ToolTip()
@@ -273,6 +276,11 @@ namespace WebMConverter
                 boxDownloadOptions.Checked = true;
             else
                 boxDownloadOptions.Checked = false;
+
+            if (configuration.AppSettings.Settings["DisableSubtitles"].Value.Equals("True"))
+                boxDisableExtractSubtitles.Checked = true;
+            else
+                boxDisableExtractSubtitles.Checked = false;
 
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["PathDownload"].Value))
                 textPathDownloaded.Text = configuration.AppSettings.Settings["PathDownload"].Value;
@@ -1706,6 +1714,8 @@ namespace WebMConverter
 
                                     break;
                                 case "subtitle": // Extract the subtitle file
+                                    if (boxDisableExtractSubtitles.Checked)
+                                        break;
                                     // Get a title
                                     streamtitle = nav.GetAttribute("codec_name", "");
                                     SubtitleType type;
@@ -2971,6 +2981,11 @@ namespace WebMConverter
         {
             UpdateConfiguration("DisableUpdates", boxDisableUpdates.Checked.ToString());
             Program.DisableUpdates = boxDisableUpdates.Checked;
+        }
+
+        private void boxDisableExtractSubtitles_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateConfiguration("DisableSubtitles", boxDisableExtractSubtitles.Checked.ToString());
         }
     }
 }
