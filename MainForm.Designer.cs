@@ -158,6 +158,7 @@ namespace WebMConverter
             this.boxArguments = new System.Windows.Forms.TextBox();
             this.checkBoxAlpha = new System.Windows.Forms.CheckBox();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.boxDisableExtractSubtitles = new System.Windows.Forms.CheckBox();
             this.boxDisableUpdates = new System.Windows.Forms.CheckBox();
             this.boxDownloadOptions = new System.Windows.Forms.CheckBox();
             this.boxDisablePop = new System.Windows.Forms.CheckBox();
@@ -205,7 +206,6 @@ namespace WebMConverter
             this.listViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.listViewContextMenuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewContextMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.boxDisableExtractSubtitles = new System.Windows.Forms.CheckBox();
             tableMainForm = new System.Windows.Forms.TableLayoutPanel();
             groupMain = new System.Windows.Forms.GroupBox();
             tableMain = new System.Windows.Forms.TableLayoutPanel();
@@ -314,7 +314,6 @@ namespace WebMConverter
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             statusStrip.SuspendLayout();
             this.panelContainTheProgressBar.SuspendLayout();
@@ -2199,6 +2198,18 @@ namespace WebMConverter
             groupBox1.TabStop = false;
             groupBox1.Text = "Configuration";
             // 
+            // boxDisableExtractSubtitles
+            // 
+            this.boxDisableExtractSubtitles.AutoSize = true;
+            this.boxDisableExtractSubtitles.Location = new System.Drawing.Point(700, 91);
+            this.boxDisableExtractSubtitles.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.boxDisableExtractSubtitles.Name = "boxDisableExtractSubtitles";
+            this.boxDisableExtractSubtitles.Size = new System.Drawing.Size(330, 20);
+            this.boxDisableExtractSubtitles.TabIndex = 10;
+            this.boxDisableExtractSubtitles.Text = "Disable extract subtitles. Big videos will load faster ";
+            this.boxDisableExtractSubtitles.UseVisualStyleBackColor = true;
+            this.boxDisableExtractSubtitles.CheckedChanged += new System.EventHandler(this.boxDisableExtractSubtitles_CheckedChanged);
+            // 
             // boxDisableUpdates
             // 
             this.boxDisableUpdates.AutoSize = true;
@@ -2494,6 +2505,7 @@ namespace WebMConverter
             // 
             // groupBox2
             // 
+            groupBox2.BackColor = System.Drawing.Color.Transparent;
             groupBox2.Controls.Add(this.labelGrid);
             groupBox2.Controls.Add(this.buttonVideo2);
             groupBox2.Controls.Add(this.textVideo2);
@@ -2501,12 +2513,13 @@ namespace WebMConverter
             groupBox2.Controls.Add(this.label1);
             groupBox2.Controls.Add(this.textVideo1);
             groupBox2.Controls.Add(this.buttonVideo1);
-            groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox2.Dock = System.Windows.Forms.DockStyle.Left;
+            groupBox2.ForeColor = System.Drawing.SystemColors.MenuText;
             groupBox2.Location = new System.Drawing.Point(0, 0);
             groupBox2.Margin = new System.Windows.Forms.Padding(4);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            groupBox2.Size = new System.Drawing.Size(670, 372);
+            groupBox2.Size = new System.Drawing.Size(667, 372);
             groupBox2.TabIndex = 14;
             groupBox2.TabStop = false;
             groupBox2.Text = "Files";
@@ -2580,21 +2593,18 @@ namespace WebMConverter
             // 
             // splitContainer2
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
             this.splitContainer2.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.BackColor = System.Drawing.Color.Transparent;
             this.splitContainer2.Panel1.Controls.Add(this.tableLayoutPanel1);
+            this.splitContainer2.Panel1.Controls.Add(this.tableLayoutPanel2);
             this.splitContainer2.Panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel2);
             this.splitContainer2.Size = new System.Drawing.Size(724, 372);
-            this.splitContainer2.SplitterDistance = 355;
+            this.splitContainer2.SplitterDistance = 238;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -2603,13 +2613,13 @@ namespace WebMConverter
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(40, 91);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(24, 204);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(267, 223);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(190, 131);
             this.tableLayoutPanel1.TabIndex = 0;
             this.tableLayoutPanel1.Click += new System.EventHandler(this.tableLayoutPanel1_Click);
             // 
@@ -2619,12 +2629,12 @@ namespace WebMConverter
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(28, 91);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(23, 36);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(299, 223);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(190, 131);
             this.tableLayoutPanel2.TabIndex = 0;
             this.tableLayoutPanel2.Click += new System.EventHandler(this.tableLayoutPanel2_Click);
             // 
@@ -2742,18 +2752,6 @@ namespace WebMConverter
             this.listViewContextMenuDelete.Text = "Delete";
             this.listViewContextMenuDelete.Click += new System.EventHandler(this.listViewContextMenuDelete_Click);
             // 
-            // boxDisableExtractSubtitles
-            // 
-            this.boxDisableExtractSubtitles.AutoSize = true;
-            this.boxDisableExtractSubtitles.Location = new System.Drawing.Point(700, 91);
-            this.boxDisableExtractSubtitles.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.boxDisableExtractSubtitles.Name = "boxDisableExtractSubtitles";
-            this.boxDisableExtractSubtitles.Size = new System.Drawing.Size(330, 20);
-            this.boxDisableExtractSubtitles.TabIndex = 10;
-            this.boxDisableExtractSubtitles.Text = "Disable extract subtitles. Big videos will load faster ";
-            this.boxDisableExtractSubtitles.UseVisualStyleBackColor = true;
-            this.boxDisableExtractSubtitles.CheckedChanged += new System.EventHandler(this.boxDisableExtractSubtitles_CheckedChanged);
-            // 
             // MainForm
             // 
             this.AcceptButton = this.buttonGo;
@@ -2845,7 +2843,6 @@ namespace WebMConverter
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             statusStrip.ResumeLayout(false);

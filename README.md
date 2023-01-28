@@ -180,6 +180,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.21.1
+* Fix grid tab
+
 #### Version 3.21.0
 * Add option to disable extract subtitles. Big videos will load faster
 
