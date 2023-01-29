@@ -50,5 +50,21 @@ namespace WebMConverter.Dialogs
                 Close();
             }
         }
+
+        private void numericWidth_Leave(object sender, EventArgs e)
+        {
+            checkNumbers();
+        }
+
+        private void numericHeight_Leave(object sender, EventArgs e)
+        {
+            checkNumbers();
+        }
+
+        private void checkNumbers()
+        {
+            if (numericHeight.Value % 2 != 0 || numericWidth.Value % 2 != 0)
+                MessageBox.Show("Only even numbers allowed", "Don't too fast", MessageBoxButtons.OK,MessageBoxIcon.Warning);
+        }
     }
 }

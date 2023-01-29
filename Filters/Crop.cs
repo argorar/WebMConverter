@@ -91,12 +91,10 @@ namespace WebMConverter
                     height = frame.EncodedResolution.Height;
                 }
 
-                cropPercent = new RectangleF(
-                    (float)InputFilter.Left / width,
-                    (float)InputFilter.Top / height,
-                    (float)(width - InputFilter.Left + InputFilter.Right) / width,
-                    (float)(height - InputFilter.Top + InputFilter.Bottom) / height
-                );
+                int suma1 = Math.Abs(InputFilter.Left) + Math.Abs(InputFilter.Top);   
+                int suma2 = Math.Abs(InputFilter.Right) + Math.Abs(InputFilter.Bottom);
+
+                cropPercent = InputFilter.cropPercent;
 
                 previewFrame.GeneratePreview(true);
             }
@@ -419,7 +417,8 @@ namespace WebMConverter
                 cropLeft,
                 cropTop,
                 newWidth == 0 ? cropRight : CorrectCrop(cropLeft, cropRight, newWidth, width),
-                newHeight == 0 ? cropBottom : CorrectCrop(cropTop, cropBottom, newHeight, height)
+                newHeight == 0 ? cropBottom : CorrectCrop(cropTop, cropBottom, newHeight, height),
+                cropPercent
             );
         }
 
@@ -619,9 +618,17 @@ namespace WebMConverter
         public int Top { get; }
         public int Right { get; }
         public int Bottom { get; }
+        public RectangleF cropPercent { get; }
+        public int finalHeight { get; } 
+        public int finalWidth { get; } 
 
-        public CropFilter(int left, int top, int right, int bottom)
+        public CropFilter(int left, int top, int right, int bottom, RectangleF cropPercentFilter)
         {
+            cropPercent = cropPercentFilter;
+
+            finalWidth = (int)(Program.Resolution.Width* cropPercent.Width);
+            finalHeight = (int)(Program.Resolution.Height * cropPercent.Height);
+
             int[] tempArray;
             tempArray = CorrectCrop(left, right);
             left = tempArray[0];
@@ -631,10 +638,13 @@ namespace WebMConverter
             top = tempArray[0];
             bottom = tempArray[1];
 
-            Left = Mod2(left);
-            Top = Mod2(top);
-            Right = Mod2(right);
-            Bottom = Mod2(bottom);
+            Left = left > 0 && left % 2 != 0 ? left - 1 : left;
+            Top = top > 0 && top % 2 != 0 ? top - 1 : top;
+            Right = right < 0 && right % 2 != 0 ? right - 1 : right;
+            Bottom = bottom < 0 && bottom % 2 != 0 ? bottom - 1 : bottom;
+
+            int suma1 = Math.Abs(Left) + Math.Abs(Top);
+            int suma2 = Math.Abs(Right) + Math.Abs(Bottom);
         }
 
         public override string ToString() => $"Crop({Left}, {Top}, {Right}, {Bottom})";

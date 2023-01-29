@@ -180,11 +180,14 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.21.2
+* Fix pixels added to editing crop as in final result. See related [issue](https://github.com/argorar/WebMConverter/issues/27)
+
 #### Version 3.21.1
 * Fix grid tab
 
 #### Version 3.21.0
-* Add option to disable extract subtitles. Big videos will load faster
+* Add option to disable extract subtitles. Big videos will load faster. See related [issue](https://github.com/argorar/WebMConverter/issues/32)
 
 #### Version 3.20.2
 * Fix icons

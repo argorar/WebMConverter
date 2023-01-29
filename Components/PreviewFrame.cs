@@ -51,6 +51,15 @@ namespace WebMConverter
             GeneratePreview(false);
         }
 
+
+        private int FixValue(int number)
+        {
+            if (number % 2 == 0)
+                return number;  
+            else
+                return number-1;  
+        }
+
         public void GeneratePreview(bool force)
         {
             if (Program.VideoSource == null)
@@ -70,8 +79,8 @@ namespace WebMConverter
             int width, height;
             float scale;
             scale = Math.Min((float)Size.Width / frame.EncodedResolution.Width, (float)Size.Height / frame.EncodedResolution.Height);
-            width = (int)(frame.EncodedResolution.Width * scale);
-            height = (int)(frame.EncodedResolution.Height * scale);
+            width = FixValue((int)(frame.EncodedResolution.Width * scale));
+            height = FixValue((int)(frame.EncodedResolution.Height * scale));
 
             // https://stackoverflow.com/a/24199315/174466
             var destRect = new Rectangle(0, 0, width, height);

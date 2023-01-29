@@ -2425,7 +2425,10 @@ namespace WebMConverter
             if (Filters.Rate != null)
                 script.AppendLine(Filters.Rate.ToString());
             if (Filters.Crop != null)
+            {
                 script.AppendLine(Filters.Crop.ToString());
+                script.AppendLine(new ResizeFilter(Filters.Crop.finalWidth, Filters.Crop.finalHeight).ToString()); 
+            }                
             if (Filters.Resize != null)
                 script.AppendLine(Filters.Resize.ToString());
             if (Filters.Reverse != null)

@@ -41,20 +41,18 @@
             // labelWidth
             // 
             this.labelWidth.AutoSize = true;
-            this.labelWidth.Location = new System.Drawing.Point(17, 16);
-            this.labelWidth.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelWidth.Location = new System.Drawing.Point(13, 13);
             this.labelWidth.Name = "labelWidth";
-            this.labelWidth.Size = new System.Drawing.Size(44, 17);
+            this.labelWidth.Size = new System.Drawing.Size(35, 13);
             this.labelWidth.TabIndex = 0;
             this.labelWidth.Text = "Width";
             // 
             // labelHeight
             // 
             this.labelHeight.AutoSize = true;
-            this.labelHeight.Location = new System.Drawing.Point(16, 48);
-            this.labelHeight.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelHeight.Location = new System.Drawing.Point(12, 39);
             this.labelHeight.Name = "labelHeight";
-            this.labelHeight.Size = new System.Drawing.Size(49, 17);
+            this.labelHeight.Size = new System.Drawing.Size(38, 13);
             this.labelHeight.TabIndex = 1;
             this.labelHeight.Text = "Height";
             // 
@@ -65,11 +63,11 @@
             0,
             0,
             0});
-            this.numericWidth.Location = new System.Drawing.Point(75, 12);
-            this.numericWidth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericWidth.Location = new System.Drawing.Point(56, 10);
             this.numericWidth.Name = "numericWidth";
-            this.numericWidth.Size = new System.Drawing.Size(113, 22);
+            this.numericWidth.Size = new System.Drawing.Size(85, 20);
             this.numericWidth.TabIndex = 2;
+            this.numericWidth.Leave += new System.EventHandler(this.numericWidth_Leave);
             // 
             // numericHeight
             // 
@@ -78,18 +76,17 @@
             0,
             0,
             0});
-            this.numericHeight.Location = new System.Drawing.Point(76, 47);
-            this.numericHeight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericHeight.Location = new System.Drawing.Point(57, 38);
             this.numericHeight.Name = "numericHeight";
-            this.numericHeight.Size = new System.Drawing.Size(112, 22);
+            this.numericHeight.Size = new System.Drawing.Size(84, 20);
             this.numericHeight.TabIndex = 3;
+            this.numericHeight.Leave += new System.EventHandler(this.numericHeight_Leave);
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(209, 12);
-            this.btnConfirm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnConfirm.Location = new System.Drawing.Point(157, 10);
             this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(120, 59);
+            this.btnConfirm.Size = new System.Drawing.Size(90, 48);
             this.btnConfirm.TabIndex = 4;
             this.btnConfirm.Text = "Confirm";
             this.btnConfirm.UseVisualStyleBackColor = true;
@@ -97,9 +94,9 @@
             // 
             // SetDimensionsDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(348, 82);
+            this.ClientSize = new System.Drawing.Size(261, 67);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.numericHeight);
             this.Controls.Add(this.numericWidth);
@@ -107,7 +104,6 @@
             this.Controls.Add(this.labelWidth);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SetDimensionsDialog";
