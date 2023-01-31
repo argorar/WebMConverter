@@ -635,7 +635,7 @@ namespace WebMConverter
             right = tempArray[1];
 
             tempArray = CorrectCrop(top, bottom);
-            top = tempArray[0];
+            top = tempArray[0] < 0 ? 0 : tempArray[0];
             bottom = tempArray[1];
 
             Left = left > 0 && left % 2 != 0 ? left - 1 : left;

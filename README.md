@@ -178,7 +178,14 @@ See user details in tab *General*. If you are creating several gfys of the same 
 * Crop: ```Alt + c```
 * Change Rate: ```Alt + Shift + c```
 
+### Supporters
+* bouteloua
+* ManletPride
+
 ## Changelog
+
+#### Version 3.21.3
+* Fix crop interface
 
 #### Version 3.21.2
 * Fix pixels added to editing crop as in final result. See related [issue](https://github.com/argorar/WebMConverter/issues/27)

@@ -188,8 +188,8 @@
             this.Controls.Add(this.labelNewResolution);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonConfirm);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.previewFrame);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.trackVideoTimeline);
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(446, 297);
