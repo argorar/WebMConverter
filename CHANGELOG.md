@@ -1,3 +1,171 @@
+Version 3.19.0
+=======
+* Added feature to create grid videos, check the tab *Grid*. It requires that both videos share codecs, size, length. Output file is in same path as video #1 
+* Fix contrast to videos with full color range (yuvj420p format). See related [issue](https://github.com/argorar/WebMConverter/issues/22)
+* Convert mp4 with audio now is compatible with popular web pages. See related [issue](https://github.com/argorar/WebMConverter/issues/23)
+* Added checkbox to fix audio desync
+* Fix utf8 support in filenames, bug introduced in previus update
+* Fix audio desync with some encodes like footage recorded by Nvidia Geforce Experience. See related [issue](https://github.com/argorar/WebMConverter/issues/17)
+* Add option to enable alpha channel aside with VP9 encoders for WebM. Find it in Advanced section. See related [issue](https://github.com/argorar/WebMConverter/issues/19)
+* Fix update arguments when advanced filter settings change
+* Size limit feature now is more reliable. See related [issue](https://github.com/argorar/WebMConverter/issues/14)
+* Managed error saving configuration
+* VP9 convertion is more fast now
+* Not longer requires Microsoft Visual C++ 2010 (x86). See related [issue](https://github.com/argorar/WebMConverter/issues/11)
+
+Version 3.18.0
+=======
+* VP9 now is default for fresh installs, your current setting will be remembered
+* Advance users can edit/add arguments before convert in ```Advanced>Arguments```
+* ffmpeg updated
+* Changed convert console output for more easy reading. Thanks to **@myblindy**
+* fix out of bounds moving crop with keyboard
+* Depured download console
+* fix broken WebMConverter.Updater.exe
+* fix a bug in change rate form, press enter after changes values doesn't save them
+* fix a bug in resize form, it doesn't load the values saved previously
+
+Version 3.17.0
+=======
+* Add save frames in trim form
+* Add option to change interpolation type for stabilization if you want to experiment with other options
+* Add rotation to trim's preview if the filter is applied
+* Change interpolation type for stabilization to get a better result in dynamic crop
+* Improved stabilization
+* Fix bug when drop a video and doesn't update output filename
+* Fix a bug in dynamic crop using keyboard arrows
+* Fix duplicated frames in dynamic crop
+* Fix bug in output filename when change destination folder
+* Fix code style
+
+Version 3.16.0
+=======
+* Add dynamic crop. Follow an object on the canvas easily [check the instructions](#dynamic-crop)
+* Fix bug cheking yt-dlp version
+
+Version 3.15.0
+=======
+* Changed youtube-dl to yt-dlp to get last updates and fixes to download videos without problem
+* Update link to download C++ required package for beginners
+* Fix bug to download best quality from youtube
+* Minor corrections in workflow
+
+Version 3.14.0
+=======
+* Add automatic update of binaries. You always will have the latest updates
+* Fix a bug with progress bar that closed the program
+
+Version 3.13.0
+=======
+* Add stabilization filter. Find it in Advanced>Processing. It comes with different levels of stabilization 
+* Fix validation of output name
+
+Version 3.12.0
+=======
+* Since gfycat is changing webm for mp4, now you can convert in high quality in mp4 format. Options in Encoding>Video
+* Add Hardware Acceleration to encode for users with NVIDIA GPU
+* Add validation of output name, if is the same as input *-1.xxx* is added
+* Fixed accuracy in set dimensions in crop
+* Fixed bug that generate muted clips with dub filter
+* Add delay audio. Explore in Encoding > Audio
+* Change Rotate icon
+
+Version 3.11.0
+=======
+* Add button to open downloaded videos folder
+* Add simple option to convert to mp4 for shared files into platforms where webm is not supported. Option is in tab general
+* Internal structure changed, now is dynamic allowing to do cool things on future
+* Fix arguments for advanced filter
+* Update binaries to fix JS player extraction in download feature
+
+Version 3.10.0
+=======
+* Add advanced filter. Now you can change contrast, gamma and saturation and find the right values for your video
+* Check if the application is already running to avoid errors, shows a warning to user. It can be disable
+* When you add a new multi trim, it load at the end of previous trim
+* Add option to choose which CRF value to use depending on the resolution of the source. Check the general tab
+* Add option to set the exact dimensions to crop
+* Display just one decimal in crop resolution
+
+Version 3.9.0
+=======
+* Add shortcut keys for trim, multi trim, crop, and change rate
+* Now you can see the new resolution of your crop
+
+Version 3.8.0
+=======
+* Add file size information after convert and gfycat uploader
+* Add tags in tab General
+* Update binaries
+* Cleaning the garden
+
+Version 3.7.0
+=======
+* Display original FPS in interpolate box
+* If value in interpolate box is 0, it will be removed
+* Gfycat stats, see them in tab *General*
+* Add option to log out of Gfycat
+* Add feedback to merge files to avoid errors
+* When you check VP9, the configuration will be remembered
+* Add time line to crop filter
+* Redundancy in preview eliminated in the filter trim, can bring a small improvement in performance
+* Set CRF to 16 with 4k videos
+* Set max audio quality as default
+* Fix arguments when filter change
+* Fix incorrect result message when convert with loop 
+
+Version 3.6.0
+=======
+* Add Loop function, forward and reverse making an infinite effect. You *can't* use filter or interpolation with it
+* Add Dark Filter
+* Enable ShareX option after convert
+* Now sort files by the filename in merge videos
+* Fix Unauthorized issue with gfycat
+* Fix bug that break updates, some problem to get DNS with IPS
+* Fix message error when you use interpolation
+* Fix errors when you work offline
+* Check if Microsoft Visual C++ 2010 (x86) is installed, if not, it will open the download page
+
+Version 3.5.0
+=======
+* Merge two or more videos in one, just drag and drop them inside the app. Search for the new merged file in source path
+* *Limitations:* The group of videos must have the same encodes / dimensions
+
+Version 3.4.0
+=======
+* Deinterlace gets the job done efficiently. Remember to do this before editing, so the overall experience is not affected. You can use trim to save time and get what you need.
+* Bring dark videos to light, try it in Advanced> Processing> Filters
+* Minor changes to performance in filters
+
+Version 3.3.0
+=======
+* Download your video is easy now (support +1000 sites), [see more information.][Sites]
+* Now you can working editing other video while the file upload to gfycat
+* Improved performance of function to get frames on multiprocessor systems
+* Fixed Gfycat title
+* Interpolation result is better now
+* Minor changes in *New update available*
+* Fixed when your drop a file, that make your settings reset
+
+Version 3.2.0
+=======
+* Now you can set when you want your caption to start and end
+* In caption form you can advance frame by frame changing *start frame* value. You can use mouse wheel too
+* Changed algorithm to interpolate
+* Now the update feature is enabled
+
+Version 3.1.0
+=======
+* Added option to interpolate frames in Advanced/Encoding
+* Improved trim lag going forward with 4k videos
+
+Version 3.0.0
+=======
+* Fixed laggy trim functionality (with 4k files is a still a little slower)
+* Now you can use Space key to play 100 frames in trim functionality
+* Set the exact % value in change rate functionality 
+* Now your settings are remembered 
+* Gfycat integration using browser-based OAuth authentication. Upload your gfy after convert with one click
 v2.26.1
 =======
 - Fade filter will now be properly reset upon loading a new file.
