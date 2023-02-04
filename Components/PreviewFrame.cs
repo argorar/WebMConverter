@@ -13,7 +13,7 @@ namespace WebMConverter
         uint framenumber;
         FFMSSharp.Frame frame;
         int cachedframenumber;
-        RotateFlipType rotateFlipType;
+        RotateFlipType rotateFlipType;       
 
         [DefaultValue(0)]
         public int Frame
@@ -39,6 +39,7 @@ namespace WebMConverter
 
                 var infoframe = Program.VideoSource.GetFrame((int)framenumber);
                 Program.VideoSource.SetOutputFormat(pixelformat, infoframe.EncodedResolution.Width, infoframe.EncodedResolution.Height, FFMSSharp.Resizer.BilinearFast);
+
             }
 
             cachedframenumber = -1;
@@ -72,9 +73,14 @@ namespace WebMConverter
             if (cachedframenumber != framenumber)
             {
                 cachedframenumber = (int)framenumber;
-                frame = Program.VideoSource.GetFrame(cachedframenumber);
+                if (MainForm.cache.ContainsKey(cachedframenumber))
+                {
+                    Picture.BackgroundImage = MainForm.cache[cachedframenumber];
+                    Picture.Refresh();
+                    return;
+                }
             }
-
+            frame = Program.VideoSource.GetFrame(cachedframenumber);
             // Calculate width and height
             int width, height;
             float scale;
@@ -119,6 +125,10 @@ namespace WebMConverter
             }
 
             destImage.RotateFlip(rotateFlipType);
+
+            if(!MainForm.cache.ContainsKey(cachedframenumber))
+                MainForm.cache.Add(cachedframenumber, destImage);
+
             Picture.BackgroundImage = destImage;
             Picture.ClientSize = new Size(width, height);
             Picture.Refresh();

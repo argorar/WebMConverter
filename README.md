@@ -184,6 +184,10 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.22.0
+* Cache system implemented. Now move smoother in *Trim* & *Crop* filters
+* Add original Frame Per Second in *Change Rate* filter
+
 #### Version 3.21.3
 * Fix crop interface
 

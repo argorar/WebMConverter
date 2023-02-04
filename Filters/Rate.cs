@@ -34,6 +34,8 @@ namespace WebMConverter
 
             boxPreviewOriginal.Text = _originalDuration.ToString(PreviewBoxFormat);
             boxPreviewScaled.Text = new TimeSpan((long)(_originalDuration.Ticks / GetValue())).ToString(PreviewBoxFormat);
+
+            this.Text = string.Format(this.Text, Program.originalFraps);
         }
 
         private float GetValue()

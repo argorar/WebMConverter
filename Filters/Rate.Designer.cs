@@ -166,9 +166,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label1.Location = new System.Drawing.Point(21, 76);
+            this.label1.Location = new System.Drawing.Point(33, 76);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 52);
+            this.label1.Size = new System.Drawing.Size(77, 52);
             this.label1.TabIndex = 7;
             this.label1.Text = "       Set to %";
             // 
@@ -199,7 +199,7 @@
             this.Name = "RateForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Rate";
+            this.Text = "Original Frame Per Second {0}";
             this.Load += new System.EventHandler(this.RateForm_Load);
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelMain.PerformLayout();

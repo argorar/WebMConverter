@@ -125,6 +125,8 @@ namespace WebMConverter
 
         private TaskbarManager taskbarManager;
         private ToolTip toolTip = new ToolTip();
+
+        public static Dictionary<int, Bitmap> cache { get; set; }
         #region MainForm
 
         public MainForm()
@@ -1420,6 +1422,7 @@ namespace WebMConverter
 
             var threads = Environment.ProcessorCount;
             trackThreads.Value = Math.Min(trackThreads.Maximum, Math.Max(trackThreads.Minimum, threads));
+            cache = new Dictionary<int, Bitmap>();
         }
 
         char[] invalidChars = Path.GetInvalidPathChars();
@@ -1929,10 +1932,11 @@ namespace WebMConverter
 
         private void SetFPS()
         {
-            double originalFPS = Program.VideoSource.NumberOfFrames / Program.VideoSource.LastTime;
+            int originalFPS = (int)(Program.VideoSource.NumberOfFrames / Program.VideoSource.LastTime);
+            Program.originalFraps = originalFPS;
             this.InvokeIfRequired(() =>
             {
-                SendMessage(boxFrameRate.Handle, EM_SETCUEBANNER, 0, $"Original FPS {Math.Round(originalFPS, 1)}");
+                SendMessage(boxFrameRate.Handle, EM_SETCUEBANNER, 0, $"Original FPS {originalFPS}");
             });
         }
 
