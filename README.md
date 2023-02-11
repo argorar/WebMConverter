@@ -185,6 +185,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.22.2
+* Cleaning code
+
 #### Version 3.22.1
 * Improved memory management to prevent crash visualizing frames. See related [issue](https://github.com/argorar/WebMConverter/issues/33)
 * A special gretting for the [supporters](#supporters) of this project

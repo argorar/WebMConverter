@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WebMConverter
@@ -15,7 +16,6 @@ namespace WebMConverter
         FFMSSharp.Frame frame;
         int cachedframenumber;
         RotateFlipType rotateFlipType;
-        Bitmap originalBitmap;
         Bitmap destImage;
         Rectangle destRect;
         int width, height, sizeW, sizeH, encodeW, encodeH;
@@ -35,7 +35,7 @@ namespace WebMConverter
         }
 
 
- 
+
         public PreviewFrame()
         {
             if (Program.VideoSource != null)
@@ -79,9 +79,9 @@ namespace WebMConverter
         private int FixValue(int number)
         {
             if (number % 2 == 0)
-                return number;  
+                return number;
             else
-                return number-1;  
+                return number - 1;
         }
 
         public void GeneratePreview(bool force)
@@ -96,11 +96,12 @@ namespace WebMConverter
             if (MainForm.cache.ContainsKey((int)framenumber))
             {
                 Picture.BackgroundImage = MainForm.cache[(int)framenumber];
+                Picture.ClientSize = new Size(width, height);
                 Picture.Refresh();
                 return;
             }
 
-            frame = Program.VideoSource.GetFrame((int)framenumber);        
+            frame = Program.VideoSource.GetFrame((int)framenumber);
 
             using (var graphics = Graphics.FromImage(destImage))
             {
@@ -141,16 +142,18 @@ namespace WebMConverter
 
         async private void Purgecache()
         {
-            if (MainForm.cache.Count > 100)
+            await Task.Run(() =>
             {
-                var a = MainForm.cache.Min(kvp => kvp.Key); ;
-                MainForm.cache.TryRemove(a, out Bitmap old); 
-            }   
+                if (MainForm.cache.Count > MainForm.MAX_CAPACITY)
+                {
+                    MainForm.cache.TryRemove(MainForm.cache.Min(kvp => kvp.Key), out Bitmap old);
+                }
+            });
         }
 
         void pictureBoxFrame_SizeChanged(object sender, EventArgs e)
         {
-            if(Size.Width != sizeW || Size.Height != sizeH)
+            if (Size.Width != sizeW || Size.Height != sizeH)
                 OnResize();
 
             GeneratePreview();

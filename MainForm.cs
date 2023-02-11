@@ -128,14 +128,15 @@ namespace WebMConverter
         private ToolTip toolTip = new ToolTip();
 
         public static ConcurrentDictionary<int, Bitmap> cache { get; set; }
+        public static int MAX_CAPACITY = 200;
+        private static int MAX_PROCESS = 2;
         #region MainForm
 
         public MainForm()
         {
             FFMSSharp.FFMS2.Initialize(Path.Combine(Environment.CurrentDirectory, "Binaries", "Win32"));
             _temporaryFilesList = new List<string>();
-            int initialCapacity = 100;
-            cache = new ConcurrentDictionary<int, Bitmap>(2, initialCapacity);
+            cache = new ConcurrentDictionary<int, Bitmap>(MAX_PROCESS, MAX_CAPACITY);
             InitializeComponent();
             this.KeyPreview = true;
             taskbarManager = TaskbarManager.Instance;

@@ -77,25 +77,7 @@ namespace WebMConverter
             else
             {
                 currentFrame = 0;
-                int width, height;
-                if ((Owner as MainForm).SarCompensate)
-                {
-                    width = (Owner as MainForm).SarWidth;
-                    height = (Owner as MainForm).SarHeight;
-                }
-                else
-                {
-                    // Note that because we call this, the frame used by the PreviewFrame gets disposed. We need to call GeneratePreview after we're done with this.
-                    FFMSSharp.Frame frame = Program.VideoSource.GetFrame(previewFrame.Frame);
-                    width = frame.EncodedResolution.Width;
-                    height = frame.EncodedResolution.Height;
-                }
-
-                int suma1 = Math.Abs(InputFilter.Left) + Math.Abs(InputFilter.Top);   
-                int suma2 = Math.Abs(InputFilter.Right) + Math.Abs(InputFilter.Bottom);
-
                 cropPercent = InputFilter.cropPercent;
-
                 previewFrame.GeneratePreview(true);
             }
 
@@ -642,9 +624,6 @@ namespace WebMConverter
             Top = top > 0 && top % 2 != 0 ? top - 1 : top;
             Right = right < 0 && right % 2 != 0 ? right - 1 : right;
             Bottom = bottom < 0 && bottom % 2 != 0 ? bottom - 1 : bottom;
-
-            int suma1 = Math.Abs(Left) + Math.Abs(Top);
-            int suma2 = Math.Abs(Right) + Math.Abs(Bottom);
         }
 
         public override string ToString() => $"Crop({Left}, {Top}, {Right}, {Bottom})";
