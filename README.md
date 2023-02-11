@@ -181,8 +181,13 @@ See user details in tab *General*. If you are creating several gfys of the same 
 ### Supporters
 * bouteloua
 * ManletPride
+* 3nly
 
 ## Changelog
+
+#### Version 3.22.1
+* Improved memory management to prevent crash visualizing frames. See related [issue](https://github.com/argorar/WebMConverter/issues/33)
+* A special gretting for the [supporters](#supporters) of this project
 
 #### Version 3.22.0
 * Cache system implemented. Now move smoother in *Trim* & *Crop* filters

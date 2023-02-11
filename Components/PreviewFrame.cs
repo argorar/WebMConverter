@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace WebMConverter
@@ -13,7 +14,11 @@ namespace WebMConverter
         uint framenumber;
         FFMSSharp.Frame frame;
         int cachedframenumber;
-        RotateFlipType rotateFlipType;       
+        RotateFlipType rotateFlipType;
+        Bitmap originalBitmap;
+        Bitmap destImage;
+        Rectangle destRect;
+        int width, height, sizeW, sizeH, encodeW, encodeH;
 
         [DefaultValue(0)]
         public int Frame
@@ -29,6 +34,8 @@ namespace WebMConverter
             set { rotateFlipType = value; GeneratePreview(); }
         }
 
+
+ 
         public PreviewFrame()
         {
             if (Program.VideoSource != null)
@@ -37,15 +44,31 @@ namespace WebMConverter
                 List<int> pixelformat = new List<int>();
                 pixelformat.Add(FFMSSharp.FFMS2.GetPixelFormat("bgra"));
 
-                var infoframe = Program.VideoSource.GetFrame((int)framenumber);
-                Program.VideoSource.SetOutputFormat(pixelformat, infoframe.EncodedResolution.Width, infoframe.EncodedResolution.Height, FFMSSharp.Resizer.BilinearFast);
+                frame = Program.VideoSource.GetFrame((int)framenumber);
 
+                encodeW = frame.EncodedResolution.Width;
+                encodeH = frame.EncodedResolution.Height;
+
+                Program.VideoSource.SetOutputFormat(pixelformat, encodeW, encodeH, FFMSSharp.Resizer.BilinearFast);
             }
 
             cachedframenumber = -1;
-
             InitializeComponent();
         }
+
+        protected void OnResize()
+        {
+            sizeW = Size.Width;
+            sizeH = Size.Height;
+
+            float scale = Math.Min((float)sizeW / encodeW, (float)sizeH / encodeH);
+            width = FixValue((int)(encodeW * scale));
+            height = FixValue((int)(encodeH * scale));
+            // https://stackoverflow.com/a/24199315/174466
+            destRect = new Rectangle(0, 0, width, height);
+            destImage = new Bitmap(width, height);
+        }
+
 
         public void GeneratePreview()
         {
@@ -63,43 +86,25 @@ namespace WebMConverter
 
         public void GeneratePreview(bool force)
         {
+
             if (Program.VideoSource == null)
                 return;
 
             if (force)
                 cachedframenumber = -1;
 
-            // Load the frame, if we haven't already
-            if (cachedframenumber != framenumber)
+            if (MainForm.cache.ContainsKey((int)framenumber))
             {
-                cachedframenumber = (int)framenumber;
-                if (MainForm.cache.ContainsKey(cachedframenumber))
-                {
-                    Picture.BackgroundImage = MainForm.cache[cachedframenumber];
-                    Picture.Refresh();
-                    return;
-                }
+                Picture.BackgroundImage = MainForm.cache[(int)framenumber];
+                Picture.Refresh();
+                return;
             }
-            frame = Program.VideoSource.GetFrame(cachedframenumber);
-            // Calculate width and height
-            int width, height;
-            float scale;
-            scale = Math.Min((float)Size.Width / frame.EncodedResolution.Width, (float)Size.Height / frame.EncodedResolution.Height);
-            width = FixValue((int)(frame.EncodedResolution.Width * scale));
-            height = FixValue((int)(frame.EncodedResolution.Height * scale));
 
-            // https://stackoverflow.com/a/24199315/174466
-            var destRect = new Rectangle(0, 0, width, height);
-            var destImage = new Bitmap(width, height);
-
-            if (frame.EncodedResolution.Width > 2000)
-                destImage.SetResolution(frame.EncodedResolution.Width / (float)2, frame.EncodedResolution.Height / (float)2);
-            else
-                destImage.SetResolution(frame.EncodedResolution.Width, frame.EncodedResolution.Height);
+            frame = Program.VideoSource.GetFrame((int)framenumber);        
 
             using (var graphics = Graphics.FromImage(destImage))
             {
-                if (frame.EncodedResolution.Width > 2000)
+                if (encodeW > 2000)
                 {
                     graphics.CompositingMode = CompositingMode.SourceCopy;
                     graphics.CompositingQuality = CompositingQuality.HighSpeed;
@@ -116,36 +121,38 @@ namespace WebMConverter
                     graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
                 }
 
-
                 using (var wrapMode = new ImageAttributes())
                 {
                     wrapMode.SetWrapMode(WrapMode.TileFlipXY);
-                    graphics.DrawImage(frame.Bitmap, destRect, 0, 0, frame.EncodedResolution.Width, frame.EncodedResolution.Height, GraphicsUnit.Pixel, wrapMode);
+                    graphics.DrawImage(frame.Bitmap, destRect, 0, 0, encodeW, encodeH, GraphicsUnit.Pixel, wrapMode);
                 }
             }
-
             destImage.RotateFlip(rotateFlipType);
 
-            if(!MainForm.cache.ContainsKey(cachedframenumber))
-                MainForm.cache.Add(cachedframenumber, destImage);
+            Purgecache();
+            if (!MainForm.cache.ContainsKey((int)framenumber))
+                MainForm.cache.TryAdd((int)framenumber, (Bitmap)destImage.Clone());
 
             Picture.BackgroundImage = destImage;
-            Picture.ClientSize = new Size(width, height);
             Picture.Refresh();
 
-            // Center the pictureBox in our control
-            if (width == Width || width - 1 == Width || width + 1 == Width) // this looks weird but keep in mind we're dealing with an ex float here
+            cachedframenumber = (int)framenumber;
+        }
+
+        async private void Purgecache()
+        {
+            if (MainForm.cache.Count > 100)
             {
-                Padding = new Padding(0, (Height - height) / 2, 0, 0);
-            }
-            else
-            {
-                Padding = new Padding((Width - width) / 2, 0, 0, 0);
-            }
+                var a = MainForm.cache.Min(kvp => kvp.Key); ;
+                MainForm.cache.TryRemove(a, out Bitmap old); 
+            }   
         }
 
         void pictureBoxFrame_SizeChanged(object sender, EventArgs e)
         {
+            if(Size.Width != sizeW || Size.Height != sizeH)
+                OnResize();
+
             GeneratePreview();
         }
 

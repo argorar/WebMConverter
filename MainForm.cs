@@ -23,6 +23,7 @@ using System.Configuration;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Collections;
+using System.Collections.Concurrent;
 
 namespace WebMConverter
 {
@@ -126,14 +127,15 @@ namespace WebMConverter
         private TaskbarManager taskbarManager;
         private ToolTip toolTip = new ToolTip();
 
-        public static Dictionary<int, Bitmap> cache { get; set; }
+        public static ConcurrentDictionary<int, Bitmap> cache { get; set; }
         #region MainForm
 
         public MainForm()
         {
             FFMSSharp.FFMS2.Initialize(Path.Combine(Environment.CurrentDirectory, "Binaries", "Win32"));
             _temporaryFilesList = new List<string>();
-
+            int initialCapacity = 100;
+            cache = new ConcurrentDictionary<int, Bitmap>(2, initialCapacity);
             InitializeComponent();
             this.KeyPreview = true;
             taskbarManager = TaskbarManager.Instance;
@@ -1422,7 +1424,7 @@ namespace WebMConverter
 
             var threads = Environment.ProcessorCount;
             trackThreads.Value = Math.Min(trackThreads.Maximum, Math.Max(trackThreads.Minimum, threads));
-            cache = new Dictionary<int, Bitmap>();
+            cache.Clear();
         }
 
         char[] invalidChars = Path.GetInvalidPathChars();
@@ -1724,7 +1726,7 @@ namespace WebMConverter
                                     SubtitleType type;
                                     string extension;
 
-                                    switch (streamtitle)
+                                     switch (streamtitle)
                                     {
                                         case "dvdsub":
                                             type = SubtitleType.VobSub;
