@@ -98,6 +98,7 @@ namespace WebMConverter
                 Picture.BackgroundImage = MainForm.cache[(int)framenumber];
                 Picture.ClientSize = new Size(width, height);
                 Picture.Refresh();
+                SetPadding();
                 return;
             }
 
@@ -136,7 +137,7 @@ namespace WebMConverter
 
             Picture.BackgroundImage = destImage;
             Picture.Refresh();
-
+            SetPadding();
             cachedframenumber = (int)framenumber;
         }
 
@@ -151,6 +152,19 @@ namespace WebMConverter
             });
         }
 
+
+        private void SetPadding()
+        {
+            // Center the pictureBox in our control
+            if (width == Width || width - 1 == Width || width + 1 == Width) // this looks weird but keep in mind we're dealing with an ex float here
+            {
+                Padding = new Padding(0, (Height - height) / 2, 0, 0);
+            }
+            else
+            {
+                Padding = new Padding((Width - width) / 2, 0, 0, 0);
+            }
+        }
         void pictureBoxFrame_SizeChanged(object sender, EventArgs e)
         {
             if (Size.Width != sizeW || Size.Height != sizeH)
