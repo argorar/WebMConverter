@@ -8,6 +8,8 @@ namespace WebMConverter.Dialogs
         private float newWidth;
         private float newHight;
 
+        private static float MAGIC_NUMBER = 0.5625f;
+
         public SetDimensionsDialog()
         {
             InitializeComponent();
@@ -45,10 +47,15 @@ namespace WebMConverter.Dialogs
                 Close();
             else
             {
-                newHight = (float)numericHeight.Value / (float)Program.Resolution.Height;
-                newWidth = (float)numericWidth.Value / (float)Program.Resolution.Width;
+                CalculatePercent();
                 Close();
             }
+        }
+
+        private void CalculatePercent()
+        {
+            newHight = (float)numericHeight.Value / (float)Program.Resolution.Height;
+            newWidth = (float)numericWidth.Value / (float)Program.Resolution.Width;
         }
 
         private void numericWidth_Leave(object sender, EventArgs e)
@@ -65,6 +72,19 @@ namespace WebMConverter.Dialogs
         {
             if (numericHeight.Value % 2 != 0 || numericWidth.Value % 2 != 0)
                 MessageBox.Show("Only even numbers allowed", "Don't too fast", MessageBoxButtons.OK,MessageBoxIcon.Warning);
+        }
+
+        private void comboBoxAspectRatio_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (comboBoxAspectRatio.SelectedItem.Equals("16:9"))
+                numericHeight.Value = (int)(MAGIC_NUMBER * (float)Program.Resolution.Width);
+
+            else if (comboBoxAspectRatio.SelectedItem.Equals("9:16"))
+                numericWidth.Value = (int)(MAGIC_NUMBER * (float)Program.Resolution.Height);
+
+            CalculatePercent();
+            Close();
+
         }
     }
 }

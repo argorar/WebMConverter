@@ -34,6 +34,8 @@
             this.numericWidth = new System.Windows.Forms.NumericUpDown();
             this.numericHeight = new System.Windows.Forms.NumericUpDown();
             this.btnConfirm = new System.Windows.Forms.Button();
+            this.comboBoxAspectRatio = new System.Windows.Forms.ComboBox();
+            this.labelAspectRatio = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericHeight)).BeginInit();
             this.SuspendLayout();
@@ -63,9 +65,9 @@
             0,
             0,
             0});
-            this.numericWidth.Location = new System.Drawing.Point(56, 10);
+            this.numericWidth.Location = new System.Drawing.Point(78, 10);
             this.numericWidth.Name = "numericWidth";
-            this.numericWidth.Size = new System.Drawing.Size(85, 20);
+            this.numericWidth.Size = new System.Drawing.Size(63, 20);
             this.numericWidth.TabIndex = 2;
             this.numericWidth.Leave += new System.EventHandler(this.numericWidth_Leave);
             // 
@@ -76,9 +78,9 @@
             0,
             0,
             0});
-            this.numericHeight.Location = new System.Drawing.Point(57, 38);
+            this.numericHeight.Location = new System.Drawing.Point(78, 38);
             this.numericHeight.Name = "numericHeight";
-            this.numericHeight.Size = new System.Drawing.Size(84, 20);
+            this.numericHeight.Size = new System.Drawing.Size(63, 20);
             this.numericHeight.TabIndex = 3;
             this.numericHeight.Leave += new System.EventHandler(this.numericHeight_Leave);
             // 
@@ -92,11 +94,34 @@
             this.btnConfirm.UseVisualStyleBackColor = true;
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
+            // comboBoxAspectRatio
+            // 
+            this.comboBoxAspectRatio.FormattingEnabled = true;
+            this.comboBoxAspectRatio.Items.AddRange(new object[] {
+            "16:9",
+            "9:16"});
+            this.comboBoxAspectRatio.Location = new System.Drawing.Point(78, 74);
+            this.comboBoxAspectRatio.Name = "comboBoxAspectRatio";
+            this.comboBoxAspectRatio.Size = new System.Drawing.Size(63, 21);
+            this.comboBoxAspectRatio.TabIndex = 5;
+            this.comboBoxAspectRatio.SelectedValueChanged += new System.EventHandler(this.comboBoxAspectRatio_SelectedValueChanged);
+            // 
+            // labelAspectRatio
+            // 
+            this.labelAspectRatio.AutoSize = true;
+            this.labelAspectRatio.Location = new System.Drawing.Point(12, 77);
+            this.labelAspectRatio.Name = "labelAspectRatio";
+            this.labelAspectRatio.Size = new System.Drawing.Size(63, 13);
+            this.labelAspectRatio.TabIndex = 6;
+            this.labelAspectRatio.Text = "Aspect ratio";
+            // 
             // SetDimensionsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(261, 67);
+            this.ClientSize = new System.Drawing.Size(261, 103);
+            this.Controls.Add(this.labelAspectRatio);
+            this.Controls.Add(this.comboBoxAspectRatio);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.numericHeight);
             this.Controls.Add(this.numericWidth);
@@ -124,5 +149,7 @@
         private System.Windows.Forms.NumericUpDown numericWidth;
         private System.Windows.Forms.NumericUpDown numericHeight;
         private System.Windows.Forms.Button btnConfirm;
+        private System.Windows.Forms.ComboBox comboBoxAspectRatio;
+        private System.Windows.Forms.Label labelAspectRatio;
     }
 }
