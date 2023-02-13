@@ -13,7 +13,7 @@ namespace WebMConverter
         private int trimEnd;
         public TrimFilter GeneratedFilter { get; set; }
 
-        public TrimForm(TrimFilter FilterToEdit = null)
+        public TrimForm(TrimFilter FilterToEdit)
         {
             InitializeComponent();
 

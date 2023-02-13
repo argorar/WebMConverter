@@ -65,7 +65,7 @@ namespace WebMConverter
             if (ends.Count > 0)
                 form = new TrimForm(new TrimFilter(trimStart: ends.Pop(), trimEnd: Program.VideoSource.NumberOfFrames - 1));
             else
-                form = new TrimForm();
+                form = new TrimForm(null);
 
             if (form.ShowDialog() == DialogResult.OK)
             {

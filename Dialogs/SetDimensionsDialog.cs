@@ -77,10 +77,15 @@ namespace WebMConverter.Dialogs
         private void comboBoxAspectRatio_SelectedValueChanged(object sender, EventArgs e)
         {
             if (comboBoxAspectRatio.SelectedItem.Equals("16:9"))
-                numericHeight.Value = (int)(MAGIC_NUMBER * (float)Program.Resolution.Width);
-
+            {
+                var newValue = (int)(MAGIC_NUMBER * (float)Program.Resolution.Width);
+                numericHeight.Value = newValue > numericHeight.Maximum ? numericHeight.Maximum : newValue;
+            }
             else if (comboBoxAspectRatio.SelectedItem.Equals("9:16"))
-                numericWidth.Value = (int)(MAGIC_NUMBER * (float)Program.Resolution.Height);
+            {
+                var newValue = (int)(MAGIC_NUMBER * (float)Program.Resolution.Height);
+                numericWidth.Value = newValue > numericWidth.Maximum ? numericWidth.Maximum : newValue;
+            }                
 
             CalculatePercent();
             Close();
