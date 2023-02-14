@@ -185,6 +185,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.23.1
+* Fix *Rotate* filter preview
+
 #### Version 3.23.0
 * Add Aspect Ratio format in set dimensions. Initially 16:9 and 9:16 format
 * Fix centering frame in *Trim*, *Crop* & *Caption*

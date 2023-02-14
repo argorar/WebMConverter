@@ -46,9 +46,13 @@ namespace WebMConverter
                 previewFrame.Frame = Filters.Trim.TrimStart;
                 trimTimingToolStripMenuItem.Enabled = true;
             }
-            if (Filters.MultipleTrim != null)
+            else if (Filters.MultipleTrim != null)
             {
                 previewFrame.Frame = Filters.MultipleTrim.Trims[0].TrimStart;
+            }
+            else
+            {
+                previewFrame.Frame = 1;
             }
 
             rotatePictureFrame();

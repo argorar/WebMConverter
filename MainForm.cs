@@ -128,7 +128,7 @@ namespace WebMConverter
         private ToolTip toolTip = new ToolTip();
 
         public static ConcurrentDictionary<int, Bitmap> cache { get; set; }
-        public const int MAX_CAPACITY = 200;
+        public static readonly int MAX_CAPACITY = 200;
         private const int MAX_PROCESS = 2;
         #region MainForm
 

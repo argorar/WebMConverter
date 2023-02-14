@@ -105,6 +105,12 @@
     <Compile Include="Components\mkvextract.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Components\PreviewFrameRotate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Components\PreviewFrameRotate.Designer.cs">
+      <DependentUpon>PreviewFrameRotate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Components\Updater.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace WebMConverter
 {
-    public partial class PreviewFrame : UserControl
+    public partial class PreviewFrameRotate : UserControl
     {
         uint framenumber;
         FFMSSharp.Frame frame;
@@ -36,7 +36,7 @@ namespace WebMConverter
 
 
 
-        public PreviewFrame()
+        public PreviewFrameRotate()
         {
             if (Program.VideoSource != null)
             {
@@ -93,15 +93,6 @@ namespace WebMConverter
             if (force)
                 cachedframenumber = -1;
 
-            if (MainForm.cache.ContainsKey((int)framenumber))
-            {
-                Picture.BackgroundImage = MainForm.cache[(int)framenumber];
-                Picture.ClientSize = new Size(width, height);
-                Picture.Refresh();
-                SetPadding();
-                return;
-            }
-
             frame = Program.VideoSource.GetFrame((int)framenumber);
 
             if (destImage == null)
@@ -132,26 +123,12 @@ namespace WebMConverter
                     graphics.DrawImage(frame.Bitmap, destRect, 0, 0, encodeW, encodeH, GraphicsUnit.Pixel, wrapMode);
                 }
             }
-
-            Purgecache();
-            if (!MainForm.cache.ContainsKey((int)framenumber))
-                MainForm.cache.TryAdd((int)framenumber, (Bitmap)destImage.Clone());
+            destImage.RotateFlip(rotateFlipType);
 
             Picture.BackgroundImage = destImage;
             Picture.Refresh();
             SetPadding();
             cachedframenumber = (int)framenumber;
-        }
-
-        async private void Purgecache()
-        {
-            await Task.Run(() =>
-            {
-                if (MainForm.cache.Count > MainForm.MAX_CAPACITY)
-                {
-                    MainForm.cache.TryRemove(MainForm.cache.Min(kvp => kvp.Key), out Bitmap old);
-                }
-            });
         }
 
 

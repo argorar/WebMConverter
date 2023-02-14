@@ -42,7 +42,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonConfirm = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.previewFrame = new WebMConverter.PreviewFrame();
+            this.previewFrame = new WebMConverter.PreviewFrameRotate();
             this.checkTurnNormal = new System.Windows.Forms.CheckBox();
             this.checkTurnRight = new System.Windows.Forms.CheckBox();
             this.checkTurnTwice = new System.Windows.Forms.CheckBox();
@@ -332,7 +332,7 @@
         private System.Windows.Forms.ToolStripMenuItem endToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem frameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem timeToolStripMenuItem;
-        private PreviewFrame previewFrame;
+        private PreviewFrameRotate previewFrame;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonConfirm;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
