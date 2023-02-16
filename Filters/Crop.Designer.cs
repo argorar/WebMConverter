@@ -42,6 +42,7 @@
             this.trackVideoTimeline = new System.Windows.Forms.TrackBar();
             this.labelNewResolution = new System.Windows.Forms.Label();
             this.dynamicCropActive = new System.Windows.Forms.CheckBox();
+            this.labelAspectRatio = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackVideoTimeline)).BeginInit();
             this.SuspendLayout();
@@ -49,9 +50,10 @@
             // buttonConfirm
             // 
             this.buttonConfirm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonConfirm.Location = new System.Drawing.Point(699, 538);
+            this.buttonConfirm.Location = new System.Drawing.Point(932, 662);
+            this.buttonConfirm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonConfirm.Name = "buttonConfirm";
-            this.buttonConfirm.Size = new System.Drawing.Size(75, 23);
+            this.buttonConfirm.Size = new System.Drawing.Size(100, 28);
             this.buttonConfirm.TabIndex = 1;
             this.buttonConfirm.Text = "Confirm";
             this.buttonConfirm.UseVisualStyleBackColor = true;
@@ -61,9 +63,10 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(618, 538);
+            this.buttonCancel.Location = new System.Drawing.Point(824, 662);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(100, 28);
             this.buttonCancel.TabIndex = 2;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -76,8 +79,8 @@
             this.setNewSizeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1045, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -139,9 +142,10 @@
             // trackVideoTimeline
             // 
             this.trackVideoTimeline.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.trackVideoTimeline.Location = new System.Drawing.Point(0, 516);
+            this.trackVideoTimeline.Location = new System.Drawing.Point(0, 645);
+            this.trackVideoTimeline.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trackVideoTimeline.Name = "trackVideoTimeline";
-            this.trackVideoTimeline.Size = new System.Drawing.Size(784, 45);
+            this.trackVideoTimeline.Size = new System.Drawing.Size(1045, 45);
             this.trackVideoTimeline.TabIndex = 5;
             this.trackVideoTimeline.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.trackVideoTimeline.ValueChanged += new System.EventHandler(this.trackVideoTimeline_ValueChanged);
@@ -150,23 +154,34 @@
             // labelNewResolution
             // 
             this.labelNewResolution.AutoSize = true;
-            this.labelNewResolution.Location = new System.Drawing.Point(557, 6);
+            this.labelNewResolution.Location = new System.Drawing.Point(743, 7);
+            this.labelNewResolution.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelNewResolution.Name = "labelNewResolution";
-            this.labelNewResolution.Size = new System.Drawing.Size(0, 13);
+            this.labelNewResolution.Size = new System.Drawing.Size(0, 16);
             this.labelNewResolution.TabIndex = 6;
             // 
             // dynamicCropActive
             // 
             this.dynamicCropActive.AutoSize = true;
             this.dynamicCropActive.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.dynamicCropActive.Location = new System.Drawing.Point(170, 5);
-            this.dynamicCropActive.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dynamicCropActive.Location = new System.Drawing.Point(227, 5);
+            this.dynamicCropActive.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.dynamicCropActive.Name = "dynamicCropActive";
             this.dynamicCropActive.Size = new System.Drawing.Size(92, 17);
             this.dynamicCropActive.TabIndex = 9;
             this.dynamicCropActive.Text = "Dynamic Crop";
             this.dynamicCropActive.UseVisualStyleBackColor = true;
             this.dynamicCropActive.CheckedChanged += new System.EventHandler(this.dynamicCropActive_CheckedChanged);
+            // 
+            // labelAspectRatio
+            // 
+            this.labelAspectRatio.AutoSize = true;
+            this.labelAspectRatio.Location = new System.Drawing.Point(364, 6);
+            this.labelAspectRatio.Name = "labelAspectRatio";
+            this.labelAspectRatio.Size = new System.Drawing.Size(124, 16);
+            this.labelAspectRatio.TabIndex = 10;
+            this.labelAspectRatio.Text = "Aspect Ratio Active";
+            this.labelAspectRatio.Click += new System.EventHandler(this.labelAspectRatio_Click);
             // previewFrame
             // 
             this.previewFrame.BackColor = System.Drawing.SystemColors.ControlDark;
@@ -177,13 +192,13 @@
             this.previewFrame.Size = new System.Drawing.Size(1000, 600);
             this.previewFrame.TabIndex = 0;
             // 
-            // 
             // CropForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(1045, 690);
             this.ControlBox = false;
+            this.Controls.Add(this.labelAspectRatio);
             this.Controls.Add(this.dynamicCropActive);
             this.Controls.Add(this.labelNewResolution);
             this.Controls.Add(this.buttonCancel);
@@ -192,7 +207,8 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.trackVideoTimeline);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(446, 297);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MinimumSize = new System.Drawing.Size(589, 357);
             this.Name = "CropForm";
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -223,5 +239,6 @@
         private System.Windows.Forms.Label labelNewResolution;
         private System.Windows.Forms.ToolStripMenuItem setNewSizeToolStripMenuItem;
         private System.Windows.Forms.CheckBox dynamicCropActive;
+        private System.Windows.Forms.Label labelAspectRatio;
     }
 }

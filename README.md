@@ -185,6 +185,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.23.2
+* Fix *Crop* top negative values. See related [issue](https://github.com/argorar/WebMConverter/issues/36)
+
 #### Version 3.23.1
 * Fix *Rotate* filter preview
 

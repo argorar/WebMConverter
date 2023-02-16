@@ -43,14 +43,14 @@ namespace WebMConverter
             InitializeComponent();
             SetEvents();
             InputFilter = CropPixels;
-
+            this.labelAspectRatio.Visible = false;
         }
 
         public CropForm()
         {
             InitializeComponent();
             SetEvents();
-
+            this.labelAspectRatio.Visible = false;
         }
 
         private void SetEvents()
@@ -283,9 +283,8 @@ namespace WebMConverter
             }
             else
             {
-                FFMSSharp.Frame frame = Program.VideoSource.GetFrame(previewFrame.Frame);
-                width = frame.EncodedResolution.Width;
-                height = frame.EncodedResolution.Height;
+                width = Program.Resolution.Width;
+                height = Program.Resolution.Height;
             }
             AddCropPan(width, height);
         }
@@ -335,9 +334,8 @@ namespace WebMConverter
             }
             else
             {
-                FFMSSharp.Frame frame = Program.VideoSource.GetFrame(previewFrame.Frame);
-                width = frame.EncodedResolution.Width;
-                height = frame.EncodedResolution.Height;
+                width = Program.Resolution.Width;
+                height = Program.Resolution.Height;
             }
 
             if (dynamicCropActive.Checked)
@@ -592,6 +590,11 @@ namespace WebMConverter
             dynamicCropActive.ForeColor = dynamicCropActive.Checked ? Color.Green : Color.Black;
 
         }
+
+        private void labelAspectRatio_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class CropFilter
@@ -620,8 +623,8 @@ namespace WebMConverter
             top = tempArray[0] < 0 ? 0 : tempArray[0];
             bottom = tempArray[1];
 
-            Left = left > 0 && left % 2 != 0 ? left - 1 : left;
-            Top = top > 0 && top % 2 != 0 ? top - 1 : top;
+            Left = left < 0 ? 0 : (left > 0 && left % 2 != 0 ? left - 1 : left);
+            Top = top < 0 ? 0 : (top > 0 && top % 2 != 0 ? top - 1 : top);
             Right = right < 0 && right % 2 != 0 ? right - 1 : right;
             Bottom = bottom < 0 && bottom % 2 != 0 ? bottom - 1 : bottom;
         }
