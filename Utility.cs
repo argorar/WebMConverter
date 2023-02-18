@@ -293,6 +293,14 @@ namespace WebMConverter
         Refresh = 2
     }
 
+    public enum AspectRatio
+    {
+        None,
+        SixteenNine,
+        NineSixteen,
+        OneOne
+    }
+
     public static class Extensions
     {
         // http://stackoverflow.com/a/12179408/174466

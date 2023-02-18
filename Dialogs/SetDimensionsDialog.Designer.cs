@@ -99,7 +99,8 @@
             this.comboBoxAspectRatio.FormattingEnabled = true;
             this.comboBoxAspectRatio.Items.AddRange(new object[] {
             "16:9",
-            "9:16"});
+            "9:16",
+            "1:1"});
             this.comboBoxAspectRatio.Location = new System.Drawing.Point(78, 74);
             this.comboBoxAspectRatio.Name = "comboBoxAspectRatio";
             this.comboBoxAspectRatio.Size = new System.Drawing.Size(63, 21);

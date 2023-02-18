@@ -43,14 +43,12 @@ namespace WebMConverter
             InitializeComponent();
             SetEvents();
             InputFilter = CropPixels;
-            this.labelAspectRatio.Visible = false;
         }
 
         public CropForm()
         {
             InitializeComponent();
             SetEvents();
-            this.labelAspectRatio.Visible = false;
         }
 
         private void SetEvents()
@@ -96,7 +94,7 @@ namespace WebMConverter
                 previewFrame.Frame = Filters.MultipleTrim.Trims[0].TrimStart;
                 trackVideoTimeline.Value = Filters.MultipleTrim.Trims[0].TrimStart;
                 trackVideoTimeline.Minimum = Filters.MultipleTrim.Trims[0].TrimStart;
-                trackVideoTimeline.Maximum = Filters.MultipleTrim.Trims[Filters.MultipleTrim.Trims.Count-1].TrimEnd;
+                trackVideoTimeline.Maximum = Filters.MultipleTrim.Trims[Filters.MultipleTrim.Trims.Count - 1].TrimEnd;
                 trimTimingToolStripMenuItem.Enabled = true;
             }
         }
@@ -120,7 +118,7 @@ namespace WebMConverter
                 heldCorner = Corner.None;
                 held = true;
             }
-            
+
             previewFrame.Invalidate();
         }
 
@@ -163,41 +161,40 @@ namespace WebMConverter
 
                 float tempWidth = 0;
                 float tempHeight = 0;
-                switch (heldCorner)
+
+                if (heldCorner == Corner.TopLeft)
                 {
-                    case Corner.TopLeft:
-                        tempWidth = cropPercent.Width - (clampedMouseX / previewFrame.Picture.Width - cropPercent.X);
-                        tempHeight = cropPercent.Height - (clampedMouseY / previewFrame.Picture.Height - cropPercent.Y);
-                        cropPercent.X = clampedMouseX / previewFrame.Picture.Width;
-                        cropPercent.Y = clampedMouseY / previewFrame.Picture.Height;
-                        break;
-
-                    case Corner.TopRight:
-                        tempWidth = cropPercent.Width + (clampedMouseX / previewFrame.Picture.Width - cropPercent.Right);
-                        tempHeight = cropPercent.Height - (clampedMouseY / previewFrame.Picture.Height - cropPercent.Y);
-                        cropPercent.Y = clampedMouseY / previewFrame.Picture.Height;
-                        break;
-
-                    case Corner.BottomLeft:
-                        tempWidth = cropPercent.Width - (clampedMouseX / previewFrame.Picture.Width - cropPercent.X);
-                        tempHeight = cropPercent.Height + (clampedMouseY / previewFrame.Picture.Height - cropPercent.Bottom);
-                        cropPercent.X = clampedMouseX / previewFrame.Picture.Width;
-                        break;
-
-                    case Corner.BottomRight:
-                        tempWidth = cropPercent.Width + (clampedMouseX / previewFrame.Picture.Width - cropPercent.Right);
-                        tempHeight = cropPercent.Height + (clampedMouseY / previewFrame.Picture.Height - cropPercent.Bottom);
-                        break;
-
-                    case Corner.None: //Drag entire rectangle
-                        //This is a special case, because the mouse needs to be clamped according to rectangle size too!
-                        float actualRectW = cropPercent.Width * previewFrame.Picture.Width;
-                        float actualRectH = cropPercent.Height * previewFrame.Picture.Height;
-                        clampedMouseX = Math.Max(min.X - mouseOffset.X, Math.Min(max.X - mouseOffset.X - actualRectW, e.X));
-                        clampedMouseY = Math.Max(min.Y - mouseOffset.Y, Math.Min(max.Y - mouseOffset.Y - actualRectH, e.Y));
-                        cropPercent.X = (clampedMouseX + mouseOffset.X) / previewFrame.Picture.Width;
-                        cropPercent.Y = (clampedMouseY + mouseOffset.Y) / previewFrame.Picture.Height;
-                        break;
+                    tempWidth = cropPercent.Width - (clampedMouseX / previewFrame.Picture.Width - cropPercent.X);
+                    tempHeight = cropPercent.Height - (clampedMouseY / previewFrame.Picture.Height - cropPercent.Y);
+                    cropPercent.X = clampedMouseX / previewFrame.Picture.Width;
+                    cropPercent.Y = clampedMouseY / previewFrame.Picture.Height;
+                }
+                else if (heldCorner == Corner.TopRight)
+                {
+                    tempWidth = cropPercent.Width + (clampedMouseX / previewFrame.Picture.Width - cropPercent.Right);
+                    tempHeight = cropPercent.Height - (clampedMouseY / previewFrame.Picture.Height - cropPercent.Y);
+                    cropPercent.Y = clampedMouseY / previewFrame.Picture.Height;
+                }
+                else if (heldCorner == Corner.BottomLeft)
+                {
+                    tempWidth = cropPercent.Width - (clampedMouseX / previewFrame.Picture.Width - cropPercent.X);
+                    tempHeight = cropPercent.Height + (clampedMouseY / previewFrame.Picture.Height - cropPercent.Bottom);
+                    cropPercent.X = clampedMouseX / previewFrame.Picture.Width;
+                }
+                else if (heldCorner == Corner.BottomRight)
+                {
+                    tempWidth = cropPercent.Width + (clampedMouseX / previewFrame.Picture.Width - cropPercent.Right);
+                    tempHeight = cropPercent.Height + (clampedMouseY / previewFrame.Picture.Height - cropPercent.Bottom);
+                }
+                else if (heldCorner == Corner.None)//Drag entire rectangle
+                {
+                    //This is a special case, because the mouse needs to be clamped according to rectangle size too!
+                    float actualRectW = cropPercent.Width * previewFrame.Picture.Width;
+                    float actualRectH = cropPercent.Height * previewFrame.Picture.Height;
+                    clampedMouseX = Math.Max(min.X - mouseOffset.X, Math.Min(max.X - mouseOffset.X - actualRectW, e.X));
+                    clampedMouseY = Math.Max(min.Y - mouseOffset.Y, Math.Min(max.Y - mouseOffset.Y - actualRectH, e.Y));
+                    cropPercent.X = (clampedMouseX + mouseOffset.X) / previewFrame.Picture.Width;
+                    cropPercent.Y = (clampedMouseY + mouseOffset.Y) / previewFrame.Picture.Height;
                 }
 
                 if (tempWidth > 0)
@@ -207,7 +204,6 @@ namespace WebMConverter
 
                 ShowNewSize();
             }
-
             previewFrame.Picture.Invalidate();
         }
 
@@ -432,67 +428,95 @@ namespace WebMConverter
         private void startToolStripMenuItem_Click(object sender, EventArgs e) => previewFrame.Frame = Filters.Trim.TrimStart;
         private void endToolStripMenuItem_Click(object sender, EventArgs e) => previewFrame.Frame = Filters.Trim.TrimEnd;
 
-        private const float arrowKeyIncrement = 0.002f;
-        private const float arrowKeyShiftIncrement = 0.02f;
+        private float GetTwoPixelsPercentWidth()
+        {
+            float width = (float)previewFrame.Picture.Size.Width;
+            float encodeWidth = (float)Program.Resolution.Width;
+            return ((width / encodeWidth / width) * 200) / 100;
+        }
+
+        private float GetTwoPixelsPercentHeight()
+        {
+            float height = (float)previewFrame.Picture.Size.Height;
+            float encodeHeight = (float)Program.Resolution.Height;
+            return ((height / encodeHeight / height) * 200) / 100;
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+
+            float keyIncrementWidth = GetTwoPixelsPercentWidth();
+            float keyIncrementHeight = GetTwoPixelsPercentHeight();
+
             switch (keyData)
             {
                 case Keys.Up:
-                    cropPercent.Y -= arrowKeyIncrement;
+                    cropPercent.Y -= keyIncrementHeight;
                     break;
                 case Keys.Left:
-                    cropPercent.X -= arrowKeyIncrement;
+                    cropPercent.X -= keyIncrementWidth;
                     break;
                 case Keys.Right:
-                    if (cropPercent.Width + arrowKeyIncrement + cropPercent.X < 1)
-                        cropPercent.X += arrowKeyIncrement;
+                    if (cropPercent.Width + keyIncrementWidth + cropPercent.X < 1)
+                        cropPercent.X += keyIncrementWidth;
                     break;
                 case Keys.Down:
-                    if (cropPercent.Height + arrowKeyIncrement + cropPercent.Y < 1)
-                        cropPercent.Y += arrowKeyIncrement;
+                    if (cropPercent.Height + keyIncrementHeight + cropPercent.Y < 1)
+                        cropPercent.Y += keyIncrementHeight;
                     break;
                 case Keys.Shift | Keys.Up:
-                    cropPercent.Y -= arrowKeyShiftIncrement;
+                    cropPercent.Y -= keyIncrementHeight * 2;
                     break;
                 case Keys.Shift | Keys.Left:
-                    cropPercent.X -= arrowKeyShiftIncrement;
+                    cropPercent.X -= keyIncrementWidth * 2;
                     break;
                 case Keys.Shift | Keys.Right:
-                    if (cropPercent.Width + arrowKeyShiftIncrement + cropPercent.X < 1)
-                        cropPercent.X += arrowKeyShiftIncrement;
+                    if (cropPercent.Width + (keyIncrementWidth * 2) + cropPercent.X < 1)
+                        cropPercent.X += keyIncrementWidth * 2;
                     break;
                 case Keys.Shift | Keys.Down:
-                    if (cropPercent.Height + arrowKeyShiftIncrement + cropPercent.Y < 1)
-                        cropPercent.Y += arrowKeyShiftIncrement;
+                    if (cropPercent.Height + (keyIncrementHeight * 2) + cropPercent.Y < 1)
+                        cropPercent.Y += keyIncrementHeight;
                     break;
                 case Keys.Alt | Keys.Up:
-                    cropPercent.Height = Math.Max(0, cropPercent.Height - arrowKeyIncrement);
+                    cropPercent.Height = Math.Max(0, cropPercent.Height - keyIncrementHeight);
                     break;
                 case Keys.Alt | Keys.Left:
-                    cropPercent.Width = Math.Max(0, cropPercent.Width - arrowKeyIncrement);
+                    cropPercent.Width = Math.Max(0, cropPercent.Width - keyIncrementWidth);
                     break;
                 case Keys.Alt | Keys.Right:
-                    if (cropPercent.Width + arrowKeyIncrement + cropPercent.X < 1)
-                        cropPercent.Width += arrowKeyIncrement;
+                    if (cropPercent.Width + keyIncrementWidth + cropPercent.X < 1)
+                        cropPercent.Width += keyIncrementWidth;
                     break;
                 case Keys.Alt | Keys.Down:
-                    if (cropPercent.Height + arrowKeyIncrement + cropPercent.Y < 1)
-                        cropPercent.Height += arrowKeyIncrement;
+                    if (cropPercent.Height + keyIncrementHeight + cropPercent.Y < 1)
+                        cropPercent.Height += keyIncrementHeight;
                     break;
                 case Keys.Alt | Keys.Shift | Keys.Up:
-                    cropPercent.Height = Math.Max(0, cropPercent.Height - arrowKeyShiftIncrement);
+                    cropPercent.Height = Math.Max(0, cropPercent.Height - (keyIncrementHeight * 2));
                     break;
                 case Keys.Alt | Keys.Shift | Keys.Left:
-                    cropPercent.Width = Math.Max(0, cropPercent.Width - arrowKeyShiftIncrement);
+                    cropPercent.Width = Math.Max(0, cropPercent.Width - (keyIncrementWidth * 2));
                     break;
                 case Keys.Alt | Keys.Shift | Keys.Right:
-                    if (cropPercent.Width + arrowKeyShiftIncrement + cropPercent.X < 1)
-                        cropPercent.Width += arrowKeyShiftIncrement;
+                    if (cropPercent.Width + (keyIncrementWidth * 2) + cropPercent.X < 1)
+                        cropPercent.Width += (keyIncrementWidth * 2);
                     break;
                 case Keys.Alt | Keys.Shift | Keys.Down:
-                    if(cropPercent.Height + arrowKeyShiftIncrement + cropPercent.Y < 1 )
-                        cropPercent.Height += arrowKeyShiftIncrement;
+                    if(cropPercent.Height + (keyIncrementHeight * 2) + cropPercent.Y < 1 )
+                        cropPercent.Height += (keyIncrementHeight * 2);
+                    break;
+                case Keys.Control | Keys.Left:
+                    KeepAspectRatioDecrease(keyIncrementWidth, keyIncrementHeight);
+                    break;
+                case Keys.Control | Keys.Up:
+                    KeepAspectRatioDecrease(keyIncrementWidth, keyIncrementHeight);
+                    break;
+                case Keys.Control | Keys.Right:
+                    KeepAspectRatioIncrease(keyIncrementWidth, keyIncrementHeight);
+                    break;
+                case Keys.Control | Keys.Down:
+                    KeepAspectRatioIncrease(keyIncrementWidth, keyIncrementHeight);
                     break;
                 default:
                     return base.ProcessCmdKey(ref msg, keyData);
@@ -508,6 +532,82 @@ namespace WebMConverter
                 GetCropPan();
 
             return true;
+        }
+
+        private void KeepAspectRatioIncrease(float keyIncrementWidth, float keyIncrementHeight)
+        {
+            if (MainForm.aspectRatio == AspectRatio.NineSixteen)
+            {
+                var tempW = (keyIncrementWidth / 2) * 9;
+                var tempH = (keyIncrementHeight / 2) * 16;
+
+                if (cropPercent.Width + tempW + cropPercent.X < 1 && cropPercent.Height + tempH + cropPercent.Y < 1)
+                {
+                    cropPercent.Width += tempW;
+                    cropPercent.Height += tempH;
+                }
+            }
+            else if (MainForm.aspectRatio == AspectRatio.SixteenNine)
+            {
+                var tempW = (keyIncrementWidth / 2) * 16;
+                var tempH = (keyIncrementHeight / 2) * 9;
+
+                if (cropPercent.Width + tempW + cropPercent.X < 1 && cropPercent.Height + tempH + cropPercent.Y < 1)
+                {
+                    cropPercent.Width += tempW;
+                    cropPercent.Height += tempH;
+                }
+            }
+            else if (MainForm.aspectRatio == AspectRatio.OneOne && cropPercent.Width + keyIncrementWidth + cropPercent.X < 1
+                                                    && cropPercent.Height + keyIncrementHeight + cropPercent.Y < 1)
+            {
+                cropPercent.Width += keyIncrementWidth;
+                cropPercent.Height += keyIncrementHeight;
+            }
+            else if (MainForm.aspectRatio == AspectRatio.None && cropPercent.Width + keyIncrementWidth + cropPercent.X < 1 
+                                                              && cropPercent.Height + keyIncrementHeight + cropPercent.Y < 1)
+            {
+                cropPercent.Width += keyIncrementWidth;
+                cropPercent.Height += keyIncrementHeight;
+            }
+        }
+
+        private void KeepAspectRatioDecrease(float keyIncrementWidth, float keyIncrementHeight)
+        {
+            if(MainForm.aspectRatio == AspectRatio.NineSixteen)
+            {
+                var tempW = (keyIncrementWidth / 2) * 9;
+                var tempH = (keyIncrementHeight / 2) * 16;
+
+                if (cropPercent.Width - tempW > 0 && cropPercent.Height - tempH > 0)
+                {
+                    cropPercent.Width -= tempW;
+                    cropPercent.Height -= tempH;
+                }
+            }
+            else if (MainForm.aspectRatio == AspectRatio.SixteenNine)
+            {
+                var tempW = (keyIncrementWidth / 2) * 16;
+                var tempH = (keyIncrementHeight / 2) * 9;
+
+                if (cropPercent.Width - tempW > 0 && cropPercent.Height - tempH > 0)
+                {
+                    cropPercent.Width -= tempW;
+                    cropPercent.Height -= tempH;
+                }
+            }
+            else if (MainForm.aspectRatio == AspectRatio.OneOne && cropPercent.Width - keyIncrementWidth > 0 
+                                                                && cropPercent.Height - keyIncrementHeight > 0)
+            {
+                cropPercent.Width -= keyIncrementWidth;
+                cropPercent.Height -= keyIncrementHeight;
+            }
+            else if (MainForm.aspectRatio == AspectRatio.None && cropPercent.Width - keyIncrementWidth > 0 
+                                                              && cropPercent.Height - keyIncrementHeight > 0)
+            {
+                cropPercent.Width -= keyIncrementWidth;
+                cropPercent.Height -= keyIncrementHeight;
+            }
         }
 
         void trackVideoTimeline_MouseWheel(object sender, MouseEventArgs e)
@@ -591,10 +691,6 @@ namespace WebMConverter
 
         }
 
-        private void labelAspectRatio_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 
     public class CropFilter

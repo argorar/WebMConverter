@@ -130,6 +130,7 @@ namespace WebMConverter
         public static ConcurrentDictionary<int, Bitmap> cache { get; set; }
         public static readonly int MAX_CAPACITY = 200;
         private const int MAX_PROCESS = 2;
+        public static AspectRatio aspectRatio { get; set; }
         #region MainForm
 
         public MainForm()
@@ -137,6 +138,7 @@ namespace WebMConverter
             FFMSSharp.FFMS2.Initialize(Path.Combine(Environment.CurrentDirectory, "Binaries", "Win32"));
             _temporaryFilesList = new List<string>();
             cache = new ConcurrentDictionary<int, Bitmap>(MAX_PROCESS, MAX_CAPACITY);
+            aspectRatio = AspectRatio.None;
             InitializeComponent();
             this.KeyPreview = true;
             taskbarManager = TaskbarManager.Instance;
@@ -1426,6 +1428,7 @@ namespace WebMConverter
             var threads = Environment.ProcessorCount;
             trackThreads.Value = Math.Min(trackThreads.Maximum, Math.Max(trackThreads.Minimum, threads));
             cache.Clear();
+            aspectRatio = AspectRatio.None;
         }
 
         char[] invalidChars = Path.GetInvalidPathChars();

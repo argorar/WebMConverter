@@ -185,6 +185,10 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.23.3
+* Add 1:1 aspect ratio
+* Improved edit *Crop* size with keyboard. keep aspect ratio with ```Ctrl + arrowKey```
+
 #### Version 3.23.2
 * Fix *Crop* top negative values. See related [issue](https://github.com/argorar/WebMConverter/issues/36)
 

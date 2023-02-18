@@ -80,13 +80,21 @@ namespace WebMConverter.Dialogs
             {
                 var newValue = (int)(MAGIC_NUMBER * (float)Program.Resolution.Width);
                 numericHeight.Value = newValue > numericHeight.Maximum ? numericHeight.Maximum : newValue;
+                MainForm.aspectRatio = AspectRatio.SixteenNine;
             }
             else if (comboBoxAspectRatio.SelectedItem.Equals("9:16"))
             {
                 var newValue = (int)(MAGIC_NUMBER * (float)Program.Resolution.Height);
                 numericWidth.Value = newValue > numericWidth.Maximum ? numericWidth.Maximum : newValue;
-            }                
-
+                MainForm.aspectRatio = AspectRatio.NineSixteen;
+            }
+            else if (comboBoxAspectRatio.SelectedItem.Equals("1:1"))
+            {
+                var newValue = Math.Min(Program.Resolution.Width, Program.Resolution.Height);
+                numericHeight.Value = newValue;
+                numericWidth.Value = newValue;
+                MainForm.aspectRatio = AspectRatio.OneOne;
+            }
             CalculatePercent();
             Close();
 

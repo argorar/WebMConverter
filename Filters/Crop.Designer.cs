@@ -42,7 +42,6 @@
             this.trackVideoTimeline = new System.Windows.Forms.TrackBar();
             this.labelNewResolution = new System.Windows.Forms.Label();
             this.dynamicCropActive = new System.Windows.Forms.CheckBox();
-            this.labelAspectRatio = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackVideoTimeline)).BeginInit();
             this.SuspendLayout();
@@ -172,16 +171,6 @@
             this.dynamicCropActive.Text = "Dynamic Crop";
             this.dynamicCropActive.UseVisualStyleBackColor = true;
             this.dynamicCropActive.CheckedChanged += new System.EventHandler(this.dynamicCropActive_CheckedChanged);
-            // 
-            // labelAspectRatio
-            // 
-            this.labelAspectRatio.AutoSize = true;
-            this.labelAspectRatio.Location = new System.Drawing.Point(364, 6);
-            this.labelAspectRatio.Name = "labelAspectRatio";
-            this.labelAspectRatio.Size = new System.Drawing.Size(124, 16);
-            this.labelAspectRatio.TabIndex = 10;
-            this.labelAspectRatio.Text = "Aspect Ratio Active";
-            this.labelAspectRatio.Click += new System.EventHandler(this.labelAspectRatio_Click);
             // previewFrame
             // 
             this.previewFrame.BackColor = System.Drawing.SystemColors.ControlDark;
@@ -198,7 +187,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1045, 690);
             this.ControlBox = false;
-            this.Controls.Add(this.labelAspectRatio);
             this.Controls.Add(this.dynamicCropActive);
             this.Controls.Add(this.labelNewResolution);
             this.Controls.Add(this.buttonCancel);
@@ -239,6 +227,5 @@
         private System.Windows.Forms.Label labelNewResolution;
         private System.Windows.Forms.ToolStripMenuItem setNewSizeToolStripMenuItem;
         private System.Windows.Forms.CheckBox dynamicCropActive;
-        private System.Windows.Forms.Label labelAspectRatio;
     }
 }
