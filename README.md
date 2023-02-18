@@ -73,12 +73,13 @@ Trim precisely the length, with a simple interface. You can do multiple trims if
 
 ### Crop
 
-Crop what is just important for you, you can see in real time the new resolution also you can set the exact size that you want. Just move the edges with the mouse or use the keys to select the area.
+Crop what is just important for you, you can see in real time the new resolution also you can set the exact size that you want or set an aspect ratio like 16:9, 9:16 and more under *Set dimensions*. 
+Just move the edges with the mouse or use the keyboard.
 * ```Row keys``` to move
 * ```Shift + Row keys``` to move faster
 * ```Alt + Row Keys``` to increase/decrease the size 
-* ```Ctrl + Right or Left``` to change preview
-* You can use mouse wheel over time line
+* ```Ctrl + Row Keys``` to resize keeping aspect ratio
+* You can use mouse wheel over time line to change of frame
 
 ![crop](img/crop.JPG)
 
@@ -111,7 +112,7 @@ Right side was processed  with dynamic crop.
 
 ### Grid
 
-Make grid videos to compare or shared different views. You can choose between horizontal or vertical. Above you can find an example.
+Make grid videos to compare or shared different views. You can choose between horizontal or vertical. It requires that both videos share codecs, dimensions, length. Output file is in same path as video #1. Above you can find an example.
 
 ![grid](img/grid.png)
 
