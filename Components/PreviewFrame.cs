@@ -183,6 +183,7 @@ namespace WebMConverter
             EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 100L);
             myEncoderParameters.Param[0] = myEncoderParameter;
             string filename = $"{directory}//{name}-{framenumber}.jpg";
+            frame = Program.VideoSource.GetFrame((int)framenumber);
             frame.Bitmap.Save(filename, myImageCodecInfo, myEncoderParameters);
             return filename;
         }

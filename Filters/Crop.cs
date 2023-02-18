@@ -558,14 +558,9 @@ namespace WebMConverter
                     cropPercent.Height += tempH;
                 }
             }
-            else if (MainForm.aspectRatio == AspectRatio.OneOne && cropPercent.Width + keyIncrementWidth + cropPercent.X < 1
+            else if ((MainForm.aspectRatio == AspectRatio.OneOne || MainForm.aspectRatio == AspectRatio.None) 
+                                                    && cropPercent.Width + keyIncrementWidth + cropPercent.X < 1
                                                     && cropPercent.Height + keyIncrementHeight + cropPercent.Y < 1)
-            {
-                cropPercent.Width += keyIncrementWidth;
-                cropPercent.Height += keyIncrementHeight;
-            }
-            else if (MainForm.aspectRatio == AspectRatio.None && cropPercent.Width + keyIncrementWidth + cropPercent.X < 1 
-                                                              && cropPercent.Height + keyIncrementHeight + cropPercent.Y < 1)
             {
                 cropPercent.Width += keyIncrementWidth;
                 cropPercent.Height += keyIncrementHeight;
@@ -596,14 +591,9 @@ namespace WebMConverter
                     cropPercent.Height -= tempH;
                 }
             }
-            else if (MainForm.aspectRatio == AspectRatio.OneOne && cropPercent.Width - keyIncrementWidth > 0 
+            else if ((MainForm.aspectRatio == AspectRatio.OneOne || MainForm.aspectRatio == AspectRatio.None)
+                                                                && cropPercent.Width - keyIncrementWidth > 0 
                                                                 && cropPercent.Height - keyIncrementHeight > 0)
-            {
-                cropPercent.Width -= keyIncrementWidth;
-                cropPercent.Height -= keyIncrementHeight;
-            }
-            else if (MainForm.aspectRatio == AspectRatio.None && cropPercent.Width - keyIncrementWidth > 0 
-                                                              && cropPercent.Height - keyIncrementHeight > 0)
             {
                 cropPercent.Width -= keyIncrementWidth;
                 cropPercent.Height -= keyIncrementHeight;
