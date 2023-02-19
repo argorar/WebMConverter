@@ -88,7 +88,7 @@
             // 
             this.btnConfirm.Location = new System.Drawing.Point(157, 10);
             this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(90, 48);
+            this.btnConfirm.Size = new System.Drawing.Size(90, 77);
             this.btnConfirm.TabIndex = 4;
             this.btnConfirm.Text = "Confirm";
             this.btnConfirm.UseVisualStyleBackColor = true;
@@ -100,8 +100,10 @@
             this.comboBoxAspectRatio.Items.AddRange(new object[] {
             "16:9",
             "9:16",
-            "1:1"});
-            this.comboBoxAspectRatio.Location = new System.Drawing.Point(78, 74);
+            "1:1",
+            "4:3",
+            "21:9"});
+            this.comboBoxAspectRatio.Location = new System.Drawing.Point(78, 66);
             this.comboBoxAspectRatio.Name = "comboBoxAspectRatio";
             this.comboBoxAspectRatio.Size = new System.Drawing.Size(63, 21);
             this.comboBoxAspectRatio.TabIndex = 5;
@@ -110,7 +112,7 @@
             // labelAspectRatio
             // 
             this.labelAspectRatio.AutoSize = true;
-            this.labelAspectRatio.Location = new System.Drawing.Point(12, 77);
+            this.labelAspectRatio.Location = new System.Drawing.Point(12, 69);
             this.labelAspectRatio.Name = "labelAspectRatio";
             this.labelAspectRatio.Size = new System.Drawing.Size(63, 13);
             this.labelAspectRatio.TabIndex = 6;

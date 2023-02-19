@@ -298,7 +298,9 @@ namespace WebMConverter
         None,
         SixteenNine,
         NineSixteen,
-        OneOne
+        OneOne,
+        FourThree,
+        TwentyoneNine
     }
 
     public static class Extensions

@@ -541,29 +541,41 @@ namespace WebMConverter
                 var tempW = (keyIncrementWidth / 2) * 9;
                 var tempH = (keyIncrementHeight / 2) * 16;
 
-                if (cropPercent.Width + tempW + cropPercent.X < 1 && cropPercent.Height + tempH + cropPercent.Y < 1)
-                {
-                    cropPercent.Width += tempW;
-                    cropPercent.Height += tempH;
-                }
+                CheckToIncrease(tempW, tempH);
             }
             else if (MainForm.aspectRatio == AspectRatio.SixteenNine)
             {
                 var tempW = (keyIncrementWidth / 2) * 16;
                 var tempH = (keyIncrementHeight / 2) * 9;
 
-                if (cropPercent.Width + tempW + cropPercent.X < 1 && cropPercent.Height + tempH + cropPercent.Y < 1)
-                {
-                    cropPercent.Width += tempW;
-                    cropPercent.Height += tempH;
-                }
+                CheckToIncrease(tempW, tempH);
             }
-            else if ((MainForm.aspectRatio == AspectRatio.OneOne || MainForm.aspectRatio == AspectRatio.None) 
-                                                    && cropPercent.Width + keyIncrementWidth + cropPercent.X < 1
-                                                    && cropPercent.Height + keyIncrementHeight + cropPercent.Y < 1)
+            else if (MainForm.aspectRatio == AspectRatio.FourThree)
             {
-                cropPercent.Width += keyIncrementWidth;
-                cropPercent.Height += keyIncrementHeight;
+                var tempW = (keyIncrementWidth / 2) * 4;
+                var tempH = (keyIncrementHeight / 2) * 3;
+
+                CheckToIncrease(tempW, tempH);
+            }
+            else if (MainForm.aspectRatio == AspectRatio.TwentyoneNine)
+            {
+                var tempW = (keyIncrementWidth / 2) * 21;
+                var tempH = (keyIncrementHeight / 2) * 9;
+
+                CheckToIncrease(tempW, tempH);
+            }
+            else if (MainForm.aspectRatio == AspectRatio.OneOne || MainForm.aspectRatio == AspectRatio.None)
+            {
+                CheckToIncrease(keyIncrementWidth, keyIncrementHeight);
+            }
+        }
+
+        private void CheckToIncrease(float tempW, float tempH)
+        {
+            if (cropPercent.Width + tempW + cropPercent.X < 1 && cropPercent.Height + tempH + cropPercent.Y < 1)
+            {
+                cropPercent.Width += tempW;
+                cropPercent.Height += tempH;
             }
         }
 
@@ -574,29 +586,41 @@ namespace WebMConverter
                 var tempW = (keyIncrementWidth / 2) * 9;
                 var tempH = (keyIncrementHeight / 2) * 16;
 
-                if (cropPercent.Width - tempW > 0 && cropPercent.Height - tempH > 0)
-                {
-                    cropPercent.Width -= tempW;
-                    cropPercent.Height -= tempH;
-                }
+                CheckToDecrease(tempW, tempH);
             }
             else if (MainForm.aspectRatio == AspectRatio.SixteenNine)
             {
                 var tempW = (keyIncrementWidth / 2) * 16;
                 var tempH = (keyIncrementHeight / 2) * 9;
 
-                if (cropPercent.Width - tempW > 0 && cropPercent.Height - tempH > 0)
-                {
-                    cropPercent.Width -= tempW;
-                    cropPercent.Height -= tempH;
-                }
+                CheckToDecrease(tempW, tempH);
             }
-            else if ((MainForm.aspectRatio == AspectRatio.OneOne || MainForm.aspectRatio == AspectRatio.None)
-                                                                && cropPercent.Width - keyIncrementWidth > 0 
-                                                                && cropPercent.Height - keyIncrementHeight > 0)
+            else if (MainForm.aspectRatio == AspectRatio.FourThree)
             {
-                cropPercent.Width -= keyIncrementWidth;
-                cropPercent.Height -= keyIncrementHeight;
+                var tempW = (keyIncrementWidth / 2) * 4;
+                var tempH = (keyIncrementHeight / 2) * 3;
+
+                CheckToDecrease(tempW, tempH);
+            }
+            else if (MainForm.aspectRatio == AspectRatio.TwentyoneNine)
+            {
+                var tempW = (keyIncrementWidth / 2) * 21;
+                var tempH = (keyIncrementHeight / 2) * 9;
+
+                CheckToDecrease(tempW, tempH);
+            }
+            else if (MainForm.aspectRatio == AspectRatio.OneOne || MainForm.aspectRatio == AspectRatio.None)
+            {
+                CheckToDecrease(keyIncrementWidth, keyIncrementHeight);
+            }
+        }
+
+        private void CheckToDecrease(float tempW, float tempH)
+        {
+            if (cropPercent.Width - tempW > 0 && cropPercent.Height - tempH > 0)
+            {
+                cropPercent.Width -= tempW;
+                cropPercent.Height -= tempH;
             }
         }
 

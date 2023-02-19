@@ -186,6 +186,10 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.23.4
+* Add 4:3 aspect ratio
+* Add 21:9 aspect ratio
+
 #### Version 3.23.3
 * Add 1:1 aspect ratio
 * Improved edit *Crop* size with keyboard. keep aspect ratio with ```Ctrl + arrowKey```
