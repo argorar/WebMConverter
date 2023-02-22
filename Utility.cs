@@ -303,6 +303,12 @@ namespace WebMConverter
         TwentyoneNine
     }
 
+    public enum DropOptions
+    {
+        None,
+        Merge,
+        Convert
+    }
     public static class Extensions
     {
         // http://stackoverflow.com/a/12179408/174466

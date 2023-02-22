@@ -410,8 +410,13 @@ namespace WebMConverter.Dialogs
                     taskbarManager.SetProgressValue(1000, 1000);
                 }
 
-                buttonPlay.Enabled = true;
-                buttonUpload.Enabled = true;
+                //only show buttons when is not convert in batch
+                if(!String.IsNullOrEmpty(_infile) && !String.IsNullOrEmpty(_outfile))
+                {
+                    buttonPlay.Enabled = true;
+                    buttonUpload.Enabled = true;
+                }
+
             }
 
             buttonCancel.Text = "Close";

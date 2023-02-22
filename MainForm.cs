@@ -317,8 +317,17 @@ namespace WebMConverter
         {
             var files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-            if (MergeVideoFile(files))
+            if (files.Length > 1)
+            {
+                DropDialog dropDialog = new DropDialog();
+                dropDialog.ShowDialog(this);
+                if (dropDialog.option == DropOptions.Merge)
+                    MergeVideoFile(files);
+                else if (dropDialog.option == DropOptions.Convert)
+                    ConvertBatch(files);
+
                 return;
+            }
 
             if (inputFile != null) // we have a file loaded already, so this might be a subtitle or something
             {
@@ -403,12 +412,41 @@ namespace WebMConverter
             SetFile(files[0]);
         }
 
+        private void ConvertBatch(string[] files)
+        {
+
+            string options = GenerateArguments();
+
+            string format = checkMP4.Checked ? "mp4" : "webm";
+            List<string> arguments = new List<string>();
+
+            foreach (string file in files)
+            {
+                string directory = Path.GetDirectoryName(file);
+                string auxName = Path.GetFileNameWithoutExtension(file);
+                string output = $"{ directory }\\{ auxName}-converted.{ format}";
+                string optionsWithInput = $@" -i ""{file}"" {options}";
+
+                if (!boxHQ.Checked || checkHWAcceleration.Checked)
+                    arguments.Add(string.Format(Template, output, optionsWithInput, "", format));
+                else
+                {
+                    var passlogfile = GetTemporaryLogFile();
+                    arguments.Add(string.Format(Template, "NUL", optionsWithInput, string.Format(PassArgument, 1, passlogfile), format));
+                    arguments.Add(string.Format(Template, output, optionsWithInput, string.Format(PassArgument, 2, passlogfile), format));
+
+                    if (!arguments[0].Contains("-an")) // skip audio encoding on the first pass
+                        arguments[0] = arguments[0].Replace("-c:v libvpx", "-an -c:v libvpx");
+                }
+                string tempName = String.Empty;
+            }
+
+            Program.Stabilization = null;
+            _ = new ConverterDialog(string.Empty, arguments.ToArray(), string.Empty).ShowDialog(this);
+        }
+
         private bool MergeVideoFile(string[] files)
         {
-            // if drop a single file
-            if (files.Length == 1)
-                return false;
-
             string list = "Deus";
             StringBuilder content = new StringBuilder();
             string tempExtension = string.Empty;
@@ -416,10 +454,7 @@ namespace WebMConverter
             Array.Sort(files);
             foreach (string fileName in files)
             {
-                if (!CheckFileName(fileName))
-                    return true;
-
-                content.Append($"file '{fileName}'\n");
+                content.Append($"file '{fileName.Replace("'", "\'")}'\n");
                 tempExtension = Path.GetExtension(fileName);
                 if (!extensions.ContainsKey(tempExtension))
                     extensions.Add(tempExtension, "");
@@ -444,15 +479,6 @@ namespace WebMConverter
             return true;
         }
 
-        private bool CheckFileName(string fileName)
-        {
-            if (fileName.Contains("'"))
-            {
-                MessageBox.Show($"Check the videos, the filename can't contain -> ' ", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-            return true;
-        }
 
         void MainForm_Shown(object sender, EventArgs e)
         {

@@ -148,8 +148,12 @@ Use different levels of stabilization for your clip. Left side original, right s
 
 [External link](https://gfycat.com/DentalAnchoredHedgehog)
 
-### Merge
-Drag and drop video files inside the application, search for the new video in source path. *The group of videos must have the same encodes / dimensions*.
+### Merge and Convert
+Drag and drop two or more video files inside the application, select what do you want to do. Search for the result in source path. 
+* For merge: *The group of videos must have the same encodes / dimensions*.
+* For convert: *The current settings will be apply to all video files*
+
+![options](img/options.png)
 
 ### There is More that you can do
 
@@ -186,6 +190,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.24.0
+* Add convert files in batch. Check for [more](#merge-and-convert). See related [request](https://github.com/argorar/WebMConverter/issues/34)
+
 #### Version 3.23.4
 * Add 4:3 aspect ratio
 * Add 21:9 aspect ratio
@@ -203,34 +210,20 @@ See user details in tab *General*. If you are creating several gfys of the same 
 #### Version 3.23.0
 * Add Aspect Ratio format in set dimensions. Initially 16:9 and 9:16 format
 * Fix centering frame in *Trim*, *Crop* & *Caption*
-
-#### Version 3.22.2
 * Cleaning code
-
-#### Version 3.22.1
 * Improved memory management to prevent crash visualizing frames. See related [issue](https://github.com/argorar/WebMConverter/issues/33)
 * A special gretting for the [supporters](#supporters) of this project
 
 #### Version 3.22.0
 * Cache system implemented. Now move smoother in *Trim* & *Crop* filters
 * Add original Frame Per Second in *Change Rate* filter
-
-#### Version 3.21.3
 * Fix crop interface
-
-#### Version 3.21.2
 * Fix pixels added to editing crop as in final result. See related [issue](https://github.com/argorar/WebMConverter/issues/27)
-
-#### Version 3.21.1
 * Fix grid tab
 
 #### Version 3.21.0
 * Add option to disable extract subtitles. Big videos will load faster. See related [issue](https://github.com/argorar/WebMConverter/issues/32)
-
-#### Version 3.20.2
 * Fix icons
-
-#### Version 3.20.1
 * Add option to disable check for updates
 * Fix error handling in request to check new version
 

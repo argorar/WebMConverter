@@ -132,6 +132,12 @@
     <Compile Include="Dialogs\ConverterDialog.Designer.cs">
       <DependentUpon>ConverterDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\DropDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DropDialog.Designer.cs">
+      <DependentUpon>DropDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\UpdateBinaries.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -295,6 +301,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ConverterDialog.resx">
       <DependentUpon>ConverterDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DropDialog.resx">
+      <DependentUpon>DropDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\UpdateBinaries.resx">
       <DependentUpon>UpdateBinaries.cs</DependentUpon>
