@@ -190,6 +190,10 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.25.0
+* Add option to disable set metadata automatically
+* Upgrade .Net framework to 4.8
+
 #### Version 3.24.0
 * Add convert files in batch. Check for [more](#merge-and-convert). See related [request](https://github.com/argorar/WebMConverter/issues/34)
 

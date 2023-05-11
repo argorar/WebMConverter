@@ -203,6 +203,9 @@ namespace WebMConverter
             
             if (!configuration.AppSettings.Settings.AllKeys.Contains("DisableSubtitles"))
                 configuration.AppSettings.Settings.Add("DisableSubtitles", "False");
+
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("DisableMetadata"))
+                configuration.AppSettings.Settings.Add("DisableMetadata", "False");
         }
 
         private void ToolTip()
@@ -288,6 +291,11 @@ namespace WebMConverter
                 boxDisableExtractSubtitles.Checked = true;
             else
                 boxDisableExtractSubtitles.Checked = false;
+
+            if (configuration.AppSettings.Settings["DisableMetadata"].Value.Equals("True"))
+                boxDisableMetadata.Checked = true;
+            else
+                boxDisableMetadata.Checked = false;
 
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["PathDownload"].Value))
                 textPathDownloaded.Text = configuration.AppSettings.Settings["PathDownload"].Value;
@@ -1899,7 +1907,7 @@ namespace WebMConverter
                 textBoxIn.Enabled = true;
                 toolStripFilterButtonsEnabled(true);
 
-                if (boxTitle.Text == _autoTitle || boxTitle.Text == "")
+                if ((boxTitle.Text == _autoTitle || boxTitle.Text == "") && !boxDisableMetadata.Checked)
                     boxTitle.Text = _autoTitle = title;
 
                 if (Program.VideoColorRange == FFMSSharp.ColorRange.MPEG && Program.VideoInterlaced)
@@ -3025,6 +3033,11 @@ namespace WebMConverter
         private void boxDisableExtractSubtitles_CheckedChanged(object sender, EventArgs e)
         {
             UpdateConfiguration("DisableSubtitles", boxDisableExtractSubtitles.Checked.ToString());
+        }
+
+        private void boxDisableMetadata_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateConfiguration("DisableMetadata", boxDisableMetadata.Checked.ToString());
         }
     }
 }
