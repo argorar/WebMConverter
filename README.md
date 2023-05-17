@@ -14,7 +14,7 @@ A wrapper around ffmpeg and AviSynth made for converting videos to WebM without 
 - **Download it [here][LatestDownload].**
 
 _Important to know:_
-* Requires .NET Framework 4.5 (Windows 7 comes with 3.5, so you might want to [update][DotNet45])
+* Requires .NET Framework 4.8
 * Requires [AviSynth][AviSynth] (2.6.0, 32-bit)
 * Already includes ffmpeg
 * Only works on Windows 
@@ -189,6 +189,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 * 3nly
 
 ## Changelog
+
+#### Version 3.25.1
+* Fix incorrectly cropped subtitles, to [see more](https://github.com/argorar/WebMConverter/pull/43)
 
 #### Version 3.25.0
 * Add option to disable set metadata automatically
