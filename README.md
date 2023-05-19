@@ -171,11 +171,6 @@ Drag and drop two or more video files inside the application, select what do you
 * Interpolate, more frames to your video
 * Deinterlace
 
-### Upload to Gfycat
-
-Upload your new masterpiece with just one click. *A Gfycat account is required.*
-See user details in tab *General*. If you are creating several gfys of the same topic, tags can be usefull for you.
-
 ### Shortcut keys
 
 * Trim: ```Alt + t```
@@ -190,6 +185,9 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 ## Changelog
 
+#### Version 3.25.2
+* Remove option to upload to gfycat
+
 #### Version 3.25.1
 * Fix incorrectly cropped subtitles, to [see more](https://github.com/argorar/WebMConverter/pull/43)
 
@@ -199,49 +197,12 @@ See user details in tab *General*. If you are creating several gfys of the same 
 
 #### Version 3.24.0
 * Add convert files in batch. Check for [more](#merge-and-convert). See related [request](https://github.com/argorar/WebMConverter/issues/34)
-
-#### Version 3.23.4
 * Add 4:3 aspect ratio
 * Add 21:9 aspect ratio
-
-#### Version 3.23.3
 * Add 1:1 aspect ratio
 * Improved edit *Crop* size with keyboard. keep aspect ratio with ```Ctrl + arrowKey```
-
-#### Version 3.23.2
 * Fix *Crop* top negative values. See related [issue](https://github.com/argorar/WebMConverter/issues/36)
-
-#### Version 3.23.1
 * Fix *Rotate* filter preview
-
-#### Version 3.23.0
-* Add Aspect Ratio format in set dimensions. Initially 16:9 and 9:16 format
-* Fix centering frame in *Trim*, *Crop* & *Caption*
-* Cleaning code
-* Improved memory management to prevent crash visualizing frames. See related [issue](https://github.com/argorar/WebMConverter/issues/33)
-* A special gretting for the [supporters](#supporters) of this project
-
-#### Version 3.22.0
-* Cache system implemented. Now move smoother in *Trim* & *Crop* filters
-* Add original Frame Per Second in *Change Rate* filter
-* Fix crop interface
-* Fix pixels added to editing crop as in final result. See related [issue](https://github.com/argorar/WebMConverter/issues/27)
-* Fix grid tab
-
-#### Version 3.21.0
-* Add option to disable extract subtitles. Big videos will load faster. See related [issue](https://github.com/argorar/WebMConverter/issues/32)
-* Fix icons
-* Add option to disable check for updates
-* Fix error handling in request to check new version
-
-#### Version 3.20.0
-* Add feature to download specific format from youtube. Check *general* tab
-* Fix constant arguments for mp4
-* Fix update arguments to advanced filter
-* Add option to disable pop in front when convert process is finished. Check *general* tab. See related [issue](https://github.com/argorar/WebMConverter/issues/25)
-* Enable option to play and upload result of merge and grid after finish the process
-* Fix false error in merge
-* Fix a minor bug with interface
 
 To see more [changelog](CHANGELOG.md).
 

@@ -136,6 +136,7 @@
             this.buttonUpload.TabIndex = 2;
             this.buttonUpload.Text = "Upload to Gfycat";
             this.buttonUpload.UseVisualStyleBackColor = true;
+            this.buttonUpload.Visible = false;
             this.buttonUpload.Click += new System.EventHandler(this.buttonUpload_ClickAsync);
             // 
             // buttonCancel

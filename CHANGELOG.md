@@ -1,3 +1,37 @@
+
+Version 3.23.0
+=======
+* Add Aspect Ratio format in set dimensions. Initially 16:9 and 9:16 format
+* Fix centering frame in *Trim*, *Crop* & *Caption*
+* Cleaning code
+* Improved memory management to prevent crash visualizing frames. See related [issue](https://github.com/argorar/WebMConverter/issues/33)
+* A special gretting for the [supporters](#supporters) of this project
+
+Version 3.22.0
+=======
+* Cache system implemented. Now move smoother in *Trim* & *Crop* filters
+* Add original Frame Per Second in *Change Rate* filter
+* Fix crop interface
+* Fix pixels added to editing crop as in final result. See related [issue](https://github.com/argorar/WebMConverter/issues/27)
+* Fix grid tab
+
+Version 3.21.0
+=======
+* Add option to disable extract subtitles. Big videos will load faster. See related [issue](https://github.com/argorar/WebMConverter/issues/32)
+* Fix icons
+* Add option to disable check for updates
+* Fix error handling in request to check new version
+
+Version 3.20.0
+=======
+* Add feature to download specific format from youtube. Check *general* tab
+* Fix constant arguments for mp4
+* Fix update arguments to advanced filter
+* Add option to disable pop in front when convert process is finished. Check *general* tab. See related [issue](https://github.com/argorar/WebMConverter/issues/25)
+* Enable option to play and upload result of merge and grid after finish the process
+* Fix false error in merge
+* Fix a minor bug with interface
+
 Version 3.19.0
 =======
 * Added feature to create grid videos, check the tab *Grid*. It requires that both videos share codecs, size, length. Output file is in same path as video #1 
