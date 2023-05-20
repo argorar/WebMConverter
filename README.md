@@ -99,16 +99,16 @@ Follow an object on the canvas easly. Steps for a correct workflow:
 #### Tutorial
 
 For this example the edition requires 30 seconds. 
-<video style="width:100%" controls src="https://giant.gfycat.com/AridComplexKawala.mp4" type="video/mp4" autoplay loop></video>
 
-[External link](https://gfycat.com/AridComplexKawala)
+https://github.com/argorar/WebMConverter/assets/9936760/4d6c52d4-7b72-4162-b27e-89478c141ddf
 
 #### Final result
 
 Right side was processed  with dynamic crop.
-<video style="width:100%" controls src="https://giant.gfycat.com/WeeklyEmptyDalmatian.mp4" type="video/mp4" autoplay loop></video>
 
-[External link](https://gfycat.com/WeeklyEmptyDalmatian)
+https://github.com/argorar/WebMConverter/assets/9936760/327d52ab-4fe4-4eaa-be2a-5ebe17586727
+
+an)
 
 ### Grid
 
@@ -136,17 +136,15 @@ Rotate your video to any direction with just one click.
 ### Loop
 
 Loop function, forward and reverse making an infinite effect. You _can't_ use filter or interpolation with it.
-<video style="width:100%" controls src="https://giant.gfycat.com/AnimatedUnimportantAlligatorsnappingturtle.mp4" type="video/mp4" autoplay loop></video>
 
-[External link](https://gfycat.com/AnimatedUnimportantAlligatorsnappingturtle)
+https://github.com/argorar/WebMConverter/assets/9936760/9117aa8c-576d-4e13-9a65-b4be9890b0a3
 
 ### Stabilization
 
 Use different levels of stabilization for your clip. Left side original, right side processed. Find it in Advanced>Processing.
 
-<video style="width:100%" controls src="https://giant.gfycat.com/DentalAnchoredHedgehog.mp4" type="video/mp4" autoplay loop></video>
 
-[External link](https://gfycat.com/DentalAnchoredHedgehog)
+https://github.com/argorar/WebMConverter/assets/9936760/5ea1aa80-b39c-433f-8113-0fda8b651375
 
 ### Merge and Convert
 Drag and drop two or more video files inside the application, select what do you want to do. Search for the result in source path. 
