@@ -183,6 +183,9 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
+#### Version 3.25.3
+* Add toggle to fix incorrectly cropped subtitles, to [see more](https://github.com/argorar/WebMConverter/pull/43). You can find it in *General*
+
 #### Version 3.25.2
 * Remove option to upload to gfycat
 

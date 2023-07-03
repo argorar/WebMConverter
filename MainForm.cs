@@ -2453,10 +2453,10 @@ namespace WebMConverter
 
             if (Filters.Dub != null)
                 script.AppendLine(Filters.Dub.ToString());
-            if (Filters.Crop != null) /* If cropping isn't done before subtitles, alignment will be incorrect. */
+            if (Filters.Crop != null && boxFixSubs.Checked)
             {
                 script.AppendLine(Filters.Crop.ToString());
-                script.AppendLine(new ResizeFilter(Filters.Crop.finalWidth, Filters.Crop.finalHeight).ToString()); 
+                script.AppendLine(new ResizeFilter(Filters.Crop.finalWidth, Filters.Crop.finalHeight).ToString());
             }   
             if (Filters.Subtitle != null)
                 script.AppendLine(Filters.Subtitle.ToString());
@@ -2472,7 +2472,12 @@ namespace WebMConverter
             if (Filters.MultipleTrim != null)
                 script.AppendLine(Filters.MultipleTrim.ToString());
             if (Filters.Rate != null)
-                script.AppendLine(Filters.Rate.ToString());             
+                script.AppendLine(Filters.Rate.ToString());
+            if (Filters.Crop != null && !boxFixSubs.Checked)
+            {
+                script.AppendLine(Filters.Crop.ToString());
+                script.AppendLine(new ResizeFilter(Filters.Crop.finalWidth, Filters.Crop.finalHeight).ToString());
+            }
             if (Filters.Resize != null)
                 script.AppendLine(Filters.Resize.ToString());
             if (Filters.Reverse != null)
@@ -3039,5 +3044,6 @@ namespace WebMConverter
         {
             UpdateConfiguration("DisableMetadata", boxDisableMetadata.Checked.ToString());
         }
+
     }
 }
