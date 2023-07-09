@@ -122,13 +122,21 @@ Add specific speed to just a section of video:
 
 #### Tutorial
 
-https://github.com/argorar/WebMConverter/assets/9936760/4d6c52d4-7b72-4162-b27e-89478c141ddf
+
+
+https://github.com/argorar/WebMConverter/assets/9936760/40df37fe-a0bf-48d1-8873-405d873883da
+
+
 
 #### Final result
 
 A specific section is slowdown.
 
-https://github.com/argorar/WebMConverter/assets/9936760/327d52ab-4fe4-4eaa-be2a-5ebe17586727
+
+
+https://github.com/argorar/WebMConverter/assets/9936760/7fb63afe-8b0a-41c4-9c48-f3322ae8d4ed
+
+
 
 an)
 ### Grid
