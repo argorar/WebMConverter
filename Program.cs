@@ -31,6 +31,7 @@ namespace WebMConverter
         internal static RotateFilter Rotate { get; set; }
         internal static SubtitleFilter Subtitle { get; set; }
         internal static TrimFilter Trim { get; set; }
+        internal static DynamicFilter Dynamic { get; set; }
 
         internal static void ResetFilters()
         {
@@ -50,6 +51,7 @@ namespace WebMConverter
             Rotate = null;
             Subtitle = null;
             Trim = null;
+            Dynamic = null;
         }
     }
     

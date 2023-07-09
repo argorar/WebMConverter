@@ -110,6 +110,27 @@ https://github.com/argorar/WebMConverter/assets/9936760/327d52ab-4fe4-4eaa-be2a-
 
 an)
 
+### Dynamic Speed
+
+Add specific speed to just a section of video:
+    
+1. Use trim to define the clip lenght
+
+2. Dynamic filter will be enable
+3. Add points in the frame you want with the desire rate (a final ¯\ _ /¯ shape is recomended)
+4. There is not limit for points
+
+#### Tutorial
+
+https://github.com/argorar/WebMConverter/assets/9936760/4d6c52d4-7b72-4162-b27e-89478c141ddf
+
+#### Final result
+
+A specific section is slowdown.
+
+https://github.com/argorar/WebMConverter/assets/9936760/327d52ab-4fe4-4eaa-be2a-5ebe17586727
+
+an)
 ### Grid
 
 Make grid videos to compare or shared different views. You can choose between horizontal or vertical. It requires that both videos share codecs, dimensions, length. Output file is in same path as video #1. Above you can find an example.
@@ -182,6 +203,9 @@ Drag and drop two or more video files inside the application, select what do you
 * 3nly
 
 ## Changelog
+
+#### Version 3.26.0
+* Add Dynamic speed feature Check for [more](#dynamic-speed). See related [request](https://github.com/argorar/WebMConverter/issues/35)
 
 #### Version 3.25.3
 * Add toggle to fix incorrectly cropped subtitles, to [see more](https://github.com/argorar/WebMConverter/pull/43). You can find it in *General*

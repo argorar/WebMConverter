@@ -266,6 +266,13 @@ namespace WebMConverter
             return new StreamReader(httpWRequest.GetResponse().GetResponseStream()).ReadToEnd();
         }
 
+        public static string D(double value)
+        {
+            string specifier = "G";
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("eu-ES");
+            return value.ToString(specifier, CultureInfo.InvariantCulture);
+        }
+
     }
 
     public enum FileType

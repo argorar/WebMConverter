@@ -222,6 +222,12 @@
     <Compile Include="Filters\MultipleTrim.Designer.cs">
       <DependentUpon>MultipleTrim.cs</DependentUpon>
     </Compile>
+    <Compile Include="Filters\RateDynamic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Filters\RateDynamic.Designer.cs">
+      <DependentUpon>RateDynamic.cs</DependentUpon>
+    </Compile>
     <Compile Include="Filters\Rate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -234,6 +240,12 @@
     </Compile>
     <Compile Include="Filters\RotateForm.Designer.cs">
       <DependentUpon>RotateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\Dynamic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Filters\Dynamic.Designer.cs">
+      <DependentUpon>Dynamic.cs</DependentUpon>
     </Compile>
     <Compile Include="Filters\Trim.cs">
       <SubType>Form</SubType>
@@ -254,6 +266,7 @@
     <Compile Include="Objects\Asset.cs" />
     <Compile Include="Objects\PrivateGfycatsResponse.cs" />
     <Compile Include="Objects\ReleaseInfo.cs" />
+    <Compile Include="Objects\SpeedPoint.cs" />
     <Compile Include="Objects\StabilizationData.cs" />
     <Compile Include="Objects\TokenResponse.cs" />
     <Compile Include="Objects\UserDetailsResponse.cs" />
@@ -335,11 +348,17 @@
     <EmbeddedResource Include="Filters\MultipleTrim.resx">
       <DependentUpon>MultipleTrim.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Filters\RateDynamic.resx">
+      <DependentUpon>RateDynamic.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Filters\Rate.resx">
       <DependentUpon>Rate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\RotateForm.resx">
       <DependentUpon>RotateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\Dynamic.resx">
+      <DependentUpon>Dynamic.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

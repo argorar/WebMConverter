@@ -24,6 +24,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Collections;
 using System.Collections.Concurrent;
+using System.Text.RegularExpressions;
 
 namespace WebMConverter
 {
@@ -1078,6 +1079,8 @@ namespace WebMConverter
                         UpdateArguments(sender, e);
                         buttonTrim.Enabled = false;
                     }
+
+                    buttonDynamic.Enabled = true;
                 }
             }
         }
@@ -1311,6 +1314,11 @@ namespace WebMConverter
                     buttonTrim.Enabled = true;
                     GenerateArguments();
                     break;
+                case "Dynamic":
+                    Filters.Dynamic = null;
+                    buttonDynamic.Enabled = true;
+                    UpdateArguments();
+                    break;
             }
         }
 
@@ -1512,6 +1520,7 @@ namespace WebMConverter
             boxAdvancedScripting.Enabled = true;
             textBoxProcessingScript.Hide();
             listViewProcessingScript.Show();
+            buttonDynamic.Enabled = false;
             SarCompensate = false;
 
             if (Path.GetExtension(path) == ".avs")
@@ -2296,7 +2305,7 @@ namespace WebMConverter
             var hq = boxHQ.Checked ? @" -lag-in-frames 16 -auto-alt-ref 1" : string.Empty;
 
             var vcodec = boxNGOV.Checked ? @"libvpx-vp9" : @"libvpx";
-            var extraArguments = boxNGOV.Checked && boxNGOV.Enabled ? @" -tile-columns 1 -row-mt 1" : @"";
+            var extraArguments = boxNGOV.Checked && boxNGOV.Enabled ? @" -aq-mode 4 -row-mt 1 -tile-columns 6 -tile-rows 2" : @"";
             extraArguments = yuvj420p ? extraArguments + @" -color_range 2" : extraArguments;
 
             if (checkMP4.Checked && checkHWAcceleration.Checked)
@@ -2344,12 +2353,66 @@ namespace WebMConverter
                 filter = $" -vf {framerate} ";
             else if (!String.IsNullOrEmpty(levels))
                 filter = $" -vf {levels} ";
+            else if (Filters.Dynamic != null)
+                filter = $" -vf \"{dynamic(Filters.Dynamic.Points)}\"";
 
             if (boxLoop.Checked && string.IsNullOrEmpty(filter))
                 filter = $" -filter_complex {LoopFilter} ";
 
             return string.Format(TemplateArguments, audio, threads, slices, metadataTitle, hq,
                                 vcodec, acodec, filter, qualityarguments, extraArguments, pixelFormat);
+        }
+
+        private String dynamic(SortedList points)
+        {
+            string setpts = string.Empty;
+            SpeedPoint point = (SpeedPoint)points.GetByIndex(0);
+            double speedMapStartTime = point.Time;
+            double startSpeed, endSpeed, sectionStart ,sectionEnd ,sectionDuration;
+            int nDurs = points.Count;
+
+            SpeedPoint left;
+            SpeedPoint right;
+
+            for (int i = 0; i < points.Count - 1; i += 1)
+            {
+                left = (SpeedPoint)points.GetByIndex(i);
+                right = (SpeedPoint)points.GetByIndex(i + 1);
+
+                startSpeed = left.Speed;
+                endSpeed = right.Speed;
+                double speedChange = endSpeed - startSpeed;
+
+                sectionStart = left.Time - speedMapStartTime;
+                sectionEnd = right.Time - speedMapStartTime;
+                sectionDuration = sectionEnd - sectionStart;
+
+                var x = speedChange / sectionDuration;
+                var y = startSpeed - x * sectionStart;
+
+                var sliceDuration = string.Empty;
+                if (speedChange == 0)
+                {
+                    sliceDuration = $"(min((T-STARTT-({D(sectionStart)})),{D(sectionDuration)})/{D(endSpeed)})";
+                }
+                else
+                {
+                    sliceDuration = $"(1/{D(x)})*(log(abs({D(x)}*min((T-STARTT),{D(sectionEnd)})" +
+                                    $"+({D(y)})))-log(abs({D(x)}*{D(sectionStart)}+({D(y)}))))";
+                }
+
+                sliceDuration = $"if(gte((T-STARTT),{D(sectionStart)}), {sliceDuration},0)";
+
+                if (i == 0)
+                {
+                    setpts += $"(if(eq(N,0),0,{sliceDuration}))";
+                }
+                else
+                {
+                    setpts += $"+({sliceDuration})";
+                }
+            }
+            return $"setpts='({setpts})/TB'";
         }
 
         /// <summary>
@@ -3045,5 +3108,22 @@ namespace WebMConverter
             UpdateConfiguration("DisableMetadata", boxDisableMetadata.Checked.ToString());
         }
 
+        private void buttonDynamic_Click_1(object sender, EventArgs e)
+        {
+            using (var form = new DynamicForm(Filters.Trim))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    Filters.Dynamic = form.GeneratedFilter;
+                    if (!boxAdvancedScripting.Checked)
+                    {
+                        listViewProcessingScript.Items.Add("Dynamic", "Dynamic");
+                        buttonDynamic.Enabled = false;
+                    }
+                    UpdateArguments(sender, e);
+
+                }
+            }            
+        }
     }
 }

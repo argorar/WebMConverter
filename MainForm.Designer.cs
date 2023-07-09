@@ -105,6 +105,7 @@ namespace WebMConverter
             this.buttonDub = new System.Windows.Forms.ToolStripButton();
             this.buttonRate = new System.Windows.Forms.ToolStripButton();
             this.buttonRotate = new System.Windows.Forms.ToolStripButton();
+            this.buttonDynamic = new System.Windows.Forms.ToolStripButton();
             this.buttonFade = new System.Windows.Forms.ToolStripButton();
             this.listViewProcessingScript = new System.Windows.Forms.ListView();
             this.imageListFilters = new System.Windows.Forms.ImageList(this.components);
@@ -507,6 +508,7 @@ namespace WebMConverter
             this.buttonDub,
             this.buttonRate,
             this.buttonRotate,
+            this.buttonDynamic,
             this.buttonFade});
             toolStripProcessing.Location = new System.Drawing.Point(0, 0);
             toolStripProcessing.Name = "toolStripProcessing";
@@ -686,6 +688,16 @@ namespace WebMConverter
             this.buttonRotate.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
             this.buttonRotate.MouseLeave += new System.EventHandler(this.clearToolTip);
             // 
+            // buttonDynamic
+            // 
+            this.buttonDynamic.AccessibleDescription = "Add fading effects to the start and/or end to your video.";
+            this.buttonDynamic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.buttonDynamic.Enabled = false;
+            this.buttonDynamic.Name = "buttonDynamic";
+            this.buttonDynamic.Size = new System.Drawing.Size(58, 22);
+            this.buttonDynamic.Text = "Dynamic";
+            this.buttonDynamic.Click += new System.EventHandler(this.buttonDynamic_Click_1);
+            // 
             // buttonFade
             // 
             this.buttonFade.AccessibleDescription = "Add fading effects to the start and/or end to your video.";
@@ -743,6 +755,7 @@ namespace WebMConverter
             this.imageListFilters.Images.SetKeyName(8, "Rate");
             this.imageListFilters.Images.SetKeyName(9, "Fade");
             this.imageListFilters.Images.SetKeyName(10, "Rotate");
+            this.imageListFilters.Images.SetKeyName(11, "Dynamic");
             // 
             // textBoxProcessingScript
             // 
@@ -2454,7 +2467,7 @@ namespace WebMConverter
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(1047, 301);
-            this.splitContainer1.SplitterDistance = 500;
+            this.splitContainer1.SplitterDistance = 498;
             this.splitContainer1.TabIndex = 0;
             // 
             // groupBox2
@@ -2716,7 +2729,7 @@ namespace WebMConverter
             this.Controls.Add(this.panelHideTheOptions);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(975, 262);
+            this.MinimumSize = new System.Drawing.Size(975, 261);
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -2932,6 +2945,7 @@ namespace WebMConverter
         private System.Windows.Forms.Label labelStep1Grid;
         private System.Windows.Forms.CheckBox boxDisableMetadata;
         private System.Windows.Forms.CheckBox boxFixSubs;
+        private System.Windows.Forms.ToolStripButton buttonDynamic;
         // private System.Windows.Forms.GroupBox groupGfycat;
     }
 }

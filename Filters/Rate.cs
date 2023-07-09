@@ -66,6 +66,7 @@ namespace WebMConverter
             this.Focus();
             GeneratedFilter = new RateFilter(trackRate.Value);
         }
+
         private void numericUpDown_ValueChanged(object sender, EventArgs e)
         {
             trackRate.Value = Convert.ToInt32(numericUpDown.Value);
