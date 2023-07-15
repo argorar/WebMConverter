@@ -212,6 +212,9 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
+#### Version 3.27.0
+* Add support to internal webvtt subtitles. See related [request](https://github.com/argorar/WebMConverter/issues/30)
+
 #### Version 3.26.0
 * Add Dynamic speed feature Check for [more](#dynamic-speed). See related [request](https://github.com/argorar/WebMConverter/issues/35)
 

@@ -285,7 +285,8 @@ namespace WebMConverter
     {
         TextSub,
         VobSub,
-        PgsSub
+        PgsSub,
+        VTTSub
     }
 
     public enum EncodingMode

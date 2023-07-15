@@ -1783,6 +1783,10 @@ namespace WebMConverter
                                             type = SubtitleType.PgsSub;
                                             extension = ".sup";
                                             break;
+                                        case "webvtt":
+                                            type = SubtitleType.VTTSub;
+                                            extension = ".srt";
+                                            break;
                                         default:
                                             type = SubtitleType.TextSub;
                                             extension = "." + streamtitle;
@@ -1792,7 +1796,16 @@ namespace WebMConverter
                                     file = Path.Combine(Program.AttachmentDirectory, $"sub{streamindex}{extension}");
                                     logIndexingProgress($"Found subtitle track #{streamindex}");
 
-                                    if (!File.Exists(file)) // If we didn't extract it already
+                                    if (type == SubtitleType.VTTSub && !File.Exists(file))
+                                    {
+                                        logIndexingProgress("Extracting vtt...");
+                                        using (var ffmpeg = new FFmpeg($@" -i ""{Program.InputFile}"" -map 0:{streamindex} ""{file}"""))
+                                        {
+                                            ffmpeg.Start();
+                                            ffmpeg.WaitForExit();
+                                        }
+                                    }                                    
+                                    else if (!File.Exists(file)) // If we didn't extract it already
                                     {
                                         logIndexingProgress("Extracting...");
                                         using (var mkvextract = new MkvExtract($@"tracks ""{Program.InputFile}"" ""{streamindex}:{file}"""))
@@ -2078,6 +2091,7 @@ namespace WebMConverter
                     {
                         case SubtitleType.TextSub:
                         case SubtitleType.VobSub:
+                        case SubtitleType.VTTSub:
                             plugin = "VSFilter.dll";
                             break;
                         case SubtitleType.PgsSub:

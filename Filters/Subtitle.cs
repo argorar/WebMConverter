@@ -150,6 +150,7 @@ namespace WebMConverter
 
             switch (Type)
             {
+                case SubtitleType.VTTSub:
                 case SubtitleType.TextSub:
                     return conversion + $@"textsub(""{shortFileName}"")";
                 case SubtitleType.VobSub:
