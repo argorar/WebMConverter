@@ -33,7 +33,7 @@ namespace WebMConverter
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.flowTrimButtons = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonAddPoint = new System.Windows.Forms.Button();
-            this.labelTrimStart = new System.Windows.Forms.Label();
+            this.labelPoints = new System.Windows.Forms.Label();
             this.buttonTrimEnd = new System.Windows.Forms.Button();
             this.labelTrimEnd = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -81,7 +81,7 @@ namespace WebMConverter
             // flowTrimButtons
             // 
             this.flowTrimButtons.Controls.Add(this.buttonAddPoint);
-            this.flowTrimButtons.Controls.Add(this.labelTrimStart);
+            this.flowTrimButtons.Controls.Add(this.labelPoints);
             this.flowTrimButtons.Controls.Add(this.buttonTrimEnd);
             this.flowTrimButtons.Controls.Add(this.labelTrimEnd);
             this.flowTrimButtons.Controls.Add(this.label1);
@@ -106,18 +106,18 @@ namespace WebMConverter
             this.buttonAddPoint.UseVisualStyleBackColor = true;
             this.buttonAddPoint.Click += new System.EventHandler(this.buttonAddPoint_Click);
             // 
-            // labelTrimStart
+            // labelPoints
             // 
-            this.labelTrimStart.AutoSize = true;
-            this.labelTrimStart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelTrimStart.Location = new System.Drawing.Point(112, 0);
-            this.labelTrimStart.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelTrimStart.MaximumSize = new System.Drawing.Size(133, 0);
-            this.labelTrimStart.MinimumSize = new System.Drawing.Size(133, 0);
-            this.labelTrimStart.Name = "labelTrimStart";
-            this.labelTrimStart.Size = new System.Drawing.Size(133, 0);
-            this.labelTrimStart.TabIndex = 2;
-            this.labelTrimStart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelPoints.AutoSize = true;
+            this.labelPoints.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelPoints.Location = new System.Drawing.Point(112, 0);
+            this.labelPoints.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelPoints.MaximumSize = new System.Drawing.Size(1133, 0);
+            this.labelPoints.MinimumSize = new System.Drawing.Size(133, 0);
+            this.labelPoints.Name = "labelPoints";
+            this.labelPoints.Size = new System.Drawing.Size(133, 0);
+            this.labelPoints.TabIndex = 2;
+            this.labelPoints.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // buttonTrimEnd
             // 
@@ -336,7 +336,7 @@ namespace WebMConverter
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuGoToFrame;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuGoToTime;
         private System.Windows.Forms.Label labelTimeStamp;
-        private System.Windows.Forms.Label labelTrimStart;
+        private System.Windows.Forms.Label labelPoints;
         private System.Windows.Forms.Label labelTrimEnd;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelTrimDuration;

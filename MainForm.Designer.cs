@@ -87,6 +87,7 @@ namespace WebMConverter
             System.Windows.Forms.GroupBox groupBox1;
             System.Windows.Forms.GroupBox groupBox2;
             System.Windows.Forms.StatusStrip statusStrip;
+            System.Windows.Forms.Label labelNormalization;
             this.textBoxIn = new System.Windows.Forms.TextBox();
             this.buttonBrowseIn = new System.Windows.Forms.Button();
             this.textBoxOut = new System.Windows.Forms.TextBox();
@@ -210,6 +211,7 @@ namespace WebMConverter
             this.listViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.listViewContextMenuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewContextMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.numericNormalization = new System.Windows.Forms.NumericUpDown();
             tableMainForm = new System.Windows.Forms.TableLayoutPanel();
             groupMain = new System.Windows.Forms.GroupBox();
             tableMain = new System.Windows.Forms.TableLayoutPanel();
@@ -267,6 +269,7 @@ namespace WebMConverter
             groupBox1 = new System.Windows.Forms.GroupBox();
             groupBox2 = new System.Windows.Forms.GroupBox();
             statusStrip = new System.Windows.Forms.StatusStrip();
+            labelNormalization = new System.Windows.Forms.Label();
             tableMainForm.SuspendLayout();
             groupMain.SuspendLayout();
             tableMain.SuspendLayout();
@@ -323,6 +326,7 @@ namespace WebMConverter
             this.panelContainTheProgressBar.SuspendLayout();
             this.panelHideTheOptions.SuspendLayout();
             this.listViewContextMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericNormalization)).BeginInit();
             this.SuspendLayout();
             // 
             // tableMainForm
@@ -1300,17 +1304,22 @@ namespace WebMConverter
             // 
             // tableEncodingAudio
             // 
-            tableEncodingAudio.ColumnCount = 5;
+            tableEncodingAudio.ColumnCount = 8;
             tableEncodingAudio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79F));
             tableEncodingAudio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             tableEncodingAudio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 67F));
             tableEncodingAudio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             tableEncodingAudio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableEncodingAudio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 86F));
+            tableEncodingAudio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 57F));
+            tableEncodingAudio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 466F));
+            tableEncodingAudio.Controls.Add(this.numericNormalization, 5, 0);
             tableEncodingAudio.Controls.Add(this.boxAudio, 0, 0);
             tableEncodingAudio.Controls.Add(panelEncodingModeSwapperTwo, 0, 1);
             tableEncodingAudio.Controls.Add(this.numericDelay, 3, 0);
             tableEncodingAudio.Controls.Add(this.lblDelay, 2, 0);
             tableEncodingAudio.Controls.Add(this.checkFixAudio, 4, 0);
+            tableEncodingAudio.Controls.Add(labelNormalization, 5, 0);
             tableEncodingAudio.Dock = System.Windows.Forms.DockStyle.Fill;
             tableEncodingAudio.Location = new System.Drawing.Point(3, 16);
             tableEncodingAudio.Margin = new System.Windows.Forms.Padding(0);
@@ -1318,6 +1327,9 @@ namespace WebMConverter
             tableEncodingAudio.RowCount = 2;
             tableEncodingAudio.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             tableEncodingAudio.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            tableEncodingAudio.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            tableEncodingAudio.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            tableEncodingAudio.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             tableEncodingAudio.Size = new System.Drawing.Size(1035, 54);
             tableEncodingAudio.TabIndex = 0;
             // 
@@ -1346,7 +1358,7 @@ namespace WebMConverter
             panelEncodingModeSwapperTwo.Location = new System.Drawing.Point(0, 28);
             panelEncodingModeSwapperTwo.Margin = new System.Windows.Forms.Padding(0);
             panelEncodingModeSwapperTwo.Name = "panelEncodingModeSwapperTwo";
-            panelEncodingModeSwapperTwo.Size = new System.Drawing.Size(1035, 28);
+            panelEncodingModeSwapperTwo.Size = new System.Drawing.Size(426, 28);
             panelEncodingModeSwapperTwo.TabIndex = 2;
             // 
             // tableAudioConstantOptions
@@ -1366,7 +1378,7 @@ namespace WebMConverter
             this.tableAudioConstantOptions.Name = "tableAudioConstantOptions";
             this.tableAudioConstantOptions.RowCount = 1;
             this.tableAudioConstantOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableAudioConstantOptions.Size = new System.Drawing.Size(1035, 28);
+            this.tableAudioConstantOptions.Size = new System.Drawing.Size(426, 28);
             this.tableAudioConstantOptions.TabIndex = 0;
             // 
             // labelAudioBitrate
@@ -1410,7 +1422,7 @@ namespace WebMConverter
             labelAudioBitrateHint.Dock = System.Windows.Forms.DockStyle.Fill;
             labelAudioBitrateHint.Location = new System.Drawing.Point(230, 0);
             labelAudioBitrateHint.Name = "labelAudioBitrateHint";
-            labelAudioBitrateHint.Size = new System.Drawing.Size(802, 28);
+            labelAudioBitrateHint.Size = new System.Drawing.Size(193, 28);
             labelAudioBitrateHint.TabIndex = 0;
             labelAudioBitrateHint.Text = "Determines the quality of the audio.";
             labelAudioBitrateHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1431,7 +1443,7 @@ namespace WebMConverter
             this.tableAudioVariableOptions.Name = "tableAudioVariableOptions";
             this.tableAudioVariableOptions.RowCount = 1;
             this.tableAudioVariableOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableAudioVariableOptions.Size = new System.Drawing.Size(1035, 28);
+            this.tableAudioVariableOptions.Size = new System.Drawing.Size(426, 28);
             this.tableAudioVariableOptions.TabIndex = 0;
             // 
             // labelAudioQuality
@@ -1473,7 +1485,7 @@ namespace WebMConverter
             labelAudioQualityHint.Dock = System.Windows.Forms.DockStyle.Fill;
             labelAudioQualityHint.Location = new System.Drawing.Point(230, 0);
             labelAudioQualityHint.Name = "labelAudioQualityHint";
-            labelAudioQualityHint.Size = new System.Drawing.Size(802, 28);
+            labelAudioQualityHint.Size = new System.Drawing.Size(193, 28);
             labelAudioQualityHint.TabIndex = 0;
             labelAudioQualityHint.Text = "Determines the average quality of the audio. 10 is the highest quality.";
             labelAudioQualityHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2717,6 +2729,48 @@ namespace WebMConverter
             this.listViewContextMenuDelete.Text = "Delete";
             this.listViewContextMenuDelete.Click += new System.EventHandler(this.listViewContextMenuDelete_Click);
             // 
+            // labelNormalization
+            // 
+            labelNormalization.AutoSize = true;
+            labelNormalization.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelNormalization.Location = new System.Drawing.Point(429, 0);
+            labelNormalization.Name = "labelNormalization";
+            labelNormalization.Size = new System.Drawing.Size(80, 28);
+            labelNormalization.TabIndex = 6;
+            labelNormalization.Text = "Normalization:";
+            labelNormalization.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // numericNormalization
+            // 
+            this.numericNormalization.DecimalPlaces = 2;
+            this.numericNormalization.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericNormalization.Enabled = false;
+            this.numericNormalization.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericNormalization.Location = new System.Drawing.Point(514, 4);
+            this.numericNormalization.Margin = new System.Windows.Forms.Padding(2, 4, 2, 2);
+            this.numericNormalization.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericNormalization.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.numericNormalization.Name = "numericNormalization";
+            this.numericNormalization.Size = new System.Drawing.Size(53, 20);
+            this.numericNormalization.TabIndex = 21;
+            this.numericNormalization.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // MainForm
             // 
             this.AcceptButton = this.buttonGo;
@@ -2816,6 +2870,7 @@ namespace WebMConverter
             this.panelHideTheOptions.ResumeLayout(false);
             this.panelHideTheOptions.PerformLayout();
             this.listViewContextMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericNormalization)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2946,6 +3001,7 @@ namespace WebMConverter
         private System.Windows.Forms.CheckBox boxDisableMetadata;
         private System.Windows.Forms.CheckBox boxFixSubs;
         private System.Windows.Forms.ToolStripButton buttonDynamic;
+        private System.Windows.Forms.NumericUpDown numericNormalization;
         // private System.Windows.Forms.GroupBox groupGfycat;
     }
 }

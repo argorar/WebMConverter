@@ -212,6 +212,11 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
+#### Version 3.28.0
+* Add option to normalize audio. See related [request](https://github.com/argorar/WebMConverter/issues/44)
+* Add option to edit Dynamic filter
+* Show points created in Dynamic filter
+
 #### Version 3.27.0
 * Add support to internal webvtt subtitles. See related [request](https://github.com/argorar/WebMConverter/issues/30)
 

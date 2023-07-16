@@ -126,6 +126,54 @@
   <metadata name="tableMain.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
+  <metadata name="tabControlOptions.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="tabProcessing.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="tableProcessing.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="tabEncoding.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="tableEncoding.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="groupEncodingGeneral.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="tableEncodingGeneral.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="groupEncodingVideo.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="groupEncodingAudio.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="tableEncodingAudio.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="panelEncodingModeSwapperTwo.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelNormalization.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="tabAdvanced.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="tableAdvanced.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="groupBox1.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="tableMain.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
   <metadata name="labelInputFile.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
@@ -135,13 +183,25 @@
   <metadata name="buttonBrowseOut.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="tabControlOptions.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="labelInputFile.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="tabProcessing.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="labelOutputFile.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="buttonBrowseOut.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <metadata name="tableProcessing.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="toolStripProcessing.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="toolStripProcessing.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="panelProcessingInput.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <metadata name="toolStripProcessing.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -177,7 +237,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAM
-        cwAAAk1TRnQBSQFMAgEBDAEAAYABBAGAAQQBZAEAAWQBAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        cwAAAk1TRnQBSQFMAgEBDAEAAYgBBAGIAQQBZAEAAWQBAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABkAEBAgABkAEBAgABAQEAAQgGAAFxAQIXAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEA
         AcAB3AHAAQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEA
         A0IBAAM5AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIA
@@ -241,15 +301,15 @@
         ARUKAAETEv8JAAH/AfABEgEOAwABFQEHAf9jAAHvAQ4B/xYAAf8B8gHvAe0B8AH/EwABBwwAAREmAAH/
         AbwGAAHsAfQB/yYAAf8B9AHsBgAB8AH/FAAS/wH0AREJAAEVAfIn/wH0ARUJAAEVAfAR/wgAAf8BBwEO
         BwAB7QH/IAAB/wHyAQcB7wEHAfIB/zsAAewBAAH/FQAB/wHsBQABBxIAAfIzAAH0AewFAAEQAfIB/ygA
-        Af8B8gEQBQAB7QH/FAAS/wFtCQABFQHsKf8B7wEVCQABbRH/CAAB8QEOCQAB7x8AAfMB6wEOAwABDgH4
+        Af8B8gEQBQAB7QH/FAAS/wFtCQABFQHsKf8B7wEVCQABbRH/CAAB8QEOCQAB7x8AAfMB6wEOAwABDgHs
         AfM6AAESAQAB/xUAAW0HAAHwEQAB/zIAAf8B9AEUBQAB7AL/KAAB/wH0AesFAAETAfQB/xMAEv8BEQkA
         ARUr/wEUCQABFRH/BwAB/wFtBAABDgEPBAABQwH0HQAB8gFDBwABFQHzOQABEQEAAf8UAAHwAgABDwHv
         AfMBBwERAQABDgH0EAAB/wwAAQ4lAAH/AfABDgUAAQcB/yoAAf8BBwUAAQ4B8QH/EwAR/wEHCQABFQEH
-        K/8B8gEVCQAB9xD/BwAB8gEOAwAB+ALzAfcBDgMAAQccAAH0ARIJAAHqAf84AAEOAQAB/xQAAewCAAEH
+        K/8B8gEVCQAB9xD/BwAB8gEOAwAB7ALzAfcBDgMAAQccAAH0ARIJAAHqAf84AAEOAQAB/xQAAewCAAEH
         AwAB8AIAAQcRAAEQCwABECUAAf8B9wUAAQ8B8wH/KgAB/wHzAQ8FAAHvAf8TABH/ARMJAAEVLf8B6gkA
         ARUQ/wcAAQcDAAFDAfQCAAH/AesDAAHtHAAB7wQAAQ4BEQEOBAABBzoAAfMUAAFtAgAB9AMAAf8BDgEA
         AewRAAFDCwABFCUAAfQB7AUAAW0C/yoAAv8BbQUAAewB9BMAEf8BEQkAAQct/wG8ARUIAAEVAfQP/wcA
-        Ae8DAAHrAf8DAAH3AwAB+AH/GgAB/wHqAwABFQHxAfQB8AEVAwAB6wH/OQAB8RQAAe0CAAG8AwAB8gIA
+        Ae8DAAHrAf8DAAH3AwAB7AH/GgAB/wHqAwABFQHxAfQB8AEVAwAB6wH/OQAB8RQAAe0CAAG8AwAB8gIA
         ARERAAERCwABbSQAAf8B9AFtBQAB7wH/LAAB/wH3BQABbQH0Af8SABD/AfAJAAEVL/8BFQkAAQcP/wcA
         AQcDAAEVAfQCAAH/AesDAAHtGwAB9AERAwABvAMAAQcDAAFDAfQ3AAEOAQABBxQAAfACAAEUAfIB/wHz
         ARIDAAH0EAABEAsAAe0TAAH/AfMH8gHzAf8GAAH/AfMBEwUAAQcB/ywAAf8BBwUAARMB8wH/BgAB/wHz
@@ -260,21 +320,21 @@
         EgABBwERCQABFQEHAf8EAAH/AfEBDgQAAQ4B8gH/LAAB/wHxBQABDgHxAf8EAAH/AQcBQwkAAREBvBD/
         AREIAAEVAfQw/wEVCAABFQ//CAAB8AEOCwABDwEHAf8YAAH/AW0DAAEUAfEB9AHwARUDAAEUAfQ3AAHs
         AgAB9BQAAf8BEQgAARMPAAHzAQ4LAAH/EgABEwsAAewB8wQAAf8BvAUAAQ8B8wH/LAAB/wHyAQ4FAAHw
-        Af8EAAHzAesLAAHqEP8JAAEVMf8BFQkAAfQO/wgAAf8B7wwAAQ4BkgH/GAABBwQAAQ4BEQEOBQAB+AH/
+        Af8EAAHzAesLAAHqEP8JAAEVMf8BFQkAAfQO/wgAAf8B7wwAAQ4BkgH/GAABBwQAAQ4BEQEOBQAB7AH/
         NgAB7wIAAQcVAAEHCQAB/w8AAf8B8QHtAREHAAETEwABEQsAAesB8gQAAf8BvAUAARAB9AH/LAAB/wHz
-        AQ8FAAHwAf8EAAHyAW0LAAEVD/8B9AkAARIx/wHsCQAB8A7/CQAB/wEHARUEAAERAe0BEwUAAfgB9BcA
-        AfEBDgwAAfgB/zUAAfMB7QHwAf8VAAH/ARAIAAHyDgAB/wQAAfQBBwFtBAAB9xMAAewKAAEOAZIB9AQA
+        AQ8FAAHwAf8EAAHyAW0LAAEVD/8B9AkAARIx/wHsCQAB8A7/CQAB/wEHARUEAAERAe0BEwUAAewB9BcA
+        AfEBDgwAAewB/zUAAfMB7QHwAf8VAAH/ARAIAAHyDgAB/wQAAfQBBwFtBAAB9xMAAewKAAEOAZIB9AQA
         Af8B8AUAAQ4B8gH/LAAB/wHyAQ4EAAEOAfAB/wQAAfQBkgEOCQABDgHtD/8B8QkAAewx/wHvCQABBw7/
-        CwAB9AG8AvcBBwHzAf8B9AHrBQAB6gHzFQAB/wFtDgAB+AH/TgABBwgAAe8NAAH/AQ4B7AHyAf8EAAH/
+        CwAB9AG8AvcBBwHzAf8B9AHrBQAB6gHzFQAB/wFtDgAB7AH/TgABBwgAAe8NAAH/AQ4B7AHyAf8EAAH/
         AfEB7QFDAfMTAAHzAW0BQwcQARUB7AHyAf8EAAH/AfEBEAUAAfEB/ywAAf8B8AUAARAB8gH/BAAB/wHx
-        AewBQwcQARUBbQHzD/8BBwkAAe0x/wEHCQAB7w7/EwAB/wHtBQABQwHxAf8SAAH/AZIIAAEOAfgB9wEO
+        AewBQwcQARUBbQHzD/8BBwkAAe0x/wEHCQAB7w7/EwAB/wHtBQABQwHxAf8SAAH/AZIIAAEOAewB9wEO
         BAAB6wH0NQAB/wHzAbwVAAH/ARAHAAFtDQABBwMAAUMBBwH/GwAB9AEHB+8BvAH0Af8FAAH/AfMBFAUA
         AbwB/ywAAf8BBwUAARQB8wH/BQAB/wH0AQcH7wG8AfQBAA//AbwJAAH3Mf8B7wkAAewO/xQAAf8B7wEO
         BAABDwEHAf8RAAG8AQ4DAAFDAbwBBwHvAQcB8gL/AQcBDgQAAesB9DMAAfMBFQIAAfMVAAHvBwABDgH/
         CwAB/wEUBgAB7AHyAf8aAAH/BAAB/wkAAf8B8wHqBQABBwH/LAAB/wHvBQAB6gH0Af8JAAH/BAAB/wMA
         D/8BvAkAAfcx/wHzAe8BBwLvAgcD7wHyDv8VAAH/AfABEQQAAQ4B9wH/DwAB8wFDAwABDgG8BwAB/wEH
         AQ4EAAHrAfQyAAH0AwABbRUAAf8BDwcAAfMLAAHxCQABQwEHAf8oAAH0AW0FAAHsAf8sAAH/AewFAAHr
-        AfQTAA//AbwJAAHtSv8XAAHyARMFAAH4AfQNAAH/AW0EAAGSAf8IAAH/AQcBDgQAAesB9DIAARIDAAHx
+        AfQTAA//AbwJAAHtSv8XAAHyARMFAAHsAfQNAAH/AW0EAAGSAf8IAAH/AQcBDgQAAesB9DIAARIDAAHx
         FQAB7wcAAQcKAAH/ARMLAAGSKAAB9AHsBQABFQH0Af8qAAH/AfQBFQUAAe0B9BMAD/8B8AkAAexK/xgA
         AfQB6wUAAeoB8wsAAf8BkgQAAW0B/woAAf8BBwEOBAAB6wH0MQABvAMAAREB/xQAAf8BDgYAAewKAAG8
         DAAB8ygAAf8BBwYAAfEB/yoAAf8B8QYAAQcB/xMAD/8B9AkAARNK/xkAAf8B7QUAARUB8QoAAbwBDgMA
@@ -291,10 +351,10 @@
         BQABkgH/EQAB9AEOBQAB/wIAAv8BAAHyCwABvC4AAf8B8QEOBQABFQHyAf8NAAH/AfIGAAHzAf8NAAH/
         AfIBQwUAAQ4B8gH/FQAR/wERCQAB70j/IAAB/wHvAQ4DAAEOAe8B9AHzAewDAAEOAfMVAAH/AbwBDwQA
         AW0B9C4AAfMBDgQAARAB/xIAAZIFAAHyAQAB9AESAewCAAEHCQABki8AAv8B7AYAAesB9AH/DAAB/wH0
-        ARIEAAESAfQB/wwAAf8B8wFtBgAB7AL/FQAR/wFtCQABFUj/IQAB/wH4AwAB+AH/AgAB9AFDAwABvBYA
+        ARIEAAESAfQB/wwAAf8B8wFtBgAB7AL/FQAR/wFtCQABFUj/IQAB/wHsAwAB7AH/AgAB9AFDAwABvBYA
         Af8BvAEPBAABbQH0LgAB8AMAAQ4B8wIAAfAB/w8AAfQFAAHvAQABbQIAAfECAAHtBwAB7AH/MAAB/wHz
         AQ8FAAEOAe0B9A0AAf8B8QETAgABEwHyAf8NAAH0AewBDgUAARAB8wH/FgAR/wG8AREIAAEVAfdH/yEA
-        Af8B+AMAAe8DAAH/AeoDAAEHFwAB/wG8AQ8EAAFtAfQuAAEHAgAB8AIAAfABAAEPAe8B/w4AAe0EAAFt
+        Af8B7AMAAe8DAAH/AeoDAAEHFwAB/wG8AQ8EAAFtAfQuAAEHAgAB8AIAAfABAAEPAe8B/w4AAe0EAAFt
         AQAB7wIAARAB/wEAAf8B6gUAAesB/ygAAf8C9AH/BQAC/wGSBgABEAHvAfQMAAL/AfMCBwHzAv8MAAH0
         Ae8BEAYAAZIB/wYAAf8C9AH/DQAS/wERCQABFRL/AQc0/yEAAf8B7QMAAesB/wIAAfQBQwMAAbwZAAHw
         AQ8EAAHqAfQuAAIHAgAB/wEPBAAB7AHwAf8LAAH0BAABDgH/AfIDAAHsAgAB/wFDAwAB7AH/JwAB/wHz
@@ -325,7 +385,7 @@
         Af8B6wMAAQc3AAH/AvQC/wMAAW0CAAH/LgAB/wHxAZIB7AHtAfAB/xQAAfQBBwHsAUMBDhgAAQ4BQwHs
         AbwB9BQAAfQB8AHtAewBkgHyAf8GABj/AUMNAAEVARQBvAb/AesOAAEVAewk/08AAe0DAAHrAf8CAAH0
         AUMDAAEHPwAB8wIAAfIwAAH/AfQB/xgAAfQBBwFtAUMBDhQAAQ4BQwHrAQcB9BgAAf8B9AH/CAAZ/wER
-        DgACFQHtAfED/wFtDwACFQG8Iv9PAAEHAwABDgH3AvMB+AMAAQ4B8kAAAW0BAAHvTAAB/wHzAQcB7AES
+        DgACFQHtAfED/wFtDwACFQG8Iv9PAAEHAwABDgH3AvMB7AMAAQ4B8kAAAW0BAAHvTAAB/wHzAQcB7AES
         AREBDg4AAQ4BQwESAewBBwH0Af8kABr/ARERAAEVAW0B9wETEQABFQHqAfQg/08AAfQBQwQAAQ8BDgQA
         AW0B/0AAAfIBAAFtTgAC/wHzAQcB7AHqARUBQwERAhACDwEQAhEBQwEVAeoB7AEHAfMC/yYAG/8BEwER
         JgABFQH3H/9QAAHvCQABDgHxQgAC7EUAA/8KAAH/AfQB8QHwAgcB7wLtAe8BBwG8AfAB8gH0Af8KAAP/
@@ -670,15 +730,6 @@
         Mv8CADL/AgAy/wIAMv8CADL/AgAy/wIAMv8CADL/AgAy/wIAMv8CADL/AgAy/wIAMv8CADL/AgAL
 </value>
   </data>
-  <metadata name="tabEncoding.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="tableEncoding.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="groupEncodingGeneral.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
   <metadata name="tableEncodingGeneral.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
@@ -697,10 +748,40 @@
   <metadata name="labelGeneralTitleHint.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="groupEncodingVideo.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="labelGeneralModeVariableHint.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelGeneralModeConstantHint.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelGeneralMode.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelGeneralTitle.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelGeneralTitleHint.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <metadata name="panelEncodingModeSwapper.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="panelEncodingModeSwapper.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelVideoSizeLimit.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelVideoSizeLimitUnit.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelVideoBitrate.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelVideoBitrateUnit.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelVideoBitrateHint.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <metadata name="labelVideoSizeLimit.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -730,13 +811,25 @@
   <metadata name="labelVideoCrfToleranceHint.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="groupEncodingAudio.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="labelVideoCrf.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="tableEncodingAudio.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="labelVideoCrfHint.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="panelEncodingModeSwapperTwo.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="labelVideoCrfTolerance.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelVideoCrfToleranceHint.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelAudioBitrate.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelAudioBitrateUnit.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelAudioBitrateHint.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <metadata name="labelAudioBitrate.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -754,7 +847,10 @@
   <metadata name="labelAudioQualityHint.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="tabAdvanced.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="labelAudioQuality.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelAudioQualityHint.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <metadata name="tableAdvanced.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -763,7 +859,19 @@
   <metadata name="groupAdvancedProcessing.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
+  <metadata name="groupAdvancedEncoding.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="groupAdvancedProcessing.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
   <metadata name="tableAdvancedProcessing.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="tableAdvancedProcessing.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelProcessingLevels.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <metadata name="labelProcessingLevels.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -773,6 +881,33 @@
     <value>False</value>
   </metadata>
   <metadata name="tableAdvancedEncoding.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="tableAdvancedEncoding.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelEncodingFrameRateHint.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelEncodingFrameRate.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelEncodingNGOVHint.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelEncodingThreads.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelEncodingThreadsHint.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelEncodingSlices.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelEncodingSlicesHint.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="labelEncodingArguments.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <metadata name="labelEncodingFrameRateHint.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Collections;
 using WebMConverter.Objects;
 using System.Linq;
+using System.Text;
 
 namespace WebMConverter
 {
@@ -27,7 +28,19 @@ namespace WebMConverter
         public DynamicForm(TrimFilter FilterToEdit)
         {
             InitializeComponent();
+            InitialValues(FilterToEdit);
+            InsertInitialPoints(FilterToEdit);
+        }
 
+        public DynamicForm(TrimFilter FilterToEdit, DynamicFilter dynamicFilter)
+        {
+            InitializeComponent();
+            InitialValues(FilterToEdit);
+            InsertInitialPoints(FilterToEdit, dynamicFilter);
+        }
+
+        private void InitialValues(TrimFilter FilterToEdit)
+        {
             trackVideoTimeline.TickFrequency = trackVideoTimeline.Maximum / 60;
 
 
@@ -49,29 +62,46 @@ namespace WebMConverter
                 trimEnd = FilterToEdit.TrimEnd;
             }
 
-            labelTrimStart.Text = $"{FrameToTimeStamp(trimStart)} ({trimStart})";
+            
             labelTrimEnd.Text = $"{FrameToTimeStamp(trimEnd)} ({trimEnd})";
 
             trackVideoTimeline.Value = trimStart;
             previewFrame.Frame = trimStart;
             labelTimeStamp.Text = $"{FrameToTimeStamp(trackVideoTimeline.Value)} ({trackVideoTimeline.Value})";
 
-            checktrims();
-            insertInitialPoints(FilterToEdit);
+            checktrims();            
 
             trackVideoTimeline.MouseWheel += trackVideoTimeline_MouseWheel;
             toolStripMenuSave.Click += ToolStripMenuSave_Click;
             previewFrame.Picture.Paint += new PaintEventHandler(previewPicture_Paint);
 
             menuStrip1.Visible = false;
-            labelTrimStart.Visible = false;
             labelTrimEnd.Visible = false;
             label1.Visible = false;
             labelTrimDuration.Visible = false;
             buttonTrimEnd.Visible = false;
-    }
+        }
 
-        private void insertInitialPoints(TrimFilter filterToEdit)
+        private void ShowPoints()
+        {
+            StringBuilder text = new StringBuilder();
+            for (int i = 0; i < points.Count; i++)
+                text.Append((int)points.GetKey(i) + ((i > 0 && i < points.Count - 1) ? " - " : string.Empty));
+            labelPoints.Text = $"Points({text})";
+        }
+
+        private void InsertInitialPoints(TrimFilter filterToEdit, DynamicFilter dynamicFilter)
+        {
+            initialTime = (double)Program.VideoSource.Track.GetFrameInfo(filterToEdit.TrimStart).PTS
+                            / (double)Program.VideoSource.Track.TimeBaseDenominator;
+
+            finalTime = (double)Program.VideoSource.Track.GetFrameInfo(filterToEdit.TrimEnd).PTS
+                          / (double)Program.VideoSource.Track.TimeBaseDenominator;
+
+            points = dynamicFilter.Points;
+        }
+
+        private void InsertInitialPoints(TrimFilter filterToEdit)
         {
             initialTime = (double)Program.VideoSource.Track.GetFrameInfo(filterToEdit.TrimStart).PTS 
                             / (double)Program.VideoSource.Track.TimeBaseDenominator;
@@ -137,6 +167,7 @@ namespace WebMConverter
                         points.Add(trackVideoTimeline.Value, new SpeedPoint(currentTime, (double)dialog.speed / 100));
 
                 }
+                ShowPoints();
                 previewFrame.Picture.Invalidate();
             }
         }

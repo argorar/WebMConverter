@@ -1227,6 +1227,15 @@ namespace WebMConverter
                 case "Trim":
                     EditTrimFilter(sender, e);
                     break;
+                case "Dynamic":
+                    using (var form = new DynamicForm(Filters.Trim, Filters.Dynamic))
+                    {
+                        if (form.ShowDialog(this) == DialogResult.OK)
+                        {
+                            Filters.Dynamic = form.GeneratedFilter;
+                        }
+                    }
+                    break;
                 default:
                     MessageBox.Show("This filter has no options.");
                     break;
@@ -1404,8 +1413,9 @@ namespace WebMConverter
 
         void boxAudio_CheckedChanged(object sender, EventArgs e)
         {
-            numericAudioQuality.Enabled = boxAudioBitrate.Enabled = numericDelay.Enabled = ((CheckBox)sender).Checked;
+            numericAudioQuality.Enabled = boxAudioBitrate.Enabled = numericDelay.Enabled = ((CheckBox)sender).Checked ;
             checkFixAudio.Enabled = boxAudio.Checked;
+            numericNormalization.Enabled = boxAudio.Checked;
 
             if (boxNGOV.Checked)
                 numericAudioQuality.Enabled = false;
@@ -1465,6 +1475,7 @@ namespace WebMConverter
             numericSaturation.Value = 1;
             numericContrast.Value = 1;
             numericDelay.Value = 0;
+            numericNormalization.Value = 1;
             comboLevels.SelectedIndex = 0;
 
             var threads = Environment.ProcessorCount;
@@ -2105,7 +2116,13 @@ namespace WebMConverter
                 }
 
                 if (Program.InputHasAudio)
-                    avscript.WriteLine($@"AudioDub(FFVideoSource(""{avsInputFile}"",cachefile=""{_indexFile}"",track={videotrack}), FFAudioSource(""{avsInputFile}"",cachefile=""{_indexFile}"",track={audiotrack}))");
+                {
+                    var audioScript = $@"AudioDub(FFVideoSource(""{avsInputFile}"",cachefile=""{_indexFile}"",track={videotrack}), FFAudioSource(""{avsInputFile}"",cachefile=""{_indexFile}"",track={audiotrack}))";
+                    if (numericNormalization.Enabled && numericNormalization.Value != new decimal(1.00))
+                        avscript.WriteLine($@"{audioScript}.Normalize({Dot(numericNormalization.Value)})");
+                    else
+                        avscript.WriteLine(audioScript);
+                }                    
                 else
                     avscript.WriteLine($@"FFVideoSource(""{avsInputFile}"",cachefile=""{_indexFile}"",track={videotrack})");
 
@@ -2368,7 +2385,7 @@ namespace WebMConverter
             else if (!String.IsNullOrEmpty(levels))
                 filter = $" -vf {levels} ";
             else if (Filters.Dynamic != null)
-                filter = $" -vf \"{dynamic(Filters.Dynamic.Points)}\"";
+                filter = $" -vf \"{Dynamic(Filters.Dynamic.Points)}\"";
 
             if (boxLoop.Checked && string.IsNullOrEmpty(filter))
                 filter = $" -filter_complex {LoopFilter} ";
@@ -2377,13 +2394,12 @@ namespace WebMConverter
                                 vcodec, acodec, filter, qualityarguments, extraArguments, pixelFormat);
         }
 
-        private String dynamic(SortedList points)
+        private String Dynamic(SortedList points)
         {
-            string setpts = string.Empty;
+            StringBuilder setpts = new StringBuilder();
             SpeedPoint point = (SpeedPoint)points.GetByIndex(0);
             double speedMapStartTime = point.Time;
             double startSpeed, endSpeed, sectionStart ,sectionEnd ,sectionDuration;
-            int nDurs = points.Count;
 
             SpeedPoint left;
             SpeedPoint right;
@@ -2419,11 +2435,11 @@ namespace WebMConverter
 
                 if (i == 0)
                 {
-                    setpts += $"(if(eq(N,0),0,{sliceDuration}))";
+                    setpts.Append($"(if(eq(N,0),0,{sliceDuration}))");
                 }
                 else
                 {
-                    setpts += $"+({sliceDuration})";
+                    setpts.Append($"+({sliceDuration})");
                 }
             }
             return $"setpts='({setpts})/TB'";
