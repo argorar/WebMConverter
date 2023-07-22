@@ -1810,11 +1810,7 @@ namespace WebMConverter
                                     if (type == SubtitleType.VTTSub && !File.Exists(file))
                                     {
                                         logIndexingProgress("Extracting vtt...");
-                                        using (var ffmpeg = new FFmpeg($@" -i ""{Program.InputFile}"" -map 0:{streamindex} ""{file}"""))
-                                        {
-                                            ffmpeg.Start();
-                                            ffmpeg.WaitForExit();
-                                        }
+                                        ExecuteFFmpegCommand($@" -i ""{Program.InputFile}"" -map 0:{streamindex} ""{file}""");
                                     }                                    
                                     else if (!File.Exists(file)) // If we didn't extract it already
                                     {
@@ -2094,10 +2090,10 @@ namespace WebMConverter
                 string version = checkFixAudio.Checked ? "1" : "2";
                 avscript.WriteLine($@"PluginPath = ""{shortPluginPath}\""");
                 avscript.WriteLine(@"try { LoadPlugin(PluginPath+""ffms"+version+@".dll"") } catch (_) { LoadCPlugin(PluginPath+""ffms"+version+@".dll"") }");
+
                 if (Filters.Subtitle != null)
                 {
                     string plugin;
-
                     switch (Filters.Subtitle.Type)
                     {
                         case SubtitleType.TextSub:
@@ -2111,7 +2107,6 @@ namespace WebMConverter
                         default:
                             throw new NotImplementedException();
                     }
-
                     avscript.WriteLine($@"LoadPlugin(PluginPath+""{plugin}"")");
                 }
 
@@ -2550,7 +2545,7 @@ namespace WebMConverter
             {
                 script.AppendLine(Filters.Crop.ToString());
                 script.AppendLine(new ResizeFilter(Filters.Crop.finalWidth, Filters.Crop.finalHeight).ToString());
-            }   
+            }
             if (Filters.Subtitle != null)
                 script.AppendLine(Filters.Subtitle.ToString());
             if (Filters.Caption != null)

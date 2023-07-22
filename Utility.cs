@@ -71,6 +71,7 @@ namespace WebMConverter
         public static long FrameToTime(int frame) => Program.VideoSource.Track.GetFrameInfo(frame).PTS * Program.VideoSource.Track.TimeBaseNumerator / Program.VideoSource.Track.TimeBaseDenominator;
         public static TimeSpan FrameToTimeSpan(int frame) => new TimeSpan(FrameToTime(frame) * 10000);
         public static string FrameToTimeStamp(int frame) => FrameToTimeSpan(frame).ToString(@"hh\:mm\:ss");
+        public static string FrameToLongTimeStamp(int frame) => FrameToTimeSpan(frame).ToString(@"hh\:mm\:ss\.ff");
 
         public static double ProbeDuration(string filename, bool avs)
         {
@@ -273,6 +274,14 @@ namespace WebMConverter
             return value.ToString(specifier, CultureInfo.InvariantCulture);
         }
 
+        public static void ExecuteFFmpegCommand(String command)
+        {
+            using (var ffmpeg = new FFmpeg(command))
+            {
+                ffmpeg.Start();
+                ffmpeg.WaitForExit();
+            }
+        }
     }
 
     public enum FileType

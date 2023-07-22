@@ -77,6 +77,17 @@ namespace WebMConverter
                     case ".sup":
                         type = SubtitleType.PgsSub;
                         break;
+                    case ".vtt":
+                        type = SubtitleType.TextSub;
+                        var temp = Path.GetDirectoryName(filename);
+                        var tempSTR = Path.Combine(temp, "temp.srt");
+                        using (var ffmpeg = new FFmpeg($@" -i ""{filename}"" -y ""{tempSTR}"" "))
+                        {
+                            ffmpeg.Start();
+                            ffmpeg.WaitForExit();
+                        }
+                        filename = tempSTR;
+                        break;
                     default:
                         type = SubtitleType.TextSub;
                         break;
@@ -98,7 +109,7 @@ namespace WebMConverter
             using (var dialog = new OpenFileDialog())
             {
                 dialog.InitialDirectory = Path.GetDirectoryName(Program.InputFile);
-                dialog.Filter = "Text subtitles (*.ass, *.srt, *.ssa)|*.ass;*.srt;*.ssa|DVD subtitles (*.sub)|*.sub|Blu-Ray subtitles (*.sup)|*.sup";
+                dialog.Filter = "Text subtitles (*.ass, *.srt, *.ssa, *.vtt)|*.ass;*.srt;*.ssa;*.vtt|DVD subtitles (*.sub)|*.sub|Blu-Ray subtitles (*.sup)|*.sup|Webvtt subtitles (*.vtt)|*.vtt";
                 dialog.RestoreDirectory = true;
 
                 if (dialog.ShowDialog() == DialogResult.OK)
@@ -159,6 +170,7 @@ namespace WebMConverter
                     return conversion + $@"suptitle(""{FileName}"")";
                 default:
                     throw new NotImplementedException();
+
             }
         }
     }

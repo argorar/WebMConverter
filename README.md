@@ -211,6 +211,8 @@ Drag and drop two or more video files inside the application, select what do you
 * 3nly
 
 ## Changelog
+#### Version 3.28.1
+* Add support to external webvtt subtitles
 
 #### Version 3.28.0
 * Add option to normalize audio. See related [request](https://github.com/argorar/WebMConverter/issues/44)
