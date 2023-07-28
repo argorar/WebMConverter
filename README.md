@@ -100,15 +100,22 @@ Follow an object on the canvas easly. Steps for a correct workflow:
 
 For this example the edition requires 30 seconds. 
 
-https://github.com/argorar/WebMConverter/assets/9936760/4d6c52d4-7b72-4162-b27e-89478c141ddf
+
+
+https://github.com/argorar/WebMConverter/assets/9936760/2cfae1bb-9bbc-43cc-9b87-3051e8dcc171
+
+
 
 #### Final result
 
 Right side was processed  with dynamic crop.
 
-https://github.com/argorar/WebMConverter/assets/9936760/327d52ab-4fe4-4eaa-be2a-5ebe17586727
 
-an)
+
+
+https://github.com/argorar/WebMConverter/assets/9936760/9ba0fa57-a9e4-44d6-b0e2-e8dec45db3a2
+
+
 
 ### Dynamic Speed
 
