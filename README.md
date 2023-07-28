@@ -104,7 +104,7 @@ For this example the edition requires 30 seconds.
 
 https://github.com/argorar/WebMConverter/assets/9936760/2cfae1bb-9bbc-43cc-9b87-3051e8dcc171
 
-
+<div style="width:100%;height:0px;position:relative;padding-bottom:79.564%;"><iframe src="https://streamable.com/e/ttuc5x" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
 
 #### Final result
 
@@ -115,6 +115,7 @@ Right side was processed  with dynamic crop.
 
 https://github.com/argorar/WebMConverter/assets/9936760/9ba0fa57-a9e4-44d6-b0e2-e8dec45db3a2
 
+<div style="width:100%;height:0px;position:relative;padding-bottom:28.125%;"><iframe src="https://streamable.com/e/6qa3al" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
 
 
 ### Dynamic Speed
@@ -131,7 +132,9 @@ Add specific speed to just a section of video:
 
 
 
-https://github.com/argorar/WebMConverter/assets/9936760/40df37fe-a0bf-48d1-8873-405d873883da
+https://github.com/argorar/WebMConverter/assets/9936760/cd523c93-7073-4d90-b17a-275a40d1b0d8
+
+
 
 <div style="width:100%;height:0px;position:relative;padding-bottom:48.525%;"><iframe src="https://streamable.com/e/4a4347" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
 
@@ -175,12 +178,16 @@ Loop function, forward and reverse making an infinite effect. You _can't_ use fi
 
 https://github.com/argorar/WebMConverter/assets/9936760/9117aa8c-576d-4e13-9a65-b4be9890b0a3
 
+<div style="width:100%;height:0px;position:relative;padding-bottom:56.250%;"><iframe src="https://streamable.com/e/91uspt" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
+
 ### Stabilization
 
 Use different levels of stabilization for your clip. Left side original, right side processed. Find it in Advanced>Processing.
 
 
 https://github.com/argorar/WebMConverter/assets/9936760/5ea1aa80-b39c-433f-8113-0fda8b651375
+
+<div style="width:100%;height:0px;position:relative;padding-bottom:28.125%;"><iframe src="https://streamable.com/e/bn6at0" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
 
 ### Merge and Convert
 Drag and drop two or more video files inside the application, select what do you want to do. Search for the result in source path. 
