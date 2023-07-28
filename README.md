@@ -101,7 +101,6 @@ Follow an object on the canvas easly. Steps for a correct workflow:
 For this example the edition requires 30 seconds. 
 
 
-
 https://github.com/argorar/WebMConverter/assets/9936760/2cfae1bb-9bbc-43cc-9b87-3051e8dcc171
 
 <div style="width:100%;height:0px;position:relative;padding-bottom:79.564%;"><iframe src="https://streamable.com/e/ttuc5x" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
@@ -109,9 +108,6 @@ https://github.com/argorar/WebMConverter/assets/9936760/2cfae1bb-9bbc-43cc-9b87-
 #### Final result
 
 Right side was processed  with dynamic crop.
-
-
-
 
 https://github.com/argorar/WebMConverter/assets/9936760/9ba0fa57-a9e4-44d6-b0e2-e8dec45db3a2
 
@@ -136,7 +132,7 @@ https://github.com/argorar/WebMConverter/assets/9936760/cd523c93-7073-4d90-b17a-
 
 
 
-<div style="width:100%;height:0px;position:relative;padding-bottom:48.525%;"><iframe src="https://streamable.com/e/4a4347" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
+<div style="width:100%;height:0px;position:relative;padding-bottom:48.525%;"><iframe src="https://streamable.com/e/ho4g1t" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
 
 #### Final result
 
@@ -146,7 +142,7 @@ A specific section is slowdown.
 
 https://github.com/argorar/WebMConverter/assets/9936760/7fb63afe-8b0a-41c4-9c48-f3322ae8d4ed
 
-<div style="width:100%;height:0px;position:relative;padding-bottom:56.250%;"><iframe src="https://streamable.com/e/hxaijy" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
+<div style="width:100%;height:0px;position:relative;padding-bottom:56.250%;"><iframe src="https://streamable.com/e/o8m24i" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
 
 an)
 ### Grid
