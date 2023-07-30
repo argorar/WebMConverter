@@ -143,12 +143,7 @@ namespace WebMConverter
             InitializeComponent();
             this.KeyPreview = true;
             taskbarManager = TaskbarManager.Instance;
-
-            if (!string.IsNullOrEmpty(configuration.AppSettings.Settings["RefreshToken"].Value))
-                GetToken(string.Empty, Token.Refresh);
-            else
-                groupGfycat.Visible = false;
-
+            groupGfycat.Visible = false;
             CheckAppSettings();
             CheckProccess();
             LoadConfiguration();
@@ -2663,118 +2658,6 @@ namespace WebMConverter
         }
 
         #endregion
-
-        public void BrowserAuthentication()
-        {
-            HttpListener http = new HttpListener();
-            try
-            {
-                // Creates an HttpListener to listen for requests on that redirect URI.                
-                http.Prefixes.Add(prefixe);
-                http.Start();
-
-                // Creates the OAuth 2.0 authorization request.
-                string authorizationRequest = $"https://gfycat.com/oauth/authorize?client_id={client_id}&scope=all&state=all&response_type=code&redirect_uri={prefixe}";
-
-                // Opens request in the browser.
-                Process.Start(authorizationRequest);
-                string code = string.Empty;
-                bool demon = true;
-                while (demon)
-                {
-                    string responseString;
-                    // Waits for the OAuth authorization response.
-                    var context = http.GetContext();
-                    HttpListenerResponse response = context.Response;
-                    if (context.Request.QueryString.Get("error") != null)
-                    {
-                        MessageBox.Show(String.Format("OAuth authorization error: {0}.", context.Request.QueryString.Get("error")), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    if (context.Request.Url.Query.Contains("code"))
-                    {
-                        demon = false;
-                        code = context.Request.Url.Query.Substring(6).Split('&')[0];
-                        responseString = "<HTML><body><script>location.replace(\"https://thumbs.gfycat.com/WanDescriptiveCrossbill-small.gif\");</script></body></HTML>";
-                    }
-                    else
-                    {
-                        responseString = "<HTML><body> Working...... <script>setTimeout(function(){ location.replace(\"http://127.0.0.1:57585/\"+window.location.href.split('/')[3].split('#')[1].split('&')[0]); }, 100); </script></body></HTML>";
-                    }
-
-                    byte[] buffer = Encoding.UTF8.GetBytes(responseString);
-                    response.ContentLength64 = buffer.Length;
-                    Stream output = response.OutputStream;
-                    output.Write(buffer, 0, buffer.Length);
-                    output.Close();
-                }
-
-                if (!String.IsNullOrEmpty(code))
-                    GetToken(code, Token.New);
-            }
-            catch (WebException ex)
-            {
-                if (ex.Status == WebExceptionStatus.ProtocolError)
-                {
-                    var response = ex.Response as HttpWebResponse;
-                    if (response != null)
-                    {
-                        MessageBox.Show("HTTP: " + response.StatusCode);
-                        using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                        {
-                            string responseText = reader.ReadToEnd();
-                            MessageBox.Show(responseText);
-                        }
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                this.Activate();
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                http.Stop();
-                this.Activate();
-            }
-        }
-
-        public void GetToken(string code, Token action)
-        {
-            try
-            {
-                string postData;
-
-                if (action == Token.New)
-                    postData = String.Format("\"code\":\"{0}\", \"client_id\":\"{1}\", \"client_secret\": \"{2}\", \"grant_type\": \"authorization_code\",\"redirect_uri\":\"{3}\"", code, client_id, client_secret, prefixe);
-                else
-                    postData = String.Format("\"grant_type\":\"refresh\", \"client_id\":\"{0}\", \"client_secret\": \"{1}\", \"refresh_token\":\"{2}\"", client_id, client_secret, configuration.AppSettings.Settings["RefreshToken"].Value);
-
-                postData = "{" + postData + "}";
-
-                TokenResponse tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(
-                    PostWebRequest($"https://api.gfycat.com/v1/oauth/token", postData));
-                Program.token = tokenResponse.access_token;
-                UpdateConfiguration("RefreshToken", tokenResponse.refresh_token);
-                _ = Task.Run(() => GetUserDetails());
-            }
-            catch (WebException ex)
-            {
-                if (ex.Status == WebExceptionStatus.ProtocolError && ex.Response is HttpWebResponse response)
-                {
-                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                        MessageBox.Show(reader.ReadToEnd());
-                }
-            }
-            catch (Exception ex)
-            {
-                this.Activate();
-                MessageBox.Show(ex.Message);
-            }
-        }
 
         private void GetUserDetails()
         {

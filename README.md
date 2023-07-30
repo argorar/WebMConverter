@@ -221,6 +221,9 @@ Drag and drop two or more video files inside the application, select what do you
 * 3nly
 
 ## Changelog
+#### Version 3.28.2
+* Remove user details calls to gfycat since service will be shutdown
+
 #### Version 3.28.1
 * Add support to external webvtt subtitles
 
