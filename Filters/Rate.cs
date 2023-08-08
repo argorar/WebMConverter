@@ -34,7 +34,7 @@ namespace WebMConverter
 
             boxPreviewOriginal.Text = _originalDuration.ToString(PreviewBoxFormat);
             boxPreviewScaled.Text = new TimeSpan((long)(_originalDuration.Ticks / GetValue())).ToString(PreviewBoxFormat);
-
+            trackRate_ValueChanged(sender, e);
             this.Text = string.Format(this.Text, Program.originalFraps);
         }
 

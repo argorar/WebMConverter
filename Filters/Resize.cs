@@ -108,8 +108,8 @@ namespace WebMConverter
 
             if (Filters.Crop != null)
             {
-                inwidth = frame.EncodedResolution.Width - Filters.Crop.Left + Filters.Crop.Right;
-                inheight = frame.EncodedResolution.Height - Filters.Crop.Top + Filters.Crop.Bottom;
+                inwidth = Filters.Crop.finalWidth;
+                inheight = Filters.Crop.finalHeight;
             }
             else if (inwidth == 0 && inheight == 0)
             {
