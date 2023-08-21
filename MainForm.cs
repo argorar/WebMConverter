@@ -1483,6 +1483,7 @@ namespace WebMConverter
 
         void SetFile(string path)
         {
+            Utility.FlushMem();
             try
             {
                 ValidateInputFile(path);
@@ -2375,64 +2376,13 @@ namespace WebMConverter
             else if (!String.IsNullOrEmpty(levels))
                 filter = $" -vf {levels} ";
             else if (Filters.Dynamic != null)
-                filter = $" -vf \"{Dynamic(Filters.Dynamic.Points)}\"";
+                filter = $" -vf \"{Filters.Dynamic.Argument()}\"";
 
             if (boxLoop.Checked && string.IsNullOrEmpty(filter))
                 filter = $" -filter_complex {LoopFilter} ";
 
             return string.Format(TemplateArguments, audio, threads, slices, metadataTitle, hq,
                                 vcodec, acodec, filter, qualityarguments, extraArguments, pixelFormat);
-        }
-
-        private String Dynamic(SortedList points)
-        {
-            StringBuilder setpts = new StringBuilder();
-            SpeedPoint point = (SpeedPoint)points.GetByIndex(0);
-            double speedMapStartTime = point.Time;
-            double startSpeed, endSpeed, sectionStart ,sectionEnd ,sectionDuration;
-
-            SpeedPoint left;
-            SpeedPoint right;
-
-            for (int i = 0; i < points.Count - 1; i += 1)
-            {
-                left = (SpeedPoint)points.GetByIndex(i);
-                right = (SpeedPoint)points.GetByIndex(i + 1);
-
-                startSpeed = left.Speed;
-                endSpeed = right.Speed;
-                double speedChange = endSpeed - startSpeed;
-
-                sectionStart = left.Time - speedMapStartTime;
-                sectionEnd = right.Time - speedMapStartTime;
-                sectionDuration = sectionEnd - sectionStart;
-
-                var x = speedChange / sectionDuration;
-                var y = startSpeed - x * sectionStart;
-
-                var sliceDuration = string.Empty;
-                if (speedChange == 0)
-                {
-                    sliceDuration = $"(min((T-STARTT-({D(sectionStart)})),{D(sectionDuration)})/{D(endSpeed)})";
-                }
-                else
-                {
-                    sliceDuration = $"(1/{D(x)})*(log(abs({D(x)}*min((T-STARTT),{D(sectionEnd)})" +
-                                    $"+({D(y)})))-log(abs({D(x)}*{D(sectionStart)}+({D(y)}))))";
-                }
-
-                sliceDuration = $"if(gte((T-STARTT),{D(sectionStart)}), {sliceDuration},0)";
-
-                if (i == 0)
-                {
-                    setpts.Append($"(if(eq(N,0),0,{sliceDuration}))");
-                }
-                else
-                {
-                    setpts.Append($"+({sliceDuration})");
-                }
-            }
-            return $"setpts='({setpts})/TB'";
         }
 
         /// <summary>
@@ -2897,9 +2847,9 @@ namespace WebMConverter
         private void checkMP4_CheckedChanged(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(textBoxOut.Text) && checkMP4.Checked)
-                textBoxOut.Text = textBoxOut.Text.Split('.')[0] + ".mp4";
+                textBoxOut.Text = $"{Path.GetDirectoryName(textBoxOut.Text)}\\{Path.GetFileNameWithoutExtension(textBoxOut.Text)}.mp4";
             else if (!String.IsNullOrEmpty(textBoxOut.Text))
-                textBoxOut.Text = textBoxOut.Text.Split('.')[0] + ".webm";
+                textBoxOut.Text = $"{Path.GetDirectoryName(textBoxOut.Text)}\\{Path.GetFileNameWithoutExtension(textBoxOut.Text)}.webm";
 
             if (checkMP4.Checked)
             {

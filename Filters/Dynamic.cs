@@ -293,5 +293,56 @@ namespace WebMConverter
         {
             Points = list;
         }
+
+        public String Argument()
+        {
+            StringBuilder setpts = new StringBuilder();
+            SpeedPoint point = (SpeedPoint)Points.GetByIndex(0);
+            double speedMapStartTime = point.Time;
+            double startSpeed, endSpeed, sectionStart, sectionEnd, sectionDuration;
+
+            SpeedPoint left;
+            SpeedPoint right;
+
+            for (int i = 0; i < Points.Count - 1; i += 1)
+            {
+                left = (SpeedPoint)Points.GetByIndex(i);
+                right = (SpeedPoint)Points.GetByIndex(i + 1);
+
+                startSpeed = left.Speed;
+                endSpeed = right.Speed;
+                double speedChange = endSpeed - startSpeed;
+
+                sectionStart = left.Time - speedMapStartTime;
+                sectionEnd = right.Time - speedMapStartTime;
+                sectionDuration = sectionEnd - sectionStart;
+
+                var x = speedChange / sectionDuration;
+                var y = startSpeed - x * sectionStart;
+
+                var sliceDuration = string.Empty;
+                if (speedChange == 0)
+                {
+                    sliceDuration = $"(min((T-STARTT-({D(sectionStart)})),{D(sectionDuration)})/{D(endSpeed)})";
+                }
+                else
+                {
+                    sliceDuration = $"(1/{D(x)})*(log(abs({D(x)}*min((T-STARTT),{D(sectionEnd)})" +
+                                    $"+({D(y)})))-log(abs({D(x)}*{D(sectionStart)}+({D(y)}))))";
+                }
+
+                sliceDuration = $"if(gte((T-STARTT),{D(sectionStart)}), {sliceDuration},0)";
+
+                if (i == 0)
+                {
+                    setpts.Append($"(if(eq(N,0),0,{sliceDuration}))");
+                }
+                else
+                {
+                    setpts.Append($"+({sliceDuration})");
+                }
+            }
+            return $"setpts='({setpts})/TB'";
+        }
     }
 }

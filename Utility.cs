@@ -20,6 +20,10 @@ namespace WebMConverter
         public static extern IntPtr LoadLibrary(string lpFileName);
         [DllImport("kernel32", CharSet = CharSet.Auto)]
         public static extern int GetShortPathName([MarshalAs(UnmanagedType.LPTStr)] string path, [MarshalAs(UnmanagedType.LPTStr)] StringBuilder shortPath, int shortPathLength);
+        [DllImport("KERNEL32.DLL", EntryPoint = "SetProcessWorkingSetSize", SetLastError = true, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool SetProcessWorkingSetSize32Bit(IntPtr pProcess, int dwMinimumWorkingSetSize, int dwMaximumWorkingSetSize);
+        [DllImport("KERNEL32.DLL", EntryPoint = "SetProcessWorkingSetSize", SetLastError = true, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool SetProcessWorkingSetSize64Bit (IntPtr pProcess, long dwMinimumWorkingSetSize, long dwMaximumWorkingSetSize);
         [DllImport("gdi32", CharSet = CharSet.Auto)]
         public static extern int AddFontResourceEx(string lpszFilename, uint fl, IntPtr pdv);
         [DllImport("gdi32", CharSet = CharSet.Auto)]
@@ -282,6 +286,20 @@ namespace WebMConverter
                 ffmpeg.WaitForExit();
             }
         }
+
+        public static void FlushMem()
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+            {
+                NativeMethods.SetProcessWorkingSetSize32Bit(System.Diagnostics
+                    .Process.GetCurrentProcess().Handle, -1, -1);
+            }
+        }
+
+
     }
 
     public enum FileType
