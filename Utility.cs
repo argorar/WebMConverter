@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -299,6 +300,18 @@ namespace WebMConverter
             }
         }
 
+        public static string UnionVF(List<string> listVF)
+        {
+            StringBuilder argument = new StringBuilder();
+            for (int i = 0; i < listVF.Count; i++)
+            {
+                if(i == listVF.Count - 1)
+                    argument.Append(listVF[i]);
+                else
+                    argument.Append(listVF[i] + ",");
+            }
+            return argument.ToString();
+        }
 
     }
 

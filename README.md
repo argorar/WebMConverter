@@ -221,6 +221,11 @@ Drag and drop two or more video files inside the application, select what do you
 * 3nly
 
 ## Changelog
+#### Version 3.28.4
+* Fix extension change
+* Improve memory managment when a new video is imported
+* Improve arguments to use levels, dynamic and interpolation at once
+
 #### Version 3.28.3
 * Fix incorrect initial Resize value after do a Crop. See related [issue](https://github.com/argorar/WebMConverter/issues/48)
 * Fix incorrect initial Rate value

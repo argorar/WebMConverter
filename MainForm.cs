@@ -2349,10 +2349,7 @@ namespace WebMConverter
                 audio = " -an";
                 acodec = "";
             }
-
-            var framerate = "";
-            if (!string.IsNullOrWhiteSpace(boxFrameRate.Text))
-                framerate = $"minterpolate=mi_mode=mci:me_mode=bidir:mc_mode=aobmc:vsbmc=1:fps={boxFrameRate.Text}";
+            List<string> listVF = new List<string>();
 
             string levels = string.Empty;
             switch (comboLevels.SelectedIndex)
@@ -2367,16 +2364,23 @@ namespace WebMConverter
                     levels = string.Format(AdvancedFilter, Dot(numericGamma.Value), Dot(numericSaturation.Value), Dot(numericContrast.Value));
                     break;
             }
+            if (!String.IsNullOrEmpty(levels))
+                listVF.Add(levels);
 
+            if (Filters.Dynamic != null)
+                listVF.Add(Filters.Dynamic.Argument());
+
+            var framerate = string.Empty;
+            if (!String.IsNullOrWhiteSpace(boxFrameRate.Text))
+            {
+                framerate = $"minterpolate=mi_mode=mci:me_mode=bidir:mc_mode=aobmc:vsbmc=1:fps={boxFrameRate.Text}";
+                listVF.Add(framerate);
+            }
+                
             string filter = string.Empty;
-            if (!String.IsNullOrEmpty(framerate) && !String.IsNullOrEmpty(levels))
-                filter = $" -vf {framerate},{levels} ";
-            else if (!String.IsNullOrEmpty(framerate) && String.IsNullOrEmpty(levels))
-                filter = $" -vf {framerate} ";
-            else if (!String.IsNullOrEmpty(levels))
-                filter = $" -vf {levels} ";
-            else if (Filters.Dynamic != null)
-                filter = $" -vf \"{Filters.Dynamic.Argument()}\"";
+
+            if(listVF.Count > 0)
+                filter = $" -vf \"{UnionVF(listVF)}\"";
 
             if (boxLoop.Checked && string.IsNullOrEmpty(filter))
                 filter = $" -filter_complex {LoopFilter} ";
