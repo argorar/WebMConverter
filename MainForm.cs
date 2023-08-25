@@ -42,9 +42,8 @@ namespace WebMConverter
 
         /// <summary>
         /// {0} is pass number (1 or 2)
-        /// {1} is the prefix for the pass .log file
         /// </summary>
-        private const string PassArgument = " -pass {0} -passlogfile \"{1}\"";
+        private const string PassArgument = " -pass {0} ";
 
         /// <summary>
         /// {0} is '-an' if no audio, otherwise blank

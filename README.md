@@ -221,6 +221,9 @@ Drag and drop two or more video files inside the application, select what do you
 * 3nly
 
 ## Changelog
+#### Version 3.28.5
+* Convert console is more clean now
+
 #### Version 3.28.4
 * Fix extension change
 * Improve memory managment when a new video is imported
@@ -243,31 +246,6 @@ Drag and drop two or more video files inside the application, select what do you
 
 #### Version 3.27.0
 * Add support to internal webvtt subtitles. See related [request](https://github.com/argorar/WebMConverter/issues/30)
-
-#### Version 3.26.0
-* Add Dynamic speed feature Check for [more](#dynamic-speed). See related [request](https://github.com/argorar/WebMConverter/issues/35)
-
-#### Version 3.25.3
-* Add toggle to fix incorrectly cropped subtitles, to [see more](https://github.com/argorar/WebMConverter/pull/43). You can find it in *General*
-
-#### Version 3.25.2
-* Remove option to upload to gfycat
-
-#### Version 3.25.1
-* Fix incorrectly cropped subtitles, to [see more](https://github.com/argorar/WebMConverter/pull/43)
-
-#### Version 3.25.0
-* Add option to disable set metadata automatically
-* Upgrade .Net framework to 4.8
-
-#### Version 3.24.0
-* Add convert files in batch. Check for [more](#merge-and-convert). See related [request](https://github.com/argorar/WebMConverter/issues/34)
-* Add 4:3 aspect ratio
-* Add 21:9 aspect ratio
-* Add 1:1 aspect ratio
-* Improved edit *Crop* size with keyboard. keep aspect ratio with ```Ctrl + arrowKey```
-* Fix *Crop* top negative values. See related [issue](https://github.com/argorar/WebMConverter/issues/36)
-* Fix *Rotate* filter preview
 
 To see more [changelog](CHANGELOG.md).
 

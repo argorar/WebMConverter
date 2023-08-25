@@ -66,7 +66,7 @@ namespace WebMConverter.Dialogs
 
         private void ProcessOnErrorDataReceived(object sender, DataReceivedEventArgs args)
         {
-            if (args.Data != null)
+            if (args.Data != null && !args.Data.Contains("AVOption"))
             {
                 if (DataContainsProgress(args.Data))
                     ParseAndUpdateProgress(args.Data);
@@ -77,7 +77,7 @@ namespace WebMConverter.Dialogs
 
         private void ProcessOnOutputDataReceived(object sender, DataReceivedEventArgs args)
         {
-            if (args.Data != null)
+            if (args.Data != null && !args.Data.Contains("Codec") && !args.Data.Contains("[info]"))
                 boxOutput.InvokeIfRequired(() => boxOutput.AppendText(Environment.NewLine + args.Data));
         }
 
