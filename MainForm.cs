@@ -434,9 +434,8 @@ namespace WebMConverter
                     arguments.Add(string.Format(Template, output, optionsWithInput, "", format));
                 else
                 {
-                    var passlogfile = GetTemporaryLogFile();
-                    arguments.Add(string.Format(Template, "NUL", optionsWithInput, string.Format(PassArgument, 1, passlogfile), format));
-                    arguments.Add(string.Format(Template, output, optionsWithInput, string.Format(PassArgument, 2, passlogfile), format));
+                    arguments.Add(string.Format(Template, "NUL", optionsWithInput, string.Format(PassArgument, 1), format));
+                    arguments.Add(string.Format(Template, output, optionsWithInput, string.Format(PassArgument, 2), format));
 
                     if (!arguments[0].Contains("-an")) // skip audio encoding on the first pass
                         arguments[0] = arguments[0].Replace("-c:v libvpx", "-an -c:v libvpx");
@@ -2221,9 +2220,8 @@ namespace WebMConverter
                 arguments.Add(string.Format(Template, output, options, "", format));
             else
             {
-                var passlogfile = GetTemporaryLogFile();
-                arguments.Add(string.Format(Template, "NUL", options, string.Format(PassArgument, 1, passlogfile), format));
-                arguments.Add(string.Format(Template, output, options, string.Format(PassArgument, 2, passlogfile), format));
+                arguments.Add(string.Format(Template, "NUL", options, string.Format(PassArgument, 1), format));
+                arguments.Add(string.Format(Template, output, options, string.Format(PassArgument, 2), format));
 
                 if (!arguments[0].Contains("-an")) // skip audio encoding on the first pass
                     arguments[0] = arguments[0].Replace("-c:v libvpx", "-an -c:v libvpx");
@@ -2602,36 +2600,7 @@ namespace WebMConverter
             return temporaryFile;
         }
 
-        private string GetTemporaryLogFile()
-        {
-            var temporaryFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
-            var temporaryFileRealName = temporaryFile + "-0.log";
-            _temporaryFilesList.Add(temporaryFileRealName);
-            return temporaryFile;
-        }
-
         #endregion
-
-        private void GetUserDetails()
-        {
-            UserDetailsResponse userDetail = JsonConvert.DeserializeObject<UserDetailsResponse>(
-                GetWebRequest($"https://api.gfycat.com/v1/me"));
-            SetUserDetails(userDetail);
-        }
-
-        private void SetUserDetails(UserDetailsResponse userDetail)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                groupGfycat.Visible = true;
-                lblUser.Text = string.Format(lblUser.Text, userDetail.name);
-                lblPublicGfys.Text = string.Format(lblPublicGfys.Text, userDetail.publishedGfycats);
-                lblTotalGfys.Text = string.Format(lblTotalGfys.Text, userDetail.totalGfycats);
-                lblViews.Text = string.Format(lblViews.Text, string.Format("{0:#,0}", userDetail.views));
-                lblFollowers.Text = string.Format(lblFollowers.Text, userDetail.followers);
-                pictureBox.LoadAsync(userDetail.profileImageUrl);
-            });
-        }
 
         private void UpdateConfiguration(string key, string value)
         {
