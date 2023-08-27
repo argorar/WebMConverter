@@ -1073,8 +1073,6 @@ namespace WebMConverter
                         UpdateArguments(sender, e);
                         buttonTrim.Enabled = false;
                     }
-
-                    buttonDynamic.Enabled = true;
                 }
             }
         }
@@ -1124,6 +1122,7 @@ namespace WebMConverter
             buttonSubtitle.Enabled =
             buttonTrim.Enabled =
             buttonExportProcessing.Enabled =
+            buttonDynamic.Enabled =
                 enabled;
         }
 
@@ -1222,7 +1221,8 @@ namespace WebMConverter
                     EditTrimFilter(sender, e);
                     break;
                 case "Dynamic":
-                    using (var form = new DynamicForm(Filters.Trim, Filters.Dynamic))
+                    var filter = Filters.Trim == null ? new TrimFilter(0, Program.VideoSource.NumberOfFrames - 1) : Filters.Trim;
+                    using (var form = new DynamicForm(filter, Filters.Dynamic))
                     {
                         if (form.ShowDialog(this) == DialogResult.OK)
                         {
@@ -1526,7 +1526,6 @@ namespace WebMConverter
             boxAdvancedScripting.Enabled = true;
             textBoxProcessingScript.Hide();
             listViewProcessingScript.Show();
-            buttonDynamic.Enabled = false;
             SarCompensate = false;
 
             if (Path.GetExtension(path) == ".avs")
@@ -2952,7 +2951,8 @@ namespace WebMConverter
 
         private void buttonDynamic_Click_1(object sender, EventArgs e)
         {
-            using (var form = new DynamicForm(Filters.Trim))
+            var filter = Filters.Trim == null ? new TrimFilter(0, Program.VideoSource.NumberOfFrames - 1) : Filters.Trim;
+            using (var form = new DynamicForm(filter))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {

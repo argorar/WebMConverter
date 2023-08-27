@@ -43,12 +43,12 @@ namespace WebMConverter
         {
             trackVideoTimeline.TickFrequency = trackVideoTimeline.Maximum / 60;
 
-
-            trackVideoTimeline.Minimum = Filters.Trim.TrimStart;
-            trackVideoTimeline.Maximum = Filters.Trim.TrimEnd;
+            var tempFilter = FilterToEdit == null ? Filters.Trim : FilterToEdit;
+            trackVideoTimeline.Minimum = tempFilter.TrimStart;
+            trackVideoTimeline.Maximum = tempFilter.TrimEnd;
             labelTimeStamp.Text = FrameToTimeStamp(trackVideoTimeline.Value);
-            previewFrame.Frame = Filters.Trim.TrimStart;
-            trackVideoTimeline.Value = Filters.Trim.TrimStart;
+            previewFrame.Frame = tempFilter.TrimStart;
+            trackVideoTimeline.Value = tempFilter.TrimStart;
             trackVideoTimeline.Focus();
 
             if (FilterToEdit == null)
