@@ -264,6 +264,7 @@
     </Compile>
     <Compile Include="Objects\GfycatResponse.cs" />
     <Compile Include="Objects\Asset.cs" />
+    <Compile Include="Objects\LoopFileNames.cs" />
     <Compile Include="Objects\PrivateGfycatsResponse.cs" />
     <Compile Include="Objects\ReleaseInfo.cs" />
     <Compile Include="Objects\SpeedPoint.cs" />

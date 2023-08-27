@@ -444,6 +444,7 @@ namespace WebMConverter
             }
 
             Program.Stabilization = null;
+            Program.Loop = null;
             _ = new ConverterDialog(string.Empty, arguments.ToArray(), string.Empty).ShowDialog(this);
         }
 
@@ -2214,6 +2215,7 @@ namespace WebMConverter
             }
 
             string format = checkMP4.Checked ? "mp4" : "webm";
+            string tempName = String.Empty;
 
             List<string> arguments = new List<string>();
             if (!boxHQ.Checked || checkHWAcceleration.Checked)
@@ -2226,7 +2228,7 @@ namespace WebMConverter
                 if (!arguments[0].Contains("-an")) // skip audio encoding on the first pass
                     arguments[0] = arguments[0].Replace("-c:v libvpx", "-an -c:v libvpx");
             }
-            string tempName = String.Empty;
+            
             if (boxStabilization.Checked)
             {
                 string filename = Path.GetFileNameWithoutExtension(textBoxOut.Text);
@@ -2243,6 +2245,19 @@ namespace WebMConverter
             }
             else
                 Program.Stabilization = null;
+
+            if (boxLoop.Checked)
+            {
+                string filename = Path.GetFileNameWithoutExtension(textBoxOut.Text);
+                string extension = Path.GetExtension(textBoxOut.Text);
+                string directory = Path.GetDirectoryName(textBoxOut.Text);
+                tempName = $"{directory}\\{filename}-loop{extension}";
+                arguments.Add(string.Format(Template, tempName, $" -i \"{output}\" -filter_complex {LoopFilter} ", string.Empty, format));
+
+                Program.Loop = new LoopFileNames(textBoxOut.Text, tempName);
+            }
+            else
+                Program.Loop = null;
 
             new ConverterDialog(avsFileName, arguments.ToArray(), output).ShowDialog(this);
         }
@@ -2378,9 +2393,6 @@ namespace WebMConverter
 
             if(listVF.Count > 0)
                 filter = $" -vf \"{UnionVF(listVF)}\"";
-
-            if (boxLoop.Checked && string.IsNullOrEmpty(filter))
-                filter = $" -filter_complex {LoopFilter} ";
 
             return string.Format(TemplateArguments, audio, threads, slices, metadataTitle, hq,
                                 vcodec, acodec, filter, qualityarguments, extraArguments, pixelFormat);

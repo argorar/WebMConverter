@@ -133,8 +133,12 @@ namespace WebMConverter.Dialogs
 
             if (_twopass)
             {
-                boxOutput.AppendText($"Arguments for pass 1: {_arguments[0]}");
-                boxOutput.AppendText($"{Environment.NewLine}Arguments for pass 2: {_arguments[1]}");
+                for (int i =  0; i < _arguments.Length; i++)
+                {
+                    boxOutput.AppendText($"Arguments for pass {i + 1}: {_arguments[i]}");
+                    boxOutput.AppendText($"{Environment.NewLine}");
+                }
+
                 MultiPass(_arguments);
             }
             else
@@ -387,10 +391,17 @@ namespace WebMConverter.Dialogs
                     File.Delete(Program.Stabilization.Name);
                     File.Move(Program.Stabilization.TempName, Program.Stabilization.Name);
                 }
+
+                if (Program.Loop != null)
+                {
+                    File.Delete(Program.Loop.Name);
+                    File.Move(Program.Loop.LoopName, Program.Loop.Name);
+                }
+
                 _outduration = ProbeDuration(_outfile, false);
                 if (_isloop)
                     _induration *= 2;
-                if (Math.Abs(_induration - _outduration) > 0.1 && !_arguments[0].Contains("minterpolate") && !_arguments[0].Contains("setpts"))
+                if (Math.Abs(_induration - _outduration) > 0.1 && !_arguments[0].Contains("minterpolate") && !_arguments[0].Contains("setpts") && Program.Loop == null)
                 {
                     boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}Restraints are too high!");
 

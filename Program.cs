@@ -75,6 +75,7 @@ namespace WebMConverter
         public static List<string> AttachmentList { get; set; }
         public static string token { get; set; }
         public static StabilizationData Stabilization { get; set; }
+        public static LoopFileNames Loop { get; set; }
         public static int originalFraps { get; set; }    
         public static readonly string yt_dl = "yt-dlp.exe";
   
