@@ -87,7 +87,7 @@ Just move the edges with the mouse or use the keyboard.
 
 Follow an object on the canvas easly. Steps for a correct workflow:
     
-1. Use trim to define the clip lenght
+1. Use trim to define the clip lenght (optional)
 
 2. Open Crop filter and define the crop size, use ```New resolution``` as guide. **Even numbers are required**. You can use ```Set dimensions``` for exact values
     ![new resolution](img/newResolution.png)
@@ -170,7 +170,7 @@ Rotate your video to any direction with just one click.
 
 ### Loop
 
-Loop function, forward and reverse making an infinite effect. You _can't_ use filter or interpolation with it.
+Loop function, forward and reverse making an infinite effect.
 
 https://github.com/argorar/WebMConverter/assets/9936760/9117aa8c-576d-4e13-9a65-b4be9890b0a3
 
@@ -221,6 +221,10 @@ Drag and drop two or more video files inside the application, select what do you
 * 3nly
 
 ## Changelog
+#### Version 3.28.6
+* Allow to create Dynamic filter without trim
+* Loop arguments refactor, allowing to do multiple complex filters at once
+
 #### Version 3.28.5
 * Convert console is more clean now
 

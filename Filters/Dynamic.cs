@@ -86,7 +86,7 @@ namespace WebMConverter
         {
             StringBuilder text = new StringBuilder();
             for (int i = 0; i < points.Count; i++)
-                text.Append((int)points.GetKey(i) + ((i > 0 && i < points.Count - 1) ? " - " : string.Empty));
+                text.Append((int)points.GetKey(i) + ((i >= 0 && i < points.Count - 1) ? " - " : string.Empty));
             labelPoints.Text = $"Points({text})";
         }
 
