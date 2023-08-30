@@ -221,6 +221,9 @@ Drag and drop two or more video files inside the application, select what do you
 * 3nly
 
 ## Changelog
+#### Version 3.28.7
+* Fix wrong crop resolution in some cases
+
 #### Version 3.28.6
 * Allow to create Dynamic filter without trim
 * Loop arguments refactor, allowing to do multiple complex filters at once

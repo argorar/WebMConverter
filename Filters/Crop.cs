@@ -392,9 +392,11 @@ namespace WebMConverter
             GeneratedFilter = new CropFilter(
                 cropLeft,
                 cropTop,
-                newWidth == 0 ? cropRight : CorrectCrop(cropLeft, cropRight, newWidth, width),
-                newHeight == 0 ? cropBottom : CorrectCrop(cropTop, cropBottom, newHeight, height),
-                cropPercent
+                cropRight,
+                cropBottom,
+                cropPercent,
+                newHeight,
+                newWidth
             );
         }
 
@@ -717,12 +719,12 @@ namespace WebMConverter
         public int finalHeight { get; } 
         public int finalWidth { get; } 
 
-        public CropFilter(int left, int top, int right, int bottom, RectangleF cropPercentFilter)
+        public CropFilter(int left, int top, int right, int bottom, RectangleF cropPercentFilter, int newHeight, int newWidth)
         {
             cropPercent = cropPercentFilter;
 
-            finalWidth = (int)(Program.Resolution.Width* cropPercent.Width);
-            finalHeight = (int)(Program.Resolution.Height * cropPercent.Height);
+            finalWidth = newWidth > 0 ? newWidth : (int)(Program.Resolution.Width* cropPercent.Width);
+            finalHeight = newHeight > 0 ? newHeight : (int)(Program.Resolution.Height * cropPercent.Height);
 
             int[] tempArray;
             tempArray = CorrectCrop(left, right);

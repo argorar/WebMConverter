@@ -376,7 +376,7 @@ namespace WebMConverter.Dialogs
                 else
                 {
                     boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}ffmpeg.exe exited with exit code {process.ExitCode}. That's usually bad.");
-                    boxOutput.AppendText($"{Environment.NewLine}If you have no idea what went wrong, open an issue on GitGud and copy paste the output of this window there.");
+                    boxOutput.AppendText($"{Environment.NewLine}If you have no idea what went wrong, open an issue on Github and copy paste the output of this window there, also upload test video.");
                 }
                 taskbarManager.SetProgressState(TaskbarProgressBarState.Error);
                 pictureStatus.BackgroundImage = StatusImages.Images["Failure"];
