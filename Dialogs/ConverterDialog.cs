@@ -533,10 +533,6 @@ namespace WebMConverter.Dialogs
             {
                 try
                 {
-                    //if (String.IsNullOrEmpty(Program.token))
-                    //    ((MainForm)Owner).BrowserAuthentication();
-
-                    //((MainForm)Owner).GetToken(string.Empty, Token.Refresh);
                     boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine} --- UPLOAD FILE TO GFYCAT---");
                     boxOutput.AppendText($"{Environment.NewLine}Creating request for gfycat name");
 

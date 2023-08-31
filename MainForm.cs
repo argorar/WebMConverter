@@ -440,7 +440,6 @@ namespace WebMConverter
                     if (!arguments[0].Contains("-an")) // skip audio encoding on the first pass
                         arguments[0] = arguments[0].Replace("-c:v libvpx", "-an -c:v libvpx");
                 }
-                string tempName = String.Empty;
             }
 
             Program.Stabilization = null;
@@ -448,7 +447,7 @@ namespace WebMConverter
             _ = new ConverterDialog(string.Empty, arguments.ToArray(), string.Empty).ShowDialog(this);
         }
 
-        private bool MergeVideoFile(string[] files)
+        private void MergeVideoFile(string[] files)
         {
             string list = "Deus";
             StringBuilder content = new StringBuilder();
@@ -465,8 +464,12 @@ namespace WebMConverter
 
             // all the files need the same extension
             if (extensions.Count > 1)
-                return false;
-
+            {
+                MessageBox.Show("All the files must have the same extension", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+                
             if (File.Exists(list))
                 File.Delete(list);
 
@@ -478,8 +481,6 @@ namespace WebMConverter
             string output = $"{ directory }\\{ auxName}-merged{ tempExtension}";
             arguments[0] = $" -f concat -safe 0 -i {list} -c:v copy -y \"{output}\"";
             new ConverterDialog(string.Empty, arguments, output).ShowDialog(this);
-
-            return true;
         }
 
 

@@ -275,7 +275,6 @@ namespace WebMConverter
         public static string D(double value)
         {
             string specifier = "G";
-            CultureInfo culture = CultureInfo.CreateSpecificCulture("eu-ES");
             return value.ToString(specifier, CultureInfo.InvariantCulture);
         }
 

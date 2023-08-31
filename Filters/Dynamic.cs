@@ -23,7 +23,7 @@ namespace WebMConverter
         private double initialTime;
         private double finalTime;
         public DynamicFilter GeneratedFilter { get; set; }
-        public SortedList points = new SortedList();
+        private SortedList points = new SortedList();
 
         public DynamicForm(TrimFilter FilterToEdit)
         {
@@ -139,7 +139,6 @@ namespace WebMConverter
             g.DrawLines(edgePen, drawPoints);
 
             float diameter = 6;
-            float diameterEdge = diameter * 2;
 
             foreach(PointF p in drawPoints)
                 g.FillEllipse(dotBrush, p.X - 3, p.Y - 3, diameter, diameter);
