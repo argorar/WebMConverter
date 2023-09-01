@@ -222,6 +222,9 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 #### Version 3.28.7
+* Fix log management for two pass encoding
+
+#### Version 3.28.7
 * Fix wrong crop resolution in some cases
 
 #### Version 3.28.6
