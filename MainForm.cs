@@ -42,8 +42,9 @@ namespace WebMConverter
 
         /// <summary>
         /// {0} is pass number (1 or 2)
+        /// {1} is the prefix for the pass .log file
         /// </summary>
-        private const string PassArgument = " -pass {0} ";
+        private const string PassArgument = " -pass {0} -passlogfile \"{1}\" ";
 
         /// <summary>
         /// {0} is '-an' if no audio, otherwise blank
@@ -434,8 +435,9 @@ namespace WebMConverter
                     arguments.Add(string.Format(Template, output, optionsWithInput, "", format));
                 else
                 {
-                    arguments.Add(string.Format(Template, "NUL", optionsWithInput, string.Format(PassArgument, 1), format));
-                    arguments.Add(string.Format(Template, output, optionsWithInput, string.Format(PassArgument, 2), format));
+                    var passlogfile = GetTemporaryLogFile();
+                    arguments.Add(string.Format(Template, "NUL", optionsWithInput, string.Format(PassArgument, 1, passlogfile), format));
+                    arguments.Add(string.Format(Template, output, optionsWithInput, string.Format(PassArgument, 2, passlogfile), format));
 
                     if (!arguments[0].Contains("-an")) // skip audio encoding on the first pass
                         arguments[0] = arguments[0].Replace("-c:v libvpx", "-an -c:v libvpx");
@@ -2222,8 +2224,9 @@ namespace WebMConverter
                 arguments.Add(string.Format(Template, output, options, "", format));
             else
             {
-                arguments.Add(string.Format(Template, "NUL", options, string.Format(PassArgument, 1), format));
-                arguments.Add(string.Format(Template, output, options, string.Format(PassArgument, 2), format));
+                var passlogfile = GetTemporaryLogFile();
+                arguments.Add(string.Format(Template, "NUL", options, string.Format(PassArgument, 1, passlogfile), format));
+                arguments.Add(string.Format(Template, output, options, string.Format(PassArgument, 2, passlogfile), format));
 
                 if (!arguments[0].Contains("-an")) // skip audio encoding on the first pass
                     arguments[0] = arguments[0].Replace("-c:v libvpx", "-an -c:v libvpx");
@@ -2603,6 +2606,14 @@ namespace WebMConverter
                 NativeMethods.RemoveFontResourceEx(Path.Combine(Program.AttachmentDirectory, filename), 0, IntPtr.Zero);
             });
             Program.AttachmentList = null;
+        }
+
+        private string GetTemporaryLogFile()
+        {
+            var temporaryFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+            var temporaryFileRealName = temporaryFile + "-0.log";
+            _temporaryFilesList.Add(temporaryFileRealName);
+            return temporaryFile;
         }
 
         private string GetTemporaryFile()
