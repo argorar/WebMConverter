@@ -221,6 +221,9 @@ Drag and drop two or more video files inside the application, select what do you
 * 3nly
 
 ## Changelog
+#### Version 3.29.0
+* Add feature to make set target frame rate more efficient when desire output is minor like 30 fps from 60 fps source. See related [request](https://github.com/argorar/WebMConverter/issues/51)
+
 #### Version 3.28.8
 * Fix log management for two pass encoding
 
