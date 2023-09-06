@@ -58,8 +58,9 @@ namespace WebMConverter
         /// {8} is encoding mode-dependent arguments
         /// {9} is '-tile-columns 1 -row-mt 1' if VP9 is selectec, otherwise blank
         /// {10} is 'yuv420p' or 'yuva420p' when alpha is selected in advanced setings
+        /// {11} is frame goal, just in case to decrease original frame rate
         /// </summary>
-        private const string TemplateArguments = "{0} -c:v {5} -pix_fmt {10} -threads {1} -slices {2}{3}{4}{6}{7}{8}{9}";
+        private const string TemplateArguments = "{0} -c:v {5} -pix_fmt {10} -threads {1} -slices {2}{3}{4}{6}{7}{8}{9}{11}";
 
         /// <summary>
         /// {0} is video bitrate
@@ -2386,10 +2387,16 @@ namespace WebMConverter
                 listVF.Add(Filters.Dynamic.Argument());
 
             var framerate = string.Empty;
-            if (!String.IsNullOrWhiteSpace(boxFrameRate.Text))
+            var valueR = string.Empty;
+            bool hasValue = int.TryParse(boxFrameRate.Text, out int desiredFrame);
+            if (hasValue && desiredFrame > (int)(Program.VideoSource.NumberOfFrames / Program.VideoSource.LastTime))
             {
                 framerate = $"minterpolate=mi_mode=mci:me_mode=bidir:mc_mode=aobmc:vsbmc=1:fps={boxFrameRate.Text}";
                 listVF.Add(framerate);
+            }
+            else if (hasValue)
+            {
+                valueR = $" -r {boxFrameRate.Text}";
             }
                 
             string filter = string.Empty;
@@ -2398,7 +2405,7 @@ namespace WebMConverter
                 filter = $" -vf \"{UnionVF(listVF)}\"";
 
             return string.Format(TemplateArguments, audio, threads, slices, metadataTitle, hq,
-                                vcodec, acodec, filter, qualityarguments, extraArguments, pixelFormat);
+                                vcodec, acodec, filter, qualityarguments, extraArguments, pixelFormat, valueR);
         }
 
         /// <summary>
