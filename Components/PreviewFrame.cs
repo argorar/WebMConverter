@@ -46,9 +46,17 @@ namespace WebMConverter
 
                 frame = Program.VideoSource.GetFrame((int)framenumber);
 
-                encodeW = frame.EncodedResolution.Width;
-                encodeH = frame.EncodedResolution.Height;
-
+                if (frame.EncodedResolution.Width * frame.EncodedResolution.Height > 2073600) // 1080p (1920*1080)
+                {
+                    encodeW = frame.EncodedResolution.Width / 2;
+                    encodeH = frame.EncodedResolution.Height / 2;
+                }
+                else
+                {
+                    encodeW = frame.EncodedResolution.Width;
+                    encodeH = frame.EncodedResolution.Height;
+                }
+                               
                 Program.VideoSource.SetOutputFormat(pixelformat, encodeW, encodeH, FFMSSharp.Resizer.BilinearFast);
             }
 
@@ -109,22 +117,12 @@ namespace WebMConverter
 
             using (var graphics = Graphics.FromImage(destImage))
             {
-                if (encodeW > 2000)
-                {
-                    graphics.CompositingMode = CompositingMode.SourceCopy;
-                    graphics.CompositingQuality = CompositingQuality.HighSpeed;
-                    graphics.InterpolationMode = InterpolationMode.Bilinear;
-                    graphics.SmoothingMode = SmoothingMode.HighSpeed;
-                    graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
-                }
-                else
-                {
-                    graphics.CompositingMode = CompositingMode.SourceCopy;
-                    graphics.CompositingQuality = CompositingQuality.HighQuality;
-                    graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    graphics.SmoothingMode = SmoothingMode.HighQuality;
-                    graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                }
+
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighSpeed;
+                graphics.InterpolationMode = InterpolationMode.Bilinear;
+                graphics.SmoothingMode = SmoothingMode.HighSpeed;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;                
 
                 using (var wrapMode = new ImageAttributes())
                 {

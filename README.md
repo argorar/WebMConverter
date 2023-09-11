@@ -221,6 +221,11 @@ Drag and drop two or more video files inside the application, select what do you
 * 3nly
 
 ## Changelog
+
+#### Version 3.30.0
+* Upgrade architecture to 64 bits, allowing to use more memory from system and avoid crash. See realted [issue](https://github.com/argorar/WebMConverter/issues/45)
+* Load frames from 4k video is more fast now 
+
 #### Version 3.29.0
 * Add feature to make set target frame rate more efficient when desire output is minor like 30 fps from 60 fps source. See related [request](https://github.com/argorar/WebMConverter/issues/51)
 
