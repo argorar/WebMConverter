@@ -137,7 +137,7 @@ namespace WebMConverter
 
         public MainForm()
         {
-            FFMSSharp.FFMS2.Initialize(Path.Combine(Environment.CurrentDirectory, "Binaries", "Win32"));
+            FFMSSharp.FFMS2.Initialize(Path.Combine(Environment.CurrentDirectory, "Binaries", "Win64"));
             _temporaryFilesList = new List<string>();
             cache = new ConcurrentDictionary<int, Bitmap>(MAX_PROCESS, MAX_CAPACITY);
             aspectRatio = AspectRatio.None;
@@ -1601,55 +1601,57 @@ namespace WebMConverter
             indexbw.DoWork += delegate (object sender, DoWorkEventArgs e)
             {
                 logIndexingProgress("Indexing starting...");
-                FFMSSharp.Indexer indexer = new FFMSSharp.Indexer(path, FFMSSharp.Source.Lavf);
-
-                indexer.UpdateIndexProgress += delegate (object sendertwo, FFMSSharp.IndexingProgressChangeEventArgs etwo)
+                using (FFMSSharp.Indexer indexer = new FFMSSharp.Indexer(path, FFMSSharp.Source.Lavf))
                 {
-                    indexbw.ReportProgress((int)(etwo.Current / (double)etwo.Total * 100));
-                    indexer.CancelIndexing = indexbw.CancellationPending;
-                };
 
-                try
-                {
-                    if (!audioDisabled) // Indexing failed because of the audio, so the user disabled it.
-                        indexer.SetTrackTypeIndexSettings(FFMSSharp.TrackType.Audio, true);
-
-                    index = indexer.Index();
-                }
-                catch (OperationCanceledException)
-                {
-                    audioDisabled = false; // This enables us to cancel the bw even if audio was disabled by the user.
-                    e.Cancel = true;
-                    return;
-                }
-                catch (Exception error)
-                {
-                    logIndexingProgress(error.Message);
-
-                    if (error.Message.StartsWith("Audio format change detected") || error.Message.StartsWith("Audio decoding error"))
+                    indexer.UpdateIndexProgress += delegate (object sendertwo, FFMSSharp.IndexingProgressChangeEventArgs etwo)
                     {
-                        DialogResult result = DialogResult.Cancel;
+                        indexbw.ReportProgress((int)(etwo.Current / (double)etwo.Total * 100));
+                        indexer.CancelIndexing = indexbw.CancellationPending;
+                    };
 
-                        this.InvokeIfRequired(() =>
+                    try
+                    {
+                        if (!audioDisabled) // Indexing failed because of the audio, so the user disabled it.
+                            indexer.SetTrackTypeIndexSettings(FFMSSharp.TrackType.Audio, true);
+
+                        index = indexer.Index();
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        audioDisabled = false; // This enables us to cancel the bw even if audio was disabled by the user.
+                        e.Cancel = true;
+                        return;
+                    }
+                    catch (Exception error)
+                    {
+                        logIndexingProgress(error.Message);
+
+                        if (error.Message.StartsWith("Audio format change detected") || error.Message.StartsWith("Audio decoding error"))
                         {
-                            result = MessageBox.Show(
-                                $"Indexing error: {error.Message}{Environment.NewLine}" +
-                                $"If you were planning on making a WebM with audio, I'm afraid that's not going to happen.{Environment.NewLine}" +
-                                "Would you like to index the file without audio?",
-                                "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-                        });
+                            DialogResult result = DialogResult.Cancel;
 
-                        audioDisabled = (result == DialogResult.OK);
+                            this.InvokeIfRequired(() =>
+                            {
+                                result = MessageBox.Show(
+                                    $"Indexing error: {error.Message}{Environment.NewLine}" +
+                                    $"If you were planning on making a WebM with audio, I'm afraid that's not going to happen.{Environment.NewLine}" +
+                                    "Would you like to index the file without audio?",
+                                    "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                            });
+
+                            audioDisabled = (result == DialogResult.OK);
+                        }
+                        else
+                        {
+                            MessageBox.Show(error.Message);
+                        }
+                        e.Cancel = true;
+                        return;
                     }
-                    else
-                    {
-                        MessageBox.Show(error.Message);
-                    }
-                    e.Cancel = true;
-                    return;
+
+                    index.WriteIndex(_indexFile);
                 }
-
-                index.WriteIndex(_indexFile);
             };
             extractbw.DoWork += new DoWorkEventHandler(delegate
             {
@@ -1883,6 +1885,7 @@ namespace WebMConverter
                 }
 
                 Program.VideoSource = index.VideoSource(path, videotrack, Environment.ProcessorCount);
+                index.Dispose();
                 var frame = Program.VideoSource.GetFrame(0); // We're assuming that the entire video has the same settings here, which should be fine. (These options usually don't vary, I hope.)
                 Program.VideoColorRange = frame.ColorRange;
                 Program.VideoInterlaced = frame.InterlacedFrame;
@@ -2255,8 +2258,12 @@ namespace WebMConverter
                 string filename = Path.GetFileNameWithoutExtension(textBoxOut.Text);
                 string extension = Path.GetExtension(textBoxOut.Text);
                 string directory = Path.GetDirectoryName(textBoxOut.Text);
+
+                var audio = string.Empty;
+                if (!boxAudio.Checked)
+                    audio = " -an ";
                 tempName = $"{directory}\\{filename}-loop{extension}";
-                arguments.Add(string.Format(Template, tempName, $" -i \"{output}\" -filter_complex {LoopFilter} ", string.Empty, format));
+                arguments.Add(string.Format(Template, tempName, $" -i \"{output}\" {audio} -filter_complex {LoopFilter} ", string.Empty, format));
 
                 Program.Loop = new LoopFileNames(textBoxOut.Text, tempName);
             }
