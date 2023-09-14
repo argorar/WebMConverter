@@ -222,6 +222,9 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
+#### Version 3.30.1
+* Fix desync audio and subtitles with latest codecs. See related [issue](https://github.com/argorar/WebMConverter/issues/21)
+
 #### Version 3.30.0
 * Upgrade to 64-bit architecture, allowing to use more system memory and avoid crashing. See related [issue](https://github.com/argorar/WebMConverter/issues/45)
 * Loading frames from 4k video is faster 
