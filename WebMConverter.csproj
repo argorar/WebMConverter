@@ -69,7 +69,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FFMSSharp, Version=3.0.2.0, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="FFMSSharp, Version=3.0.2.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Binaries\Win64\FFMSSharp.dll</HintPath>
     </Reference>

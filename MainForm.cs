@@ -137,6 +137,7 @@ namespace WebMConverter
 
         public MainForm()
         {
+            //ad42af1
             FFMSSharp.FFMS2.Initialize(Path.Combine(Environment.CurrentDirectory, "Binaries", "Win64"));
             _temporaryFilesList = new List<string>();
             cache = new ConcurrentDictionary<int, Bitmap>(MAX_PROCESS, MAX_CAPACITY);
@@ -300,7 +301,6 @@ namespace WebMConverter
             CRF4k.Value = Decimal.Parse(configuration.AppSettings.Settings["CRF4k"].Value);
             CRFother.Value = Decimal.Parse(configuration.AppSettings.Settings["CRFother"].Value);
             checkBoxAlpha.Enabled = boxNGOV.Checked && !checkMP4.Checked;
-            checkFixAudio.Enabled = boxAudio.Checked;
             Program.DisablePop = boxDisablePop.Checked;
             Program.DisableUpdates = boxDisableUpdates.Checked;
         }
@@ -1412,7 +1412,6 @@ namespace WebMConverter
         void boxAudio_CheckedChanged(object sender, EventArgs e)
         {
             numericAudioQuality.Enabled = boxAudioBitrate.Enabled = numericDelay.Enabled = ((CheckBox)sender).Checked ;
-            checkFixAudio.Enabled = boxAudio.Checked;
             numericNormalization.Enabled = boxAudio.Checked;
 
             if (boxNGOV.Checked)
@@ -1601,7 +1600,7 @@ namespace WebMConverter
             indexbw.DoWork += delegate (object sender, DoWorkEventArgs e)
             {
                 logIndexingProgress("Indexing starting...");
-                using (FFMSSharp.Indexer indexer = new FFMSSharp.Indexer(path, FFMSSharp.Source.Lavf))
+                using (FFMSSharp.Indexer indexer = new FFMSSharp.Indexer(path))
                 {
 
                     indexer.UpdateIndexProgress += delegate (object sendertwo, FFMSSharp.IndexingProgressChangeEventArgs etwo)
@@ -1885,7 +1884,6 @@ namespace WebMConverter
                 }
 
                 Program.VideoSource = index.VideoSource(path, videotrack, Environment.ProcessorCount);
-                index.Dispose();
                 var frame = Program.VideoSource.GetFrame(0); // We're assuming that the entire video has the same settings here, which should be fine. (These options usually don't vary, I hope.)
                 Program.VideoColorRange = frame.ColorRange;
                 Program.VideoInterlaced = frame.InterlacedFrame;
@@ -2088,9 +2086,8 @@ namespace WebMConverter
                 var pluginPath = Path.Combine(Environment.CurrentDirectory, "Binaries", "Win32");
                 var shortPluginPath = GetCompatiblePath(pluginPath);
 
-                string version = checkFixAudio.Checked ? "1" : "2";
                 avscript.WriteLine($@"PluginPath = ""{shortPluginPath}\""");
-                avscript.WriteLine(@"try { LoadPlugin(PluginPath+""ffms"+version+@".dll"") } catch (_) { LoadCPlugin(PluginPath+""ffms"+version+@".dll"") }");
+                avscript.WriteLine(@"try { LoadPlugin(PluginPath+""ffms2.dll"") } catch (_) { LoadCPlugin(PluginPath+""ffms2.dll"") }");
 
                 if (Filters.Subtitle != null)
                 {

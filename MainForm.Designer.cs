@@ -69,7 +69,6 @@ namespace WebMConverter
             System.Windows.Forms.Label labelAudioBitrateHint;
             System.Windows.Forms.Label labelAudioQuality;
             System.Windows.Forms.Label labelAudioQualityHint;
-            System.Windows.Forms.Label labelNormalization;
             System.Windows.Forms.TabPage tabAdvanced;
             System.Windows.Forms.TableLayoutPanel tableAdvanced;
             System.Windows.Forms.GroupBox groupAdvancedProcessing;
@@ -88,6 +87,7 @@ namespace WebMConverter
             System.Windows.Forms.GroupBox groupBox1;
             System.Windows.Forms.GroupBox groupBox2;
             System.Windows.Forms.StatusStrip statusStrip;
+            System.Windows.Forms.Label labelNormalization;
             this.textBoxIn = new System.Windows.Forms.TextBox();
             this.buttonBrowseIn = new System.Windows.Forms.Button();
             this.textBoxOut = new System.Windows.Forms.TextBox();
@@ -135,7 +135,6 @@ namespace WebMConverter
             this.numericAudioQuality = new System.Windows.Forms.NumericUpDown();
             this.numericDelay = new System.Windows.Forms.NumericUpDown();
             this.lblDelay = new System.Windows.Forms.Label();
-            this.checkFixAudio = new System.Windows.Forms.CheckBox();
             this.comboLevels = new System.Windows.Forms.ComboBox();
             this.boxDeinterlace = new System.Windows.Forms.CheckBox();
             this.boxLoop = new System.Windows.Forms.CheckBox();
@@ -251,7 +250,6 @@ namespace WebMConverter
             labelAudioBitrateHint = new System.Windows.Forms.Label();
             labelAudioQuality = new System.Windows.Forms.Label();
             labelAudioQualityHint = new System.Windows.Forms.Label();
-            labelNormalization = new System.Windows.Forms.Label();
             tabAdvanced = new System.Windows.Forms.TabPage();
             tableAdvanced = new System.Windows.Forms.TableLayoutPanel();
             groupAdvancedProcessing = new System.Windows.Forms.GroupBox();
@@ -270,6 +268,7 @@ namespace WebMConverter
             groupBox1 = new System.Windows.Forms.GroupBox();
             groupBox2 = new System.Windows.Forms.GroupBox();
             statusStrip = new System.Windows.Forms.StatusStrip();
+            labelNormalization = new System.Windows.Forms.Label();
             tableMainForm.SuspendLayout();
             groupMain.SuspendLayout();
             tableMain.SuspendLayout();
@@ -1359,13 +1358,12 @@ namespace WebMConverter
             tableEncodingAudio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 115F));
             tableEncodingAudio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 76F));
             tableEncodingAudio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 621F));
+            tableEncodingAudio.Controls.Add(labelNormalization, 3, 0);
             tableEncodingAudio.Controls.Add(this.numericNormalization, 5, 0);
             tableEncodingAudio.Controls.Add(this.boxAudio, 0, 0);
             tableEncodingAudio.Controls.Add(panelEncodingModeSwapperTwo, 0, 1);
             tableEncodingAudio.Controls.Add(this.numericDelay, 3, 0);
             tableEncodingAudio.Controls.Add(this.lblDelay, 2, 0);
-            tableEncodingAudio.Controls.Add(this.checkFixAudio, 4, 0);
-            tableEncodingAudio.Controls.Add(labelNormalization, 5, 0);
             tableEncodingAudio.Dock = System.Windows.Forms.DockStyle.Fill;
             tableEncodingAudio.Location = new System.Drawing.Point(4, 19);
             tableEncodingAudio.Margin = new System.Windows.Forms.Padding(0);
@@ -1389,7 +1387,7 @@ namespace WebMConverter
             0,
             0,
             131072});
-            this.numericNormalization.Location = new System.Drawing.Point(689, 5);
+            this.numericNormalization.Location = new System.Drawing.Point(574, 5);
             this.numericNormalization.Margin = new System.Windows.Forms.Padding(3, 5, 3, 2);
             this.numericNormalization.Maximum = new decimal(new int[] {
             1,
@@ -1402,7 +1400,7 @@ namespace WebMConverter
             0,
             -2147483648});
             this.numericNormalization.Name = "numericNormalization";
-            this.numericNormalization.Size = new System.Drawing.Size(70, 22);
+            this.numericNormalization.Size = new System.Drawing.Size(109, 22);
             this.numericNormalization.TabIndex = 21;
             this.numericNormalization.Value = new decimal(new int[] {
             1,
@@ -1609,32 +1607,6 @@ namespace WebMConverter
             this.lblDelay.Size = new System.Drawing.Size(46, 16);
             this.lblDelay.TabIndex = 4;
             this.lblDelay.Text = "Delay:";
-            // 
-            // checkFixAudio
-            // 
-            this.checkFixAudio.AutoSize = true;
-            this.checkFixAudio.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkFixAudio.Dock = System.Windows.Forms.DockStyle.Left;
-            this.checkFixAudio.Location = new System.Drawing.Point(305, 2);
-            this.checkFixAudio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkFixAudio.Name = "checkFixAudio";
-            this.checkFixAudio.Size = new System.Drawing.Size(130, 30);
-            this.checkFixAudio.TabIndex = 5;
-            this.checkFixAudio.Text = "Fix desync audio";
-            this.checkFixAudio.UseVisualStyleBackColor = true;
-            this.checkFixAudio.CheckedChanged += new System.EventHandler(this.checkFixAudio_CheckedChanged);
-            // 
-            // labelNormalization
-            // 
-            labelNormalization.AutoSize = true;
-            labelNormalization.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelNormalization.Location = new System.Drawing.Point(575, 0);
-            labelNormalization.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            labelNormalization.Name = "labelNormalization";
-            labelNormalization.Size = new System.Drawing.Size(107, 34);
-            labelNormalization.TabIndex = 6;
-            labelNormalization.Text = "Normalization:";
-            labelNormalization.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tabAdvanced
             // 
@@ -2859,6 +2831,18 @@ namespace WebMConverter
             this.listViewContextMenuDelete.Text = "Delete";
             this.listViewContextMenuDelete.Click += new System.EventHandler(this.listViewContextMenuDelete_Click);
             // 
+            // labelNormalization
+            // 
+            labelNormalization.AutoSize = true;
+            labelNormalization.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelNormalization.Location = new System.Drawing.Point(306, 0);
+            labelNormalization.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelNormalization.Name = "labelNormalization";
+            labelNormalization.Size = new System.Drawing.Size(261, 34);
+            labelNormalization.TabIndex = 22;
+            labelNormalization.Text = "Normalization:";
+            labelNormalization.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // MainForm
             // 
             this.AcceptButton = this.buttonGo;
@@ -3069,7 +3053,6 @@ namespace WebMConverter
         private System.Windows.Forms.Label txtType;
         private System.Windows.Forms.ComboBox comboStabType;
         private System.Windows.Forms.CheckBox checkBoxAlpha;
-        private System.Windows.Forms.CheckBox checkFixAudio;
         private System.Windows.Forms.TabPage tabGrid;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
