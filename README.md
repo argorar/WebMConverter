@@ -220,6 +220,9 @@ Drag and drop two or more video files inside the application, select what do you
 * ManletPride
 * 3nly
 
+## Issues
+If you have any issues with this program, you may report them on [here][NewIssue]. **Add the respective video to test and configuration used**.
+
 ## Changelog
 
 #### Version 3.30.1
@@ -273,9 +276,6 @@ To see more [changelog](CHANGELOG.md).
 ## License
 This software is released under the MIT license.
 
-
-## Issues
-If you have any issues with this program, you may report them on [here][NewIssue]. Add the respective video to test.
 
  [LatestDownload]: https://github.com/argorar/WebMConverter/releases/latest
  [DotNet45]: https://www.microsoft.com/en-us/download/details.aspx?id=30653
