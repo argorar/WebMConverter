@@ -25,6 +25,7 @@ using System.Diagnostics;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace WebMConverter
 {
@@ -1242,8 +1243,38 @@ namespace WebMConverter
 
         private void listViewProcessingScript_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && listViewProcessingScript.FocusedItem.Bounds.Contains(e.Location))
+            if (e.Button == MouseButtons.Right && listViewProcessingScript.FocusedItem.Bounds.Contains(e.Location) && (sender as ListView).FocusedItem.Text.Equals("Trim"))
+            {
+                ToolStripMenuItem contextMenuTrim = new ToolStripMenuItem();
+                contextMenuTrim.Name = "listViewContextMenuTransform";
+                contextMenuTrim.Size = new System.Drawing.Size(122, 24);
+                contextMenuTrim.Text = "Transform to Multiple Trim";
+                contextMenuTrim.Click += new System.EventHandler(this.transformTrim);
+                if (listViewContextMenu.Items.Count < 3)
+                    listViewContextMenu.Items.Add(contextMenuTrim);
                 listViewContextMenu.Show(listViewProcessingScript, e.Location);
+            }
+            else if (e.Button == MouseButtons.Right && listViewProcessingScript.FocusedItem.Bounds.Contains(e.Location))
+            {
+                removeTrimContext();
+                listViewContextMenu.Show(listViewProcessingScript, e.Location);
+            }
+        }
+
+        private void transformTrim(object sender, EventArgs e)
+        {
+            Filters.MultipleTrim = new MultipleTrimFilter(new List<TrimFilter>(){ Filters.Trim });
+            Filters.Trim = null;
+            listViewProcessingScript.Items.Add("Multiple Trim", "trim");
+            removeFilter(listViewProcessingScript.FocusedItem);
+            UpdateArguments(sender, e);
+            buttonTrim.Enabled = false;
+        }
+
+        private void removeTrimContext()
+        {
+            if (listViewContextMenu.Items.Count > 2)
+                listViewContextMenu.Items.RemoveAt(2);
         }
 
         private void listViewContextMenuEdit_Click(object sender, EventArgs e)
