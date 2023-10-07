@@ -224,6 +224,9 @@ Drag and drop two or more video files inside the application, select what do you
 If you have any issues with this program, you may report them on [here][NewIssue]. **Add the respective video to test and configuration used**.
 
 ## Changelog
+#### Version 3.31.0
+* Add option to change from *Trim* to *Multiple Trim*, just right clic on it and select option. See related [request](https://github.com/argorar/WebMConverter/issues/53)
+* Add option to convert audio in mono channel
 
 #### Version 3.30.1
 * Fix desync audio and subtitles with latest codecs. See related [issue](https://github.com/argorar/WebMConverter/issues/21)
