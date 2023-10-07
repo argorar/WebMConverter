@@ -1443,7 +1443,7 @@ namespace WebMConverter
         void boxAudio_CheckedChanged(object sender, EventArgs e)
         {
             numericAudioQuality.Enabled = boxAudioBitrate.Enabled = numericDelay.Enabled = ((CheckBox)sender).Checked ;
-            numericNormalization.Enabled = boxAudio.Checked;
+            numericNormalization.Enabled = boxMono.Enabled = boxAudio.Checked;
 
             if (boxNGOV.Checked)
                 numericAudioQuality.Enabled = false;
@@ -2393,7 +2393,8 @@ namespace WebMConverter
             if (boxAudio.Checked)
             {
                 audio = "";
-                acodec = " -ac 2 -c:a " + acodec;
+                int channels = boxMono.Checked ? 1 : 2;
+                acodec = $" -ac {channels} -c:a {acodec}";
             }
             else
             {
@@ -3020,6 +3021,11 @@ namespace WebMConverter
 
                 }
             }            
+        }
+
+        private void boxMono_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateArguments(sender, e);
         }
     }
 }
