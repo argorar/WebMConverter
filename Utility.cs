@@ -349,6 +349,59 @@ namespace WebMConverter
             return false;
         }
 
+        public static string GetEasingExpression(string easingFunc, string easeA, string easeB, string easeP)
+        {
+            easeP = $"(clip({easeP},0,1))";
+            var easeT = $"(2*{easeP})";
+            var easeM = $"({easeP}-1)";
+
+            if (easingFunc == "instant")
+            {
+                return $"if(lte({easeP},0),{easeA},{easeB})";
+            }
+            if (easingFunc == "linear")
+            {
+                return $"lerp({easeA}, {easeB}, {easeP})";
+            }
+
+            string ease;
+            if (easingFunc == "easeInCubic")
+            {
+                ease = $"{easeP}^3";
+            }
+            else if (easingFunc == "easeOutCubic")
+            {
+                ease = $"1+{easeM}^3";
+            }
+            else if (easingFunc == "easeInOutCubic")
+            {
+                ease = $"if(lt({easeT},1), {easeP}*{easeT}^2, 1+({easeM}^3)*4)";
+            }
+            else if (easingFunc == "easeInOutSine")
+            {
+                ease = $"0.5*(1-cos({easeP}*PI))";
+            }
+            else if (easingFunc == "easeInCircle")
+            {
+                ease = $"1-sqrt(1-{easeP}^2)";
+            }
+            else if (easingFunc == "easeOutCircle")
+            {
+                ease = $"sqrt(1-{easeM}^2)";
+            }
+            else if (easingFunc == "easeInOutCircle")
+            {
+                ease = $"if(lt({easeT},1), (1-sqrt(1-{easeT}^2))*0.5, (sqrt(1-4*{easeM}^2)+1)*0.5)";
+            }
+            else
+            {
+                return null;
+            }
+
+            var easingExpression = $"({easeA}+({easeB}-{easeA})*{ease})";
+            return easingExpression;
+        }
+
     }
 
     public enum FileType

@@ -865,12 +865,9 @@ namespace WebMConverter
                         Filters.Crop = form.GeneratedFilter;
 
                     else
-                    {
                         Filters.DynamicCrop = form.GeneratedCropPanFilter;
-                        boxStabilization.Checked = true;
-                    }
 
-
+                    UpdateArguments(sender, e);
                     listViewProcessingScript.Items.Add("Crop", "crop");
                     SetSlices();
                     buttonCrop.Enabled = false;
@@ -974,7 +971,7 @@ namespace WebMConverter
                 {
                     if (boxAdvancedScripting.Checked)
                     {
-                        textBoxProcessingScript.AppendText(Environment.NewLine + form.GeneratedFilter.ToString());
+                        textBoxProcessingScript.AppendText(Environment.NewLine + form.GeneratedFilter.Avisynth());
                     }
                     else
                     {
@@ -1302,6 +1299,7 @@ namespace WebMConverter
                     buttonCrop.Enabled = true;
                     boxStabilization.Checked = false;
                     SetSlices();
+                    GenerateArguments();
                     break;
                 case @"Dub":
                     var oldfilter = Filters.Dub;
@@ -2416,6 +2414,10 @@ namespace WebMConverter
                     levels = string.Format(AdvancedFilter, Dot(numericGamma.Value), Dot(numericSaturation.Value), Dot(numericContrast.Value));
                     break;
             }
+
+            if (Filters.DynamicCrop != null)
+                listVF.Add(Filters.DynamicCrop.ToString());
+
             if (!String.IsNullOrEmpty(levels))
                 listVF.Add(levels);
 
@@ -2434,7 +2436,10 @@ namespace WebMConverter
             {
                 valueR = $" -r {boxFrameRate.Text}";
             }
-                
+
+            if (Filters.Rate != null && Filters.DynamicCrop != null)
+                listVF.Add(Filters.Rate.ToString());
+
             string filter = string.Empty;
 
             if(listVF.Count > 0)
@@ -2559,12 +2564,12 @@ namespace WebMConverter
             }
             if (Filters.Overlay != null)
                 script.AppendLine(Filters.Overlay.ToString());
-            if (Filters.Trim != null && Filters.DynamicCrop == null)
+            if (Filters.Trim != null)
                 script.AppendLine(Filters.Trim.ToString());
             if (Filters.MultipleTrim != null)
                 script.AppendLine(Filters.MultipleTrim.ToString());
-            if (Filters.Rate != null)
-                script.AppendLine(Filters.Rate.ToString());
+            if (Filters.Rate != null && Filters.DynamicCrop == null)
+                script.AppendLine(Filters.Rate.Avisynth());
             if (Filters.Crop != null && !boxFixSubs.Checked)
             {
                 script.AppendLine(Filters.Crop.ToString());
@@ -2580,8 +2585,6 @@ namespace WebMConverter
                 script.AppendLine(Filters.Rotate.ToString());
             if (Filters.DelayAudio != null)
                 script.AppendLine(Filters.DelayAudio.ToString());
-            if (Filters.DynamicCrop != null)
-                script.AppendLine(Filters.DynamicCrop.ToString());
 
             textBoxProcessingScript.Text = script.ToString();
         }
@@ -2831,6 +2834,7 @@ namespace WebMConverter
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
                     Filters.Crop = form.GeneratedFilter;
+                    UpdateArguments(sender, e);
                     SetSlices();
                 }
             }

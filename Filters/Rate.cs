@@ -26,7 +26,7 @@ namespace WebMConverter
             if (_filterToEdit != null)
             {
                 _originalDuration = new TimeSpan((long)(((MainForm)Owner).GetDuration() * (float)_filterToEdit.Multiplier / 100 * 10000000));
-                trackRate.Value = _filterToEdit.Multiplier;
+                trackRate.Value = (int)(_filterToEdit.Multiplier * 100);
                 numericUpDown.Value = trackRate.Value;
             }
             else
@@ -75,13 +75,17 @@ namespace WebMConverter
 
     public class RateFilter
     {
-        public int Multiplier { get; }
+        public double Multiplier { get; }
+        public double AvisynthMultiplier { get; }
 
         public RateFilter(int multiplier)
         {
-            Multiplier = multiplier;
+            Multiplier = (double)multiplier / 100;
+            AvisynthMultiplier = multiplier;
         }
 
-        public override string ToString() => $"AssumeScaledFPS({Multiplier}, 100, true)";
+        public override string ToString() => $"settb=1/9000,setpts=(PTS-STARTPTS)/{Utility.D(Multiplier)}";
+
+        public string Avisynth() => $"AssumeScaledFPS({AvisynthMultiplier}, 100, true)";
     }
 }

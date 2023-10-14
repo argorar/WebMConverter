@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WebMConverter.Dialogs;
+using WebMConverter.Objects;
 using static WebMConverter.Utility;
 
 namespace WebMConverter
@@ -23,7 +24,7 @@ namespace WebMConverter
         private int newHeight;
         private RectangleF cropPercent;
         private int currentFrame;
-        private IDictionary<int, string> cropsList = new Dictionary<int, string>();
+        private IDictionary<int, CropPoint> cropsList = new Dictionary<int, CropPoint>();
         private enum Corner
         {
             TopLeft,
@@ -305,6 +306,10 @@ namespace WebMConverter
 
             if (dynamicCropActive.Checked)
             {
+                //add final crop position
+                currentFrame = trackVideoTimeline.Maximum;
+                GetCropPan();
+
                 float finalWidth = Program.Resolution.Width * cropPercent.Width;
                 float finalHeight = Program.Resolution.Height * cropPercent.Height;
 
@@ -346,7 +351,7 @@ namespace WebMConverter
 
         private void AddCropPan(int width, int height)
         {
-            if (currentFrame + 1 > trackVideoTimeline.Maximum)
+            if (currentFrame > trackVideoTimeline.Maximum)
                 return;
 
             int cropLeft = (int)(width * cropPercent.Left);
@@ -358,29 +363,26 @@ namespace WebMConverter
             cropRight = (cropRight / 2) * 2;
             cropTop = (cropTop / 2) * 2;
             cropBottom = (cropBottom / 2) * 2;
+            var initialFrame = Filters.Trim != null ? Filters.Trim.TrimStart : currentFrame;
 
-            int endFrame = Filters.Trim != null ? Filters.Trim.TrimEnd : currentFrame;
 
-            bool initialFrame = Filters.Trim != null && Filters.Trim.TrimStart == currentFrame;
+            var currentTime = (decimal)Program.VideoSource.Track.GetFrameInfo(currentFrame).PTS
+                                    / (decimal)Program.VideoSource.Track.TimeBaseDenominator;
 
-            string commands = $"Trim({currentFrame + ((currentFrame == 0) || initialFrame ? 0 : 1)}," +
-                $"{(trackVideoTimeline.Value == currentFrame ? endFrame : trackVideoTimeline.Value)})" +
-                $".Crop({cropLeft},{cropTop},{(newWidth == 0 ? cropRight : CorrectCrop(cropLeft, cropRight, newWidth, width))}," +
-                $"{(newHeight == 0 ? cropBottom : CorrectCrop(cropTop, cropBottom, newHeight, height))})" +
-                $".Spline64Resize({Mod2((int)(Program.Resolution.Width * cropPercent.Width))}," +
-                $"{Mod2((int)(Program.Resolution.Height * cropPercent.Height))})";
+            string crop = $"{cropLeft}:{cropTop}:{newWidth}:{newHeight}";
+            CropPoint cropPoint = new CropPoint(currentTime, crop);
 
             if (!cropsList.ContainsKey(currentFrame))
-                cropsList.Add(currentFrame, commands);
+                cropsList.Add(currentFrame, cropPoint);
             else
-                cropsList[currentFrame] = commands;
+                cropsList[currentFrame] = cropPoint;
 
             currentFrame = trackVideoTimeline.Value;
         }
 
-        private void GenerateFilter(IDictionary<int, string> cropsList)
+        private void GenerateFilter(IDictionary<int, CropPoint> cropsList)
         {
-            GeneratedCropPanFilter = new DynamicCropFilter(cropsList);
+            GeneratedCropPanFilter = new DynamicCropFilter(cropsList, trackVideoTimeline.Maximum);
         }
         private void GenerateFilter(int width, int height)
         {
@@ -683,6 +685,11 @@ namespace WebMConverter
 
         private void setNewSizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ShowNewDimension();
+        }
+
+        private void ShowNewDimension()
+        {
             using (var dialog = new SetDimensionsDialog())
             {
                 dialog.ShowDialog();
@@ -705,6 +712,8 @@ namespace WebMConverter
         {
             dynamicCropActive.ForeColor = dynamicCropActive.Checked ? Color.Green : Color.Black;
 
+            if (newHeight == 0 && dynamicCropActive.Checked)
+                ShowNewDimension();
         }
 
     }
@@ -747,20 +756,63 @@ namespace WebMConverter
     public class DynamicCropFilter
     {
         private readonly StringBuilder fragments = new StringBuilder();
-        private readonly StringBuilder alignFragments = new StringBuilder();
+        private readonly string cropFilter;
 
-        public DynamicCropFilter(IDictionary<int, string> cropsList)
+        public DynamicCropFilter(IDictionary<int, CropPoint> cropsList, int maximum)
         {
-            alignFragments.Append("UnalignedSplice(");
-            foreach (KeyValuePair<int, string> entry in cropsList)
+            List<KeyValuePair<int, CropPoint>> listCrops = cropsList.ToList();
+            string crop = listCrops[0].Value.Crop;
+            string easeType = "easeInOutSine";
+            var nSects = listCrops.Count - 1;
+            var firstTime = listCrops[0].Value.InitialTime;
+            var cropDimensions = crop.Split(':');
+            var cropW = cropDimensions[2];
+            var cropH = cropDimensions[3];
+            var cropXExpr = "";
+            var cropYExpr = "";
+
+            for (var sect = 0; sect < nSects; sect++)
             {
-                fragments.AppendLine($"D{entry.Key}={entry.Value}");
-                alignFragments.Append($"D{entry.Key},");
+                var left = listCrops[sect].Value;
+                var right = listCrops[sect + 1].Value;
+                var startTime = left.InitialTime - firstTime;
+                var startX = left.Crop.Split(':')[0];
+                var startY = left.Crop.Split(':')[1];
+                var endTime = right.InitialTime - firstTime;
+                var endX = right.Crop.Split(':')[0];
+                var endY = right.Crop.Split(':')[1];
+
+                if (sect + 2 > nSects)
+                    endTime = (decimal)Program.VideoSource.Track.GetFrameInfo(maximum).PTS / (decimal)Program.VideoSource.Track.TimeBaseDenominator;
+
+                var sectDuration = endTime - startTime;
+                if (sectDuration == 0)
+                {
+                    continue;
+                }
+
+                var currEaseType = easeType;
+                var easeP = $"((t-{Dot(startTime)})/{Dot(sectDuration)})";
+                var easeX = GetEasingExpression(currEaseType, $"({startX})", $"({endX})", easeP);
+                var easeY = GetEasingExpression(currEaseType, $"({startY})", $"({endY})", easeP);
+
+                if (sect == nSects - 1)
+                {
+                    cropXExpr += $"between(t, {Dot(startTime)}, {Dot(endTime)})*{easeX}";
+                    cropYExpr += $"between(t, {Dot(startTime)}, {Dot(endTime)})*{easeY}";
+                }
+                else
+                {
+                    cropXExpr += $"(gte(t, {Dot(startTime)})*lt(t, {Dot(endTime)}))*{easeX}+";
+                    cropYExpr += $"(gte(t, {Dot(startTime)})*lt(t, {Dot(endTime)}))*{easeY}+";
+                }
             }
 
-            alignFragments.Append(")").Replace(",)",")");
+            var tMaximum = (decimal)Program.VideoSource.Track.GetFrameInfo(maximum).PTS / (decimal)Program.VideoSource.Track.TimeBaseDenominator;
+
+            cropFilter = $"trim={0}:{Dot(tMaximum)},crop='x={cropXExpr}:y={cropYExpr}:w={cropW}:h={cropH}:exact=1'";
         }
 
-        public override string ToString() => $"{fragments} \n {alignFragments}";
+        public override string ToString() => cropFilter;
     }
 }
