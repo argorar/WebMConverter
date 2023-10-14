@@ -89,12 +89,13 @@ Follow an object on the canvas easly. Steps for a correct workflow:
     
 1. Use trim to define the clip lenght (optional)
 
-2. Open Crop filter and define the crop size, use ```New resolution``` as guide. **Even numbers are required**. You can use ```Set dimensions``` for exact values
+2. Open Crop filter and select ```Dynamic Crop```. When it is actived will be green which means that each movement will be registered
+    ![dynamicCrop](img/dynamicCrop.png)
+
+3. Define the crop size. **Even numbers are required**
     ![new resolution](img/newResolution.png)
     ![set dimensions](img/setDimensions.png)
-3. Select click ```Dynamic Crop```. When it is actived will be green which means that each movement will be registered
-    ![dynamicCrop](img/dynamicCrop.png)
-4. Set stabilitation level on ```Advanced>Processing``` to get a smooth effect
+
 
 #### Tutorial
 
@@ -224,6 +225,9 @@ Drag and drop two or more video files inside the application, select what do you
 If you have any issues with this program, you may report them on [here][NewIssue]. **Add the respective video to test and configuration used**.
 
 ## Changelog
+#### Version 3.31.1
+* Refactor [Dynamic Crop](#dynamic-crop) to make it more stable and smooth in frame changes
+
 #### Version 3.31.0
 * Add option to change from *Trim* to *Multiple Trim*, just right clic on it and select option. See related [request](https://github.com/argorar/WebMConverter/issues/53)
 * Add option to convert audio in mono channel
