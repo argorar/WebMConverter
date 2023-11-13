@@ -225,6 +225,9 @@ Drag and drop two or more video files inside the application, select what do you
 If you have any issues with this program, you may report them on [here][NewIssue]. **Add the respective video to test and configuration used**.
 
 ## Changelog
+#### Version 3.31.2
+* Add option to remove points in *Dynamic* filter
+
 #### Version 3.31.1
 * Refactor [Dynamic Crop](#dynamic-crop) to make it more stable and smooth in frame changes
 

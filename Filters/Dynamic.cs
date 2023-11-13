@@ -1,17 +1,13 @@
-﻿using FFMSSharp;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using WebMConverter.Dialogs;
 using static WebMConverter.Utility;
-using System.Collections.Generic;
 using System.Collections;
 using WebMConverter.Objects;
-using System.Linq;
 using System.Text;
 
 namespace WebMConverter
@@ -37,6 +33,8 @@ namespace WebMConverter
             InitializeComponent();
             InitialValues(FilterToEdit);
             InsertInitialPoints(FilterToEdit, dynamicFilter);
+            ShowPoints();
+            buttonRemove.Visible = true;
         }
 
         private void InitialValues(TrimFilter FilterToEdit)
@@ -79,7 +77,7 @@ namespace WebMConverter
             labelTrimEnd.Visible = false;
             label1.Visible = false;
             labelTrimDuration.Visible = false;
-            buttonTrimEnd.Visible = false;
+            buttonRemove.Visible = false;
         }
 
         private void ShowPoints()
@@ -167,16 +165,22 @@ namespace WebMConverter
 
                 }
                 ShowPoints();
+                buttonRemove.Visible = true;
                 previewFrame.Picture.Invalidate();
             }
         }
 
-        private void buttonTrimEnd_Click(object sender, EventArgs e)
+        private void buttonRemove_Click(object sender, EventArgs e)
         {
-            trimEnd = trackVideoTimeline.Value;
-            labelTrimEnd.Text = $"{FrameToTimeStamp(trimEnd)} ({trimEnd})";
-            checktrims();
-            trackVideoTimeline_Focus(sender, e);
+            using (var dialog = new PointsListForm(points))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    points = dialog.newList;
+                    previewFrame.Picture.Refresh();
+                    ShowPoints();
+                }
+            }
         }
 
         private void checktrims()

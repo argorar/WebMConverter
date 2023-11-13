@@ -183,6 +183,12 @@
     <Compile Include="Filters\Fade.Designer.cs">
       <DependentUpon>Fade.cs</DependentUpon>
     </Compile>
+    <Compile Include="Filters\PointsList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Filters\PointsList.Designer.cs">
+      <DependentUpon>PointsList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Filters\Overlay.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -337,6 +343,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\Fade.resx">
       <DependentUpon>Fade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\PointsList.resx">
+      <DependentUpon>PointsList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\Overlay.resx">
       <DependentUpon>Overlay.cs</DependentUpon>

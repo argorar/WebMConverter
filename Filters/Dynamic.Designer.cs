@@ -34,7 +34,7 @@ namespace WebMConverter
             this.flowTrimButtons = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonAddPoint = new System.Windows.Forms.Button();
             this.labelPoints = new System.Windows.Forms.Label();
-            this.buttonTrimEnd = new System.Windows.Forms.Button();
+            this.buttonRemove = new System.Windows.Forms.Button();
             this.labelTrimEnd = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.labelTrimDuration = new System.Windows.Forms.Label();
@@ -82,7 +82,7 @@ namespace WebMConverter
             // 
             this.flowTrimButtons.Controls.Add(this.buttonAddPoint);
             this.flowTrimButtons.Controls.Add(this.labelPoints);
-            this.flowTrimButtons.Controls.Add(this.buttonTrimEnd);
+            this.flowTrimButtons.Controls.Add(this.buttonRemove);
             this.flowTrimButtons.Controls.Add(this.labelTrimEnd);
             this.flowTrimButtons.Controls.Add(this.label1);
             this.flowTrimButtons.Controls.Add(this.labelTrimDuration);
@@ -102,7 +102,7 @@ namespace WebMConverter
             this.buttonAddPoint.TabIndex = 0;
             this.buttonAddPoint.TabStop = false;
             this.buttonAddPoint.Text = "Add point";
-            this.buttonAddPoint.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonAddPoint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.buttonAddPoint.UseVisualStyleBackColor = true;
             this.buttonAddPoint.Click += new System.EventHandler(this.buttonAddPoint_Click);
             // 
@@ -121,16 +121,16 @@ namespace WebMConverter
             // 
             // buttonTrimEnd
             // 
-            this.buttonTrimEnd.Location = new System.Drawing.Point(253, 4);
-            this.buttonTrimEnd.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonTrimEnd.Name = "buttonTrimEnd";
-            this.buttonTrimEnd.Size = new System.Drawing.Size(100, 28);
-            this.buttonTrimEnd.TabIndex = 1;
-            this.buttonTrimEnd.TabStop = false;
-            this.buttonTrimEnd.Text = "Set End:";
-            this.buttonTrimEnd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonTrimEnd.UseVisualStyleBackColor = true;
-            this.buttonTrimEnd.Click += new System.EventHandler(this.buttonTrimEnd_Click);
+            this.buttonRemove.Location = new System.Drawing.Point(253, 4);
+            this.buttonRemove.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonRemove.Name = "buttonRemove";
+            this.buttonRemove.Size = new System.Drawing.Size(100, 28);
+            this.buttonRemove.TabIndex = 1;
+            this.buttonRemove.TabStop = false;
+            this.buttonRemove.Text = "Remove Point";
+            this.buttonRemove.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.buttonRemove.UseVisualStyleBackColor = true;
+            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
             // labelTrimEnd
             // 
@@ -326,7 +326,7 @@ namespace WebMConverter
         private System.Windows.Forms.TrackBar trackVideoTimeline;
         private System.Windows.Forms.FlowLayoutPanel flowTrimButtons;
         private System.Windows.Forms.Button buttonAddPoint;
-        private System.Windows.Forms.Button buttonTrimEnd;
+        private System.Windows.Forms.Button buttonRemove;
         private System.Windows.Forms.FlowLayoutPanel flowDialogButtons;
         private System.Windows.Forms.Button buttonConfirm;
         private System.Windows.Forms.Button buttonCancel;

@@ -356,14 +356,9 @@ namespace WebMConverter
 
             int cropLeft = (int)(width * cropPercent.Left);
             int cropTop = (int)(height * cropPercent.Top);
-            int cropRight = -(int)(width - width * cropPercent.Right);
-            int cropBottom = -(int)(height - height * cropPercent.Bottom);
 
             cropLeft = (cropLeft / 2) * 2;
-            cropRight = (cropRight / 2) * 2;
             cropTop = (cropTop / 2) * 2;
-            cropBottom = (cropBottom / 2) * 2;
-            var initialFrame = Filters.Trim != null ? Filters.Trim.TrimStart : currentFrame;
 
 
             var currentTime = (decimal)Program.VideoSource.Track.GetFrameInfo(currentFrame).PTS
@@ -755,7 +750,6 @@ namespace WebMConverter
 
     public class DynamicCropFilter
     {
-        private readonly StringBuilder fragments = new StringBuilder();
         private readonly string cropFilter;
 
         public DynamicCropFilter(IDictionary<int, CropPoint> cropsList, int maximum)
