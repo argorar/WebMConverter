@@ -16,6 +16,7 @@ namespace WebMConverter.Dialogs
         public string OutputPath { get; set; }
 
         private readonly string _infile;
+        private readonly string _options;
         private YoutubeDL _downloaderProcess;
 
         private Timer _timer;
@@ -24,12 +25,13 @@ namespace WebMConverter.Dialogs
 
         private TaskbarManager taskbarManager;
 
-        public DownloadDialog(string url, string outputPath)
+        public DownloadDialog(string url, string options, string outputPath)
         {
             InitializeComponent();
             pictureStatus.BackgroundImage = StatusImages.Images["Happening"];
 
             _infile = '"' + url.Replace(@"""", @"\""") + '"';
+            _options = String.IsNullOrEmpty(options) ? String.Empty : $" --download-sections \"{options}\" " ;
             OutputPath = outputPath;
 
             taskbarManager = TaskbarManager.Instance;
@@ -90,7 +92,7 @@ namespace WebMConverter.Dialogs
             _downloaderProcess = new YoutubeDL(null);
 
             if(_infile.Contains("youtu"))
-                _downloaderProcess.StartInfo.Arguments = $@"-f bestvideo+bestaudio  {_infile}";
+                _downloaderProcess.StartInfo.Arguments = $@"-f bestvideo+bestaudio  {_infile} {_options}";
             else
                 _downloaderProcess.StartInfo.Arguments = $@" {_infile}";
 

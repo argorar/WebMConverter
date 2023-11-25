@@ -495,7 +495,7 @@ namespace WebMConverter
             var args = Environment.GetCommandLineArgs();
             if (args.Length > 1) // We were "Open with..."ed with a file
                 SetFile(args[1]);
-            SendMessage(textBoxIn.Handle, EM_SETCUEBANNER, 0, "Paste URL here if you want to download a video");
+            SendMessage(textBoxIn.Handle, EM_SETCUEBANNER, 0, "Paste URL here if you want to download a video, to download just a part add @*start_time-end_time e.g. URL@*5:35-5:45");
             SendMessage(boxTags.Handle, EM_SETCUEBANNER, 0, "tag1,tag2,tag3...");
             this.ActiveControl = buttonBrowseIn;
             if (!Program.DisableUpdates)
@@ -739,13 +739,24 @@ namespace WebMConverter
                 }
                 else
                 {
-                    using (var dialog = new DownloadDialog(textBoxIn.Text, textPathDownloaded.Text))
+                    var options = string.Empty;
+                    var url = string.Empty;
+
+                    if (textBoxIn.Text.Contains('@'))
+                    {
+                        var parts = textBoxIn.Text.Split('@');
+                        url = parts[0];
+                        options = parts[1];
+                    }
+                    else
+                        url = textBoxIn.Text;
+
+                    using (var dialog = new DownloadDialog(url, options, textPathDownloaded.Text))
                     {
                         var result = dialog.ShowDialog(this);
 
                         if (result == DialogResult.OK)
                         {
-                            var url = textBoxIn.Text;
                             textBoxIn.Text = dialog.GetOutfile();
                             buttonBrowseIn.Text = "Browse";
                             SetFile(textBoxIn.Text);
