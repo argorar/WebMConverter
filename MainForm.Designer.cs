@@ -212,6 +212,7 @@ namespace WebMConverter
             this.listViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.listViewContextMenuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewContextMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.box265 = new System.Windows.Forms.CheckBox();
             tableMainForm = new System.Windows.Forms.TableLayoutPanel();
             groupMain = new System.Windows.Forms.GroupBox();
             tableMain = new System.Windows.Forms.TableLayoutPanel();
@@ -1017,6 +1018,7 @@ namespace WebMConverter
             this.tableLayoutPanelEncodingVideo.Controls.Add(this.boxHQ, 0, 0);
             this.tableLayoutPanelEncodingVideo.Controls.Add(this.checkMP4, 3, 0);
             this.tableLayoutPanelEncodingVideo.Controls.Add(this.checkHWAcceleration, 4, 0);
+            this.tableLayoutPanelEncodingVideo.Controls.Add(this.box265, 4, 1);
             this.tableLayoutPanelEncodingVideo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelEncodingVideo.Location = new System.Drawing.Point(4, 19);
             this.tableLayoutPanelEncodingVideo.Margin = new System.Windows.Forms.Padding(4);
@@ -2861,6 +2863,21 @@ namespace WebMConverter
             this.listViewContextMenuDelete.Text = "Delete";
             this.listViewContextMenuDelete.Click += new System.EventHandler(this.listViewContextMenuDelete_Click);
             // 
+            // box265
+            // 
+            this.box265.AutoSize = true;
+            this.box265.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.box265.Enabled = false;
+            this.box265.Location = new System.Drawing.Point(940, 38);
+            this.box265.Margin = new System.Windows.Forms.Padding(4);
+            this.box265.Name = "box265";
+            this.box265.Padding = new System.Windows.Forms.Padding(53, 2, 0, 0);
+            this.box265.Size = new System.Drawing.Size(358, 22);
+            this.box265.TabIndex = 8;
+            this.box265.Text = "Use H265 (No support Hardware Acceleration)";
+            this.box265.UseVisualStyleBackColor = true;
+            this.box265.CheckedChanged += new System.EventHandler(this.box265_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.buttonGo;
@@ -3093,6 +3110,7 @@ namespace WebMConverter
         private System.Windows.Forms.ToolStripButton buttonDynamic;
         private System.Windows.Forms.NumericUpDown numericNormalization;
         private System.Windows.Forms.CheckBox boxMono;
+        private System.Windows.Forms.CheckBox box265;
         // private System.Windows.Forms.GroupBox groupGfycat;
     }
 }

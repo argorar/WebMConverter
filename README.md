@@ -225,6 +225,10 @@ Drag and drop two or more video files inside the application, select what do you
 If you have any issues with this program, you may report them on [here][NewIssue]. **Add the respective video to test and configuration used**.
 
 ## Changelog
+
+#### Version 3.33.0
+* Now H.264 is default codec to convert videos to MP4 since this is more widely supported in platforms. To active next generation H.265 check box added in *Encoding*. See related [request](https://github.com/argorar/WebMConverter/issues/62).
+
 #### Version 3.32.0
 * Add option to download just a part from a youtube video e.g. ```https://www.youtube.com/watch?v=_gbUT3AOg@*5:35-5:45```. See related [request](https://github.com/argorar/WebMConverter/issues/57)
 

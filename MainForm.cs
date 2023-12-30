@@ -205,6 +205,9 @@ namespace WebMConverter
 
             if (!configuration.AppSettings.Settings.AllKeys.Contains("DisableMetadata"))
                 configuration.AppSettings.Settings.Add("DisableMetadata", "False");
+
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("h265"))
+                configuration.AppSettings.Settings.Add("h265", "False");
         }
 
         private void ToolTip()
@@ -215,6 +218,7 @@ namespace WebMConverter
             toolTip.SetToolTip(boxLoop, "Forward and reverse effect merged");
             toolTip.SetToolTip(numericDelay, "Delay audio in your video, can be positive and negative. The value represent seconds");
             toolTip.SetToolTip(boxHQ, "Enables two-pass encoding and adds some extra encoding arguments, increasing output quality, but increases the time it takes to encode your file.");
+            toolTip.SetToolTip(checkMP4, "Use h264 by default");
         }
 
         private void CheckProccess()
@@ -295,6 +299,11 @@ namespace WebMConverter
                 boxDisableMetadata.Checked = true;
             else
                 boxDisableMetadata.Checked = false;
+
+            if (configuration.AppSettings.Settings["h265"].Value.Equals("True"))
+                box265.Checked = true;
+            else
+                box265.Checked = false;
 
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["PathDownload"].Value))
                 textPathDownloaded.Text = configuration.AppSettings.Settings["PathDownload"].Value;
@@ -433,7 +442,7 @@ namespace WebMConverter
                 string output = $"{ directory }\\{ auxName}-converted.{ format}";
                 string optionsWithInput = $@" -i ""{file}"" {options}";
 
-                if (!boxHQ.Checked || checkHWAcceleration.Checked)
+                if (!boxHQ.Checked || checkHWAcceleration.Checked || (checkMP4.Checked && !box265.Checked && !checkHWAcceleration.Checked))
                     arguments.Add(string.Format(Template, output, optionsWithInput, "", format));
                 else
                 {
@@ -2261,7 +2270,7 @@ namespace WebMConverter
             string tempName = String.Empty;
 
             List<string> arguments = new List<string>();
-            if (!boxHQ.Checked || checkHWAcceleration.Checked)
+            if (!boxHQ.Checked || checkHWAcceleration.Checked || (checkMP4.Checked && !box265.Checked && !checkHWAcceleration.Checked))
                 arguments.Add(string.Format(Template, output, options, "", format));
             else
             {
@@ -2392,8 +2401,10 @@ namespace WebMConverter
 
             if (checkMP4.Checked && checkHWAcceleration.Checked)
                 vcodec = @"h264_nvenc";
-            else
-                vcodec = checkMP4.Checked ? @"libx265" : vcodec;
+            else if (checkMP4.Checked && !checkHWAcceleration.Checked && box265.Checked)
+                vcodec = @"libx265";
+            else if (checkMP4.Checked && !checkHWAcceleration.Checked && !box265.Checked)
+                vcodec = @"libx264";
 
             string webmAcodec = (boxNGOV.Checked ? @"libopus" : @"libvorbis");
             var acodec = checkMP4.Checked ? @"aac" : webmAcodec;
@@ -2909,6 +2920,7 @@ namespace WebMConverter
                 boxNGOV.Enabled = false;
                 checkBoxAlpha.Enabled = false;
                 checkHWAcceleration.Enabled = true;
+                box265.Enabled = true;
             }
             else
             {
@@ -2916,6 +2928,7 @@ namespace WebMConverter
                 checkBoxAlpha.Enabled = true;
                 checkHWAcceleration.Enabled = false;
                 checkHWAcceleration.Checked = false;
+                box265.Enabled = false;
             }
 
             UpdateArguments(sender, e);
@@ -3041,6 +3054,12 @@ namespace WebMConverter
         private void boxMono_CheckedChanged(object sender, EventArgs e)
         {
             UpdateArguments(sender, e);
+        }
+
+        private void box265_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateArguments(sender, e);
+            UpdateConfiguration("h265", box265.Checked.ToString());
         }
     }
 }
