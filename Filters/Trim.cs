@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using WebMConverter.Dialogs;
 using static WebMConverter.Utility;
+using ToolTip = System.Windows.Forms.ToolTip;
 
 namespace WebMConverter
 {
@@ -12,6 +13,7 @@ namespace WebMConverter
         private int trimStart;
         private int trimEnd;
         public TrimFilter GeneratedFilter { get; set; }
+        private ToolTip toolTip = new ToolTip();
 
         public TrimForm(TrimFilter FilterToEdit)
         {
@@ -45,6 +47,8 @@ namespace WebMConverter
 
             trackVideoTimeline.MouseWheel += trackVideoTimeline_MouseWheel;
             toolStripMenuSave.Click += ToolStripMenuSave_Click;
+            toolTip.SetToolTip(labelTrimStart, "Click here to go to start");
+            toolTip.SetToolTip(labelTrimEnd, "Click here to go to end");
         }
 
         private void buttonTrimStart_Click(object sender, EventArgs e)
@@ -164,6 +168,18 @@ namespace WebMConverter
                 MessageBox.Show("The image doesn't exist", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
                 Process.Start(filename);
+        }
+
+        private void labelStart_Click(object sender, EventArgs e)
+        {
+            if (trimStart != 0)
+                trackVideoTimeline.Value = trimStart;
+        }
+
+        private void labelEnd_Click(object sender, EventArgs e)
+        {
+            if (trimEnd != 0)
+                trackVideoTimeline.Value = trimEnd;
         }
     }
 

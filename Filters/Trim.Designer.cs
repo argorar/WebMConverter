@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace WebMConverter
 {
@@ -118,6 +119,7 @@ namespace WebMConverter
             this.labelTrimStart.Size = new System.Drawing.Size(133, 0);
             this.labelTrimStart.TabIndex = 2;
             this.labelTrimStart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelTrimStart.Click += new System.EventHandler(this.labelStart_Click);
             // 
             // buttonTrimEnd
             // 
@@ -144,6 +146,7 @@ namespace WebMConverter
             this.labelTrimEnd.Size = new System.Drawing.Size(133, 0);
             this.labelTrimEnd.TabIndex = 3;
             this.labelTrimEnd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelTrimEnd.Click += new System.EventHandler(this.labelEnd_Click);
             // 
             // label1
             // 

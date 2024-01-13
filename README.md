@@ -222,9 +222,12 @@ Drag and drop two or more video files inside the application, select what do you
 * 3nly
 
 ## Issues
-If you have any issues with this program, you may report them on [here][NewIssue]. **Add the respective video to test and configuration used**.
+If you have any issues with this program, you may report them on [here][NewIssue]. **Add the respective video to test and configuration used if not the issue will be closed**.
 
 ## Changelog
+
+#### Version 3.33.1
+* Add feature when click over trim timestamp start or end, preview will jump to the specific frame. See related [request](https://github.com/argorar/WebMConverter/issues/64)
 
 #### Version 3.33.0
 * Now H.264 is default codec to convert videos to MP4 since this is more widely supported in platforms. To active next generation H.265 check box added in *Encoding*. See related [request](https://github.com/argorar/WebMConverter/issues/62).
