@@ -232,7 +232,7 @@ If you have any issues with this program, you may report them on [here][NewIssue
 
 Special thanks to this month supporters:
 * ManletPride 
-* new top supporter **Chibi** :heart: 
+* new top supporter **Chibi** ❤︎
 
 #### Version 3.33.1
 * Add feature when click over trim timestamp start or end, preview will jump to the specific frame. See related [request](https://github.com/argorar/WebMConverter/issues/64)
