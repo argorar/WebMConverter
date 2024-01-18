@@ -39,11 +39,12 @@ namespace WebMConverter
 
         public DynamicCropFilter GeneratedCropPanFilter { get; set; }
 
-        public CropForm(CropFilter CropPixels)
+        public CropForm(CropFilter CropPixels, CropBarsFilter cropBarsFilter)
         {
             InitializeComponent();
             SetEvents();
             InputFilter = CropPixels;
+            cropBars.Checked = cropBarsFilter != null ? true : false;
         }
 
         public CropForm()
@@ -711,6 +712,20 @@ namespace WebMConverter
                 ShowNewDimension();
         }
 
+
+        private void cropBars_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cropBars.Checked)
+            {
+                Filters.CropBarsFilter = new CropBarsFilter();
+            }
+            else
+            {
+                Filters.CropBarsFilter = null;
+            }
+            
+        }
+
     }
 
     public class CropFilter
@@ -808,5 +823,10 @@ namespace WebMConverter
         }
 
         public override string ToString() => cropFilter;
+    }
+
+    public class CropBarsFilter
+    {
+        public override string ToString() => $"AutoCrop(mode=3, wMultOf=2, hMultOf=2, leftAdd=0, topAdd=0, rightAdd=0, bottomAdd=0, threshold=40, samples=5, samplestartframe=0, sampleendframe=-1, aspect=0)";
     }
 }

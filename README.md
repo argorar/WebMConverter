@@ -217,6 +217,7 @@ Drag and drop two or more video files inside the application, select what do you
 * Change Rate: ```Alt + Shift + c```
 
 ### Supporters
+* Chibi
 * bouteloua
 * ManletPride
 * 3nly
@@ -225,6 +226,13 @@ Drag and drop two or more video files inside the application, select what do you
 If you have any issues with this program, you may report them on [here][NewIssue]. **Add the respective video to test and configuration used if not the issue will be closed**.
 
 ## Changelog
+
+#### Version 3.34.0
+* Add feature to auto crop black bars, find the option in *Crop filter*. See related [request](https://github.com/argorar/WebMConverter/issues/61)
+
+Special thanks to this month supporters:
+* ManletPride 
+* new top supporter **Chibi** :heart: 
 
 #### Version 3.33.1
 * Add feature when click over trim timestamp start or end, preview will jump to the specific frame. See related [request](https://github.com/argorar/WebMConverter/issues/64)

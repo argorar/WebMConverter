@@ -1,4 +1,6 @@
-﻿namespace WebMConverter
+﻿using System;
+
+namespace WebMConverter
 {
     partial class CropForm
     {
@@ -42,6 +44,7 @@
             this.trackVideoTimeline = new System.Windows.Forms.TrackBar();
             this.labelNewResolution = new System.Windows.Forms.Label();
             this.dynamicCropActive = new System.Windows.Forms.CheckBox();
+            this.cropBars = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackVideoTimeline)).BeginInit();
             this.SuspendLayout();
@@ -171,6 +174,19 @@
             this.dynamicCropActive.Text = "Dynamic Crop";
             this.dynamicCropActive.UseVisualStyleBackColor = true;
             this.dynamicCropActive.CheckedChanged += new System.EventHandler(this.dynamicCropActive_CheckedChanged);
+            // 
+            // cropBars
+            // 
+            this.cropBars.AutoSize = true;
+            this.cropBars.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cropBars.Location = new System.Drawing.Point(377, 5);
+            this.cropBars.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.cropBars.Name = "cropBars";
+            this.cropBars.Size = new System.Drawing.Size(92, 17);
+            this.cropBars.TabIndex = 9;
+            this.cropBars.Text = "Crop black bars";
+            this.cropBars.UseVisualStyleBackColor = true;
+            this.cropBars.CheckedChanged += new System.EventHandler(this.cropBars_CheckedChanged);
             // previewFrame
             // 
             this.previewFrame.BackColor = System.Drawing.SystemColors.ControlDark;
@@ -188,6 +204,7 @@
             this.ClientSize = new System.Drawing.Size(1045, 690);
             this.ControlBox = false;
             this.Controls.Add(this.dynamicCropActive);
+            this.Controls.Add(this.cropBars);
             this.Controls.Add(this.labelNewResolution);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonConfirm);
@@ -227,5 +244,6 @@
         private System.Windows.Forms.Label labelNewResolution;
         private System.Windows.Forms.ToolStripMenuItem setNewSizeToolStripMenuItem;
         private System.Windows.Forms.CheckBox dynamicCropActive;
+        private System.Windows.Forms.CheckBox cropBars;
     }
 }

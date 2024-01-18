@@ -1316,6 +1316,7 @@ namespace WebMConverter
                 case "Crop":
                     Filters.Crop = null;
                     Filters.DynamicCrop = null;
+                    Filters.CropBarsFilter = null;
                     buttonCrop.Enabled = true;
                     boxStabilization.Checked = false;
                     SetSlices();
@@ -2180,6 +2181,12 @@ namespace WebMConverter
                     avscript.WriteLine(Filters.Denoise);
                 }
 
+                if (Filters.CropBarsFilter != null)
+                {
+                    avscript.WriteLine(@"LoadPlugin(PluginPath+""AutoCrop.dll"")");
+                }
+
+
                 if (SarCompensate)
                     avscript.WriteLine(new ResizeFilter(SarWidth, SarHeight));
                 avscript.Write(textBoxProcessingScript.Text);
@@ -2592,7 +2599,7 @@ namespace WebMConverter
                 script.AppendLine(Filters.MultipleTrim.ToString());
             if (Filters.Rate != null && Filters.DynamicCrop == null)
                 script.AppendLine(Filters.Rate.Avisynth());
-            if (Filters.Crop != null && !boxFixSubs.Checked)
+            if (Filters.Crop != null && !boxFixSubs.Checked && Filters.CropBarsFilter == null)
             {
                 script.AppendLine(Filters.Crop.ToString());
                 script.AppendLine(new ResizeFilter(Filters.Crop.finalWidth, Filters.Crop.finalHeight).ToString());
@@ -2607,6 +2614,8 @@ namespace WebMConverter
                 script.AppendLine(Filters.Rotate.ToString());
             if (Filters.DelayAudio != null)
                 script.AppendLine(Filters.DelayAudio.ToString());
+            if (Filters.CropBarsFilter != null)
+                script.AppendLine(Filters.CropBarsFilter.ToString());
 
             textBoxProcessingScript.Text = script.ToString();
         }
@@ -2851,7 +2860,7 @@ namespace WebMConverter
 
         private void EditCropFilter(object sender, EventArgs e)
         {
-            using (var form = new CropForm(Filters.Crop))
+            using (var form = new CropForm(Filters.Crop, Filters.CropBarsFilter))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
