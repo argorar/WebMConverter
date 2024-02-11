@@ -152,6 +152,22 @@ namespace WebMConverter
             LoadConfiguration();
             ToolTip();
             LoadComboBox();
+            LoadComboDenoise();
+        }
+
+        private void LoadComboDenoise()
+        {
+            ArrayList levelList = new ArrayList();
+            levelList.Add(new Denoise("Very Weak", 1));
+            levelList.Add(new Denoise("Weak", 2));
+            levelList.Add(new Denoise("Medium", 4));
+            levelList.Add(new Denoise("Strong", 6));
+            levelList.Add(new Denoise("Very Strong", 8));
+            comboBoxDenoise.DisplayMember = "name";
+            comboBoxDenoise.DataSource = levelList;
+            comboBoxDenoise.SelectedIndex = 2;
+            comboBoxDenoise.Enabled = boxDenoise.Checked;
+            
         }
 
         private void LoadComboBox()
@@ -2469,6 +2485,13 @@ namespace WebMConverter
             if (Filters.Rate != null && Filters.DynamicCrop != null)
                 listVF.Add(Filters.Rate.ToString());
 
+            if (boxDenoise.Checked)
+            {
+                Denoise selected = (Denoise)comboBoxDenoise.SelectedItem;
+                listVF.Add(new DenoiseFilter().ToString() + selected.level);
+            }
+                
+
             string filter = string.Empty;
 
             if(listVF.Count > 0)
@@ -3069,6 +3092,17 @@ namespace WebMConverter
         {
             UpdateArguments(sender, e);
             UpdateConfiguration("h265", box265.Checked.ToString());
+        }
+
+        private void boxDenoise_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBoxDenoise.Enabled = boxDenoise.Checked;
+            UpdateArguments(sender, e);
+        }
+
+        private void comboBoxDenoise_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateArguments(sender, e);
         }
     }
 }

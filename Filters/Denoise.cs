@@ -2,6 +2,6 @@
 {
     public class DenoiseFilter
     {
-        public override string ToString() => "hqdn3d()";
+        public override string ToString() => "hqdn3d=luma_spatial=";
     }
 }

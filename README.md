@@ -227,6 +227,9 @@ If you have any issues with this program, you may report them on [here][NewIssue
 
 ## Changelog
 
+#### Version 3.35.0
+* Add a better Denoise method, can choose different levels. See related [request](https://github.com/argorar/WebMConverter/issues/67)
+
 #### Version 3.34.0
 * Add feature to auto crop black bars, find the option in *Crop filter*. See related [request](https://github.com/argorar/WebMConverter/issues/61)
 
