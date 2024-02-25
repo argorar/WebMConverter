@@ -35,7 +35,7 @@
             this.pictureStatus = new System.Windows.Forms.PictureBox();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.buttonPlay = new System.Windows.Forms.Button();
-            this.buttonUpload = new System.Windows.Forms.Button();
+            this.buttonCreate = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonShareX = new System.Windows.Forms.Button();
             this.StatusImages = new System.Windows.Forms.ImageList(this.components);
@@ -57,7 +57,7 @@
             this.table.Controls.Add(this.pictureStatus, 0, 2);
             this.table.Controls.Add(this.progressBar, 0, 1);
             this.table.Controls.Add(this.buttonPlay, 1, 2);
-            this.table.Controls.Add(this.buttonUpload, 3, 2);
+            this.table.Controls.Add(this.buttonCreate, 3, 2);
             this.table.Controls.Add(this.buttonCancel, 5, 2);
             this.table.Controls.Add(this.buttonShareX, 4, 2);
             this.table.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -125,19 +125,18 @@
             this.buttonPlay.UseVisualStyleBackColor = true;
             this.buttonPlay.Click += new System.EventHandler(this.buttonPlay_Click);
             // 
-            // buttonUpload
+            // buttonCreate
             // 
-            this.buttonUpload.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonUpload.Enabled = false;
-            this.buttonUpload.Location = new System.Drawing.Point(331, 501);
-            this.buttonUpload.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonUpload.Name = "buttonUpload";
-            this.buttonUpload.Size = new System.Drawing.Size(135, 30);
-            this.buttonUpload.TabIndex = 2;
-            this.buttonUpload.Text = "Upload to Gfycat";
-            this.buttonUpload.UseVisualStyleBackColor = true;
-            this.buttonUpload.Visible = false;
-            this.buttonUpload.Click += new System.EventHandler(this.buttonUpload_ClickAsync);
+            this.buttonCreate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonCreate.Enabled = false;
+            this.buttonCreate.Location = new System.Drawing.Point(331, 501);
+            this.buttonCreate.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonCreate.Name = "buttonCreate";
+            this.buttonCreate.Size = new System.Drawing.Size(135, 30);
+            this.buttonCreate.TabIndex = 2;
+            this.buttonCreate.Text = "Create another";
+            this.buttonCreate.UseVisualStyleBackColor = true;
+            this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
             // 
             // buttonCancel
             // 
@@ -201,7 +200,7 @@
         private System.Windows.Forms.ImageList StatusImages;
         private System.Windows.Forms.RichTextBox boxOutput;
         private System.Windows.Forms.ProgressBar progressBar;
-        private System.Windows.Forms.Button buttonUpload;
+        private System.Windows.Forms.Button buttonCreate;
         private System.Windows.Forms.TableLayoutPanel table;
         private System.Windows.Forms.Button buttonShareX;
     }

@@ -153,7 +153,13 @@ namespace WebMConverter.Dialogs
                     break;
                 }
             }
-            File.Move(Outfile, Path.Combine(OutputPath, Outfile));
+            string finalFile = Path.Combine(OutputPath, Outfile);
+            while (File.Exists(finalFile))
+            {
+                finalFile = Utility.IncreaseFileNumber(finalFile);
+            }
+            File.Move(Outfile, finalFile);
+            Outfile = Path.GetFileName(finalFile);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -201,7 +207,7 @@ namespace WebMConverter.Dialogs
             if (String.IsNullOrEmpty(Outfile))
                 return String.Empty;
 
-            return OutputPath + Outfile.Substring(1);
+            return Path.Combine(OutputPath, Outfile);
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.XPath;
 using WebMConverter.Objects;
@@ -400,6 +401,29 @@ namespace WebMConverter
 
             var easingExpression = $"({easeA}+({easeB}-{easeA})*{ease})";
             return easingExpression;
+        }
+
+        public static string IncreaseFileNumber(string file)
+        {
+            string directory = Path.GetDirectoryName(file);
+            string auxName = Path.GetFileNameWithoutExtension(file);
+            string extension = Path.GetExtension(file);
+            string pattern = @"-\d$";
+            if (Regex.IsMatch(auxName, pattern))
+            {
+                char lastCharacter = auxName[auxName.Length - 1];
+                if (char.IsDigit(lastCharacter))
+                {
+                    int number = int.Parse(lastCharacter.ToString());
+                    number = number + 1;
+                    auxName = auxName.Substring(0, auxName.Length - 1) + number;
+
+                }
+            }
+            else
+                auxName = $"{auxName}-2";
+
+            return $"{directory}\\{auxName}{extension}";
         }
 
     }

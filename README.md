@@ -227,6 +227,10 @@ If you have any issues with this program, you may report them on [here][NewIssue
 
 ## Changelog
 
+#### Version 3.36.0
+* Add option after convert *Create another*, this will change the output file to -2, -3,.., -n
+* Fix filenames when you download many clips from the same file using @* introduced in 3.32.0
+
 #### Version 3.35.0
 * Add a better Denoise method, can choose different levels. See related [request](https://github.com/argorar/WebMConverter/issues/67)
 

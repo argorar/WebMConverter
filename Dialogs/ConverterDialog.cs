@@ -46,7 +46,7 @@ namespace WebMConverter.Dialogs
             if (!ShareXUpload.Enabled)
             {
                 buttonShareX.Hide();
-                table.SetColumnSpan(buttonUpload, 2);
+                table.SetColumnSpan(buttonCreate, 2);
             }
 
             pictureStatus.BackgroundImage = StatusImages.Images["Happening"];
@@ -425,7 +425,7 @@ namespace WebMConverter.Dialogs
                 if(!String.IsNullOrEmpty(_infile) && !String.IsNullOrEmpty(_outfile))
                 {
                     buttonPlay.Enabled = true;
-                    buttonUpload.Enabled = true;
+                    buttonCreate.Enabled = true;
                 }
 
             }
@@ -477,7 +477,7 @@ namespace WebMConverter.Dialogs
             buttonCancel.Text = "Close";
             buttonCancel.Enabled = true;
             buttonPlay.Enabled = true;
-            buttonUpload.Enabled = true;
+            buttonCreate.Enabled = true;
             _ended = true;
 
             if (!Program.DisablePop)
@@ -645,6 +645,13 @@ namespace WebMConverter.Dialogs
                     text = $"\"{tag}\"";
             }
             return text;
+        }
+
+        private void buttonCreate_Click(object sender, EventArgs e)
+        {
+            string newOutput = Utility.IncreaseFileNumber(_outfile);
+            (Owner as MainForm).textBoxOut.Text = newOutput;
+            Close();
         }
     }
 }
