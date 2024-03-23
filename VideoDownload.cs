@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace WebMConverter
 {
@@ -9,17 +10,11 @@ namespace WebMConverter
 
         public static void CheckEnabled()
         {
-            try
-            {
-                var proc = new YoutubeDL("");
-                proc.Start(false);
-            }
-            catch (Exception)
-            {
+            String exePath = "Binaries//Win64//" + Program.yt_dl;
+            if(File.Exists(exePath))
+                Enabled = true;
+            else
                 Enabled = false;
-                return;
-            }
-            Enabled = true;
         }
     }
 

@@ -227,6 +227,12 @@ If you have any issues with this program, you may report them on [here][NewIssue
 
 ## Changelog
 
+#### Version 3.37.0
+* Add remove option in multi trim. See related [request](https://github.com/argorar/WebMConverter/issues/73)
+* Fix target bitrate using constant mode
+* Fix size limit using constant mode and change rate filter. See related [issue](https://github.com/argorar/WebMConverter/issues/69)
+* Fix yt-dlp.exe v2024.03.10 process. See related [issue](https://github.com/argorar/WebMConverter/issues/72)
+
 #### Version 3.36.0
 * Add option after convert *Create another*, this will change the output file to -2, -3,.., -n
 * Fix filenames when you download many clips from the same file using @* introduced in 3.32.0
