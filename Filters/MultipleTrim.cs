@@ -106,6 +106,12 @@ namespace WebMConverter
         private void buttonMoveUp_Click(object sender, EventArgs e) => MoveListViewItem(listViewTrims, MoveDirection.Up);
         private void buttonMoveDown_Click(object sender, EventArgs e) => MoveListViewItem(listViewTrims, MoveDirection.Down);
         private void listViewTrims_Leave(object sender, EventArgs e) => listViewTrims.Focus();
+
+        private void buttonRemove_Click(object sender, EventArgs e)
+        {
+            if(listViewTrims.SelectedIndices.Count > 0)
+                listViewTrims.Items.RemoveAt(listViewTrims.SelectedIndices[0]);
+        }
     }
 
     public class MultipleTrimFilter
