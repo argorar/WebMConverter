@@ -67,8 +67,8 @@ namespace WebMConverter
         /// {0} is video bitrate
         /// {1} is ' -fs XM' if X MB limit enabled otherwise blank
         /// </summary>
-        private const string ConstantVideoArgumentsWebm = " -b:v {0}k -qcomp 0{1}";
-        private const string ConstantVideoArgumentsMp4 = " -b:v {0}k{1}";
+        private const string ConstantVideoArgumentsWebm = " {2} -b:v {0}k -qcomp 0{1}";
+        private const string ConstantVideoArgumentsMp4 = " {2} -b:v {0}k{1} ";
         /// <summary>
         /// {0} is audio bitrate
         /// </summary>
@@ -2359,7 +2359,7 @@ namespace WebMConverter
                     limitTo = $@" -fs {(int)limit}";
                 }
 
-                var audiobitrate = -1;
+                var audiobitrate = 0;
                 if (boxAudio.Checked)
                     audiobitrate = 64;
 
@@ -2376,10 +2376,14 @@ namespace WebMConverter
                 }
 
                 var videobitrate = 900;
+                string maxbitrate = string.Empty;
                 if (!string.IsNullOrWhiteSpace(boxBitrate.Text))
                 {
                     if (!int.TryParse(boxBitrate.Text, out videobitrate))
                         throw new ArgumentException("Invalid video bitrate!");
+
+                    videobitrate = int.Parse(boxBitrate.Text);
+                    maxbitrate = $@"  -minrate:v {(int)videobitrate}k -maxrate:v {(int)videobitrate}k ";
                 }
                 else if (limitTo != string.Empty)
                 {
@@ -2390,11 +2394,19 @@ namespace WebMConverter
 
                     if (videobitrate < 0)
                         throw new ArgumentException("Your size constraints are too tight! Trim your video or lower your audio bitrate.");
+
+                    
+                    if (Filters.Rate != null)
+                    {
+                        videobitrate = (int)((limit / duration) * 0.8) - audiobitrate;
+                        maxbitrate = $@" -maxrate:v {(int)videobitrate}k ";
+                    }
+                        
                 }
 
                 var ConstantVideoArguments = checkMP4.Checked ? ConstantVideoArgumentsMp4 : ConstantVideoArgumentsWebm;
-                qualityarguments = string.Format(ConstantVideoArguments, videobitrate, limitTo);
-                if (audiobitrate != -1)
+                qualityarguments = string.Format(ConstantVideoArguments, videobitrate, limitTo, maxbitrate);
+                if (audiobitrate != 0)
                     qualityarguments += string.Format(ConstantAudioArguments, audiobitrate);
 
             }
