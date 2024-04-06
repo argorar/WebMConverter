@@ -5,12 +5,10 @@ namespace WebMConverter.Dialogs
 {
     public partial class UpdateNotifyDialog : Form
     {
-        private string _changelog;
         string _newVersion;
 
-        public UpdateNotifyDialog(string newVersion, string changelog)
-        {
-            _changelog = changelog;
+        public UpdateNotifyDialog(string newVersion)
+        {            
             _newVersion = newVersion.Replace(".", string.Empty);
             InitializeComponent();
 

@@ -227,6 +227,9 @@ If you have any issues with this program, you may report them on [here][NewIssue
 
 ## Changelog
 
+#### Version 3.37.1
+* Minor changes underhood and UI
+
 #### Version 3.37.0
 * Add remove option in multi trim. See related [request](https://github.com/argorar/WebMConverter/issues/73)
 * Fix target bitrate using constant mode

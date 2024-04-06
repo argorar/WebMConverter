@@ -60,7 +60,7 @@
             // buttonConfirm
             // 
             this.buttonConfirm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonConfirm.Location = new System.Drawing.Point(225, 235);
+            this.buttonConfirm.Location = new System.Drawing.Point(225, 276);
             this.buttonConfirm.Margin = new System.Windows.Forms.Padding(4);
             this.buttonConfirm.Name = "buttonConfirm";
             this.buttonConfirm.Size = new System.Drawing.Size(167, 33);
@@ -98,9 +98,9 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.89226F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.10774F));
-            this.tableLayoutPanel1.Controls.Add(this.buttonRemove, 1, 7);
+            this.tableLayoutPanel1.Controls.Add(this.buttonConfirm, 1, 7);
             this.tableLayoutPanel1.Controls.Add(this.listViewTrims, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.buttonConfirm, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.buttonRemove, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.buttonAddTrim, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.buttonMoveUp, 1, 1);
@@ -124,7 +124,7 @@
             // buttonRemove
             // 
             this.buttonRemove.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRemove.Location = new System.Drawing.Point(225, 276);
+            this.buttonRemove.Location = new System.Drawing.Point(225, 235);
             this.buttonRemove.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(167, 33);

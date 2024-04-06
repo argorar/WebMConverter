@@ -26,6 +26,8 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using System.Net.Http;
+using Semver;
 
 namespace WebMConverter
 {
@@ -586,20 +588,19 @@ namespace WebMConverter
         async void CheckUpdate()
         {
             try
-            {
-                string latestVersion;
-                using (var updateChecker = new WebClient())
-                    latestVersion = updateChecker.DownloadString(VersionUrl);
-
-                var checker = new Updater();
+            {             
 
                 await Task.Run(() =>
                 {
-                    var checkerResult = checker.Check(Application.ProductVersion);
+                    var checker = new Updater();
+                    string latestVersion;
+                    using (var updateChecker = new WebClient())
+                        latestVersion =  updateChecker.DownloadString(VersionUrl);
 
-                    var success = checkerResult.Item1;
-                    var updateAvailable = checkerResult.Item2;
-                    var changelog = checkerResult.Item4;
+                    var semLastVersion = SemVersion.Parse(latestVersion);
+                    var semCurrentVersion = SemVersion.Parse(Application.ProductVersion.Substring(0, Application.ProductVersion.LastIndexOf(".")));
+
+                    var updateAvailable = semLastVersion > semCurrentVersion;
 
                     if (!updateAvailable)
                     {
@@ -610,17 +611,9 @@ namespace WebMConverter
                         return;
                     }
 
-                    if (!success)
-                    {
-                        this.InvokeIfRequired(() =>
-                        {
-                            showToolTip("Update checking failed! ", 2000);
-                        });
-                        return;
-                    }
                     this.InvokeIfRequired(() =>
                     {
-                        var result = new UpdateNotifyDialog(latestVersion, changelog).ShowDialog(this);
+                        var result = new UpdateNotifyDialog(latestVersion).ShowDialog(this);
                         if (result == DialogResult.Yes)
                         {
                             System.Diagnostics.Process.Start(checker.UpdaterPath, @"update");
@@ -631,7 +624,10 @@ namespace WebMConverter
             }
             catch
             {
-                // ignored
+                this.InvokeIfRequired(() =>
+                {
+                    showToolTip("Update checking failed! ", 2000);
+                });
             }
         }
 
