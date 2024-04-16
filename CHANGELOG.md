@@ -1,3 +1,49 @@
+Version 3.33.0
+=======
+* Now H.264 is default codec to convert videos to MP4 since this is more widely supported in platforms. To active next generation H.265 check box added in *Encoding*. See related [request](https://github.com/argorar/WebMConverter/issues/62).
+
+Version 3.32.0
+=======
+* Add option to download just a part from a youtube video e.g. ```https://www.youtube.com/watch?v=_gbUT3AOg@*5:35-5:45```. See related [request](https://github.com/argorar/WebMConverter/issues/57)
+* Add option to remove points in *Dynamic* filter
+* Refactor [Dynamic Crop](#dynamic-crop) to make it more stable and smooth in frame changes
+
+Version 3.31.0
+=======
+* Add option to change from *Trim* to *Multiple Trim*, just right clic on it and select option. See related [request](https://github.com/argorar/WebMConverter/issues/53)
+* Add option to convert audio in mono channel
+* Fix desync audio and subtitles with latest codecs. See related [issue](https://github.com/argorar/WebMConverter/issues/21)
+
+Version 3.30.0
+=======
+* Upgrade to 64-bit architecture, allowing to use more system memory and avoid crashing. See related [issue](https://github.com/argorar/WebMConverter/issues/45)
+* Loading frames from 4k video is faster 
+
+Version 3.29.0
+=======
+* Add feature to make set target frame rate more efficient when desire output is minor like 30 fps from 60 fps source. See related [request](https://github.com/argorar/WebMConverter/issues/51)
+* Fix log management for two pass encoding
+* Fix wrong crop resolution in some cases
+* Allow to create Dynamic filter without trim
+* Loop arguments refactor, allowing to do multiple complex filters at once
+* Convert console is more clean now
+* Fix extension change
+* Improve memory managment when a new video is imported
+* Improve arguments to use levels, dynamic and interpolation at once
+* Fix incorrect initial Resize value after do a Crop. See related [issue](https://github.com/argorar/WebMConverter/issues/48)
+* Fix incorrect initial Rate value
+* Remove user details calls to gfycat since service will be shutdown
+* Add support to external webvtt subtitles
+
+Version 3.28.0
+=======
+* Add option to normalize audio. See related [request](https://github.com/argorar/WebMConverter/issues/44)
+* Add option to edit Dynamic filter
+* Show points created in Dynamic filter
+
+Version 3.27.0
+=======
+* Add support to internal webvtt subtitles. See related [request](https://github.com/argorar/WebMConverter/issues/30)
 
 Version 3.26.0
 =======

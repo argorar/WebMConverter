@@ -5,7 +5,7 @@ WebM for Lazys
 [![Downloads](https://img.shields.io/github/downloads/argorar/WebMConverter/total.svg)]()
 [![CodeLines](https://tokei.rs/b1/github/argorar/WebMConverter)]()
 
-Don't forget to give a star in Github. If you want to support this project.
+Don't forget to give a star in Github. If you want to support this project [https://paypal.me/argorar](https://paypal.me/argorar).
 
 <a href='https://ko-fi.com/argorar' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a> 
 
@@ -64,6 +64,10 @@ Paste the url of the video you want and press enter, the download will start. Yo
 Disable option in *general* tab to select manually the format do you want.
 
 ![format](img/format.png)
+
+To download just a part from a youtube video add ```@*start-end``` e.g.
+ ```https://www.youtube.com/watch?v=_gbUT3AOg@*5:35-5:45```
+ 
 ### Trim
 
 Trim precisely the length, with a simple interface. You can do multiple trims if you need.
@@ -253,69 +257,10 @@ Special thanks to this month supporters:
 #### Version 3.33.1
 * Add feature when click over trim timestamp start or end, preview will jump to the specific frame. See related [request](https://github.com/argorar/WebMConverter/issues/64)
 
-#### Version 3.33.0
-* Now H.264 is default codec to convert videos to MP4 since this is more widely supported in platforms. To active next generation H.265 check box added in *Encoding*. See related [request](https://github.com/argorar/WebMConverter/issues/62).
-
-#### Version 3.32.0
-* Add option to download just a part from a youtube video e.g. ```https://www.youtube.com/watch?v=_gbUT3AOg@*5:35-5:45```. See related [request](https://github.com/argorar/WebMConverter/issues/57)
-
-#### Version 3.31.2
-* Add option to remove points in *Dynamic* filter
-
-#### Version 3.31.1
-* Refactor [Dynamic Crop](#dynamic-crop) to make it more stable and smooth in frame changes
-
-#### Version 3.31.0
-* Add option to change from *Trim* to *Multiple Trim*, just right clic on it and select option. See related [request](https://github.com/argorar/WebMConverter/issues/53)
-* Add option to convert audio in mono channel
-
-#### Version 3.30.1
-* Fix desync audio and subtitles with latest codecs. See related [issue](https://github.com/argorar/WebMConverter/issues/21)
-
-#### Version 3.30.0
-* Upgrade to 64-bit architecture, allowing to use more system memory and avoid crashing. See related [issue](https://github.com/argorar/WebMConverter/issues/45)
-* Loading frames from 4k video is faster 
-
-#### Version 3.29.0
-* Add feature to make set target frame rate more efficient when desire output is minor like 30 fps from 60 fps source. See related [request](https://github.com/argorar/WebMConverter/issues/51)
-
-#### Version 3.28.8
-* Fix log management for two pass encoding
-
-#### Version 3.28.7
-* Fix wrong crop resolution in some cases
-
-#### Version 3.28.6
-* Allow to create Dynamic filter without trim
-* Loop arguments refactor, allowing to do multiple complex filters at once
-
-#### Version 3.28.5
-* Convert console is more clean now
-
-#### Version 3.28.4
-* Fix extension change
-* Improve memory managment when a new video is imported
-* Improve arguments to use levels, dynamic and interpolation at once
-
-#### Version 3.28.3
-* Fix incorrect initial Resize value after do a Crop. See related [issue](https://github.com/argorar/WebMConverter/issues/48)
-* Fix incorrect initial Rate value
-
-#### Version 3.28.2
-* Remove user details calls to gfycat since service will be shutdown
-
-#### Version 3.28.1
-* Add support to external webvtt subtitles
-
-#### Version 3.28.0
-* Add option to normalize audio. See related [request](https://github.com/argorar/WebMConverter/issues/44)
-* Add option to edit Dynamic filter
-* Show points created in Dynamic filter
-
-#### Version 3.27.0
-* Add support to internal webvtt subtitles. See related [request](https://github.com/argorar/WebMConverter/issues/30)
 
 To see more [changelog](CHANGELOG.md).
+
+<a href='https://ko-fi.com/argorar' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a> 
 
 ## License
 This software is released under the MIT license.
