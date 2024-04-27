@@ -62,8 +62,9 @@ namespace WebMConverter
         /// {9} is '-tile-columns 1 -row-mt 1' if VP9 is selectec, otherwise blank
         /// {10} is 'yuv420p' or 'yuva420p' when alpha is selected in advanced setings
         /// {11} is frame goal, just in case to decrease original frame rate
+        /// {12} is audio filter
         /// </summary>
-        private const string TemplateArguments = "{0} -c:v {5} -pix_fmt {10} -threads {1} -slices {2}{3}{4}{6}{7}{8}{9}{11}";
+        private const string TemplateArguments = "{0} -c:v {5} -pix_fmt {10} -threads {1} -slices {2}{3}{4}{6}{12}{7}{8}{9}{11}";
 
         /// <summary>
         /// {0} is video bitrate
@@ -133,7 +134,7 @@ namespace WebMConverter
         private ToolTip toolTip = new ToolTip();
 
         public static ConcurrentDictionary<int, Bitmap> cache { get; set; }
-        public static readonly int MAX_CAPACITY = 200;
+        public static readonly int MAX_CAPACITY = 400;
         private const int MAX_PROCESS = 2;
         public static AspectRatio aspectRatio { get; set; }
         #region MainForm
@@ -1332,7 +1333,7 @@ namespace WebMConverter
                     buttonCrop.Enabled = true;
                     boxStabilization.Checked = false;
                     SetSlices();
-                    GenerateArguments();
+                    UpdateArguments();
                     break;
                 case @"Dub":
                     var oldfilter = Filters.Dub;
@@ -1475,6 +1476,7 @@ namespace WebMConverter
         {
             numericAudioQuality.Enabled = boxAudioBitrate.Enabled = numericDelay.Enabled = ((CheckBox)sender).Checked ;
             numericNormalization.Enabled = boxMono.Enabled = boxAudio.Checked;
+            textBoxdB.Enabled = boxAudio.Checked;
 
             if (boxNGOV.Checked)
                 numericAudioQuality.Enabled = false;
@@ -2498,7 +2500,10 @@ namespace WebMConverter
                 Denoise selected = (Denoise)comboBoxDenoise.SelectedItem;
                 listVF.Add(new DenoiseFilter().ToString() + selected.level);
             }
-                
+
+            var audioFilter = String.Empty;
+            if (!String.IsNullOrEmpty(textBoxdB.Text) && boxAudio.Checked)
+                audioFilter = $" -filter:a \"volume={textBoxdB.Text}dB\" ";
 
             string filter = string.Empty;
 
@@ -2506,7 +2511,7 @@ namespace WebMConverter
                 filter = $" -vf \"{UnionVF(listVF)}\"";
 
             return string.Format(TemplateArguments, audio, threads, slices, metadataTitle, hq,
-                                vcodec, acodec, filter, qualityarguments, extraArguments, pixelFormat, valueR);
+                                vcodec, acodec, filter, qualityarguments, extraArguments, pixelFormat, valueR, audioFilter);
         }
 
         /// <summary>
@@ -3109,6 +3114,11 @@ namespace WebMConverter
         }
 
         private void comboBoxDenoise_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateArguments(sender, e);
+        }
+
+        private void textBoxdB_TextChanged(object sender, EventArgs e)
         {
             UpdateArguments(sender, e);
         }
