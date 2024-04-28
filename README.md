@@ -231,6 +231,10 @@ If you have any issues with this program, you may report them on [here][NewIssue
 
 ## Changelog
 
+#### Version 3.38.0
+* Add audio amplification option
+* Increase cache size for preview frames
+
 #### Version 3.37.1
 * Minor changes underhood and UI
 

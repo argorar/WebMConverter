@@ -366,7 +366,7 @@ namespace WebMConverter
                                     / (decimal)Program.VideoSource.Track.TimeBaseDenominator;
 
             string crop = $"{cropLeft}:{cropTop}:{newWidth}:{newHeight}";
-            CropPoint cropPoint = new CropPoint(currentTime, crop);
+            CropPoint cropPoint = new CropPoint(currentTime, crop, cropPercent);
 
             if (!cropsList.ContainsKey(currentFrame))
                 cropsList.Add(currentFrame, cropPoint);
@@ -646,12 +646,13 @@ namespace WebMConverter
                 frame += trackVideoTimeline.Value;
 
             trackVideoTimeline.Value = Math.Max(0, Math.Min(trackVideoTimeline.Maximum, frame)); // Make sure we don't go out of bounds.
+
         }
 
         private void trackVideoTimeline_ValueChanged(object sender, EventArgs e)
         {
             previewFrame.Frame = trackVideoTimeline.Value;
-            previewFrame.Refresh();
+            previewFrame.Refresh();               
         }
 
         private void trackVideoTimeline_KeyDown(object sender, KeyEventArgs e)

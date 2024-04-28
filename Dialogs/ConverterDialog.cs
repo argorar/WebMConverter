@@ -69,7 +69,17 @@ namespace WebMConverter.Dialogs
             if (args.Data != null && !args.Data.Contains("AVOption"))
             {
                 if (DataContainsProgress(args.Data))
-                    ParseAndUpdateProgress(args.Data);
+                {
+                    try
+                    { 
+                        ParseAndUpdateProgress(args.Data);
+                    }
+                    catch (Exception ex)
+                    {
+                        boxOutput.AppendText($"An error happened {ex.Message}");
+                    }
+                }
+                    
                 else
                     boxOutput.InvokeIfRequired(() => boxOutput.AppendText(Environment.NewLine + args.Data));
             }
@@ -90,11 +100,11 @@ namespace WebMConverter.Dialogs
 
         private void ParseAndUpdateProgress(string input)
         {
-            var r = new Regex(@"time=([^ ]+)");
+            var r = new Regex(@"time=\d\d:\d\d:\d\d.\d\d");
             var m = r.Match(input);
             if (m.Success)
             {
-                var time = TimeSpan.Parse(m.Groups[1].Value); // happens to be the same format as TimeSpan so yay
+                var time = TimeSpan.Parse(m.Value.Split('=')[1]); // happens to be the same format as TimeSpan so yay
                 var progress = Math.Abs((float)time.TotalSeconds / _induration); // sometimes the progress is negative, breaking the progressBar
                 progress = Math.Min(progress, 1); // sometimes progress becomes more than 100%, which breaks the progressBar
                 progressBar.InvokeIfRequired(() =>
@@ -470,6 +480,7 @@ namespace WebMConverter.Dialogs
             }
             else
             {
+                taskbarManager.SetProgressValue(1000, 1000);
                 boxOutput.AppendText($"{Environment.NewLine}{Environment.NewLine}Video converted succesfully!");
                 GetFileSize();
                 pictureStatus.BackgroundImage = StatusImages.Images["Success"];
