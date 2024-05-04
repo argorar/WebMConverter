@@ -34,8 +34,6 @@ namespace WebMConverter
             set { rotateFlipType = value; GeneratePreview(); }
         }
 
-
-
         public PreviewFrame()
         {
             if (Program.VideoSource != null)
@@ -46,10 +44,15 @@ namespace WebMConverter
 
                 frame = Program.VideoSource.GetFrame((int)framenumber);
 
-                if (frame.EncodedResolution.Width * frame.EncodedResolution.Height > 2073600) // 1080p (1920*1080)
+                if (frame.EncodedResolution.Width * frame.EncodedResolution.Height >= 2073600) // 1080p (1920*1080)
                 {
                     encodeW = frame.EncodedResolution.Width / 2;
                     encodeH = frame.EncodedResolution.Height / 2;
+                }
+                else if (frame.EncodedResolution.Width * frame.EncodedResolution.Height >= 8294400)
+                {
+                    encodeW = frame.EncodedResolution.Width / 4;
+                    encodeH = frame.EncodedResolution.Height / 4;
                 }
                 else
                 {
@@ -94,7 +97,6 @@ namespace WebMConverter
 
         public void GeneratePreview(bool force)
         {
-
             if (Program.VideoSource == null)
                 return;
 
@@ -105,7 +107,6 @@ namespace WebMConverter
             {
                 Picture.BackgroundImage = MainForm.cache[(int)framenumber];
                 Picture.ClientSize = new Size(width, height);
-                Picture.Refresh();
                 SetPadding();
                 return;
             }
@@ -136,7 +137,6 @@ namespace WebMConverter
                 MainForm.cache.TryAdd((int)framenumber, (Bitmap)destImage.Clone());
 
             Picture.BackgroundImage = destImage;
-            Picture.Refresh();
             SetPadding();
             cachedframenumber = (int)framenumber;
         }

@@ -220,24 +220,24 @@ namespace WebMConverter
                     command = "";
                     break;
                 case RotateMode.Right:
-                    command = "TurnRight() ";
+                    command = "transpose=1";
                     break;
                 case RotateMode.Twice:
-                    command = "TurnRight() TurnRight() ";
+                    command = "transpose=2";
                     break;
                 case RotateMode.Left:
-                    command = "TurnLeft() ";
+                    command = "transpose=3";
                     break;
             }
 
             if (FlipHorizontal)
             {
-                command += "FlipHorizontal() ";
+                command += ", hflip";
             }
 
             if (FlipVertical)
             {
-                command += "FlipVertical()";
+                command += ", vflip";
             }
 
             return command;

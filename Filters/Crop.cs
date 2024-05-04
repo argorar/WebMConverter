@@ -25,6 +25,7 @@ namespace WebMConverter
         private RectangleF cropPercent;
         private int currentFrame;
         private IDictionary<int, CropPoint> cropsList = new Dictionary<int, CropPoint>();
+        private bool open = true;
         private enum Corner
         {
             TopLeft,
@@ -51,6 +52,18 @@ namespace WebMConverter
         {
             InitializeComponent();
             SetEvents();
+        }
+
+        private void LoadDynamicCrop()
+        {
+            if (Filters.DynamicCrop != null)
+            {
+                open = false;
+                dynamicCropActive.Checked = true;
+                cropsList = Filters.DynamicCrop.crops;
+                cropPercent = Filters.DynamicCrop.cropArea;
+                open = true;
+            }
         }
 
         private void SetEvents()
@@ -99,6 +112,7 @@ namespace WebMConverter
                 trackVideoTimeline.Maximum = Filters.MultipleTrim.Trims[Filters.MultipleTrim.Trims.Count - 1].TrimEnd;
                 trimTimingToolStripMenuItem.Enabled = true;
             }
+            LoadDynamicCrop();
         }
 
         private void previewPicture_MouseDown(object sender, MouseEventArgs e)
@@ -378,7 +392,7 @@ namespace WebMConverter
 
         private void GenerateFilter(IDictionary<int, CropPoint> cropsList)
         {
-            GeneratedCropPanFilter = new DynamicCropFilter(cropsList, trackVideoTimeline.Maximum);
+            GeneratedCropPanFilter = new DynamicCropFilter(cropsList, trackVideoTimeline.Maximum, cropPercent);
         }
         private void GenerateFilter(int width, int height)
         {
@@ -709,7 +723,9 @@ namespace WebMConverter
         {
             dynamicCropActive.ForeColor = dynamicCropActive.Checked ? Color.Green : Color.Black;
 
-            if (newHeight == 0 && dynamicCropActive.Checked)
+            cropBars.Enabled = dynamicCropActive.Checked ? false : true;
+
+            if (newHeight == 0 && dynamicCropActive.Checked && open)
                 ShowNewDimension();
         }
 
@@ -719,10 +735,12 @@ namespace WebMConverter
             if (cropBars.Checked)
             {
                 Filters.CropBarsFilter = new CropBarsFilter();
+                dynamicCropActive.Enabled = false;
             }
             else
             {
                 Filters.CropBarsFilter = null;
+                dynamicCropActive.Enabled = true;
             }
             
         }
@@ -767,9 +785,13 @@ namespace WebMConverter
     public class DynamicCropFilter
     {
         private readonly string cropFilter;
+        public IDictionary<int, CropPoint> crops { get; }
+        public RectangleF cropArea { get; }
 
-        public DynamicCropFilter(IDictionary<int, CropPoint> cropsList, int maximum)
+        public DynamicCropFilter(IDictionary<int, CropPoint> cropsList, int maximum, RectangleF cropPercent)
         {
+            cropArea = cropPercent;
+            crops = cropsList;
             List<KeyValuePair<int, CropPoint>> listCrops = cropsList.ToList();
             string crop = listCrops[0].Value.Crop;
             string easeType = "easeInOutSine";

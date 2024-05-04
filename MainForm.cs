@@ -1058,16 +1058,11 @@ namespace WebMConverter
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    if (boxAdvancedScripting.Checked)
-                    {
-                        textBoxProcessingScript.AppendText(Environment.NewLine + form.GeneratedFilter);
-                    }
-                    else
-                    {
-                        Filters.Rotate = form.GeneratedFilter;
-                        listViewProcessingScript.Items.Add("Rotate", "rotate");
-                        (sender as ToolStripItem).Enabled = false;
-                    }
+                    
+                    Filters.Rotate = form.GeneratedFilter;
+                    listViewProcessingScript.Items.Add("Rotate", "rotate");
+                    (sender as ToolStripItem).Enabled = false;
+                    UpdateArguments(sender, e);
                 }
             }
         }
@@ -1240,6 +1235,7 @@ namespace WebMConverter
                         if (form.ShowDialog(this) == DialogResult.OK)
                         {
                             Filters.Rotate = form.GeneratedFilter;
+                            UpdateArguments(sender, e);
                         }
                     }
                     break;
@@ -2223,7 +2219,9 @@ namespace WebMConverter
             string avsFileName = GetTemporaryFile();
             WriteAvisynthScript(avsFileName, input);
 
+            List<string> listVF = new List<string>();
             string levels = string.Empty;
+
             switch (comboLevels.SelectedIndex)
             {
                 case 1:
@@ -2237,11 +2235,20 @@ namespace WebMConverter
                     break;
             }
 
-            if (!string.IsNullOrEmpty(levels))
-                levels = " -vf " + levels;
+            if (!String.IsNullOrEmpty(levels))
+                listVF.Add(levels);
+
+            if (Filters.Rotate != null)
+                listVF.Add(Filters.Rotate.ToString());
+
+            string filter = string.Empty;
+
+            if (listVF.Count > 0)
+                filter = $" -vf \"{UnionVF(listVF)}\"";
 
             var disableAudio = boxAudio.Checked ? "" : "-an";
-            var ffplay = new FFplay($@"-window_title Preview -loop 0 -f avisynth -v error {disableAudio}{levels} ""{avsFileName}""");
+            var a = $@"-window_title Preview -loop 0 -f avisynth -v error {disableAudio} {filter} ""{avsFileName}""";
+            var ffplay = new FFplay($@"-window_title Preview -loop 0 -f avisynth -v error {disableAudio} {filter} ""{avsFileName}""");
             ffplay.Exited += delegate
             {
                 string error = ffplay.ErrorLog;
@@ -2505,6 +2512,9 @@ namespace WebMConverter
             if (!String.IsNullOrEmpty(textBoxdB.Text) && boxAudio.Checked)
                 audioFilter = $" -filter:a \"volume={textBoxdB.Text}dB\" ";
 
+            if (Filters.Rotate != null)
+                listVF.Add(Filters.Rotate.ToString());
+
             string filter = string.Empty;
 
             if(listVF.Count > 0)
@@ -2646,8 +2656,6 @@ namespace WebMConverter
                 script.AppendLine(Filters.Reverse.ToString());
             if (Filters.Fade != null)
                 script.AppendLine(Filters.Fade.ToString());
-            if (Filters.Rotate != null)
-                script.AppendLine(Filters.Rotate.ToString());
             if (Filters.DelayAudio != null)
                 script.AppendLine(Filters.DelayAudio.ToString());
             if (Filters.CropBarsFilter != null)

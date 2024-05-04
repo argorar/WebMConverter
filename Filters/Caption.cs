@@ -18,12 +18,14 @@ namespace WebMConverter
         Size videoResolution;
         Point held;
         Point beforeheld;
+        private RectangleF cropPercent;
 
         public CaptionForm()
         {
             InitializeComponent();
             SetFrameRange();
             SetEvents();
+            SetCrop();
         }
 
         public CaptionForm(CaptionFilter filterToEdit)
@@ -31,12 +33,18 @@ namespace WebMConverter
             InitializeComponent();
 
             SetFrameRange();
-
+            SetCrop();
             numericStartFrame.Value = filterToEdit.Start;
             numericEndFrame.Value = filterToEdit.End;
             InputFilter = filterToEdit;
 
             SetEvents();
+        }
+
+        private void SetCrop()
+        {
+            if (Filters.Crop != null)
+                cropPercent = Filters.Crop.cropPercent;
         }
 
         private void SetFrameRange()
@@ -48,6 +56,7 @@ namespace WebMConverter
         private void SetEvents()
         {
             previewFrame.Picture.Paint += new PaintEventHandler(this.previewPicture_Paint);
+            previewFrame.Picture.Paint += new PaintEventHandler(this.previewPicture_Crop);
             previewFrame.Picture.MouseDown += new MouseEventHandler(this.previewPicture_MouseDown);
             previewFrame.Picture.MouseMove += new MouseEventHandler(this.previewPicture_MouseMove);
         }
@@ -117,6 +126,34 @@ namespace WebMConverter
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.FillPath(new SolidBrush(colorDialogTextColor.Color), path);
             g.DrawPath(new Pen(new SolidBrush(colorDialogBorderColor.Color), (float)numericBorderThickness.Value * scale), path);
+        }
+
+        private void previewPicture_Crop(object sender, PaintEventArgs e)
+        {
+            if (Filters.Crop == null)
+                return;
+            
+            var g = e.Graphics;
+            var edgePen = new Pen(Color.White, 1f);
+            var dotBrush = new SolidBrush(Color.White);
+            var outsideBrush = new HatchBrush(HatchStyle.Percent50, Color.Transparent);
+
+            var maxW = previewFrame.Picture.Width;
+            var maxH = previewFrame.Picture.Height;
+            var x = cropPercent.X * previewFrame.Picture.Width;
+            var y = cropPercent.Y * previewFrame.Picture.Height;
+            var w = cropPercent.Width * maxW;
+            var h = cropPercent.Height * maxH;
+
+            //Darken background
+            g.FillRectangle(outsideBrush, 0, 0, maxW, y);
+            g.FillRectangle(outsideBrush, 0, y, x, h);
+            g.FillRectangle(outsideBrush, x + w, y, maxW - (x + w), h);
+            g.FillRectangle(outsideBrush, 0, y + h, maxW, maxH);
+
+            //Edge
+            g.DrawRectangle(edgePen, x, y, w, h);
+
         }
 
         void previewPicture_MouseDown(object sender, MouseEventArgs e)

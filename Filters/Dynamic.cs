@@ -9,6 +9,7 @@ using static WebMConverter.Utility;
 using System.Collections;
 using WebMConverter.Objects;
 using System.Text;
+using System.Collections.Generic;
 
 namespace WebMConverter
 {
@@ -117,23 +118,30 @@ namespace WebMConverter
             var g = e.Graphics;
             var edgePen = new Pen(Color.White, 2f);
             var dotBrush = new SolidBrush(Color.Red);
-            var outsideBrush = new HatchBrush(HatchStyle.Percent80, Color.Transparent);
-
-            g.FillRectangle(outsideBrush, 0, 0, previewFrame.Size.Width, previewFrame.Size.Height);
+            var outsideBrush = new HatchBrush(HatchStyle.Percent70, Color.Transparent);
 
             PointF[] drawPoints = new PointF[points.Count];
 
             var h = previewFrame.Picture.Size.Height;
             var w = previewFrame.Picture.Size.Width;
+            List<PointF> polygon = new List<PointF>();
+            polygon.Add(new PointF(0, h));
 
             for (int i = 0; i < points.Count; i++)
             {
                 SpeedPoint point = (SpeedPoint)points.GetByIndex(i);
                 int keyFrame = (int)points.GetKey(i);
-
-                drawPoints[i] = new PointF(((((float)keyFrame - trimStart) * 100) / (trimEnd - trimStart)) / 100 * w , (h * (1 - (float)point.Speed)) / 2 + h / 2);
+                float x = ((((float)keyFrame - trimStart) * 100) / (trimEnd - trimStart)) / 100 * w;
+                float y = (h * (1 - (float)point.Speed)) / 2 + h / 2;
+                var pointF = new PointF(x, y);
+                drawPoints[i] = pointF;
+                polygon.Add(pointF);
             }
-
+            
+            polygon.Add(new PointF( w, h));
+            polygon.Add(new PointF(0, h));
+            
+            g.FillPolygon(outsideBrush, polygon.ToArray());
             g.DrawLines(edgePen, drawPoints);
 
             float diameter = 6;

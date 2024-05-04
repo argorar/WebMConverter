@@ -231,6 +231,13 @@ If you have any issues with this program, you may report them on [here][NewIssue
 
 ## Changelog
 
+#### Version 3.39.0
+* Add in caption filter crop zone when it exist previously
+* Improve preview performance 
+* Improve shadow under dynamic points
+* Refactor rotate filter to ffmpeg commands
+* Update ffmpeg to v6.1
+
 #### Version 3.38.0
 * Add audio amplification option
 * Increase cache size for preview frames
