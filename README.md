@@ -212,6 +212,7 @@ Drag and drop two or more video files inside the application, select what do you
 * Get high quality video in webm and mp4 format
 * Interpolate, more frames to your video
 * Deinterlace
+* Denoise
 
 ### Shortcut keys
 
@@ -225,9 +226,6 @@ Drag and drop two or more video files inside the application, select what do you
 * bouteloua
 * ManletPride
 * 3nly
-
-## Issues
-If you have any issues with this program, you may report them on [here][NewIssue]. **Add the respective video to test and configuration used if not the issue will be closed**.
 
 ## Changelog
 
