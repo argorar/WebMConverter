@@ -229,6 +229,9 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
+#### Version 3.39.1
+* Fix *Resize* window not showing in second monitor
+
 #### Version 3.39.0
 * Add in caption filter crop zone when it exist previously
 * Improve preview performance 

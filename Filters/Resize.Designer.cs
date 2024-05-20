@@ -195,6 +195,7 @@
             this.Name = "ResizeForm";
             this.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Resize";
             this.Load += new System.EventHandler(this.ResizeForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
