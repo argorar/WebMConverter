@@ -229,6 +229,10 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
+#### Version 3.39.2
+* Allow long file names by @DoTheSneedful
+* Improve workflow using dynamic filters
+
 #### Version 3.39.1
 * Fix *Resize* window not showing in second monitor
 

@@ -2885,6 +2885,13 @@ namespace WebMConverter
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
+                    
+                    foreach (ListViewItem item in listViewProcessingScript.Items)
+                    {
+                        if (item.Text.Equals("Dynamic") || item.Text.Equals("Crop"))
+                            removeFilter(item);
+                    }
+
                     Filters.Trim = form.GeneratedFilter;
                     UpdateArguments(sender, e);
                 }
