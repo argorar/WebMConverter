@@ -2888,7 +2888,7 @@ namespace WebMConverter
                     
                     foreach (ListViewItem item in listViewProcessingScript.Items)
                     {
-                        if (item.Text.Equals("Dynamic") || item.Text.Equals("Crop"))
+                        if (item.Text.Equals("Dynamic") || (item.Text.Equals("Crop") && Filters.DynamicCrop != null))
                             removeFilter(item);
                     }
 

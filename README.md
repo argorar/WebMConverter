@@ -229,7 +229,7 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
-#### Version 3.39.2
+#### Version 3.39.3
 * Allow long file names by @DoTheSneedful
 * Improve workflow using dynamic filters
 
@@ -246,8 +246,6 @@ Drag and drop two or more video files inside the application, select what do you
 #### Version 3.38.0
 * Add audio amplification option
 * Increase cache size for preview frames
-
-#### Version 3.37.1
 * Minor changes underhood and UI
 
 #### Version 3.37.0
