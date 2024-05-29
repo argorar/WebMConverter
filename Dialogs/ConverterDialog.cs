@@ -604,10 +604,7 @@ namespace WebMConverter.Dialogs
             httpWRequest.Method = "POST";
             httpWRequest.Headers.Add("Authorization", "Bearer " + Program.token);
             var aux = _outfile.Split('\\');
-            string tmp = StringTags();
             string postData = " {\"title\":\"" + aux[aux.Length - 1].Split('.')[0] + "\",";
-            if (!String.IsNullOrEmpty(tmp))
-                postData = postData + "\"tags\": [" + StringTags() + "],";
             postData = postData + "\"nsfw\": 0}";
             UTF8Encoding encoding = new UTF8Encoding();
             byte[] byte1 = encoding.GetBytes(postData);
@@ -633,27 +630,6 @@ namespace WebMConverter.Dialogs
                     MessageBox.Show(exc.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-
-        private string StringTags()
-        {
-            string[] tags = ((MainForm)Owner).GetGfyTags();
-
-            if (tags == null)
-                return string.Empty;
-
-            if (tags.Length == 1)
-                return $"\"{tags[0]}\"";
-
-            string text = string.Empty;
-            foreach (string tag in tags)
-            {
-                if (!String.IsNullOrEmpty(text))
-                    text = $"{text},\"{tag}\"";
-                else
-                    text = $"\"{tag}\"";
-            }
-            return text;
         }
 
         private void buttonCreate_Click(object sender, EventArgs e)

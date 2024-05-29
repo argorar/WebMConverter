@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -424,6 +425,17 @@ namespace WebMConverter
                 auxName = $"{auxName}-2";
 
             return $"{directory}\\{auxName}{extension}";
+        }
+
+        public static System.Drawing.Font CreateFontFromString(String data)
+        {
+            string[] fontInfo = data.Split(',');
+
+            string fontName = fontInfo[0].Split('=')[1];
+            float fontSize = float.Parse(fontInfo[1].Split('=')[1]);
+            FontStyle fontStyle = FontStyle.Regular;
+
+            return new Font(fontName, fontSize, fontStyle);
         }
 
     }

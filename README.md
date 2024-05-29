@@ -229,6 +229,9 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
+#### Version 3.40.0
+* Now you can set default values to caption filter, find it in *General* tab
+
 #### Version 3.39.3
 * Allow long file names by @DoTheSneedful
 * Improve workflow using dynamic filters

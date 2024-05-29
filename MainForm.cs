@@ -137,6 +137,10 @@ namespace WebMConverter
         public static readonly int MAX_CAPACITY = 400;
         private const int MAX_PROCESS = 2;
         public static AspectRatio aspectRatio { get; set; }
+
+        private System.Windows.Forms.ColorDialog colorDialogTextColor;
+        private System.Windows.Forms.ColorDialog colorDialogBorderColor;
+        private System.Windows.Forms.FontDialog fontDialog;
         #region MainForm
 
         public MainForm()
@@ -149,7 +153,6 @@ namespace WebMConverter
             InitializeComponent();
             this.KeyPreview = true;
             taskbarManager = TaskbarManager.Instance;
-            groupGfycat.Visible = false;
             CheckAppSettings();
             CheckProccess();
             LoadConfiguration();
@@ -227,6 +230,18 @@ namespace WebMConverter
 
             if (!configuration.AppSettings.Settings.AllKeys.Contains("h265"))
                 configuration.AppSettings.Settings.Add("h265", "False");
+
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("Font"))
+                configuration.AppSettings.Settings.Add("Font", "");
+
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("Text"))
+                configuration.AppSettings.Settings.Add("Text", "");
+
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("TextColor"))
+                configuration.AppSettings.Settings.Add("TextColor", "");
+
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("BorderColor"))
+                configuration.AppSettings.Settings.Add("BorderColor", "");
         }
 
         private void ToolTip()
@@ -327,6 +342,7 @@ namespace WebMConverter
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["PathDownload"].Value))
                 textPathDownloaded.Text = configuration.AppSettings.Settings["PathDownload"].Value;
 
+            boxDefaultText.Text = configuration.AppSettings.Settings["Text"].Value;
             CRF4k.Value = Decimal.Parse(configuration.AppSettings.Settings["CRF4k"].Value);
             CRFother.Value = Decimal.Parse(configuration.AppSettings.Settings["CRFother"].Value);
             checkBoxAlpha.Enabled = boxNGOV.Checked && !checkMP4.Checked;
@@ -524,7 +540,7 @@ namespace WebMConverter
             if (args.Length > 1) // We were "Open with..."ed with a file
                 SetFile(args[1]);
             SendMessage(textBoxIn.Handle, EM_SETCUEBANNER, 0, "Paste URL here if you want to download a video, to download just a part add @*start_time-end_time e.g. URL@*5:35-5:45");
-            SendMessage(boxTags.Handle, EM_SETCUEBANNER, 0, "tag1,tag2,tag3...");
+            
             this.ActiveControl = buttonBrowseIn;
             if (!Program.DisableUpdates)
             {
@@ -2836,12 +2852,7 @@ namespace WebMConverter
         {
             UpdateConfiguration("RefreshToken", string.Empty);
             Program.token = string.Empty;
-            groupGfycat.Visible = false;
-        }
 
-        public string[] GetGfyTags()
-        {
-            return String.IsNullOrEmpty(boxTags.Text) ? null : boxTags.Text.Split(',');
         }
 
         private void listViewProcessingScript_KeyDown(object sender, KeyEventArgs e)
@@ -3136,6 +3147,62 @@ namespace WebMConverter
         private void textBoxdB_TextChanged(object sender, EventArgs e)
         {
             UpdateArguments(sender, e);
+        }
+
+        private void buttonFont_Click(object sender, EventArgs e)
+        {
+            using (fontDialog = new FontDialog())
+            {
+                if (!String.IsNullOrEmpty(getConfigurationValue("Font")))
+                    fontDialog.Font = Utility.CreateFontFromString(getConfigurationValue("Font"));
+                
+                if (fontDialog.ShowDialog() == DialogResult.OK)
+                    UpdateConfiguration("Font", fontDialog.Font.ToString());
+            }            
+        }
+
+        private void buttonTextColor_Click(object sender, EventArgs e)
+        {
+            using (colorDialogTextColor = new ColorDialog())
+            {
+                if (!String.IsNullOrEmpty(getConfigurationValue("TextColor")))
+                    colorDialogTextColor.Color = Color.FromArgb(Int32.Parse(getConfigurationValue("TextColor")));
+
+                if (colorDialogTextColor.ShowDialog() == DialogResult.OK)
+                    UpdateConfiguration("TextColor", colorDialogTextColor.Color.ToArgb().ToString());
+            }
+                
+        }
+
+        private void buttonBorderColor_Click(object sender, EventArgs e)
+        {
+            using (colorDialogBorderColor = new ColorDialog())
+            {
+                if (!String.IsNullOrEmpty(getConfigurationValue("BorderColor")))
+                    colorDialogBorderColor.Color = Color.FromArgb(Int32.Parse(getConfigurationValue("BorderColor")));
+
+                if (colorDialogBorderColor.ShowDialog() == DialogResult.OK)
+                    UpdateConfiguration("BorderColor", colorDialogBorderColor.Color.ToArgb().ToString());
+            }
+        }
+
+        public String getConfigurationValue(String key)
+        {
+            return configuration.AppSettings.Settings[key].Value;
+        }
+
+        private void boxDefaultText_TextChanged(object sender, EventArgs e)
+        {
+            UpdateConfiguration("Text", boxDefaultText.Text);
+        }
+
+        private void buttonRemove_Click(object sender, EventArgs e)
+        {
+            UpdateConfiguration("Font", String.Empty);
+            UpdateConfiguration("TextColor", String.Empty);
+            UpdateConfiguration("BorderColor", String.Empty);
+            UpdateConfiguration("Text", String.Empty);
+            boxDefaultText.Text = String.Empty;
         }
     }
 }

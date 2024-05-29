@@ -184,17 +184,14 @@ namespace WebMConverter
             this.lblPathDownload = new System.Windows.Forms.Label();
             this.labelMaintained = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.groupGfycat = new System.Windows.Forms.GroupBox();
-            this.boxTags = new System.Windows.Forms.TextBox();
-            this.labelTags = new System.Windows.Forms.Label();
-            this.buttonLogOut = new System.Windows.Forms.Button();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.lblFollowers = new System.Windows.Forms.Label();
-            this.lblViews = new System.Windows.Forms.Label();
-            this.lblTotalGfys = new System.Windows.Forms.Label();
-            this.lblPublicGfys = new System.Windows.Forms.Label();
+            this.groupCaption = new System.Windows.Forms.GroupBox();
+            this.buttonRemove = new System.Windows.Forms.Button();
+            this.boxDefaultText = new System.Windows.Forms.TextBox();
+            this.labelDefaultText = new System.Windows.Forms.Label();
+            this.buttonBorderColor = new System.Windows.Forms.Button();
+            this.buttonTextColor = new System.Windows.Forms.Button();
+            this.buttonFont = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.lblUser = new System.Windows.Forms.Label();
             this.tabGrid = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.labelStep1Grid = new System.Windows.Forms.Label();
@@ -320,8 +317,7 @@ namespace WebMConverter
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CRFother)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CRF4k)).BeginInit();
-            this.groupGfycat.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            this.groupCaption.SuspendLayout();
             this.tabGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -540,7 +536,7 @@ namespace WebMConverter
             toolStripProcessing.Name = "toolStripProcessing";
             toolStripProcessing.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             toolStripProcessing.ShowItemToolTips = false;
-            toolStripProcessing.Size = new System.Drawing.Size(1399, 25);
+            toolStripProcessing.Size = new System.Drawing.Size(1399, 27);
             toolStripProcessing.TabIndex = 0;
             toolStripProcessing.TabStop = true;
             // 
@@ -552,7 +548,7 @@ namespace WebMConverter
             this.buttonTrim.Enabled = false;
             this.buttonTrim.Margin = new System.Windows.Forms.Padding(0, 1, 3, 2);
             this.buttonTrim.Name = "buttonTrim";
-            this.buttonTrim.Size = new System.Drawing.Size(46, 22);
+            this.buttonTrim.Size = new System.Drawing.Size(57, 24);
             this.buttonTrim.Text = "Trim";
             this.buttonTrim.ButtonClick += new System.EventHandler(this.buttonTrim_Click);
             this.buttonTrim.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -562,7 +558,7 @@ namespace WebMConverter
             // 
             this.buttonMultipleTrim.AccessibleDescription = "Select many clips from your video, and sort them on a timeline.";
             this.buttonMultipleTrim.Name = "buttonMultipleTrim";
-            this.buttonMultipleTrim.Size = new System.Drawing.Size(144, 22);
+            this.buttonMultipleTrim.Size = new System.Drawing.Size(180, 26);
             this.buttonMultipleTrim.Text = "Multiple Trim";
             this.buttonMultipleTrim.Click += new System.EventHandler(this.buttonMultipleTrim_Click);
             this.buttonMultipleTrim.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -574,7 +570,7 @@ namespace WebMConverter
             this.buttonCrop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonCrop.Enabled = false;
             this.buttonCrop.Name = "buttonCrop";
-            this.buttonCrop.Size = new System.Drawing.Size(37, 22);
+            this.buttonCrop.Size = new System.Drawing.Size(45, 24);
             this.buttonCrop.Text = "Crop";
             this.buttonCrop.Click += new System.EventHandler(this.buttonCrop_Click);
             this.buttonCrop.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -586,7 +582,7 @@ namespace WebMConverter
             this.buttonResize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonResize.Enabled = false;
             this.buttonResize.Name = "buttonResize";
-            this.buttonResize.Size = new System.Drawing.Size(43, 22);
+            this.buttonResize.Size = new System.Drawing.Size(55, 24);
             this.buttonResize.Text = "Resize";
             this.buttonResize.Click += new System.EventHandler(this.buttonResize_Click);
             this.buttonResize.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -598,7 +594,7 @@ namespace WebMConverter
             this.buttonSubtitle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonSubtitle.Enabled = false;
             this.buttonSubtitle.Name = "buttonSubtitle";
-            this.buttonSubtitle.Size = new System.Drawing.Size(56, 22);
+            this.buttonSubtitle.Size = new System.Drawing.Size(70, 24);
             this.buttonSubtitle.Text = "Subtitles";
             this.buttonSubtitle.Click += new System.EventHandler(this.buttonSubtitle_Click);
             this.buttonSubtitle.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -610,7 +606,7 @@ namespace WebMConverter
             this.buttonReverse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonReverse.Enabled = false;
             this.buttonReverse.Name = "buttonReverse";
-            this.buttonReverse.Size = new System.Drawing.Size(51, 22);
+            this.buttonReverse.Size = new System.Drawing.Size(64, 24);
             this.buttonReverse.Text = "Reverse";
             this.buttonReverse.Click += new System.EventHandler(this.buttonReverse_Click);
             this.buttonReverse.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -622,7 +618,7 @@ namespace WebMConverter
             this.buttonOverlay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonOverlay.Enabled = false;
             this.buttonOverlay.Name = "buttonOverlay";
-            this.buttonOverlay.Size = new System.Drawing.Size(51, 22);
+            this.buttonOverlay.Size = new System.Drawing.Size(63, 24);
             this.buttonOverlay.Text = "Overlay";
             this.buttonOverlay.Click += new System.EventHandler(this.buttonOverlay_Click);
             this.buttonOverlay.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -634,7 +630,7 @@ namespace WebMConverter
             this.buttonCaption.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonCaption.Enabled = false;
             this.buttonCaption.Name = "buttonCaption";
-            this.buttonCaption.Size = new System.Drawing.Size(53, 22);
+            this.buttonCaption.Size = new System.Drawing.Size(65, 24);
             this.buttonCaption.Text = "Caption";
             this.buttonCaption.Click += new System.EventHandler(this.buttonCaption_Click);
             this.buttonCaption.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -646,7 +642,7 @@ namespace WebMConverter
     "t over if you fuck up.";
             this.boxAdvancedScripting.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.boxAdvancedScripting.Name = "boxAdvancedScripting";
-            this.boxAdvancedScripting.Size = new System.Drawing.Size(64, 22);
+            this.boxAdvancedScripting.Size = new System.Drawing.Size(79, 24);
             this.boxAdvancedScripting.Text = "Advanced";
             this.boxAdvancedScripting.Click += new System.EventHandler(this.boxAdvancedScripting_Click);
             this.boxAdvancedScripting.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -660,7 +656,7 @@ namespace WebMConverter
             this.buttonExportProcessing.Image = ((System.Drawing.Image)(resources.GetObject("buttonExportProcessing.Image")));
             this.buttonExportProcessing.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonExportProcessing.Name = "buttonExportProcessing";
-            this.buttonExportProcessing.Size = new System.Drawing.Size(45, 22);
+            this.buttonExportProcessing.Size = new System.Drawing.Size(56, 24);
             this.buttonExportProcessing.Text = "Export";
             this.buttonExportProcessing.Click += new System.EventHandler(this.buttonExportProcessing_Click);
             // 
@@ -672,7 +668,7 @@ namespace WebMConverter
             this.buttonPreview.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonPreview.Enabled = false;
             this.buttonPreview.Name = "buttonPreview";
-            this.buttonPreview.Size = new System.Drawing.Size(84, 22);
+            this.buttonPreview.Size = new System.Drawing.Size(105, 24);
             this.buttonPreview.Text = "Preview filters";
             this.buttonPreview.Click += new System.EventHandler(this.buttonPreview_Click);
             this.buttonPreview.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -684,7 +680,7 @@ namespace WebMConverter
             this.buttonDub.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonDub.Enabled = false;
             this.buttonDub.Name = "buttonDub";
-            this.buttonDub.Size = new System.Drawing.Size(33, 22);
+            this.buttonDub.Size = new System.Drawing.Size(41, 24);
             this.buttonDub.Text = "Dub";
             this.buttonDub.Click += new System.EventHandler(this.buttonDub_Click);
             this.buttonDub.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -696,7 +692,7 @@ namespace WebMConverter
             this.buttonRate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonRate.Enabled = false;
             this.buttonRate.Name = "buttonRate";
-            this.buttonRate.Size = new System.Drawing.Size(78, 22);
+            this.buttonRate.Size = new System.Drawing.Size(97, 24);
             this.buttonRate.Text = "Change Rate";
             this.buttonRate.Click += new System.EventHandler(this.buttonRate_Click);
             this.buttonRate.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -708,7 +704,7 @@ namespace WebMConverter
             this.buttonRotate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonRotate.Enabled = false;
             this.buttonRotate.Name = "buttonRotate";
-            this.buttonRotate.Size = new System.Drawing.Size(45, 22);
+            this.buttonRotate.Size = new System.Drawing.Size(57, 24);
             this.buttonRotate.Text = "Rotate";
             this.buttonRotate.Click += new System.EventHandler(this.buttonRotate_Click);
             this.buttonRotate.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -720,7 +716,7 @@ namespace WebMConverter
             this.buttonDynamic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonDynamic.Enabled = false;
             this.buttonDynamic.Name = "buttonDynamic";
-            this.buttonDynamic.Size = new System.Drawing.Size(58, 22);
+            this.buttonDynamic.Size = new System.Drawing.Size(71, 24);
             this.buttonDynamic.Text = "Dynamic";
             this.buttonDynamic.Click += new System.EventHandler(this.buttonDynamic_Click_1);
             // 
@@ -730,7 +726,7 @@ namespace WebMConverter
             this.buttonFade.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonFade.Enabled = false;
             this.buttonFade.Name = "buttonFade";
-            this.buttonFade.Size = new System.Drawing.Size(36, 22);
+            this.buttonFade.Size = new System.Drawing.Size(44, 24);
             this.buttonFade.Text = "Fade";
             this.buttonFade.Click += new System.EventHandler(this.buttonFade_Click);
             this.buttonFade.MouseEnter += new System.EventHandler(this.ToolStripItemTooltip);
@@ -1338,7 +1334,7 @@ namespace WebMConverter
             this.checkHWAcceleration.Margin = new System.Windows.Forms.Padding(4);
             this.checkHWAcceleration.Name = "checkHWAcceleration";
             this.checkHWAcceleration.Padding = new System.Windows.Forms.Padding(53, 2, 0, 0);
-            this.checkHWAcceleration.Size = new System.Drawing.Size(303, 22);
+            this.checkHWAcceleration.Size = new System.Drawing.Size(306, 22);
             this.checkHWAcceleration.TabIndex = 7;
             this.checkHWAcceleration.Text = "Hardware Acceleration (NVIDIA GPU)";
             this.checkHWAcceleration.UseVisualStyleBackColor = true;
@@ -1353,7 +1349,7 @@ namespace WebMConverter
             this.box265.Margin = new System.Windows.Forms.Padding(4);
             this.box265.Name = "box265";
             this.box265.Padding = new System.Windows.Forms.Padding(53, 2, 0, 0);
-            this.box265.Size = new System.Drawing.Size(355, 22);
+            this.box265.Size = new System.Drawing.Size(358, 22);
             this.box265.TabIndex = 8;
             this.box265.Text = "Use H265 (No support Hardware Acceleration)";
             this.box265.UseVisualStyleBackColor = true;
@@ -1452,10 +1448,10 @@ namespace WebMConverter
             this.boxMono.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.boxMono.Dock = System.Windows.Forms.DockStyle.Right;
             this.boxMono.Enabled = false;
-            this.boxMono.Location = new System.Drawing.Point(389, 4);
+            this.boxMono.Location = new System.Drawing.Point(386, 4);
             this.boxMono.Margin = new System.Windows.Forms.Padding(4);
             this.boxMono.Name = "boxMono";
-            this.boxMono.Size = new System.Drawing.Size(100, 26);
+            this.boxMono.Size = new System.Drawing.Size(103, 26);
             this.boxMono.TabIndex = 23;
             this.boxMono.Text = "Mono audio:";
             this.boxMono.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1808,10 +1804,10 @@ namespace WebMConverter
             this.boxDenoise.AutoSize = true;
             this.boxDenoise.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.boxDenoise.Dock = System.Windows.Forms.DockStyle.Right;
-            this.boxDenoise.Location = new System.Drawing.Point(214, 38);
+            this.boxDenoise.Location = new System.Drawing.Point(211, 38);
             this.boxDenoise.Margin = new System.Windows.Forms.Padding(4);
             this.boxDenoise.Name = "boxDenoise";
-            this.boxDenoise.Size = new System.Drawing.Size(80, 26);
+            this.boxDenoise.Size = new System.Drawing.Size(83, 26);
             this.boxDenoise.TabIndex = 30;
             this.boxDenoise.Text = "Denoise:";
             this.boxDenoise.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1851,10 +1847,10 @@ namespace WebMConverter
             this.boxDeinterlace.AutoSize = true;
             this.boxDeinterlace.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.boxDeinterlace.Dock = System.Windows.Forms.DockStyle.Right;
-            this.boxDeinterlace.Location = new System.Drawing.Point(35, 72);
+            this.boxDeinterlace.Location = new System.Drawing.Point(32, 72);
             this.boxDeinterlace.Margin = new System.Windows.Forms.Padding(4);
             this.boxDeinterlace.Name = "boxDeinterlace";
-            this.boxDeinterlace.Size = new System.Drawing.Size(98, 26);
+            this.boxDeinterlace.Size = new System.Drawing.Size(101, 26);
             this.boxDeinterlace.TabIndex = 14;
             this.boxDeinterlace.Text = "Deinterlace:";
             this.boxDeinterlace.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1865,10 +1861,10 @@ namespace WebMConverter
             this.boxLoop.AutoSize = true;
             this.boxLoop.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.boxLoop.Dock = System.Windows.Forms.DockStyle.Right;
-            this.boxLoop.Location = new System.Drawing.Point(73, 38);
+            this.boxLoop.Location = new System.Drawing.Point(70, 38);
             this.boxLoop.Margin = new System.Windows.Forms.Padding(4);
             this.boxLoop.Name = "boxLoop";
-            this.boxLoop.Size = new System.Drawing.Size(60, 26);
+            this.boxLoop.Size = new System.Drawing.Size(63, 26);
             this.boxLoop.TabIndex = 16;
             this.boxLoop.Text = "Loop:";
             this.boxLoop.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1954,10 +1950,10 @@ namespace WebMConverter
             this.boxStabilization.AutoSize = true;
             this.boxStabilization.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.boxStabilization.Dock = System.Windows.Forms.DockStyle.Right;
-            this.boxStabilization.Location = new System.Drawing.Point(193, 72);
+            this.boxStabilization.Location = new System.Drawing.Point(190, 72);
             this.boxStabilization.Margin = new System.Windows.Forms.Padding(4);
             this.boxStabilization.Name = "boxStabilization";
-            this.boxStabilization.Size = new System.Drawing.Size(101, 26);
+            this.boxStabilization.Size = new System.Drawing.Size(104, 26);
             this.boxStabilization.TabIndex = 24;
             this.boxStabilization.Text = "Stabilization:";
             this.boxStabilization.UseVisualStyleBackColor = true;
@@ -2317,10 +2313,10 @@ namespace WebMConverter
             this.checkBoxAlpha.AutoSize = true;
             this.checkBoxAlpha.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkBoxAlpha.Dock = System.Windows.Forms.DockStyle.Right;
-            this.checkBoxAlpha.Location = new System.Drawing.Point(41, 104);
+            this.checkBoxAlpha.Location = new System.Drawing.Point(38, 104);
             this.checkBoxAlpha.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxAlpha.Name = "checkBoxAlpha";
-            this.checkBoxAlpha.Size = new System.Drawing.Size(61, 30);
+            this.checkBoxAlpha.Size = new System.Drawing.Size(64, 30);
             this.checkBoxAlpha.TabIndex = 9;
             this.checkBoxAlpha.Text = "Alpha";
             this.checkBoxAlpha.UseVisualStyleBackColor = true;
@@ -2332,7 +2328,7 @@ namespace WebMConverter
             this.tabGeneral.Controls.Add(groupBox1);
             this.tabGeneral.Controls.Add(this.labelMaintained);
             this.tabGeneral.Controls.Add(this.linkLabel1);
-            this.tabGeneral.Controls.Add(this.groupGfycat);
+            this.tabGeneral.Controls.Add(this.groupCaption);
             this.tabGeneral.Location = new System.Drawing.Point(4, 25);
             this.tabGeneral.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabGeneral.Name = "tabGeneral";
@@ -2373,7 +2369,7 @@ namespace WebMConverter
             this.boxFixSubs.Location = new System.Drawing.Point(700, 142);
             this.boxFixSubs.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.boxFixSubs.Name = "boxFixSubs";
-            this.boxFixSubs.Size = new System.Drawing.Size(207, 20);
+            this.boxFixSubs.Size = new System.Drawing.Size(210, 20);
             this.boxFixSubs.TabIndex = 12;
             this.boxFixSubs.Text = "Fix subtitles to cropped videos";
             this.boxFixSubs.UseVisualStyleBackColor = true;
@@ -2384,7 +2380,7 @@ namespace WebMConverter
             this.boxDisableMetadata.Location = new System.Drawing.Point(700, 114);
             this.boxDisableMetadata.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.boxDisableMetadata.Name = "boxDisableMetadata";
-            this.boxDisableMetadata.Size = new System.Drawing.Size(225, 20);
+            this.boxDisableMetadata.Size = new System.Drawing.Size(228, 20);
             this.boxDisableMetadata.TabIndex = 11;
             this.boxDisableMetadata.Text = "Disable set metada automatically";
             this.boxDisableMetadata.UseVisualStyleBackColor = true;
@@ -2396,7 +2392,7 @@ namespace WebMConverter
             this.boxDisableExtractSubtitles.Location = new System.Drawing.Point(700, 91);
             this.boxDisableExtractSubtitles.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.boxDisableExtractSubtitles.Name = "boxDisableExtractSubtitles";
-            this.boxDisableExtractSubtitles.Size = new System.Drawing.Size(327, 20);
+            this.boxDisableExtractSubtitles.Size = new System.Drawing.Size(330, 20);
             this.boxDisableExtractSubtitles.TabIndex = 10;
             this.boxDisableExtractSubtitles.Text = "Disable extract subtitles. Big videos will load faster ";
             this.boxDisableExtractSubtitles.UseVisualStyleBackColor = true;
@@ -2408,7 +2404,7 @@ namespace WebMConverter
             this.boxDisableUpdates.Location = new System.Drawing.Point(12, 140);
             this.boxDisableUpdates.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.boxDisableUpdates.Name = "boxDisableUpdates";
-            this.boxDisableUpdates.Size = new System.Drawing.Size(395, 20);
+            this.boxDisableUpdates.Size = new System.Drawing.Size(398, 20);
             this.boxDisableUpdates.TabIndex = 9;
             this.boxDisableUpdates.Text = "Disable check for updates. You will not get the latest and better";
             this.boxDisableUpdates.UseVisualStyleBackColor = true;
@@ -2420,7 +2416,7 @@ namespace WebMConverter
             this.boxDownloadOptions.Location = new System.Drawing.Point(12, 114);
             this.boxDownloadOptions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.boxDownloadOptions.Name = "boxDownloadOptions";
-            this.boxDownloadOptions.Size = new System.Drawing.Size(347, 20);
+            this.boxDownloadOptions.Size = new System.Drawing.Size(350, 20);
             this.boxDownloadOptions.TabIndex = 8;
             this.boxDownloadOptions.Text = "Disable select automatically format to download video";
             this.boxDownloadOptions.UseVisualStyleBackColor = true;
@@ -2432,7 +2428,7 @@ namespace WebMConverter
             this.boxDisablePop.Location = new System.Drawing.Point(12, 91);
             this.boxDisablePop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.boxDisablePop.Name = "boxDisablePop";
-            this.boxDisablePop.Size = new System.Drawing.Size(336, 20);
+            this.boxDisablePop.Size = new System.Drawing.Size(339, 20);
             this.boxDisablePop.TabIndex = 7;
             this.boxDisablePop.Text = "Disable pop in front when convert process is finished";
             this.boxDisablePop.UseVisualStyleBackColor = true;
@@ -2552,100 +2548,85 @@ namespace WebMConverter
             this.linkLabel1.Text = "Visit the website";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // groupGfycat
+            // groupCaption
             // 
-            this.groupGfycat.Controls.Add(this.boxTags);
-            this.groupGfycat.Controls.Add(this.labelTags);
-            this.groupGfycat.Controls.Add(this.buttonLogOut);
-            this.groupGfycat.Controls.Add(this.pictureBox);
-            this.groupGfycat.Controls.Add(this.lblFollowers);
-            this.groupGfycat.Controls.Add(this.lblViews);
-            this.groupGfycat.Controls.Add(this.lblTotalGfys);
-            this.groupGfycat.Controls.Add(this.lblPublicGfys);
-            this.groupGfycat.Controls.Add(this.label2);
-            this.groupGfycat.Controls.Add(this.lblUser);
-            this.groupGfycat.Location = new System.Drawing.Point(5, 198);
-            this.groupGfycat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupGfycat.Name = "groupGfycat";
-            this.groupGfycat.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupGfycat.Size = new System.Drawing.Size(1393, 108);
-            this.groupGfycat.TabIndex = 5;
-            this.groupGfycat.TabStop = false;
-            this.groupGfycat.Text = "Gfycat";
+            this.groupCaption.Controls.Add(this.buttonRemove);
+            this.groupCaption.Controls.Add(this.boxDefaultText);
+            this.groupCaption.Controls.Add(this.labelDefaultText);
+            this.groupCaption.Controls.Add(this.buttonBorderColor);
+            this.groupCaption.Controls.Add(this.buttonTextColor);
+            this.groupCaption.Controls.Add(this.buttonFont);
+            this.groupCaption.Controls.Add(this.label2);
+            this.groupCaption.Location = new System.Drawing.Point(5, 198);
+            this.groupCaption.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupCaption.Name = "groupCaption";
+            this.groupCaption.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupCaption.Size = new System.Drawing.Size(1393, 90);
+            this.groupCaption.TabIndex = 5;
+            this.groupCaption.TabStop = false;
+            this.groupCaption.Text = "Caption default settings";
             // 
-            // boxTags
+            // buttonRemove
             // 
-            this.boxTags.Location = new System.Drawing.Point(308, 70);
-            this.boxTags.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.boxTags.Name = "boxTags";
-            this.boxTags.Size = new System.Drawing.Size(385, 22);
-            this.boxTags.TabIndex = 9;
+            this.buttonRemove.Location = new System.Drawing.Point(1200, 36);
+            this.buttonRemove.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonRemove.Name = "buttonRemove";
+            this.buttonRemove.Size = new System.Drawing.Size(184, 28);
+            this.buttonRemove.TabIndex = 10;
+            this.buttonRemove.Text = "Remove";
+            this.buttonRemove.UseVisualStyleBackColor = true;
+            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
-            // labelTags
+            // boxDefaultText
             // 
-            this.labelTags.AutoSize = true;
-            this.labelTags.Location = new System.Drawing.Point(268, 71);
-            this.labelTags.Name = "labelTags";
-            this.labelTags.Size = new System.Drawing.Size(45, 16);
-            this.labelTags.TabIndex = 8;
-            this.labelTags.Text = "Tags: ";
+            this.boxDefaultText.Location = new System.Drawing.Point(631, 41);
+            this.boxDefaultText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.boxDefaultText.Name = "boxDefaultText";
+            this.boxDefaultText.Size = new System.Drawing.Size(385, 22);
+            this.boxDefaultText.TabIndex = 9;
+            this.boxDefaultText.TextChanged += new System.EventHandler(this.boxDefaultText_TextChanged);
             // 
-            // buttonLogOut
+            // labelDefaultText
             // 
-            this.buttonLogOut.Location = new System.Drawing.Point(8, 60);
-            this.buttonLogOut.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonLogOut.Name = "buttonLogOut";
-            this.buttonLogOut.Size = new System.Drawing.Size(75, 32);
-            this.buttonLogOut.TabIndex = 7;
-            this.buttonLogOut.Text = "Log Out";
-            this.buttonLogOut.UseVisualStyleBackColor = true;
-            this.buttonLogOut.Click += new System.EventHandler(this.buttonLogOut_Click);
+            this.labelDefaultText.AutoSize = true;
+            this.labelDefaultText.Location = new System.Drawing.Point(547, 44);
+            this.labelDefaultText.Name = "labelDefaultText";
+            this.labelDefaultText.Size = new System.Drawing.Size(78, 16);
+            this.labelDefaultText.TabIndex = 8;
+            this.labelDefaultText.Text = "Default text: ";
             // 
-            // pictureBox
+            // buttonBorderColor
             // 
-            this.pictureBox.Location = new System.Drawing.Point(1200, 20);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(64, 60);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox.TabIndex = 6;
-            this.pictureBox.TabStop = false;
+            this.buttonBorderColor.Location = new System.Drawing.Point(370, 36);
+            this.buttonBorderColor.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonBorderColor.Name = "buttonBorderColor";
+            this.buttonBorderColor.Size = new System.Drawing.Size(127, 28);
+            this.buttonBorderColor.TabIndex = 7;
+            this.buttonBorderColor.Text = "Border Color";
+            this.buttonBorderColor.UseVisualStyleBackColor = true;
+            this.buttonBorderColor.Click += new System.EventHandler(this.buttonBorderColor_Click);
             // 
-            // lblFollowers
+            // buttonTextColor
             // 
-            this.lblFollowers.AutoSize = true;
-            this.lblFollowers.Location = new System.Drawing.Point(599, 43);
-            this.lblFollowers.Name = "lblFollowers";
-            this.lblFollowers.Size = new System.Drawing.Size(88, 16);
-            this.lblFollowers.TabIndex = 5;
-            this.lblFollowers.Text = "Followers: {0}";
+            this.buttonTextColor.Location = new System.Drawing.Point(185, 36);
+            this.buttonTextColor.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonTextColor.Name = "buttonTextColor";
+            this.buttonTextColor.Size = new System.Drawing.Size(127, 28);
+            this.buttonTextColor.TabIndex = 7;
+            this.buttonTextColor.Text = "Text Color";
+            this.buttonTextColor.UseVisualStyleBackColor = true;
+            this.buttonTextColor.Click += new System.EventHandler(this.buttonTextColor_Click);
             // 
-            // lblViews
+            // buttonFont
             // 
-            this.lblViews.AutoSize = true;
-            this.lblViews.Location = new System.Drawing.Point(599, 18);
-            this.lblViews.Name = "lblViews";
-            this.lblViews.Size = new System.Drawing.Size(66, 16);
-            this.lblViews.TabIndex = 4;
-            this.lblViews.Text = "Views: {0}";
-            // 
-            // lblTotalGfys
-            // 
-            this.lblTotalGfys.AutoSize = true;
-            this.lblTotalGfys.Location = new System.Drawing.Point(267, 43);
-            this.lblTotalGfys.Name = "lblTotalGfys";
-            this.lblTotalGfys.Size = new System.Drawing.Size(112, 16);
-            this.lblTotalGfys.TabIndex = 3;
-            this.lblTotalGfys.Text = "Total Gfycats: {0} ";
-            // 
-            // lblPublicGfys
-            // 
-            this.lblPublicGfys.AutoSize = true;
-            this.lblPublicGfys.Location = new System.Drawing.Point(267, 18);
-            this.lblPublicGfys.Name = "lblPublicGfys";
-            this.lblPublicGfys.Size = new System.Drawing.Size(115, 16);
-            this.lblPublicGfys.TabIndex = 2;
-            this.lblPublicGfys.Text = "Public Gfycats: {0}";
+            this.buttonFont.Location = new System.Drawing.Point(14, 36);
+            this.buttonFont.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonFont.Name = "buttonFont";
+            this.buttonFont.Size = new System.Drawing.Size(127, 28);
+            this.buttonFont.TabIndex = 7;
+            this.buttonFont.Text = "Font";
+            this.buttonFont.UseVisualStyleBackColor = true;
+            this.buttonFont.Click += new System.EventHandler(this.buttonFont_Click);
             // 
             // label2
             // 
@@ -2654,15 +2635,6 @@ namespace WebMConverter
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(0, 16);
             this.label2.TabIndex = 1;
-            // 
-            // lblUser
-            // 
-            this.lblUser.AutoSize = true;
-            this.lblUser.Location = new System.Drawing.Point(5, 18);
-            this.lblUser.Name = "lblUser";
-            this.lblUser.Size = new System.Drawing.Size(133, 16);
-            this.lblUser.TabIndex = 0;
-            this.lblUser.Text = "You are log in as {0}. ";
             // 
             // tabGrid
             // 
@@ -2678,6 +2650,7 @@ namespace WebMConverter
             // 
             // splitContainer1
             // 
+            this.splitContainer1.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(4, 4);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
@@ -2697,7 +2670,7 @@ namespace WebMConverter
             // 
             // groupBox2
             // 
-            groupBox2.BackColor = System.Drawing.Color.Transparent;
+            groupBox2.BackColor = System.Drawing.SystemColors.Control;
             groupBox2.Controls.Add(this.labelStep1Grid);
             groupBox2.Controls.Add(this.labelGrid);
             groupBox2.Controls.Add(this.buttonVideo2);
@@ -2802,10 +2775,14 @@ namespace WebMConverter
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.BackColor = System.Drawing.Color.Transparent;
+            this.splitContainer2.Panel1.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer2.Panel1.Controls.Add(this.tableLayoutPanel1);
             this.splitContainer2.Panel1.Controls.Add(this.tableLayoutPanel2);
             this.splitContainer2.Panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer2.Size = new System.Drawing.Size(724, 372);
             this.splitContainer2.SplitterDistance = 236;
             this.splitContainer2.SplitterWidth = 5;
@@ -2856,7 +2833,7 @@ namespace WebMConverter
             // toolStripStatusLabel
             // 
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(1403, 17);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(1403, 16);
             this.toolStripStatusLabel.Spring = true;
             this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -2939,19 +2916,19 @@ namespace WebMConverter
             this.listViewContextMenuEdit,
             this.listViewContextMenuDelete});
             this.listViewContextMenu.Name = "listViewContextMenu";
-            this.listViewContextMenu.Size = new System.Drawing.Size(108, 48);
+            this.listViewContextMenu.Size = new System.Drawing.Size(123, 52);
             // 
             // listViewContextMenuEdit
             // 
             this.listViewContextMenuEdit.Name = "listViewContextMenuEdit";
-            this.listViewContextMenuEdit.Size = new System.Drawing.Size(107, 22);
+            this.listViewContextMenuEdit.Size = new System.Drawing.Size(122, 24);
             this.listViewContextMenuEdit.Text = "Edit...";
             this.listViewContextMenuEdit.Click += new System.EventHandler(this.listViewContextMenuEdit_Click);
             // 
             // listViewContextMenuDelete
             // 
             this.listViewContextMenuDelete.Name = "listViewContextMenuDelete";
-            this.listViewContextMenuDelete.Size = new System.Drawing.Size(107, 22);
+            this.listViewContextMenuDelete.Size = new System.Drawing.Size(122, 24);
             this.listViewContextMenuDelete.Text = "Delete";
             this.listViewContextMenuDelete.Click += new System.EventHandler(this.listViewContextMenuDelete_Click);
             // 
@@ -3036,9 +3013,8 @@ namespace WebMConverter
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CRFother)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CRF4k)).EndInit();
-            this.groupGfycat.ResumeLayout(false);
-            this.groupGfycat.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            this.groupCaption.ResumeLayout(false);
+            this.groupCaption.PerformLayout();
             this.tabGrid.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -3129,16 +3105,7 @@ namespace WebMConverter
         private System.Windows.Forms.ComboBox comboLevels;
         private System.Windows.Forms.CheckBox boxDeinterlace;
         private System.Windows.Forms.CheckBox boxLoop;
-        private System.Windows.Forms.Label lblFollowers;
-        private System.Windows.Forms.Label lblViews;
-        private System.Windows.Forms.Label lblTotalGfys;
-        private System.Windows.Forms.Label lblPublicGfys;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label lblUser;
-        private System.Windows.Forms.PictureBox pictureBox;
-        private System.Windows.Forms.Button buttonLogOut;
-        private System.Windows.Forms.TextBox boxTags;
-        private System.Windows.Forms.Label labelTags;
         private System.Windows.Forms.NumericUpDown CRFother;
         private System.Windows.Forms.NumericUpDown CRF4k;
         private System.Windows.Forms.Label lblCRFConfiguration2;
@@ -3148,7 +3115,7 @@ namespace WebMConverter
         private System.Windows.Forms.Label labelSaturation;
         private System.Windows.Forms.NumericUpDown numericGamma;
         private System.Windows.Forms.NumericUpDown numericSaturation;
-        private System.Windows.Forms.GroupBox groupGfycat;
+        private System.Windows.Forms.GroupBox groupCaption;
         private System.Windows.Forms.Button buttonPreview2;
         private System.Windows.Forms.Label labelContrast;
         private System.Windows.Forms.NumericUpDown numericContrast;
@@ -3191,6 +3158,12 @@ namespace WebMConverter
         private System.Windows.Forms.CheckBox boxDenoise;
         private System.Windows.Forms.ComboBox comboBoxDenoise;
         private System.Windows.Forms.TextBox textBoxdB;
+        private System.Windows.Forms.Label labelDefaultText;
+        private System.Windows.Forms.TextBox boxDefaultText;
+        private System.Windows.Forms.Button buttonBorderColor;
+        private System.Windows.Forms.Button buttonTextColor;
+        private System.Windows.Forms.Button buttonFont;
+        private System.Windows.Forms.Button buttonRemove;
         // private System.Windows.Forms.GroupBox groupGfycat;
     }
 }

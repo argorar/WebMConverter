@@ -72,6 +72,21 @@ namespace WebMConverter
                 colorDialogBorderColor.Color = InputFilter.BorderColor;
                 numericBorderThickness.Value = InputFilter.BorderThickness;
             }
+            else  
+            {
+                if (!String.IsNullOrEmpty((Owner as MainForm).getConfigurationValue("Text")))
+                    boxText.Text = (Owner as MainForm).getConfigurationValue("Text");
+
+                if (!String.IsNullOrEmpty((Owner as MainForm).getConfigurationValue("Font")))
+                    fontDialog1.Font = Utility.CreateFontFromString((Owner as MainForm).getConfigurationValue("Font"));
+
+                if (!String.IsNullOrEmpty((Owner as MainForm).getConfigurationValue("TextColor")))
+                    colorDialogTextColor.Color = Color.FromArgb(Int32.Parse((Owner as MainForm).getConfigurationValue("TextColor")));
+
+                if (!String.IsNullOrEmpty((Owner as MainForm).getConfigurationValue("BorderColor")))
+                    colorDialogBorderColor.Color = Color.FromArgb(Int32.Parse((Owner as MainForm).getConfigurationValue("BorderColor")));
+
+            }
 
             if ((Owner as MainForm).SarCompensate)
             {
