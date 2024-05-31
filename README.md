@@ -229,6 +229,9 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
+#### Version 3.40.1
+* Set color range metadata to full levels for a correct color interpretation
+
 #### Version 3.40.0
 * Now you can set default values to caption filter, find it in *General* tab
 

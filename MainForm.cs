@@ -123,6 +123,7 @@ namespace WebMConverter
         int audiotrack = -1;
         bool audioDisabled;
         bool yuvj420p;
+        bool fullRange;
 
         private List<string> _temporaryFilesList;
 
@@ -1606,6 +1607,7 @@ namespace WebMConverter
             textBoxProcessingScript.Hide();
             listViewProcessingScript.Show();
             SarCompensate = false;
+            fullRange = false;
 
             if (Path.GetExtension(path) == ".avs")
             {
@@ -1805,6 +1807,9 @@ namespace WebMConverter
                             string file;
 
                             streamindex = int.Parse(nav.GetAttribute("index", ""));
+
+                            if (nav.GetAttribute("color_range", "").Equals("pc"))
+                                fullRange = true;
 
                             switch (nav.GetAttribute("codec_type", ""))
                             {
@@ -2453,7 +2458,7 @@ namespace WebMConverter
 
             var vcodec = boxNGOV.Checked ? @"libvpx-vp9" : @"libvpx";
             var extraArguments = boxNGOV.Checked && boxNGOV.Enabled ? @" -aq-mode 4 -row-mt 1 -tile-columns 6 -tile-rows 2" : @"";
-            extraArguments = yuvj420p ? extraArguments + @" -color_range 2" : extraArguments;
+            extraArguments = yuvj420p | fullRange ? extraArguments + @" -color_range 2" : extraArguments;
 
             if (checkMP4.Checked && checkHWAcceleration.Checked)
                 vcodec = @"h264_nvenc";
