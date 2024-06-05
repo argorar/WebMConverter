@@ -141,7 +141,7 @@ namespace WebMConverter
         {
             // AviSynth and various plugins can't deal with utf-8 paths, so we convert the possibly weird path into 8.3 notation
             var compatible = new StringBuilder(255);
-            NativeMethods.GetShortPathName(@"\\?\" + input, compatible, compatible.Capacity);
+            NativeMethods.GetShortPathName(ExtendedLenPath(input), compatible, compatible.Capacity);
             // the \\?\ is added because GetShortPathName will fail if input is longer than 256 characters otherwise.
             return compatible.ToString();
         }
@@ -438,6 +438,22 @@ namespace WebMConverter
             return new Font(fontName, fontSize, fontStyle);
         }
 
+        public static string ExtendedLenPath(string path)
+        {
+            string pathWithPrefix;
+            // ffmpeg + tools only support long paths when using the \\?\ prefix
+            // https://trac.ffmpeg.org/ticket/8885
+            // https://learn.microsoft.com/en-gb/windows/win32/fileio/maximum-file-path-limitation?tabs=registry
+            if (path.StartsWith(@"\\"))
+            {
+                pathWithPrefix = @"\\?\UNC" + path.Substring(1);
+            }
+            else
+            {
+                pathWithPrefix = @"\\?\" + path;
+            }
+            return pathWithPrefix;
+        }
     }
 
     public enum FileType

@@ -17,6 +17,7 @@ namespace WebMConverter
 
         public FFprobe(string inputFile, string format = "-f avisynth", List<string> dataToProbe = null, string argument = null)
         {
+            inputFile = Utility.ExtendedLenPath(inputFile);
             if (argument == null) // No override arguments, time to construct this bad boy
             {
                 if (dataToProbe == null)
