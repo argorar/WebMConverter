@@ -1794,6 +1794,7 @@ namespace WebMConverter
                     string streamInfo = prober.Probe();
                     Program.SubtitleTracks = new Dictionary<int, Tuple<string, SubtitleType, string>>();
                     Program.AttachmentList = new List<string>();
+                    var workingFile = Utility.ExtendedLenPath(Program.InputFile);
 
                     using (var s = new StringReader(streamInfo))
                     {
@@ -1890,12 +1891,12 @@ namespace WebMConverter
                                     if (type == SubtitleType.VTTSub && !File.Exists(file))
                                     {
                                         logIndexingProgress("Extracting vtt...");
-                                        ExecuteFFmpegCommand($@" -i ""{Program.InputFile}"" -map 0:{streamindex} ""{file}""");
+                                        ExecuteFFmpegCommand($@" -i ""{workingFile}"" -map 0:{streamindex} ""{file}""");
                                     }                                    
                                     else if (!File.Exists(file)) // If we didn't extract it already
                                     {
                                         logIndexingProgress("Extracting...");
-                                        using (var mkvextract = new MkvExtract($@"tracks ""{Program.InputFile}"" ""{streamindex}:{file}"""))
+                                        using (var mkvextract = new MkvExtract($@"tracks ""{workingFile}"" ""{streamindex}:{file}"""))
                                         {
                                             mkvextract.Start();
                                             mkvextract.WaitForExit();
@@ -1946,7 +1947,7 @@ namespace WebMConverter
                                     }
 
                                     logIndexingProgress("Extracting...");
-                                    using (var mkvextract = new MkvExtract($@"attachments ""{Program.InputFile}"" ""{attachindex}:{file}"""))
+                                    using (var mkvextract = new MkvExtract($@"attachments ""{workingFile}"" ""{attachindex}:{file}"""))
                                     {
                                         mkvextract.Start();
                                         mkvextract.WaitForExit();
