@@ -167,6 +167,9 @@ namespace WebMConverter
             this.boxArguments = new System.Windows.Forms.TextBox();
             this.checkBoxAlpha = new System.Windows.Forms.CheckBox();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtDefaultSizeLimit = new System.Windows.Forms.TextBox();
+            this.labelDefaultSizeLimit = new System.Windows.Forms.Label();
             this.boxFixSubs = new System.Windows.Forms.CheckBox();
             this.boxDisableMetadata = new System.Windows.Forms.CheckBox();
             this.boxDisableExtractSubtitles = new System.Windows.Forms.CheckBox();
@@ -2339,6 +2342,9 @@ namespace WebMConverter
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(this.label5);
+            groupBox1.Controls.Add(this.txtDefaultSizeLimit);
+            groupBox1.Controls.Add(this.labelDefaultSizeLimit);
             groupBox1.Controls.Add(this.boxFixSubs);
             groupBox1.Controls.Add(this.boxDisableMetadata);
             groupBox1.Controls.Add(this.boxDisableExtractSubtitles);
@@ -2362,6 +2368,34 @@ namespace WebMConverter
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
             groupBox1.Text = "Configuration";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(867, 63);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(30, 16);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "MiB";
+            // 
+            // txtDefaultSizeLimit
+            // 
+            this.txtDefaultSizeLimit.Location = new System.Drawing.Point(803, 58);
+            this.txtDefaultSizeLimit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtDefaultSizeLimit.Name = "txtDefaultSizeLimit";
+            this.txtDefaultSizeLimit.Size = new System.Drawing.Size(58, 22);
+            this.txtDefaultSizeLimit.TabIndex = 14;
+            this.txtDefaultSizeLimit.TextChanged += new System.EventHandler(this.txtDefaultSizeLimit_TextChanged);
+            this.txtDefaultSizeLimit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxNumbersOnly);
+            // 
+            // labelDefaultSizeLimit
+            // 
+            this.labelDefaultSizeLimit.AutoSize = true;
+            this.labelDefaultSizeLimit.Location = new System.Drawing.Point(697, 62);
+            this.labelDefaultSizeLimit.Name = "labelDefaultSizeLimit";
+            this.labelDefaultSizeLimit.Size = new System.Drawing.Size(105, 16);
+            this.labelDefaultSizeLimit.TabIndex = 13;
+            this.labelDefaultSizeLimit.Text = "Default size limit:";
             // 
             // boxFixSubs
             // 
@@ -3164,6 +3198,9 @@ namespace WebMConverter
         private System.Windows.Forms.Button buttonTextColor;
         private System.Windows.Forms.Button buttonFont;
         private System.Windows.Forms.Button buttonRemove;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtDefaultSizeLimit;
+        private System.Windows.Forms.Label labelDefaultSizeLimit;
         // private System.Windows.Forms.GroupBox groupGfycat;
     }
 }

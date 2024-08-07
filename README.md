@@ -229,6 +229,9 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
+#### Version 3.40.3
+* Now you can set size limit default, find it in *General* tab [request](https://github.com/argorar/WebMConverter/issues/88)
+
 #### Version 3.40.2
 * Fix for ffmpeg/ffprobe long paths not working by @DoTheSneedful
 

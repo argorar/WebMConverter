@@ -243,6 +243,9 @@ namespace WebMConverter
 
             if (!configuration.AppSettings.Settings.AllKeys.Contains("BorderColor"))
                 configuration.AppSettings.Settings.Add("BorderColor", "");
+
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("SizeLimit"))
+                configuration.AppSettings.Settings.Add("SizeLimit", "");
         }
 
         private void ToolTip()
@@ -342,6 +345,13 @@ namespace WebMConverter
 
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["PathDownload"].Value))
                 textPathDownloaded.Text = configuration.AppSettings.Settings["PathDownload"].Value;
+
+            if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["SizeLimit"].Value))
+            {
+                txtDefaultSizeLimit.Text = configuration.AppSettings.Settings["SizeLimit"].Value;
+                boxLimit.Text = configuration.AppSettings.Settings["SizeLimit"].Value;
+            }
+                
 
             boxDefaultText.Text = configuration.AppSettings.Settings["Text"].Value;
             CRF4k.Value = Decimal.Parse(configuration.AppSettings.Settings["CRF4k"].Value);
@@ -1531,7 +1541,6 @@ namespace WebMConverter
         private void DefaultSettings()
         {
             boxTitle.Text =
-            boxLimit.Text =
             boxBitrate.Text =
             boxAudioBitrate.Text =
             boxFrameRate.Text =
@@ -1552,6 +1561,7 @@ namespace WebMConverter
             numericNormalization.Value = 1;
             comboLevels.SelectedIndex = 0;
 
+            boxLimit.Text = String.IsNullOrEmpty(txtDefaultSizeLimit.Text) ? string.Empty : txtDefaultSizeLimit.Text;
             var threads = Environment.ProcessorCount;
             trackThreads.Value = Math.Min(trackThreads.Maximum, Math.Max(trackThreads.Minimum, threads));
             cache.Clear();
@@ -3209,6 +3219,11 @@ namespace WebMConverter
             UpdateConfiguration("BorderColor", String.Empty);
             UpdateConfiguration("Text", String.Empty);
             boxDefaultText.Text = String.Empty;
+        }
+
+        private void txtDefaultSizeLimit_TextChanged(object sender, EventArgs e)
+        {
+            UpdateConfiguration("SizeLimit", txtDefaultSizeLimit.Text);
         }
     }
 }
