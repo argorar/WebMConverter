@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using System.Xml.XPath;
 using WebMConverter.Objects;
 
@@ -404,23 +405,28 @@ namespace WebMConverter
             return easingExpression;
         }
 
+        public static string IncreaseNumber( string auxName, int digits)
+        {
+            string lastCharacter = auxName.Substring(auxName.Length - digits, digits);
+            int number = int.Parse(lastCharacter.ToString());
+            number ++;
+            return auxName.Substring(0, auxName.Length - digits) + number;
+        }
+
         public static string IncreaseFileNumber(string file)
         {
             string directory = Path.GetDirectoryName(file);
             string auxName = Path.GetFileNameWithoutExtension(file);
             string extension = Path.GetExtension(file);
-            string pattern = @"-\d$";
-            if (Regex.IsMatch(auxName, pattern))
-            {
-                char lastCharacter = auxName[auxName.Length - 1];
-                if (char.IsDigit(lastCharacter))
-                {
-                    int number = int.Parse(lastCharacter.ToString());
-                    number = number + 1;
-                    auxName = auxName.Substring(0, auxName.Length - 1) + number;
+            string patternOneDigit = @"-\d$";
+            string patternTwoDigit = @"-\d\d$";
 
-                }
-            }
+            if (Regex.IsMatch(auxName, patternOneDigit))
+                auxName = IncreaseNumber(auxName, 1);
+
+            else if (Regex.IsMatch(auxName, patternTwoDigit))
+                auxName = IncreaseNumber(auxName, 2);
+
             else
                 auxName = $"{auxName}-2";
 
