@@ -807,6 +807,7 @@ namespace WebMConverter
                         if (result == DialogResult.OK)
                         {
                             textBoxIn.Text = dialog.GetOutfile();
+                            textBoxOut.Text = dialog.GetOutfile();
                             buttonBrowseIn.Text = "Browse";
                             SetFile(textBoxIn.Text);
                             boxTitle.Text = url;
@@ -2662,8 +2663,6 @@ namespace WebMConverter
                 script.AppendLine(Filters.Crop.ToString());
                 script.AppendLine(new ResizeFilter(Filters.Crop.finalWidth, Filters.Crop.finalHeight).ToString());
             }
-            if (Filters.Subtitle != null)
-                script.AppendLine(Filters.Subtitle.ToString());
             if (Filters.Caption != null)
             {
                 Filters.Caption.BeforeEncode(Program.VideoSource.GetFrame(0).EncodedResolution);
@@ -2684,6 +2683,8 @@ namespace WebMConverter
             }
             if (Filters.Resize != null)
                 script.AppendLine(Filters.Resize.ToString());
+            if (Filters.Subtitle != null)
+                script.AppendLine(Filters.Subtitle.ToString());
             if (Filters.Reverse != null)
                 script.AppendLine(Filters.Reverse.ToString());
             if (Filters.Fade != null)
@@ -2998,9 +2999,19 @@ namespace WebMConverter
         private void checkMP4_CheckedChanged(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(textBoxOut.Text) && checkMP4.Checked)
+            {
                 textBoxOut.Text = $"{Path.GetDirectoryName(textBoxOut.Text)}\\{Path.GetFileNameWithoutExtension(textBoxOut.Text)}.mp4";
+                if (textBoxOut.Text.Equals(textBoxIn.Text))
+                    textBoxOut.Text = IncreaseFileNumber(textBoxOut.Text);
+            }
+                
             else if (!String.IsNullOrEmpty(textBoxOut.Text))
+            {
                 textBoxOut.Text = $"{Path.GetDirectoryName(textBoxOut.Text)}\\{Path.GetFileNameWithoutExtension(textBoxOut.Text)}.webm";
+                if (textBoxOut.Text.Equals(textBoxIn.Text))
+                    textBoxOut.Text = IncreaseFileNumber(textBoxOut.Text);
+            }
+                
 
             if (checkMP4.Checked)
             {

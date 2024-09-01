@@ -229,6 +229,10 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
+#### Version 3.40.5
+* Fix some scenaries to update output filename
+* Fix Subtitles get cropped [issue](https://github.com/argorar/WebMConverter/issues/93)
+
 #### Version 3.40.4
 * Fix "Create another" button's suffix malfunctions after 10th file [issue](https://github.com/argorar/WebMConverter/issues/89)
 
