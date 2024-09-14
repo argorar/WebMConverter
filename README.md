@@ -229,6 +229,9 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
+#### Version 3.40.6
+* Fix subtitles [issue](https://github.com/argorar/WebMConverter/issues/98)
+
 #### Version 3.40.5
 * Fix some scenaries to update output filename
 * Fix Subtitles get cropped [issue](https://github.com/argorar/WebMConverter/issues/93)
@@ -247,12 +250,8 @@ Drag and drop two or more video files inside the application, select what do you
 
 #### Version 3.40.0
 * Now you can set default values to caption filter, find it in *General* tab
-
-#### Version 3.39.3
 * Allow long file names by @DoTheSneedful
 * Improve workflow using dynamic filters
-
-#### Version 3.39.1
 * Fix *Resize* window not showing in second monitor
 
 #### Version 3.39.0

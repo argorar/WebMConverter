@@ -2658,6 +2658,8 @@ namespace WebMConverter
 
             if (Filters.Dub != null)
                 script.AppendLine(Filters.Dub.ToString());
+            if (Filters.Subtitle != null)
+                script.AppendLine(Filters.Subtitle.ToString());
             if (Filters.Crop != null && boxFixSubs.Checked)
             {
                 script.AppendLine(Filters.Crop.ToString());
@@ -2683,8 +2685,6 @@ namespace WebMConverter
             }
             if (Filters.Resize != null)
                 script.AppendLine(Filters.Resize.ToString());
-            if (Filters.Subtitle != null)
-                script.AppendLine(Filters.Subtitle.ToString());
             if (Filters.Reverse != null)
                 script.AppendLine(Filters.Reverse.ToString());
             if (Filters.Fade != null)
