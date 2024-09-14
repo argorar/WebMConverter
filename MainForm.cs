@@ -2658,13 +2658,19 @@ namespace WebMConverter
 
             if (Filters.Dub != null)
                 script.AppendLine(Filters.Dub.ToString());
-            if (Filters.Subtitle != null)
-                script.AppendLine(Filters.Subtitle.ToString());
+
             if (Filters.Crop != null && boxFixSubs.Checked)
             {
                 script.AppendLine(Filters.Crop.ToString());
                 script.AppendLine(new ResizeFilter(Filters.Crop.finalWidth, Filters.Crop.finalHeight).ToString());
-            }
+            }            
+            if (Filters.Crop != null && !boxFixSubs.Checked && Filters.CropBarsFilter == null)
+            {
+                script.AppendLine(Filters.Crop.ToString());
+                script.AppendLine(new ResizeFilter(Filters.Crop.finalWidth, Filters.Crop.finalHeight).ToString());
+            }            
+            if (Filters.Subtitle != null)
+                script.AppendLine(Filters.Subtitle.ToString());
             if (Filters.Caption != null)
             {
                 Filters.Caption.BeforeEncode(Program.VideoSource.GetFrame(0).EncodedResolution);
@@ -2678,11 +2684,7 @@ namespace WebMConverter
                 script.AppendLine(Filters.MultipleTrim.ToString());
             if (Filters.Rate != null && Filters.DynamicCrop == null)
                 script.AppendLine(Filters.Rate.Avisynth());
-            if (Filters.Crop != null && !boxFixSubs.Checked && Filters.CropBarsFilter == null)
-            {
-                script.AppendLine(Filters.Crop.ToString());
-                script.AppendLine(new ResizeFilter(Filters.Crop.finalWidth, Filters.Crop.finalHeight).ToString());
-            }
+
             if (Filters.Resize != null)
                 script.AppendLine(Filters.Resize.ToString());
             if (Filters.Reverse != null)
