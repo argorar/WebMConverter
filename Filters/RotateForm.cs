@@ -232,12 +232,12 @@ namespace WebMConverter
 
             if (FlipHorizontal)
             {
-                command += ", hflip";
+                command += String.IsNullOrEmpty(command) ? "hflip" : ", hflip";
             }
 
             if (FlipVertical)
             {
-                command += ", vflip";
+                command += String.IsNullOrEmpty(command) ? "vflip" : ", vflip";
             }
 
             return command;
