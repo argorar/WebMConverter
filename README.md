@@ -229,6 +229,10 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
+#### Version 3.41.0
+* Add HDR10 bits support
+* Fix darker colors in Chromium browsers
+
 #### Version 3.40.8
 * Fix horizontal and vertical rotation [issue](https://github.com/argorar/WebMConverter/issues/99)
 

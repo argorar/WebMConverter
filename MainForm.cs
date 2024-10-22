@@ -124,6 +124,7 @@ namespace WebMConverter
         bool audioDisabled;
         bool yuvj420p;
         bool fullRange;
+        bool hdr10;
 
         private List<string> _temporaryFilesList;
 
@@ -1838,6 +1839,11 @@ namespace WebMConverter
                                         yuvj420p= false;    
                                     }
 
+                                    if (nav.GetAttribute("pix_fmt", "") == "yuv420p10le")
+                                    {
+                                        hdr10 = true;
+                                    }
+
                                     // Check if this is a Hi444p video - if so, we'll need to do something weird if you wanna add subs later.
                                     Program.InputHasWeirdPixelFormat = nav.GetAttribute("pix_fmt", "").StartsWith("yuv444p");
 
@@ -2459,6 +2465,9 @@ namespace WebMConverter
             }
 
             var pixelFormat = checkBoxAlpha.Checked && checkBoxAlpha.Enabled ? "yuva420p" : "yuv420p";
+            pixelFormat = hdr10 && checkHWAcceleration.Checked ? "p010le" : pixelFormat;
+            pixelFormat = hdr10 && !checkHWAcceleration.Checked ? "yuv420p10le" : pixelFormat;
+
             var threads = trackThreads.Value;
             var slices = GetSlices();
 
@@ -2470,10 +2479,11 @@ namespace WebMConverter
 
             var vcodec = boxNGOV.Checked ? @"libvpx-vp9" : @"libvpx";
             var extraArguments = boxNGOV.Checked && boxNGOV.Enabled ? @" -aq-mode 4 -row-mt 1 -tile-columns 6 -tile-rows 2" : @"";
-            extraArguments = yuvj420p | fullRange ? extraArguments + @" -color_range 2" : extraArguments;
+            extraArguments = yuvj420p | fullRange ? extraArguments + @" -color_range full -colorspace bt709" : extraArguments;
+            extraArguments = hdr10 ? extraArguments + @" -color_trc smpte2084 -color_primaries bt2020 -colorspace bt2020nc " : extraArguments;
 
             if (checkMP4.Checked && checkHWAcceleration.Checked)
-                vcodec = @"h264_nvenc";
+                vcodec = @"hevc_nvenc";
             else if (checkMP4.Checked && !checkHWAcceleration.Checked && box265.Checked)
                 vcodec = @"libx265";
             else if (checkMP4.Checked && !checkHWAcceleration.Checked && !box265.Checked)
