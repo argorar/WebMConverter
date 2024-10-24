@@ -75,6 +75,8 @@ Trim precisely the length, with a simple interface. You can do multiple trims if
 
 ![trim](img/trim.JPG)
 
+Click over trim timestamp start or end, preview will jump to the specific frame.
+
 ### Crop
 
 Crop what is just important for you, you can see in real time the new resolution also you can set the exact size that you want or set an aspect ratio like 16:9, 9:16 and more under *Set dimensions*. 
@@ -232,30 +234,14 @@ Drag and drop two or more video files inside the application, select what do you
 #### Version 3.41.0
 * Add HDR10 bits support
 * Fix darker colors in Chromium browsers
-
-#### Version 3.40.8
 * Fix horizontal and vertical rotation [issue](https://github.com/argorar/WebMConverter/issues/99)
-
-#### Version 3.40.7
 * Fix subtitles with crop
-
-#### Version 3.40.6
 * Fix subtitles [issue](https://github.com/argorar/WebMConverter/issues/98)
-
-#### Version 3.40.5
 * Fix some scenaries to update output filename
 * Fix Subtitles get cropped [issue](https://github.com/argorar/WebMConverter/issues/93)
-
-#### Version 3.40.4
 * Fix "Create another" button's suffix malfunctions after 10th file [issue](https://github.com/argorar/WebMConverter/issues/89)
-
-#### Version 3.40.3
 * Now you can set size limit default, find it in *General* tab [request](https://github.com/argorar/WebMConverter/issues/88)
-
-#### Version 3.40.2
 * Fix for ffmpeg/ffprobe long paths not working by @DoTheSneedful
-
-#### Version 3.40.1
 * Set color range metadata to full levels for a correct color interpretation
 
 #### Version 3.40.0
@@ -286,18 +272,8 @@ Drag and drop two or more video files inside the application, select what do you
 * Add option after convert *Create another*, this will change the output file to -2, -3,.., -n
 * Fix filenames when you download many clips from the same file using @* introduced in 3.32.0
 
-#### Version 3.35.0
-* Add a better Denoise method, can choose different levels. See related [request](https://github.com/argorar/WebMConverter/issues/67)
-
-#### Version 3.34.0
-* Add feature to auto crop black bars, find the option in *Crop filter*. See related [request](https://github.com/argorar/WebMConverter/issues/61)
-
 Special thanks to this month supporters:
-* ManletPride 
 * new top supporter **Chibi** ❤︎
-
-#### Version 3.33.1
-* Add feature when click over trim timestamp start or end, preview will jump to the specific frame. See related [request](https://github.com/argorar/WebMConverter/issues/64)
 
 
 To see more [changelog](CHANGELOG.md).
