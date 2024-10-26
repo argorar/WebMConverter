@@ -209,8 +209,8 @@ namespace WebMConverter
             if (!configuration.AppSettings.Settings.AllKeys.Contains("MP4"))
                 configuration.AppSettings.Settings.Add("MP4", "False");
 
-            if (!configuration.AppSettings.Settings.AllKeys.Contains("HAMP4"))
-                configuration.AppSettings.Settings.Add("HAMP4", "False");
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("MP4Codec"))
+                configuration.AppSettings.Settings.Add("MP4Codec", "0");
 
             if (!configuration.AppSettings.Settings.AllKeys.Contains("YTDLV"))
                 configuration.AppSettings.Settings.Add("YTDLV", "20210505");
@@ -229,9 +229,6 @@ namespace WebMConverter
 
             if (!configuration.AppSettings.Settings.AllKeys.Contains("DisableMetadata"))
                 configuration.AppSettings.Settings.Add("DisableMetadata", "False");
-
-            if (!configuration.AppSettings.Settings.AllKeys.Contains("h265"))
-                configuration.AppSettings.Settings.Add("h265", "False");
 
             if (!configuration.AppSettings.Settings.AllKeys.Contains("Font"))
                 configuration.AppSettings.Settings.Add("Font", "");
@@ -257,7 +254,6 @@ namespace WebMConverter
             toolTip.SetToolTip(boxLoop, "Forward and reverse effect merged");
             toolTip.SetToolTip(numericDelay, "Delay audio in your video, can be positive and negative. The value represent seconds");
             toolTip.SetToolTip(boxHQ, "Enables two-pass encoding and adds some extra encoding arguments, increasing output quality, but increases the time it takes to encode your file.");
-            toolTip.SetToolTip(checkMP4, "Use h264 by default");
         }
 
         private void CheckProccess()
@@ -309,11 +305,6 @@ namespace WebMConverter
             else
                 checkMP4.Checked = false;
 
-            if (configuration.AppSettings.Settings["HAMP4"].Value.Equals("True"))
-                checkHWAcceleration.Checked = true;
-            else
-                checkHWAcceleration.Checked = false;
-
             if (configuration.AppSettings.Settings["POP"].Value.Equals("True"))
                 boxDisablePop.Checked = true;
             else
@@ -339,11 +330,6 @@ namespace WebMConverter
             else
                 boxDisableMetadata.Checked = false;
 
-            if (configuration.AppSettings.Settings["h265"].Value.Equals("True"))
-                box265.Checked = true;
-            else
-                box265.Checked = false;
-
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["PathDownload"].Value))
                 textPathDownloaded.Text = configuration.AppSettings.Settings["PathDownload"].Value;
 
@@ -352,8 +338,8 @@ namespace WebMConverter
                 txtDefaultSizeLimit.Text = configuration.AppSettings.Settings["SizeLimit"].Value;
                 boxLimit.Text = configuration.AppSettings.Settings["SizeLimit"].Value;
             }
-                
 
+            mp4Box.SelectedIndex = int.Parse(configuration.AppSettings.Settings["MP4Codec"].Value);
             boxDefaultText.Text = configuration.AppSettings.Settings["Text"].Value;
             CRF4k.Value = Decimal.Parse(configuration.AppSettings.Settings["CRF4k"].Value);
             CRFother.Value = Decimal.Parse(configuration.AppSettings.Settings["CRFother"].Value);
@@ -489,7 +475,7 @@ namespace WebMConverter
                 string output = $"{ directory }\\{ auxName}-converted.{ format}";
                 string optionsWithInput = $@" -i ""{file}"" {options}";
 
-                if (!boxHQ.Checked || checkHWAcceleration.Checked || (checkMP4.Checked && !box265.Checked && !checkHWAcceleration.Checked))
+                if (!boxHQ.Checked || (checkMP4.Checked && mp4Box.SelectedIndex == 0))
                     arguments.Add(string.Format(Template, output, optionsWithInput, "", format));
                 else
                 {
@@ -2337,7 +2323,7 @@ namespace WebMConverter
             string tempName = String.Empty;
 
             List<string> arguments = new List<string>();
-            if (!boxHQ.Checked || checkHWAcceleration.Checked || (checkMP4.Checked && !box265.Checked && !checkHWAcceleration.Checked))
+            if (!boxHQ.Checked || (checkMP4.Checked && mp4Box.SelectedIndex == ((int)Mp4Codec.H264)))
                 arguments.Add(string.Format(Template, output, options, "", format));
             else
             {
@@ -2465,8 +2451,9 @@ namespace WebMConverter
             }
 
             var pixelFormat = checkBoxAlpha.Checked && checkBoxAlpha.Enabled ? "yuva420p" : "yuv420p";
-            pixelFormat = hdr10 && checkHWAcceleration.Checked ? "p010le" : pixelFormat;
-            pixelFormat = hdr10 && !checkHWAcceleration.Checked ? "yuv420p10le" : pixelFormat;
+            pixelFormat = hdr10 && mp4Box.SelectedIndex == ((int)Mp4Codec.Hevc_nvenc) ? "p010le" : pixelFormat;
+            pixelFormat = hdr10 && mp4Box.SelectedIndex < ((int)Mp4Codec.H264_nvenc)
+                          && mp4Box.SelectedIndex > ((int)Mp4Codec.H264_nvenc) ? "yuv420p10le" : pixelFormat;
 
             var threads = trackThreads.Value;
             var slices = GetSlices();
@@ -2482,11 +2469,13 @@ namespace WebMConverter
             extraArguments = yuvj420p | fullRange ? extraArguments + @" -color_range full -colorspace bt709" : extraArguments;
             extraArguments = hdr10 ? extraArguments + @" -color_trc smpte2084 -color_primaries bt2020 -colorspace bt2020nc " : extraArguments;
 
-            if (checkMP4.Checked && checkHWAcceleration.Checked)
+            if (checkMP4.Checked && mp4Box.SelectedIndex == ((int)Mp4Codec.Hevc_nvenc))
                 vcodec = @"hevc_nvenc";
-            else if (checkMP4.Checked && !checkHWAcceleration.Checked && box265.Checked)
+            else if (checkMP4.Checked && mp4Box.SelectedIndex == ((int)Mp4Codec.H264_nvenc))
+                vcodec = @"h264_nvenc";
+            else if (checkMP4.Checked && mp4Box.SelectedIndex == ((int)Mp4Codec.H265))
                 vcodec = @"libx265";
-            else if (checkMP4.Checked && !checkHWAcceleration.Checked && !box265.Checked)
+            else if (checkMP4.Checked && mp4Box.SelectedIndex == ((int)Mp4Codec.H264))
                 vcodec = @"libx264";
 
             string webmAcodec = (boxNGOV.Checked ? @"libopus" : @"libvorbis");
@@ -3029,27 +3018,18 @@ namespace WebMConverter
             {
                 boxNGOV.Enabled = false;
                 checkBoxAlpha.Enabled = false;
-                checkHWAcceleration.Enabled = true;
-                box265.Enabled = true;
+                mp4Box.Enabled = true;
             }
             else
             {
                 boxNGOV.Enabled = true;
                 checkBoxAlpha.Enabled = true;
-                checkHWAcceleration.Enabled = false;
-                checkHWAcceleration.Checked = false;
-                box265.Enabled = false;
+                mp4Box.Enabled = false;
             }
 
             UpdateArguments(sender, e);
             UpdateConfiguration("MP4", checkMP4.Checked.ToString());
 
-        }
-
-        private void checkHWAcceleration_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateArguments(sender, e);
-            UpdateConfiguration("HAMP4", checkHWAcceleration.Checked.ToString());
         }
 
         private void boxStabilization_CheckedChanged(object sender, EventArgs e)
@@ -3166,12 +3146,6 @@ namespace WebMConverter
             UpdateArguments(sender, e);
         }
 
-        private void box265_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateArguments(sender, e);
-            UpdateConfiguration("h265", box265.Checked.ToString());
-        }
-
         private void boxDenoise_CheckedChanged(object sender, EventArgs e)
         {
             comboBoxDenoise.Enabled = boxDenoise.Checked;
@@ -3247,6 +3221,12 @@ namespace WebMConverter
         private void txtDefaultSizeLimit_TextChanged(object sender, EventArgs e)
         {
             UpdateConfiguration("SizeLimit", txtDefaultSizeLimit.Text);
+        }
+
+        private void mp4Box_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateArguments(sender, e);
+            UpdateConfiguration("MP4Codec", mp4Box.SelectedIndex.ToString());
         }
     }
 }

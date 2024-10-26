@@ -128,8 +128,6 @@ namespace WebMConverter
             this.numericCrfTolerance = new System.Windows.Forms.NumericUpDown();
             this.boxHQ = new System.Windows.Forms.CheckBox();
             this.checkMP4 = new System.Windows.Forms.CheckBox();
-            this.checkHWAcceleration = new System.Windows.Forms.CheckBox();
-            this.box265 = new System.Windows.Forms.CheckBox();
             this.textBoxdB = new System.Windows.Forms.TextBox();
             this.boxMono = new System.Windows.Forms.CheckBox();
             this.numericNormalization = new System.Windows.Forms.NumericUpDown();
@@ -218,6 +216,7 @@ namespace WebMConverter
             this.listViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.listViewContextMenuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewContextMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.mp4Box = new System.Windows.Forms.ComboBox();
             tableMainForm = new System.Windows.Forms.TableLayoutPanel();
             groupMain = new System.Windows.Forms.GroupBox();
             tableMain = new System.Windows.Forms.TableLayoutPanel();
@@ -1023,8 +1022,7 @@ namespace WebMConverter
             this.tableLayoutPanelEncodingVideo.Controls.Add(panelEncodingModeSwapper, 0, 1);
             this.tableLayoutPanelEncodingVideo.Controls.Add(this.boxHQ, 0, 0);
             this.tableLayoutPanelEncodingVideo.Controls.Add(this.checkMP4, 3, 0);
-            this.tableLayoutPanelEncodingVideo.Controls.Add(this.checkHWAcceleration, 4, 0);
-            this.tableLayoutPanelEncodingVideo.Controls.Add(this.box265, 4, 1);
+            this.tableLayoutPanelEncodingVideo.Controls.Add(this.mp4Box, 4, 0);
             this.tableLayoutPanelEncodingVideo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelEncodingVideo.Location = new System.Drawing.Point(4, 19);
             this.tableLayoutPanelEncodingVideo.Margin = new System.Windows.Forms.Padding(4);
@@ -1315,9 +1313,8 @@ namespace WebMConverter
             // 
             // checkMP4
             // 
-            this.checkMP4.AutoSize = true;
             this.checkMP4.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkMP4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkMP4.Dock = System.Windows.Forms.DockStyle.Right;
             this.checkMP4.Location = new System.Drawing.Point(299, 4);
             this.checkMP4.Margin = new System.Windows.Forms.Padding(4);
             this.checkMP4.Name = "checkMP4";
@@ -1325,38 +1322,9 @@ namespace WebMConverter
             this.checkMP4.Size = new System.Drawing.Size(633, 26);
             this.checkMP4.TabIndex = 6;
             this.checkMP4.Text = "Activate mp4 conversion";
+            this.checkMP4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkMP4.UseVisualStyleBackColor = true;
             this.checkMP4.CheckedChanged += new System.EventHandler(this.checkMP4_CheckedChanged);
-            // 
-            // checkHWAcceleration
-            // 
-            this.checkHWAcceleration.AutoSize = true;
-            this.checkHWAcceleration.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkHWAcceleration.Enabled = false;
-            this.checkHWAcceleration.Location = new System.Drawing.Point(940, 4);
-            this.checkHWAcceleration.Margin = new System.Windows.Forms.Padding(4);
-            this.checkHWAcceleration.Name = "checkHWAcceleration";
-            this.checkHWAcceleration.Padding = new System.Windows.Forms.Padding(53, 2, 0, 0);
-            this.checkHWAcceleration.Size = new System.Drawing.Size(306, 22);
-            this.checkHWAcceleration.TabIndex = 7;
-            this.checkHWAcceleration.Text = "Hardware Acceleration (NVIDIA GPU)";
-            this.checkHWAcceleration.UseVisualStyleBackColor = true;
-            this.checkHWAcceleration.CheckedChanged += new System.EventHandler(this.checkHWAcceleration_CheckedChanged);
-            // 
-            // box265
-            // 
-            this.box265.AutoSize = true;
-            this.box265.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.box265.Enabled = false;
-            this.box265.Location = new System.Drawing.Point(940, 38);
-            this.box265.Margin = new System.Windows.Forms.Padding(4);
-            this.box265.Name = "box265";
-            this.box265.Padding = new System.Windows.Forms.Padding(53, 2, 0, 0);
-            this.box265.Size = new System.Drawing.Size(358, 22);
-            this.box265.TabIndex = 8;
-            this.box265.Text = "Use H265 (No support Hardware Acceleration)";
-            this.box265.UseVisualStyleBackColor = true;
-            this.box265.CheckedChanged += new System.EventHandler(this.box265_CheckedChanged);
             // 
             // groupEncodingAudio
             // 
@@ -2966,6 +2934,22 @@ namespace WebMConverter
             this.listViewContextMenuDelete.Text = "Delete";
             this.listViewContextMenuDelete.Click += new System.EventHandler(this.listViewContextMenuDelete_Click);
             // 
+            // mp4Box
+            // 
+            this.mp4Box.Dock = System.Windows.Forms.DockStyle.Left;
+            this.mp4Box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.mp4Box.Items.AddRange(new object[] {
+            "H.264",
+            "H.265",
+            "H.264 with Hardware Acceleration (no HDR10)",
+            "H.265 with Hardware Acceleration"});
+            this.mp4Box.Location = new System.Drawing.Point(940, 4);
+            this.mp4Box.Margin = new System.Windows.Forms.Padding(4);
+            this.mp4Box.Name = "mp4Box";
+            this.mp4Box.Size = new System.Drawing.Size(348, 24);
+            this.mp4Box.TabIndex = 14;
+            this.mp4Box.SelectedIndexChanged += new System.EventHandler(this.mp4Box_SelectedIndexChanged);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.buttonGo;
@@ -3158,7 +3142,6 @@ namespace WebMConverter
         private System.Windows.Forms.Label lblDelay;
         private System.Windows.Forms.CheckBox checkMP4;
         private System.Windows.Forms.Label labelSizeLimit;
-        private System.Windows.Forms.CheckBox checkHWAcceleration;
         private System.Windows.Forms.CheckBox boxStabilization;
         private System.Windows.Forms.Label txtLevel;
         private System.Windows.Forms.ComboBox comboBoxLevels;
@@ -3187,7 +3170,6 @@ namespace WebMConverter
         private System.Windows.Forms.ToolStripButton buttonDynamic;
         private System.Windows.Forms.NumericUpDown numericNormalization;
         private System.Windows.Forms.CheckBox boxMono;
-        private System.Windows.Forms.CheckBox box265;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox boxDenoise;
         private System.Windows.Forms.ComboBox comboBoxDenoise;
@@ -3201,6 +3183,7 @@ namespace WebMConverter
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtDefaultSizeLimit;
         private System.Windows.Forms.Label labelDefaultSizeLimit;
+        private System.Windows.Forms.ComboBox mp4Box;
         // private System.Windows.Forms.GroupBox groupGfycat;
     }
 }

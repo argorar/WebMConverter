@@ -504,6 +504,15 @@ namespace WebMConverter
         Merge,
         Convert
     }
+
+    public enum Mp4Codec
+    {
+        H264 = 0,
+        H265 = 1,
+        H264_nvenc = 2,
+        Hevc_nvenc = 3
+    }
+
     public static class Extensions
     {
         // http://stackoverflow.com/a/12179408/174466

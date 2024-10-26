@@ -231,6 +231,9 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
+#### Version 3.41.1
+* Refactor mp4 codec selector
+
 #### Version 3.41.0
 * Add HDR10 bits support
 * Fix darker colors in Chromium browsers
