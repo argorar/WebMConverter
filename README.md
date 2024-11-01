@@ -231,7 +231,7 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
-#### Version 4.42.0
+#### Version 3.42.0
 * Add merge audio, in track selector choose mix all (only two tracks sopported now) [request](https://github.com/argorar/WebMConverter/issues/102)
 * Expand support for HDR
 * Fix webms with full range color aren't playing in Chrome [issue](https://github.com/argorar/WebMConverter/issues/103)
