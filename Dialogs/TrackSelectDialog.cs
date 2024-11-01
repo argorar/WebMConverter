@@ -15,6 +15,10 @@ namespace WebMConverter.Dialogs
             labelSelect.Text = string.Format("{0} track:", tracktype);
 
             var dropdownTracks = tracks.ToDictionary(track => track, track => string.Format("Track #{0}", track));
+
+            if (tracktype.Equals("Audio") && tracks.Count() <= 2)
+                dropdownTracks.Add(99, "Mix all");
+
             comboBoxTracks.DataSource = new BindingSource(dropdownTracks, null);
             comboBoxTracks.ValueMember = "Key";
             comboBoxTracks.DisplayMember = "Value";

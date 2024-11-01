@@ -28,6 +28,8 @@ using System.Text.RegularExpressions;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using System.Net.Http;
 using Semver;
+using FFMSSharp;
+using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
 
 namespace WebMConverter
 {
@@ -124,7 +126,9 @@ namespace WebMConverter
         bool audioDisabled;
         bool yuvj420p;
         bool fullRange;
+        bool bt2020;
         bool hdr10;
+        bool bt601;
 
         private List<string> _temporaryFilesList;
 
@@ -605,7 +609,7 @@ namespace WebMConverter
             try
             {             
 
-                await Task.Run(() =>
+                await System.Threading.Tasks.Task.Run(() =>
                 {
                     var checker = new Updater();
                     string latestVersion;
@@ -1606,6 +1610,9 @@ namespace WebMConverter
             listViewProcessingScript.Show();
             SarCompensate = false;
             fullRange = false;
+            hdr10 = false;
+            bt2020 = false;
+            yuvj420p = false;
 
             if (Path.GetExtension(path) == ".avs")
             {
@@ -1808,8 +1815,15 @@ namespace WebMConverter
                             streamindex = int.Parse(nav.GetAttribute("index", ""));
 
                             if (nav.GetAttribute("color_range", "").Equals("pc"))
+                            {
                                 fullRange = true;
+                            }
 
+                            if (nav.GetAttribute("color_primaries", "").Equals("bt2020"))
+                            {
+                                bt2020 = true;
+                            }
+                            
                             switch (nav.GetAttribute("codec_type", ""))
                             {
                                 case "video":
@@ -1820,14 +1834,15 @@ namespace WebMConverter
                                         logIndexingProgress("Detected yuvj420p video, the Color Level fixing setting has been set for you.");
                                         yuvj420p = true;
                                     }
-                                    else
-                                    {
-                                        yuvj420p= false;    
-                                    }
 
                                     if (nav.GetAttribute("pix_fmt", "") == "yuv420p10le")
                                     {
                                         hdr10 = true;
+                                    }
+
+                                    if (nav.GetAttribute("color_space", "") == "bt470bg")
+                                    {
+                                        bt601 = true;
                                     }
 
                                     // Check if this is a Hi444p video - if so, we'll need to do something weird if you wanna add subs later.
@@ -2192,17 +2207,32 @@ namespace WebMConverter
                     }
                     avscript.WriteLine($@"LoadPlugin(PluginPath+""{plugin}"")");
                 }
-
-                if (Program.InputHasAudio)
+                if (Program.InputHasAudio && audiotrack == 99)
+                {
+                    avscript.WriteLine($@"LoadPlugin(PluginPath+""LSMASHSource.dll"")");
+                    avscript.WriteLine($@"video = LWLibavVideoSource(""{avsInputFile}"")");
+                    avscript.WriteLine($@"audio1 = LWLibavAudioSource(""{avsInputFile}"", stream_index=1)");
+                    avscript.WriteLine($@"audio2 = LWLibavAudioSource(""{avsInputFile}"", stream_index=2)");
+                    avscript.WriteLine($@"mixed_audio = MixAudio(audio1, audio2, 0.5, 0.5)");
+                    avscript.WriteLine($@"AudioDub(video, mixed_audio)");
+                }
+                else if (Program.InputHasAudio )
                 {
                     var audioScript = $@"AudioDub(FFVideoSource(""{avsInputFile}"",cachefile=""{_indexFile}"",track={videotrack}), FFAudioSource(""{avsInputFile}"",cachefile=""{_indexFile}"",track={audiotrack}))";
                     if (numericNormalization.Enabled && numericNormalization.Value != new decimal(1.00))
+                    {
                         avscript.WriteLine($@"{audioScript}.Normalize({Dot(numericNormalization.Value)})");
+                    }
                     else
+                    {
                         avscript.WriteLine(audioScript);
-                }                    
+                    }
+                }
                 else
+                {
                     avscript.WriteLine($@"FFVideoSource(""{avsInputFile}"",cachefile=""{_indexFile}"",track={videotrack})");
+                }
+                    
 
                 if (Filters.Deinterlace != null)
                 {
@@ -2465,9 +2495,25 @@ namespace WebMConverter
             var hq = boxHQ.Checked ? @" -lag-in-frames 16 -auto-alt-ref 1" : string.Empty;
 
             var vcodec = boxNGOV.Checked ? @"libvpx-vp9" : @"libvpx";
-            var extraArguments = boxNGOV.Checked && boxNGOV.Enabled ? @" -aq-mode 4 -row-mt 1 -tile-columns 6 -tile-rows 2" : @"";
-            extraArguments = yuvj420p | fullRange ? extraArguments + @" -color_range full -colorspace bt709" : extraArguments;
-            extraArguments = hdr10 ? extraArguments + @" -color_trc smpte2084 -color_primaries bt2020 -colorspace bt2020nc " : extraArguments;
+
+            var colorSpace = bt601 ? "bt470bg" : "bt709";
+
+            var extraArguments = boxNGOV.Checked && boxNGOV.Enabled ?
+                                @" -aq-mode 4 -row-mt 1 -tile-columns 6 -tile-rows 2" : @"";
+
+            extraArguments = yuvj420p | fullRange ?
+                            extraArguments + $@" -color_primaries bt709 -color_trc bt709 -colorspace {colorSpace} -color_range full" :
+                            extraArguments;
+
+            extraArguments = hdr10 ?
+                            extraArguments + @" -color_trc smpte2084 -color_primaries bt2020 -colorspace bt2020nc " :
+                            extraArguments;
+
+            extraArguments = bt2020 ?
+                            extraArguments + @" -color_trc arib-std-b67 -color_primaries bt2020 -colorspace bt2020nc " :
+                            extraArguments;
+
+
 
             if (checkMP4.Checked && mp4Box.SelectedIndex == ((int)Mp4Codec.Hevc_nvenc))
                 vcodec = @"hevc_nvenc";
