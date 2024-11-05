@@ -129,6 +129,7 @@ namespace WebMConverter
         bool bt2020;
         bool hdr10;
         bool bt601;
+        bool bt709;
 
         private List<string> _temporaryFilesList;
 
@@ -1613,6 +1614,8 @@ namespace WebMConverter
             hdr10 = false;
             bt2020 = false;
             yuvj420p = false;
+            bt601 = false;
+            bt709 = false;
 
             if (Path.GetExtension(path) == ".avs")
             {
@@ -1843,6 +1846,11 @@ namespace WebMConverter
                                     if (nav.GetAttribute("color_space", "") == "bt470bg")
                                     {
                                         bt601 = true;
+                                    }
+
+                                    if (nav.GetAttribute("color_space", "") == "bt709")
+                                    {
+                                        bt709 = true;
                                     }
 
                                     // Check if this is a Hi444p video - if so, we'll need to do something weird if you wanna add subs later.
@@ -2482,8 +2490,7 @@ namespace WebMConverter
 
             var pixelFormat = checkBoxAlpha.Checked && checkBoxAlpha.Enabled ? "yuva420p" : "yuv420p";
             pixelFormat = hdr10 && mp4Box.SelectedIndex == ((int)Mp4Codec.Hevc_nvenc) ? "p010le" : pixelFormat;
-            pixelFormat = hdr10 && mp4Box.SelectedIndex < ((int)Mp4Codec.H264_nvenc)
-                          && mp4Box.SelectedIndex > ((int)Mp4Codec.H264_nvenc) ? "yuv420p10le" : pixelFormat;
+            pixelFormat = hdr10 && mp4Box.SelectedIndex != ((int)Mp4Codec.Hevc_nvenc) ? "yuv420p10le" : pixelFormat;
 
             var threads = trackThreads.Value;
             var slices = GetSlices();
@@ -2505,8 +2512,12 @@ namespace WebMConverter
                             extraArguments + $@" -color_primaries bt709 -color_trc bt709 -colorspace {colorSpace} -color_range full" :
                             extraArguments;
 
-            extraArguments = hdr10 ?
+            extraArguments = hdr10 && !bt709?
                             extraArguments + @" -color_trc smpte2084 -color_primaries bt2020 -colorspace bt2020nc " :
+                            extraArguments;
+
+            extraArguments = hdr10 && bt709 ?
+                            extraArguments + @" -color_trc bt709 -color_primaries bt709 -colorspace bt709 " :
                             extraArguments;
 
             extraArguments = bt2020 ?

@@ -224,12 +224,16 @@ Drag and drop two or more video files inside the application, select what do you
 * Change Rate: ```Alt + Shift + c```
 
 ### Supporters
+* Cybelia♡ 
 * Chibi
 * bouteloua
 * ManletPride
 * 3nly
 
 ## Changelog
+
+#### Version 3.42.1
+* Add support for yuv420p10 with bt.709 [issue](https://github.com/argorar/WebMConverter/issues/104)
 
 #### Version 3.42.0
 * Add merge audio, in track selector choose mix all (only two tracks sopported now) [request](https://github.com/argorar/WebMConverter/issues/102)
