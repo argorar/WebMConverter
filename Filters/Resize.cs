@@ -147,5 +147,7 @@ namespace WebMConverter
         }
 
         public override string ToString() => $"LanczosResize({TargetWidth}, {TargetHeight})";
+
+        public string FFmpeg() => $"scale={TargetWidth}:{TargetHeight}";
     }
 }

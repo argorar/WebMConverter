@@ -128,6 +128,8 @@ namespace WebMConverter
             this.numericCrfTolerance = new System.Windows.Forms.NumericUpDown();
             this.boxHQ = new System.Windows.Forms.CheckBox();
             this.checkMP4 = new System.Windows.Forms.CheckBox();
+            this.mp4Box = new System.Windows.Forms.ComboBox();
+            this.checkFFmpeg = new System.Windows.Forms.CheckBox();
             this.textBoxdB = new System.Windows.Forms.TextBox();
             this.boxMono = new System.Windows.Forms.CheckBox();
             this.numericNormalization = new System.Windows.Forms.NumericUpDown();
@@ -216,7 +218,6 @@ namespace WebMConverter
             this.listViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.listViewContextMenuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewContextMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.mp4Box = new System.Windows.Forms.ComboBox();
             tableMainForm = new System.Windows.Forms.TableLayoutPanel();
             groupMain = new System.Windows.Forms.GroupBox();
             tableMain = new System.Windows.Forms.TableLayoutPanel();
@@ -1023,6 +1024,7 @@ namespace WebMConverter
             this.tableLayoutPanelEncodingVideo.Controls.Add(this.boxHQ, 0, 0);
             this.tableLayoutPanelEncodingVideo.Controls.Add(this.checkMP4, 3, 0);
             this.tableLayoutPanelEncodingVideo.Controls.Add(this.mp4Box, 4, 0);
+            this.tableLayoutPanelEncodingVideo.Controls.Add(this.checkFFmpeg, 4, 1);
             this.tableLayoutPanelEncodingVideo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelEncodingVideo.Location = new System.Drawing.Point(4, 19);
             this.tableLayoutPanelEncodingVideo.Margin = new System.Windows.Forms.Padding(4);
@@ -1325,6 +1327,36 @@ namespace WebMConverter
             this.checkMP4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkMP4.UseVisualStyleBackColor = true;
             this.checkMP4.CheckedChanged += new System.EventHandler(this.checkMP4_CheckedChanged);
+            // 
+            // mp4Box
+            // 
+            this.mp4Box.Dock = System.Windows.Forms.DockStyle.Left;
+            this.mp4Box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.mp4Box.Items.AddRange(new object[] {
+            "H.264",
+            "H.265",
+            "H.264 with Hardware Acceleration (no HDR10)",
+            "H.265 with Hardware Acceleration"});
+            this.mp4Box.Location = new System.Drawing.Point(940, 4);
+            this.mp4Box.Margin = new System.Windows.Forms.Padding(4);
+            this.mp4Box.Name = "mp4Box";
+            this.mp4Box.Size = new System.Drawing.Size(348, 24);
+            this.mp4Box.TabIndex = 14;
+            this.mp4Box.SelectedIndexChanged += new System.EventHandler(this.mp4Box_SelectedIndexChanged);
+            // 
+            // checkFFmpeg
+            // 
+            this.checkFFmpeg.AutoSize = true;
+            this.checkFFmpeg.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkFFmpeg.Location = new System.Drawing.Point(940, 38);
+            this.checkFFmpeg.Margin = new System.Windows.Forms.Padding(4);
+            this.checkFFmpeg.Name = "checkFFmpeg";
+            this.checkFFmpeg.Size = new System.Drawing.Size(125, 20);
+            this.checkFFmpeg.TabIndex = 24;
+            this.checkFFmpeg.Text = "Only use ffmpeg";
+            this.checkFFmpeg.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkFFmpeg.UseVisualStyleBackColor = true;
+            this.checkFFmpeg.CheckedChanged += new System.EventHandler(this.checkFFmpeg_CheckedChanged);
             // 
             // groupEncodingAudio
             // 
@@ -2934,22 +2966,6 @@ namespace WebMConverter
             this.listViewContextMenuDelete.Text = "Delete";
             this.listViewContextMenuDelete.Click += new System.EventHandler(this.listViewContextMenuDelete_Click);
             // 
-            // mp4Box
-            // 
-            this.mp4Box.Dock = System.Windows.Forms.DockStyle.Left;
-            this.mp4Box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.mp4Box.Items.AddRange(new object[] {
-            "H.264",
-            "H.265",
-            "H.264 with Hardware Acceleration (no HDR10)",
-            "H.265 with Hardware Acceleration"});
-            this.mp4Box.Location = new System.Drawing.Point(940, 4);
-            this.mp4Box.Margin = new System.Windows.Forms.Padding(4);
-            this.mp4Box.Name = "mp4Box";
-            this.mp4Box.Size = new System.Drawing.Size(348, 24);
-            this.mp4Box.TabIndex = 14;
-            this.mp4Box.SelectedIndexChanged += new System.EventHandler(this.mp4Box_SelectedIndexChanged);
-            // 
             // MainForm
             // 
             this.AcceptButton = this.buttonGo;
@@ -3184,6 +3200,7 @@ namespace WebMConverter
         private System.Windows.Forms.TextBox txtDefaultSizeLimit;
         private System.Windows.Forms.Label labelDefaultSizeLimit;
         private System.Windows.Forms.ComboBox mp4Box;
+        private System.Windows.Forms.CheckBox checkFFmpeg;
         // private System.Windows.Forms.GroupBox groupGfycat;
     }
 }

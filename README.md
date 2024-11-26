@@ -232,6 +232,9 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
+#### Version 3.43.0
+* Add new option to use only ffmpeg, this fix audio synchronization problems and duplicate frames. Check the option in *Encoding* tab.
+
 #### Version 3.42.1
 * Add support for yuv420p10 with bt.709 [issue](https://github.com/argorar/WebMConverter/issues/104)
 

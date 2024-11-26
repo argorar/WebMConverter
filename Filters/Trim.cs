@@ -206,5 +206,17 @@ namespace WebMConverter
         }
 
         public override string ToString() => $"Trim({TrimStart}, {TrimEnd})";
+
+        public string FFmpeg()
+        {
+            var tEnd = (decimal)Program.VideoSource.Track.GetFrameInfo(TrimEnd).PTS / (decimal)Program.VideoSource.Track.TimeBaseDenominator;
+            return $"trim={0}:{Dot(tEnd)}";
+        }
+
+        public string FFmpegSS()
+        {
+            var tStart = (decimal)Program.VideoSource.Track.GetFrameInfo(TrimStart).PTS / (decimal)Program.VideoSource.Track.TimeBaseDenominator;
+            return Dot(tStart);
+        }
     }
 }

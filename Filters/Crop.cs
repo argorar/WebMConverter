@@ -780,6 +780,8 @@ namespace WebMConverter
         }
 
         public override string ToString() => $"Crop({Left}, {Top}, {Right}, {Bottom})";
+
+        public string FFmpeg() => $"crop={finalWidth}:{finalHeight}:{Left}:{Top}";
     }
 
     public class DynamicCropFilter

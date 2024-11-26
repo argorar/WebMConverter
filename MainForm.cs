@@ -30,6 +30,7 @@ using System.Net.Http;
 using Semver;
 using FFMSSharp;
 using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
+using System.Diagnostics.Eventing.Reader;
 
 namespace WebMConverter
 {
@@ -249,6 +250,9 @@ namespace WebMConverter
 
             if (!configuration.AppSettings.Settings.AllKeys.Contains("SizeLimit"))
                 configuration.AppSettings.Settings.Add("SizeLimit", "");
+
+            if (!configuration.AppSettings.Settings.AllKeys.Contains("OnlyFFMPEG"))
+                configuration.AppSettings.Settings.Add("OnlyFFMPEG", "False");
         }
 
         private void ToolTip()
@@ -259,6 +263,7 @@ namespace WebMConverter
             toolTip.SetToolTip(boxLoop, "Forward and reverse effect merged");
             toolTip.SetToolTip(numericDelay, "Delay audio in your video, can be positive and negative. The value represent seconds");
             toolTip.SetToolTip(boxHQ, "Enables two-pass encoding and adds some extra encoding arguments, increasing output quality, but increases the time it takes to encode your file.");
+            toolTip.SetToolTip(checkFFmpeg, "Fixes audio synchronization problems and duplicate frames");
         }
 
         private void CheckProccess()
@@ -334,6 +339,11 @@ namespace WebMConverter
                 boxDisableMetadata.Checked = true;
             else
                 boxDisableMetadata.Checked = false;
+
+            if (configuration.AppSettings.Settings["OnlyFFMPEG"].Value.Equals("True"))
+                checkFFmpeg.Checked = true;
+            else
+                checkFFmpeg.Checked = false;
 
             if (!String.IsNullOrEmpty(configuration.AppSettings.Settings["PathDownload"].Value))
                 textPathDownloaded.Text = configuration.AppSettings.Settings["PathDownload"].Value;
@@ -2042,6 +2052,7 @@ namespace WebMConverter
                 buttonBrowseIn.Enabled = true;
                 textBoxIn.Enabled = true;
                 toolStripFilterButtonsEnabled(true);
+                UpdateFilters(!checkFFmpeg.Checked);
 
                 if ((boxTitle.Text == _autoTitle || boxTitle.Text == "") && !boxDisableMetadata.Checked)
                     boxTitle.Text = _autoTitle = title;
@@ -2336,25 +2347,29 @@ namespace WebMConverter
                 throw new Exception("Input and output files are the same!");
 
             string options = boxArguments.Text;
+            string avsFileName = null;
 
             ValidateInputFile(input);
             ValidateOutputFile(output);
 
-            string avsFileName = null;
-            switch (Program.InputType)
+            if (!checkFFmpeg.Checked)
             {
-                case FileType.Video:
-                    // Generate the script if we're in simple mode
-                    if (!boxAdvancedScripting.Checked)
-                        GenerateAvisynthScript();
+                
+                switch (Program.InputType)
+                {
+                    case FileType.Video:
+                        // Generate the script if we're in simple mode
+                        if (!boxAdvancedScripting.Checked)
+                            GenerateAvisynthScript();
 
-                    // Make our temporary file for the AviSynth script
-                    avsFileName = GetTemporaryFile();
-                    WriteAvisynthScript(avsFileName, input);
-                    break;
-                case FileType.Avisynth:
-                    avsFileName = Program.InputFile;
-                    break;
+                        // Make our temporary file for the AviSynth script
+                        avsFileName = GetTemporaryFile();
+                        WriteAvisynthScript(avsFileName, input);
+                        break;
+                    case FileType.Avisynth:
+                        avsFileName = Program.InputFile;
+                        break;
+                }
             }
 
             string format = checkMP4.Checked ? "mp4" : "webm";
@@ -2407,7 +2422,10 @@ namespace WebMConverter
             else
                 Program.Loop = null;
 
-            new ConverterDialog(avsFileName, arguments.ToArray(), output).ShowDialog(this);
+            if (checkFFmpeg.Checked)
+                new ConverterFFmepeg(textBoxIn.Text, arguments.ToArray(), output).ShowDialog(this);
+            else
+                new ConverterDialog(avsFileName, arguments.ToArray(), output).ShowDialog(this);
         }
 
         string GenerateArguments()
@@ -2499,7 +2517,7 @@ namespace WebMConverter
             if (!string.IsNullOrWhiteSpace(boxTitle.Text))
                 metadataTitle = string.Format(@" -metadata title=""{0}""", boxTitle.Text.Replace("\"", "\\\""));
 
-            var hq = boxHQ.Checked ? @" -lag-in-frames 16 -auto-alt-ref 1" : string.Empty;
+            var hq = boxHQ.Checked && !checkMP4.Checked ? @" -lag-in-frames 16 -auto-alt-ref 1" : string.Empty;
 
             var vcodec = boxNGOV.Checked ? @"libvpx-vp9" : @"libvpx";
 
@@ -2524,7 +2542,8 @@ namespace WebMConverter
                             extraArguments + @" -color_trc arib-std-b67 -color_primaries bt2020 -colorspace bt2020nc " :
                             extraArguments;
 
-
+            if (checkFFmpeg.Checked && Filters.Trim != null)
+                extraArguments = extraArguments + $" -ss {Filters.Trim.FFmpegSS()}";
 
             if (checkMP4.Checked && mp4Box.SelectedIndex == ((int)Mp4Codec.Hevc_nvenc))
                 vcodec = @"hevc_nvenc";
@@ -2543,7 +2562,12 @@ namespace WebMConverter
             {
                 audio = "";
                 int channels = boxMono.Checked ? 1 : 2;
-                acodec = $" -ac {channels} -c:a {acodec}";
+
+                string aFilter = string.Empty;
+                if (checkFFmpeg.Checked && Filters.Trim != null)
+                    aFilter = $@" -af ""a{Filters.Trim.FFmpeg()}""";
+
+                acodec = $" -ac {channels} -c:a {acodec} {aFilter}";
             }
             else
             {
@@ -2565,6 +2589,9 @@ namespace WebMConverter
                     levels = string.Format(AdvancedFilter, Dot(numericGamma.Value), Dot(numericSaturation.Value), Dot(numericContrast.Value));
                     break;
             }
+
+            if (checkFFmpeg.Checked)
+                listVF = AddFFmpegFilters(listVF);
 
             if (Filters.DynamicCrop != null)
                 listVF.Add(Filters.DynamicCrop.ToString());
@@ -2611,6 +2638,20 @@ namespace WebMConverter
 
             return string.Format(TemplateArguments, audio, threads, slices, metadataTitle, hq,
                                 vcodec, acodec, filter, qualityarguments, extraArguments, pixelFormat, valueR, audioFilter);
+        }
+
+        private List<string> AddFFmpegFilters(List<string> listVF)
+        {
+            if(Filters.Trim != null)
+                listVF.Add(Filters.Trim.FFmpeg());
+
+            if(Filters.Crop != null)
+                listVF.Add(Filters.Crop.FFmpeg());
+
+            if(Filters.Resize != null)
+                listVF.Add(Filters.Resize.FFmpeg());
+
+            return listVF;
         }
 
         /// <summary>
@@ -3284,6 +3325,26 @@ namespace WebMConverter
         {
             UpdateArguments(sender, e);
             UpdateConfiguration("MP4Codec", mp4Box.SelectedIndex.ToString());
+        }
+
+        private void checkFFmpeg_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateArguments(sender, e);
+            UpdateConfiguration("OnlyFFMPEG", checkFFmpeg.Checked.ToString());
+
+            if(!string.IsNullOrEmpty(textBoxIn.Text))
+                UpdateFilters(!checkFFmpeg.Checked);
+        }
+
+        private void UpdateFilters(bool value)
+        {
+            buttonFade.Enabled = value;
+            buttonCaption.Enabled = value;
+            buttonSubtitle.Enabled = value;
+            buttonReverse.Enabled = value;
+            buttonOverlay.Enabled = value;
+            buttonDub.Enabled = value;
+            buttonRate.Enabled = value;
         }
     }
 }
