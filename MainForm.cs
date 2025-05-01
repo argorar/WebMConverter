@@ -1573,8 +1573,18 @@ namespace WebMConverter
 
         char[] invalidChars = Path.GetInvalidPathChars();
 
+        private void CloseVideoSource()
+        {
+            if (Program.VideoSource != null)
+            {
+                (Program.VideoSource as IDisposable)?.Dispose();
+                Program.VideoSource = null;
+            }
+        }
+
         void SetFile(string path)
         {
+            CloseVideoSource();
             Utility.FlushMem();
             try
             {
@@ -1608,8 +1618,6 @@ namespace WebMConverter
             buttonPreview2.Enabled = false;
             buttonBrowseIn.Enabled = false;
             textBoxIn.Enabled = false;
-
-            inputFile = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read);
 
             // Reset filters
             Filters.ResetFilters();
@@ -2253,19 +2261,19 @@ namespace WebMConverter
                 }
                     
 
-                if (Filters.Deinterlace != null)
+                if (Filters.Deinterlace != null && !checkFFmpeg.Checked)
                 {
                     avscript.WriteLine(@"LoadPlugin(PluginPath+""dgbob.dll"")");
                     avscript.WriteLine(Filters.Deinterlace);
                 }
 
-                if (Filters.Denoise != null)
+                if (Filters.Denoise != null && !checkFFmpeg.Checked)
                 {
                     avscript.WriteLine(@"LoadPlugin(PluginPath+""hqdn3d.dll"")");
                     avscript.WriteLine(Filters.Denoise);
                 }
 
-                if (Filters.CropBarsFilter != null)
+                if (Filters.CropBarsFilter != null && !checkFFmpeg.Checked)
                 {
                     avscript.WriteLine(@"LoadPlugin(PluginPath+""AutoCrop.dll"")");
                 }
@@ -3331,6 +3339,8 @@ namespace WebMConverter
         {
             UpdateArguments(sender, e);
             UpdateConfiguration("OnlyFFMPEG", checkFFmpeg.Checked.ToString());
+
+            boxDenoise.Enabled = !checkFFmpeg.Checked;
 
             if(!string.IsNullOrEmpty(textBoxIn.Text))
                 UpdateFilters(!checkFFmpeg.Checked);
