@@ -1619,6 +1619,8 @@ namespace WebMConverter
             buttonBrowseIn.Enabled = false;
             textBoxIn.Enabled = false;
 
+            inputFile = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+
             // Reset filters
             Filters.ResetFilters();
             DefaultSettings();

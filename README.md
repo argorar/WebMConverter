@@ -232,6 +232,9 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
+#### Version 3.43.2
+* Fix loading files with subtitles
+
 #### Version 3.43.1
 * Fix blocking video source [issue](https://github.com/argorar/WebMConverter/issues/108)
 
