@@ -1627,6 +1627,7 @@ namespace WebMConverter
             listViewProcessingScript.Clear();
             boxAdvancedScripting.Checked = false; // STUB: this part is weak
             boxAdvancedScripting.Enabled = true;
+            boxLoop.Checked = false;
             textBoxProcessingScript.Hide();
             listViewProcessingScript.Show();
             SarCompensate = false;

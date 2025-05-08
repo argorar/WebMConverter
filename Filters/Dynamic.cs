@@ -154,9 +154,35 @@ namespace WebMConverter
         {
             using (var dialog = new RateDynamicForm())
             {
+                if (points.ContainsKey(trackVideoTimeline.Value))
+                {
+                    SpeedPoint s = (SpeedPoint)points[trackVideoTimeline.Value];
+                    dialog.speed = (int)(s.Speed * 100);
+                }
+
                 dialog.ShowDialog();
 
-                if(dialog.speed > 0)
+                if(dialog.speed > 0 && dialog.general)
+                {
+                    var initialFrame = trackVideoTimeline.Minimum;
+                    var lastFrame = trackVideoTimeline.Maximum;
+
+                    var initialTime = (double)Program.VideoSource.Track.GetFrameInfo(initialFrame).PTS
+                                    / (double)Program.VideoSource.Track.TimeBaseDenominator;
+                    var lastTime = (double)Program.VideoSource.Track.GetFrameInfo(lastFrame).PTS
+                                    / (double)Program.VideoSource.Track.TimeBaseDenominator;
+
+                    if (points.ContainsKey(initialFrame))
+                        points.Remove(initialFrame);
+
+                    if (points.ContainsKey(lastFrame))
+                        points.Remove(lastFrame);
+
+                    points.Add(initialFrame, new SpeedPoint(initialTime, (double)dialog.speed / 100));
+                    points.Add(lastFrame, new SpeedPoint(lastTime, (double)dialog.speed / 100));
+                        
+                }
+                else if(dialog.speed > 0)
                 {
                     var currentFrame = trackVideoTimeline.Value;
 

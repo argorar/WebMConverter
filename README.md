@@ -232,6 +232,11 @@ Drag and drop two or more video files inside the application, select what do you
 
 ## Changelog
 
+#### Version 3.43.3
+* Fix uncheck loop box after load new video
+* Add *General* button in *dynamic crop* filter, to add initial and last points with same value
+* Add function to load point value in *dynamic crop* filter if it already exist
+
 #### Version 3.43.2
 * Fix loading files with subtitles
 

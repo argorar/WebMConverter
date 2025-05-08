@@ -6,10 +6,10 @@ namespace WebMConverter
     public partial class RateDynamicForm : Form
     {
         public int speed { get; set; }
+        public bool general { get; set; }
 
         public RateDynamicForm()
         {
-            speed = 100;
             InitializeComponent();
         }
 
@@ -20,8 +20,11 @@ namespace WebMConverter
 
         private void RateForm_Load(object sender, EventArgs e)
         {
-            numericUpDown.Value = 100;
-            trackRate.Value = Convert.ToInt32(100);
+            if (speed == 0)
+                speed = 100;
+
+            numericUpDown.Value = speed;
+            trackRate.Value = Convert.ToInt32(speed);
             trackRate_ValueChanged(sender, e);
             this.Text = string.Format(this.Text, Program.originalFraps);
 
@@ -58,6 +61,13 @@ namespace WebMConverter
         private void numericUpDown_ValueChanged(object sender, EventArgs e)
         {
             trackRate.Value = Convert.ToInt32(numericUpDown.Value);
+        }
+
+        private void buttonAllDynamic_Click(object sender, EventArgs e)
+        {
+            this.Focus();
+            general = true;
+            Close();
         }
     }
 
