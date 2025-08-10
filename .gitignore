@@ -215,3 +215,11 @@ pip-log.txt
 *.ilproj
 *.vsidx
 *.lock
+.vs/WebMConverter/CopilotIndices/17.14.786.1071/CodeChunks.db
+.vs/WebMConverter/CopilotIndices/17.14.786.1071/CodeChunks.db-shm
+.vs/WebMConverter/CopilotIndices/17.14.786.1071/CodeChunks.db-wal
+.vs/WebMConverter/CopilotIndices/17.14.786.1071/SemanticSymbols.db
+.vs/WebMConverter/CopilotIndices/17.14.786.1071/SemanticSymbols.db-shm
+.vs/WebMConverter/CopilotIndices/17.14.786.1071/SemanticSymbols.db-wal
+.vs/WebMConverter/v17/DocumentLayout.backup.json
+.vs/WebMConverter/v17/DocumentLayout.json

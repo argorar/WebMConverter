@@ -231,6 +231,8 @@ Drag and drop two or more video files inside the application, select what do you
 * 3nly
 
 ## Changelog
+#### Version 3.43.4
+* Fix bug loading a second file that makes it stuck at "Extracting subtitle tracks and attachments..." [issue](https://github.com/argorar/WebMConverter/issues/108)
 
 #### Version 3.43.3
 * Fix uncheck loop box after load new video

@@ -2701,6 +2701,8 @@ namespace WebMConverter
                     duration = Filters.Trim.GetDuration();
                 else if (Filters.MultipleTrim != null)
                     duration = Filters.MultipleTrim.GetDuration();
+                else if (Program.VideoSource == null)
+                    return -1;
                 else
                     duration = FrameToTimeSpan(Program.VideoSource.NumberOfFrames - 1).TotalSeconds;
 
