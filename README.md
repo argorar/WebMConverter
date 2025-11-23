@@ -231,6 +231,10 @@ Drag and drop two or more video files inside the application, select what do you
 * 3nly
 
 ## Changelog
+
+#### Version 3.44.0
+* Add option to put target frames per second in *change rate* filter [request](https://github.com/argorar/WebMConverter/issues/114)
+
 #### Version 3.43.4
 * Fix bug loading a second file that makes it stuck at "Extracting subtitle tracks and attachments..." [issue](https://github.com/argorar/WebMConverter/issues/108)
 

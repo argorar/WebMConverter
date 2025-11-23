@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace WebMConverter
@@ -70,6 +71,66 @@ namespace WebMConverter
         private void numericUpDown_ValueChanged(object sender, EventArgs e)
         {
             trackRate.Value = Convert.ToInt32(numericUpDown.Value);
+        }
+
+        private void textBoxFPS_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Back)
+            {
+                e.Handled = false;
+                return;
+            }
+
+            TextBox txt = sender as TextBox;
+
+            if (txt.Text.Length > 1 && char.IsDigit(e.KeyChar) && !txt.Text.Contains("."))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            if (e.KeyChar == '.')
+            {
+                if (txt.Text.Contains("."))
+                {
+                    e.Handled = true;
+                }
+                else
+                {
+                    e.Handled = false;
+                }
+                return;
+            }
+
+            if (!char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            if (txt.Text.Contains("."))
+            {
+                int index = txt.Text.IndexOf('.');
+                string decimals = txt.Text.Substring(index + 1);
+                if (txt.SelectionStart > index && decimals.Length >= 2)
+                {
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void textBoxFPS_TextChanged(object sender, EventArgs e)
+        {
+            string text = textBoxFPS.Text;
+            text = text.EndsWith(".") ? text.TrimEnd('.') : text;
+            
+            if (!string.IsNullOrEmpty(text))
+            {
+                double valor = Convert.ToDouble(text, CultureInfo.InvariantCulture);
+                double result = (valor / (double)Program.originalFraps) * 100;
+                trackRate.Value = (int)Math.Round(result);
+            }
+            
         }
     }
 
